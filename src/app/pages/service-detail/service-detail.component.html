@@ -1,0 +1,32 @@
+@if (service(); as selectedService) {
+  <main class="page-surface">
+    <section class="detail-hero">
+      <img class="detail-hero__image" [src]="selectedService.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
+      <span class="detail-hero__wash" aria-hidden="true"></span>
+      <div class="mx-auto w-full max-w-[90rem]">
+        <a class="back-link" routerLink="/experiences">← All experiences</a>
+        <p class="eyebrow mt-16 text-[#b8f2df]">{{ selectedService.category }} · {{ selectedService.audience }}</p>
+        <h1 class="mt-6 max-w-3xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">{{ selectedService.title }}</h1>
+        <p class="mt-8 max-w-xl text-base leading-8 text-white/65">{{ selectedService.detailedDescription }}</p>
+        <div class="mt-9 flex flex-wrap gap-3"><span class="detail-pill">{{ selectedService.depth }} depth</span><span class="detail-pill">{{ selectedService.duration }}</span><span class="detail-pill">{{ selectedService.audience }}</span></div>
+      </div>
+    </section>
+
+    <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+        <div><p class="eyebrow text-[#9d7047]">The considered version</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em]">The right pace makes all the difference.</h2><div class="mt-8 flex flex-wrap gap-3"><a class="button-link button-link--dark" routerLink="/contact">Talk to the dive desk <span aria-hidden="true">↗</span></a>@if (selectedService.id === 'padi-courses') { <a class="button-link border border-[#10282d]/15 text-[#10282d]/65" routerLink="/courses">Browse all courses <span aria-hidden="true">↗</span></a> }</div></div>
+        <div><p class="max-w-2xl text-lg leading-9 text-[#10282d]/70">{{ selectedService.detailedDescription }}</p><div class="mt-10 grid gap-4 sm:grid-cols-3">@for (highlight of selectedService.highlights; track highlight) { <div class="rounded-2xl border border-[#10282d]/10 bg-white/40 p-5"><span class="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-[#9d7047]">Included</span><p class="mt-3 font-serif text-xl leading-tight">{{ highlight }}</p></div> }</div></div>
+      </div>
+    </section>
+
+    <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-3 lg:gap-6">
+        <div><p class="eyebrow text-[#b8f2df]">Before you arrive</p><h2 class="mt-5 max-w-xs font-serif text-4xl leading-[0.96]">Good preparation keeps the day light.</h2></div>
+        <div class="lg:col-span-2 grid gap-4 sm:grid-cols-3"><article class="dark-note"><span>01</span><h3>Briefing first</h3><p>We talk through the route, conditions, equipment and signals before you step into the water.</p></article><article class="dark-note"><span>02</span><h3>Small groups</h3><p>More space for questions, better awareness in the water and a guide who can actually see you.</p></article><article class="dark-note"><span>03</span><h3>Leave it better</h3><p>We keep fins off coral, respect marine life and choose routes that let the reef keep its rhythm.</p></article></div>
+      </div>
+    </section>
+
+  </main>
+} @else {
+  <main class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That experience has drifted.</h1><a class="button-link button-link--dark mt-8" routerLink="/experiences">Back to experiences</a></main>
+}

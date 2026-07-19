@@ -1,0 +1,11 @@
+# Angular build output and local cache
+/dist
+/.angular
+
+# Dependencies
+/node_modules
+
+# Local OS/editor files
+.DS_Store
+.idea/
+.vscode/

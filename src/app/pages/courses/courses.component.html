@@ -1,0 +1,37 @@
+<main class="page-surface">
+  <section class="page-hero page-hero--course">
+    <div class="page-hero__watermark">PADI / 22</div>
+    <div class="mx-auto max-w-[90rem]">
+      <p class="eyebrow text-[#b8f2df]">Training that travels</p>
+      <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">Learn the language<br><em>of the ocean.</em></h1>
+      <p class="mt-8 max-w-2xl text-base leading-8 text-white/60">The full PADI pathway, from your first bubble to professional leadership - taught with the patience, sea sense and small-group attention Kadmat deserves.</p>
+    </div>
+  </section>
+
+  <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+    <div class="mx-auto max-w-[90rem]">
+      <div class="course-filter" role="tablist" aria-label="Filter PADI courses">
+        @for (category of categories; track category) {
+          <button type="button" role="tab" [attr.aria-selected]="activeCategory() === category" [class.course-filter__active]="activeCategory() === category" (click)="setCategory(category)">{{ category }}</button>
+        }
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        @for (course of filteredCourses(); track course.id) {
+          <a class="course-card group" [routerLink]="['/courses', course.id]" data-cursor="view" data-reveal>
+            <div class="course-card__image">
+              <img class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="lazy" decoding="async">
+              <span class="course-card__wash" aria-hidden="true"></span>
+              <span class="course-card__category">{{ course.category }}</span>
+              <span class="course-card__arrow" aria-hidden="true"><i class="fa-solid fa-location-arrow"></i></span>
+              <div class="course-card__copy"><small>{{ course.eyebrow }}</small><h2>{{ course.title }}</h2><p>{{ course.shortDescription }}</p></div>
+            </div>
+            <div class="course-card__meta"><span>{{ course.duration }}</span><span>{{ course.minimumAge }}</span></div>
+          </a>
+        }
+      </div>
+
+      <div class="mt-10 rounded-[1.5rem] border border-[#10282d]/10 bg-[#e8e2d4] p-6 sm:p-8"><p class="eyebrow text-[#9d7047]">A note before you book</p><p class="mt-4 max-w-3xl text-sm leading-7 text-[#10282d]/65">Course schedules, prices, equipment inclusion, boat charges, accommodation, certification fees and minimum participant numbers can vary. All participants complete the required PADI medical and administrative forms; certification depends on satisfactory performance, not only the number of days or dives.</p></div>
+    </div>
+  </section>
+</main>

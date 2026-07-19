@@ -1,0 +1,17 @@
+{
+  "name": "Scuba Lak, Kadmat Lakshadweep",
+  "short_name": "Scuba Lak",
+  "description": "Premium diving, PADI courses and water sports on Kadmat Island, Lakshadweep.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#061419",
+  "theme_color": "#061419",
+  "icons": [
+    {
+      "src": "/media/scuba-lak-logo-white.png",
+      "sizes": "482x490",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

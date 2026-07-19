@@ -1,0 +1,27 @@
+@if (course(); as selectedCourse) {
+  <main class="page-surface">
+    <section class="detail-hero detail-hero--course">
+      <img class="detail-hero__image" [src]="selectedCourse.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
+      <span class="detail-hero__wash" aria-hidden="true"></span>
+      <div class="mx-auto w-full max-w-[90rem]"><a class="back-link" routerLink="/courses">← All PADI courses</a><p class="eyebrow mt-16 text-[#b8f2df]">{{ selectedCourse.category }} · {{ selectedCourse.eyebrow }}</p><h1 class="mt-6 max-w-4xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">{{ selectedCourse.title }}</h1><p class="mt-8 max-w-2xl text-base leading-8 text-white/65">{{ selectedCourse.shortDescription }}</p><div class="mt-9 flex flex-wrap gap-3"><span class="detail-pill">{{ selectedCourse.duration }}</span><span class="detail-pill">Age {{ selectedCourse.minimumAge }}</span><span class="detail-pill">{{ selectedCourse.depth }}</span></div></div>
+    </section>
+
+    <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-[90rem] gap-14 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
+        <div><p class="eyebrow text-[#9d7047]">Start here</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em]">Everything you need to know before you commit.</h2><a class="button-link button-link--dark mt-8" routerLink="/contact">Ask about this course <span aria-hidden="true">↗</span></a></div>
+        <div><p class="text-lg leading-9 text-[#10282d]/70">{{ selectedCourse.about }}</p><div class="mt-10 grid gap-4 sm:grid-cols-2"><div class="fact-card"><span>Prerequisite</span><p>{{ selectedCourse.prerequisite }}</p></div><div class="fact-card"><span>What you leave with</span><p>{{ selectedCourse.outcome }}</p></div></div></div>
+      </div>
+    </section>
+
+    <section class="bg-[#e8e2d4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-[90rem] gap-5 lg:grid-cols-2">
+        <div class="course-detail-panel"><p class="eyebrow text-[#9d7047]">The shape of the course</p><h2 class="mt-4 font-serif text-4xl leading-tight">What happens</h2><ul class="detail-list mt-7">@for (step of selectedCourse.structure; track step) { <li><span>✓</span>{{ step }}</li> }</ul></div>
+        <div class="course-detail-panel course-detail-panel--dark"><p class="eyebrow text-[#b8f2df]">Under the surface</p><h2 class="mt-4 font-serif text-4xl leading-tight text-white">What you learn</h2><ul class="detail-list detail-list--dark mt-7">@for (skill of selectedCourse.taught; track skill) { <li><span>+</span>{{ skill }}</li> }</ul></div>
+      </div>
+    </section>
+
+    <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div class="mx-auto max-w-[90rem]"><div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"><div><p class="eyebrow text-[#b8f2df]">Ready when you are</p><h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2></div><a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact">Talk to the course desk <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
+} @else {
+  <main class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That course is not in the logbook.</h1><a class="button-link button-link--dark mt-8" routerLink="/courses">Back to PADI courses</a></main>
+}
