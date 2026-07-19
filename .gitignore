@@ -1,9 +1,26 @@
 # Angular build output and local cache
-/dist
-/.angular
+/dist/
+/.angular/
+/out-tsc/
+/tmp/
+/coverage/
+/e2e/test-output/
+/.angular-cli.json
+/.ng/
 
 # Dependencies
-/node_modules
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Environment files
+/.env
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
 
 # Local OS/editor files
 .DS_Store
