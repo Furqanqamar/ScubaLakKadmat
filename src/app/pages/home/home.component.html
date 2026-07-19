@@ -1,0 +1,196 @@
+<div class="min-h-screen overflow-x-clip bg-[#f4f1e9] text-[#10282d]">
+  <main id="top">
+    <section class="hero-section relative isolate flex min-h-[48rem] items-end overflow-hidden bg-[#061419] px-5 pb-12 pt-32 text-white sm:px-8 sm:pb-16 lg:min-h-[min(52rem,100vh)] lg:px-10 lg:pb-20">
+      <div class="hero-video hero-video--poster absolute inset-0 -z-20 h-full w-full" aria-hidden="true"></div>
+      @defer (on idle) {
+        <video class="hero-video absolute inset-0 -z-20 h-full w-full" autoplay muted [muted]="true" loop playsinline preload="none" poster="/media/kadmat-hero-poster.jpg" aria-hidden="true" tabindex="-1" (canplay)="startHeroVideo($event)">
+          <source src="/media/kadmat-hero.webm" type="video/webm">
+          <source src="/media/kadmat-hero.mp4" type="video/mp4">
+        </video>
+      }
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(3,17,22,.94)_0%,rgba(3,17,22,.62)_43%,rgba(3,17,22,.08)_100%)]"></div>
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(3,17,22,.9)_0%,transparent_50%)]"></div>
+      <div class="absolute inset-0 -z-10 opacity-30 mix-blend-soft-light [background-image:radial-gradient(rgba(255,255,255,.15)_1px,transparent_1px)] [background-size:4px_4px]"></div>
+
+      <div class="mx-auto grid w-full max-w-[90rem] gap-14 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div class="max-w-3xl">
+          <p class="eyebrow mb-6 text-[#b8f2df]"><span class="mr-2 inline-block h-2 w-2 rounded-full bg-[#b8f2df] shadow-[0_0_14px_#b8f2df]"></span> Kadmat Island · Lakshadweep</p>
+          <h1 class="max-w-3xl font-serif text-[clamp(4.25rem,11vw,9.5rem)] leading-[0.82] tracking-[-0.075em]">The reef<br><em>starts here.</em></h1>
+          <div class="mt-8 flex max-w-xl flex-col gap-7 sm:flex-row sm:items-end">
+            <p class="max-w-sm text-sm leading-7 text-white/70">Premium diving, PADI courses and water time in one of India’s last truly quiet blue places.</p>
+            <a class="group inline-flex shrink-0 items-center gap-3 font-mono text-[0.67rem] font-medium uppercase tracking-[0.16em] text-[#d6fff0]" [routerLink]="['/']" fragment="experiences">Explore the water <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[#b8f2df]/50 transition group-hover:bg-[#b8f2df] group-hover:text-[#061419]" aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <div class="hidden w-56 rounded-[1.5rem] border border-white/20 bg-[#061419]/30 p-5 backdrop-blur-md lg:block">
+          <div class="flex items-center justify-between border-b border-white/15 pb-4">
+            <span class="eyebrow text-white/55">Field note</span>
+            <span class="font-mono text-[0.61rem] text-[#b8f2df]">11° 13′ N</span>
+          </div>
+          <p class="mt-5 font-serif text-2xl leading-tight text-[#d6fff0]">“The water changes the way you think about time.”</p>
+          <p class="mt-6 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-white/45">— Kadmat dive desk</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-[#10282d]/10 bg-[#f4f1e9] px-5 py-7 sm:px-8 lg:px-10">
+      <div class="mx-auto grid max-w-[90rem] gap-6 sm:grid-cols-3 sm:gap-0">
+        <div class="stat-block sm:border-r sm:border-[#10282d]/12 sm:pr-8"><strong>30<span>m</span></strong><small>Maximum depth</small></div>
+        <div class="stat-block sm:border-r sm:border-[#10282d]/12 sm:px-8"><strong>08<span>km</span></strong><small>Island length</small></div>
+        <div class="stat-block sm:pl-8"><strong>100<span>%</span></strong><small>Local care</small></div>
+      </div>
+    </section>
+
+    <section id="experiences" class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
+      <div class="mx-auto max-w-[90rem]">
+        <div class="grid items-end gap-8 lg:grid-cols-[1fr_0.72fr]">
+          <div>
+            <p class="eyebrow text-[#7b8e89]">Choose your depth</p>
+            <h2 class="mt-5 max-w-2xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] text-[#10282d] sm:text-7xl">A better kind<br><em>of busy.</em></h2>
+          </div>
+          <p class="max-w-md text-sm leading-7 text-[#10282d]/60 lg:pb-2">Kadmat rewards both the curious beginner and the diver who has already fallen hard for the blue. Start where you are. We’ll take care of the rest.</p>
+        </div>
+
+        <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          @for (service of services; track service.id) {
+            <app-service-card [service]="service" (explore)="openService($event)" />
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="island" class="island-section relative overflow-hidden bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32" data-reveal>
+      <div class="absolute -right-36 top-0 h-[32rem] w-[32rem] rounded-full border border-[#b8f2df]/10"></div>
+      <div class="absolute -right-20 top-16 h-[20rem] w-[20rem] rounded-full border border-[#b8f2df]/10"></div>
+      <div class="mx-auto max-w-[90rem]">
+        <div class="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div>
+            <p class="eyebrow text-[#b8f2df]">A little context</p>
+            <h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.92] tracking-[-0.055em] sm:text-6xl">Come for the dive. <em>Stay for the island.</em></h2>
+            <p class="mt-7 max-w-sm text-sm leading-7 text-white/55">The rarest part of Kadmat is not what you can tick off. It’s how quickly the rest of the world falls away. Read the wider Lakshadweep story before you arrive.</p>
+            <div class="mt-8 flex flex-wrap gap-3"><a class="inline-flex items-center gap-2 rounded-full border border-[#b8f2df]/25 px-4 py-2 font-mono text-[0.59rem] uppercase tracking-[0.12em] text-[#b8f2df] transition hover:border-[#b8f2df] hover:bg-[#b8f2df]/10" routerLink="/lakshadweep">Lakshadweep guide <span aria-hidden="true">↗</span></a><a class="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 font-mono text-[0.59rem] uppercase tracking-[0.12em] text-white/55 transition hover:border-white/45 hover:text-white" routerLink="/kadmat">Kadmat field notes <span aria-hidden="true">↗</span></a></div>
+          </div>
+
+          <div class="divide-y divide-white/10 border-y border-white/10">
+            @for (briefing of briefings; track briefing.id) {
+              <button class="briefing-row group flex w-full items-center gap-5 py-6 text-left transition hover:pl-3 sm:py-7" type="button" (click)="openBriefing(briefing)">
+                <span class="font-mono text-[0.65rem] text-[#b8f2df]">{{ briefing.index }}</span>
+                <span class="flex-1"><small class="eyebrow text-white/35">{{ briefing.label }}</small><strong class="mt-2 block max-w-xl font-serif text-2xl leading-tight text-white/90 sm:text-3xl">{{ briefing.title }}</strong></span>
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/55 transition group-hover:border-[#b8f2df] group-hover:bg-[#b8f2df] group-hover:text-[#10282d]" aria-hidden="true">↗</span>
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="bg-[#e8e2d4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
+      <div class="mx-auto max-w-[90rem]">
+        <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <p class="eyebrow text-[#9d7047]">Stay a little longer</p>
+            <h2 class="mt-5 max-w-xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] text-[#10282d] sm:text-7xl">The island,<br><em>your way.</em></h2>
+          </div>
+          <p class="max-w-sm text-sm leading-7 text-[#10282d]/60 md:pb-1">Two starting points, one shared promise: more time in the water and less time fussing with the details.</p>
+        </div>
+
+        <div class="mt-12 overflow-hidden rounded-[2rem] border border-[#10282d]/10 bg-[#f4f1e9]">
+          <div class="flex flex-col border-b border-[#10282d]/10 sm:flex-row">
+            @for (tourPackage of packages; track tourPackage.id) {
+              <button
+                class="package-tab group flex flex-1 items-center justify-between gap-5 px-5 py-5 text-left transition sm:px-8"
+                [class.package-tab--active]="activePackageId() === tourPackage.id"
+                type="button"
+                (click)="setPackage(tourPackage.id)"
+                [attr.aria-selected]="activePackageId() === tourPackage.id"
+                role="tab"
+              >
+                <span><small class="eyebrow text-[#10282d]/40">{{ tourPackage.kicker }}</small><strong class="mt-1 block font-serif text-2xl text-[#10282d]">{{ tourPackage.name }}</strong><span class="package-tab__meta">{{ activePackageId() === tourPackage.id ? 'Selected plan' : 'View this plan' }} <span aria-hidden="true">→</span></span></span>
+                @if (tourPackage.featured) { <span class="rounded-full bg-[#f1c0a7] px-3 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-[#6f3d34]">Most loved</span> }
+              </button>
+            }
+          </div>
+
+          @if (activePackage(); as tourPackage) {
+            <div class="grid gap-10 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:p-12">
+              <div>
+                <p class="eyebrow text-[#9d7047]">{{ tourPackage.tagline }}</p>
+                <h3 class="mt-5 max-w-md font-serif text-4xl leading-[0.94] tracking-[-0.045em] text-[#10282d] sm:text-5xl">The details are part of the destination.</h3>
+                <p class="mt-6 max-w-md text-sm leading-7 text-[#10282d]/60">{{ tourPackage.description }}</p>
+                <div class="mt-9 flex items-end gap-3"><strong class="font-serif text-3xl text-[#10282d]">{{ tourPackage.priceLabel }}</strong><span class="pb-1 font-mono text-[0.62rem] uppercase tracking-[0.11em] text-[#10282d]/45">{{ tourPackage.priceNote }}</span></div>
+                <p class="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-[#10282d]/45">Ideal for · <span class="text-[#10282d]/75">{{ tourPackage.idealFor }}</span></p>
+              </div>
+
+              <div class="rounded-[1.5rem] bg-[#10282d] p-6 text-white sm:p-8">
+                <div class="flex items-center justify-between border-b border-white/15 pb-5"><span class="eyebrow text-[#b8f2df]">Included, always</span><span class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/35">{{ tourPackage.id }} / plan</span></div>
+                <ul class="mt-3 divide-y divide-white/10">
+                  @for (inclusion of tourPackage.inclusions; track inclusion) {
+                    <li class="flex items-center gap-4 py-4 text-sm text-white/80"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#b8f2df]/10 font-mono text-xs text-[#b8f2df]" aria-hidden="true">✓</span>{{ inclusion }}</li>
+                  }
+                </ul>
+                <a class="mt-6 inline-flex items-center gap-2 rounded-full bg-[#b8f2df] px-5 py-3 text-xs font-bold text-[#061419] transition hover:bg-[#e2fff5]" routerLink="/contact">Build this trip <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+        <div>
+          <p class="eyebrow text-[#7b8e89]">A better kind of luxury</p>
+          <blockquote class="mt-5 max-w-4xl font-serif text-4xl leading-[1.03] tracking-[-0.045em] text-[#10282d] sm:text-6xl">“Leave only bubbles. Take home a new sense of scale.”</blockquote>
+        </div>
+        <div class="border-l border-[#10282d]/15 pl-6 text-sm leading-7 text-[#10282d]/60 lg:mb-1"><p>We believe premium means being looked after, knowing the plan and feeling the sea’s presence long after you’ve dried off.</p><p class="mt-5 font-mono text-[0.62rem] uppercase tracking-[0.15em] text-[#10282d]/45">The Scuba Lak approach</p></div>
+      </div>
+    </section>
+
+    <section class="bg-[#e8e2d4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
+      <div class="mx-auto max-w-[90rem]">
+        <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end">
+          <div><p class="eyebrow text-[#9d7047]">Notes from the blue</p><h2 class="mt-5 max-w-2xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] text-[#10282d] sm:text-7xl">Good stories<br><em>travel well.</em></h2></div>
+          <p class="max-w-sm text-sm leading-7 text-[#10282d]/60 md:pb-1">The moments guests carry home are usually the quiet ones: one deep breath, a kind briefing, a reef that opens up.</p>
+        </div>
+        <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          @for (testimonial of testimonials; track testimonial.name) {
+            <article class="testimonial-bubble" [class.testimonial-bubble--coral]="testimonial.accent === 'coral'" [class.testimonial-bubble--mint]="testimonial.accent === 'mint'">
+              <span class="font-serif text-4xl leading-none text-[#9d7047]" aria-hidden="true">“</span>
+              <p class="mt-2 font-serif text-xl leading-tight text-[#10282d]">{{ testimonial.quote }}</p>
+              <div class="mt-7 border-t border-[#10282d]/10 pt-4"><strong class="block text-xs font-bold text-[#10282d]">{{ testimonial.name }}</strong><small class="mt-1 block font-mono text-[0.59rem] uppercase tracking-[0.1em] text-[#10282d]/45">{{ testimonial.detail }}</small></div>
+            </article>
+          }
+        </div>
+        <a class="mt-7 inline-flex items-center gap-2 rounded-full border border-[#10282d]/15 px-5 py-3 font-mono text-[0.62rem] font-medium uppercase tracking-[0.14em] text-[#10282d]/65 transition hover:border-[#10282d]/40 hover:text-[#10282d]" routerLink="/about">Meet the people behind the bubbles <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
+      <div class="mx-auto max-w-[90rem]">
+        <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p class="eyebrow text-[#7b8e89]">From the island</p><h2 class="mt-5 max-w-xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] text-[#10282d] sm:text-7xl">A few frames<br><em>of Kadmat.</em></h2></div><a class="inline-flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[#10282d]/55 transition hover:text-[#10282d]" routerLink="/gallery">Open the full gallery <span aria-hidden="true">↗</span></a></div>
+        <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          @for (item of gallery; track item.id) {
+            <a class="gallery-teaser group" [routerLink]="['/gallery']" [fragment]="item.id" [class.gallery-teaser--wide]="item.size === 'wide'">
+              <img [src]="item.imageUrl" [alt]="item.title" width="1200" height="800" loading="lazy" decoding="async">
+              <span class="gallery-teaser__veil"></span>
+              <span class="gallery-teaser__label"><small>{{ item.location }}</small><strong>{{ item.title }}</strong></span>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+@if (selectedBriefing(); as briefing) {
+  <div class="modal-backdrop" role="presentation" (click)="closeOverview()">
+    <section class="briefing-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="briefing.id + '-title'" (click)="$event.stopPropagation()">
+      <div class="flex items-start justify-between gap-5"><div><p class="eyebrow text-[#9d7047]">{{ briefing.index }} · {{ briefing.label }}</p><h2 class="mt-4 max-w-xl font-serif text-4xl leading-[0.95] tracking-[-0.04em] text-[#10282d] sm:text-5xl" [id]="briefing.id + '-title'">{{ briefing.title }}</h2></div><button class="modal-close modal-close--dark" type="button" (click)="closeOverview()" aria-label="Close overview">×</button></div>
+      <p class="mt-8 max-w-2xl text-base leading-8 text-[#10282d]/70">{{ briefing.body }}</p>
+      <div class="mt-8 border-l-2 border-[#b8cdbf] pl-5 font-serif text-xl italic leading-relaxed text-[#10282d]/75">{{ briefing.detail }}</div>
+      <a class="mt-9 inline-flex items-center gap-2 rounded-full bg-[#10282d] px-5 py-3 text-xs font-bold text-[#d6fff0] transition hover:bg-[#20454b]" routerLink="/contact" (click)="closeOverview()">Ask the island team <span aria-hidden="true">↗</span></a>
+    </section>
+  </div>
+}

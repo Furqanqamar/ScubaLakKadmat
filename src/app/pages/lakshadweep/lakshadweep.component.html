@@ -1,0 +1,46 @@
+<main class="page-surface">
+  <section class="destination-hero destination-hero--lakshadweep">
+    <div class="destination-hero__wash"></div>
+    <div class="destination-hero__content mx-auto max-w-[90rem]">
+      <p class="eyebrow text-[#b8f2df]">The coral archipelago · Arabian Sea</p>
+      <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.065em] text-white sm:text-8xl">Lakshadweep,<br><em>left beautifully alone.</em></h1>
+      <p class="mt-8 max-w-2xl text-base leading-8 text-white/65">A scattered constellation of coral islands, lagoons and sandbars where the sea is not scenery. It is the road, the pantry, the playground and the memory.</p>
+      <div class="mt-9 flex flex-wrap gap-3"><a class="button-link button-link--mint" routerLink="/kadmat">Meet Kadmat <span aria-hidden="true">↗</span></a><a class="button-link border border-white/25 text-white/80 hover:border-white/60 hover:text-white" routerLink="/gallery">See the visual diary <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <span class="page-hero__watermark">LAGOON / 36</span>
+  </section>
+
+  <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28" data-reveal>
+    <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><p class="eyebrow text-[#9d7047]">Read the water</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em]">A place where access is part of the <em>meaning.</em></h2></div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <article class="destination-note"><span>01 · Location</span><h3>Out in the Arabian Sea</h3><p>Far from the mainland coast, the islands sit low on the horizon and high in the imagination.</p></article>
+        <article class="destination-note"><span>02 · Nature</span><h3>Coral, coconut, current</h3><p>Reef flats, clear lagoons, silver beaches and open-ocean life make every tide feel alive.</p></article>
+        <article class="destination-note"><span>03 · Permission</span><h3>Travel with intention</h3><p>Restricted permits and limited tourism help protect island ecosystems and keep visits personal.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32" data-reveal>
+    <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.65fr_1.35fr] lg:gap-20">
+      <div><p class="eyebrow text-[#b8f2df]">The island atlas</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Every island keeps a different <em>secret.</em></h2><p class="mt-7 max-w-sm text-sm leading-7 text-white/55">This is a field guide to the inhabited islands and key visitor atolls. The archipelago is a living home first, a destination second.</p></div>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        @for (island of islands; track island.name) {
+          <article class="island-card">
+            <div class="island-card__image" [style.background-image]="'linear-gradient(180deg, rgba(3,17,22,.04), rgba(3,17,22,.88)), url(' + island.imageUrl + ')'" role="img" [attr.aria-label]="island.name"></div>
+            <div class="island-card__copy"><div class="flex items-center justify-between gap-3"><span>{{ island.type }}</span><small>{{ island.orientation }}</small></div><h3>{{ island.name }}</h3><p>{{ island.description }}</p><em>{{ island.highlight }}</em></div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#e8e2d4] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
+    <div class="mx-auto grid max-w-[90rem] items-end gap-12 lg:grid-cols-[1fr_.8fr] lg:gap-20">
+      <div><p class="eyebrow text-[#9d7047]">Culture, not costume</p><h2 class="mt-5 max-w-3xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] sm:text-7xl">Come curious.<br><em>Listen closely.</em></h2><p class="mt-7 max-w-2xl text-base leading-8 text-[#10282d]/65">Lakshadweep’s culture is shaped by island geography, Islam, seafaring, fishing, coconut, boat-building, food, language and deep community ties. Guests are welcomed into a living place, not a themed experience. Dress thoughtfully, ask before photographing people, respect prayer spaces and let the reef stay wild.</p></div>
+      <div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-9"><p class="eyebrow text-[#b8f2df]">The good visitor promise</p><ul class="mt-7 space-y-4">@for (item of ['Carry reef-safe habits into every swim', 'Use water and energy carefully', 'Keep beaches, boats and villages quiet', 'Choose authorised permits and local operators']; track item) { <li class="flex gap-3 border-b border-white/10 pb-4 text-sm leading-6 text-white/72"><span class="text-[#b8f2df]" aria-hidden="true">✦</span>{{ item }}</li> }</ul><a class="mt-7 inline-flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[#b8f2df]" routerLink="/contact">Talk to the island team <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><div class="mx-auto flex max-w-[90rem] flex-col justify-between gap-8 md:flex-row md:items-end"><div><p class="eyebrow text-[#7b8e89]">Start with one island</p><h2 class="mt-5 max-w-xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] sm:text-7xl">Kadmat is waiting<br><em>in the west.</em></h2></div><a class="button-link button-link--dark" routerLink="/kadmat">Explore Kadmat Island <span aria-hidden="true">↗</span></a></div></section>
+</main>

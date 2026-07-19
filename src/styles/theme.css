@@ -1,0 +1,26 @@
+:root,
+[data-theme='lagoon'] {
+  --theme-ink: #10282d;
+  --theme-deep: #061419;
+  --theme-mint: #b8f2df;
+  --theme-mint-bright: #d6fff0;
+  --theme-sand: #f4f1e9;
+  --theme-clay: #e8e2d4;
+  --theme-coral: #f1c0a7;
+  --theme-gold: #9d7047;
+  --theme-border: rgba(16, 40, 45, .12);
+  --theme-overlay: rgba(3, 17, 22, .78);
+}
+
+[data-theme='midnight'] {
+  --theme-ink: #e8f6f2;
+  --theme-deep: #02090d;
+  --theme-mint: #9cead5;
+  --theme-mint-bright: #e5fff8;
+  --theme-sand: #08171d;
+  --theme-clay: #10282d;
+  --theme-coral: #d89a84;
+  --theme-gold: #d5ae7a;
+  --theme-border: rgba(214, 255, 240, .16);
+  --theme-overlay: rgba(0, 8, 12, .84);
+}

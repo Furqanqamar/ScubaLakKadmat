@@ -1,0 +1,31 @@
+<main class="page-surface">
+  <section class="page-hero page-hero--deep">
+    <div class="page-hero__watermark">04 / 04</div>
+    <div class="mx-auto max-w-[90rem]">
+      <p class="eyebrow text-[#b8f2df]">Choose your depth</p>
+      <h1 class="mt-6 max-w-4xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">The water has<br><em>more than one mood.</em></h1>
+      <p class="mt-8 max-w-xl text-base leading-8 text-white/60">A shallow first breath, a wall that drops away, a paddle through the lagoon or a whole new qualification. Find the way in that feels like you.</p>
+    </div>
+  </section>
+
+  <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
+    <div class="mx-auto max-w-[90rem]">
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        @for (service of services; track service.id) {
+          <app-service-card [service]="service" (explore)="openService($event)" />
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32">
+    <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+      <div><p class="eyebrow text-[#b8f2df]">How we plan</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Every experience begins with a better question.</h2></div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <article class="service-principle"><span>01</span><h3>Where are you now?</h3><p>We plan around comfort, certification, logged experience and what you actually want to see.</p></article>
+        <article class="service-principle"><span>02</span><h3>What is the sea saying?</h3><p>Weather, tide, visibility and reef conditions shape the day. Honest conditions are part of our promise.</p></article>
+        <article class="service-principle"><span>03</span><h3>How do we leave it?</h3><p>Small groups, careful buoyancy and reef-aware movement keep the adventure generous to the ecosystem.</p></article>
+      </div>
+    </div>
+  </section>
+</main>
