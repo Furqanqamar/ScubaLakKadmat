@@ -3,9 +3,9 @@
     <section class="hero-section relative isolate flex min-h-[48rem] items-end overflow-hidden bg-[#061419] px-5 pb-12 pt-32 text-white sm:px-8 sm:pb-16 lg:min-h-[min(52rem,100vh)] lg:px-10 lg:pb-20">
       <div class="hero-video hero-video--poster absolute inset-0 -z-20 h-full w-full" aria-hidden="true"></div>
       @defer (on idle) {
-        <video class="hero-video absolute inset-0 -z-20 h-full w-full" autoplay muted [muted]="true" loop playsinline preload="none" poster="/media/kadmat-hero-poster.jpg" aria-hidden="true" tabindex="-1" (canplay)="startHeroVideo($event)">
-          <source src="/media/kadmat-hero.webm" type="video/webm">
-          <source src="/media/kadmat-hero.mp4" type="video/mp4">
+        <video class="hero-video absolute inset-0 -z-20 h-full w-full" autoplay muted [muted]="true" loop playsinline preload="none" poster="media/kadmat-hero-poster.jpg" aria-hidden="true" tabindex="-1" (canplay)="startHeroVideo($event)">
+          <source src="media/kadmat-hero.webm" type="video/webm">
+          <source src="media/kadmat-hero.mp4" type="video/mp4">
         </video>
       }
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(3,17,22,.94)_0%,rgba(3,17,22,.62)_43%,rgba(3,17,22,.08)_100%)]"></div>

@@ -2,8 +2,8 @@ export const SITE_COPY = {
   brand: {
     name: 'Scuba Lak',
     tagline: 'Kadmat Lakshadweep',
-    logoSrc: '/media/scuba-lak-logo.png',
-    faviconSrc: '/media/scuba-lak-logo-white.png',
+    logoSrc: 'media/scuba-lak-logo.png',
+    faviconSrc: 'media/scuba-lak-logo-white.png',
     homeLabel: 'Scuba Lak, Kadmat Lakshadweep home'
   },
   navigation: {

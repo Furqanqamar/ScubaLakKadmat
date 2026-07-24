@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { COMPANY_MILESTONES, ABOUT_STATS, TEAM_MEMBERS, TESTIMONIALS } from '../../data/site-content';
+import { ABOUT_STATS, COMPANY_MILESTONES, TEAM_MEMBERS, TEAM_STORY, TESTIMONIALS } from '../../data/site-content';
 
 @Component({
   selector: 'app-about',
@@ -15,4 +15,5 @@ export class AboutComponent {
   readonly milestones = COMPANY_MILESTONES;
   readonly stats = ABOUT_STATS;
   readonly testimonials = TESTIMONIALS;
+  readonly teamStory = TEAM_STORY;
 }

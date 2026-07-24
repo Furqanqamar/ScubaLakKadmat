@@ -14,7 +14,7 @@ import {
   TourPackage
 } from '../models/site-data.model';
 
-const LOCAL_IMAGE_BASE = '/media/lakshadweep';
+const LOCAL_IMAGE_BASE = 'media/lakshadweep';
 
 const REAL_IMAGE_ASSETS: Readonly<Record<string, string>> = {
   'photo-1500534623283-312aade485b7': 'optimized/agatti-beach.jpg',
@@ -595,11 +595,24 @@ export const PADI_COURSES: readonly PadiCourse[] = [
 ];
 
 export const TEAM_MEMBERS: readonly TeamMember[] = [
-  { name: 'Meera Nair', role: 'Dive director & PADI professional', bio: 'Keeps every dive plan calm, considered and beautifully local - from first breath to outer-reef descent.', initials: 'MN', imageUrl: image('photo-1531123897727-8f129e1688ce', 700) },
-  { name: 'Arjun Menon', role: 'Course director & instructor', bio: 'Teaches with a light touch and a rigorous eye for the small skills that turn into lifelong confidence.', initials: 'AM', imageUrl: image('photo-1500648767791-00dcc994a43e', 700) },
-  { name: 'Nisha Kalliyath', role: 'Marine & guest experience lead', bio: 'Makes the island feel easy: thoughtful itineraries, reef-aware experiences and the best kind of local detail.', initials: 'NK', imageUrl: image('photo-1544005313-94ddf0286df2', 700) },
-  { name: 'Sameer Ali', role: 'Boat captain & safety lead', bio: 'Knows the lagoon by light, tide and weather - and never compromises on getting everyone home well.', initials: 'SA', imageUrl: image('photo-1507003211169-0a1dd7228f2d', 700) }
+  { name: 'Shamsudheen', role: 'Senior instructor', bio: 'Brings calm discipline and years of water experience to every briefing, first breath and reef descent.', initials: 'S', imageUrl: 'media/team/shamsudheen.jpg' },
+  { name: 'Mohammed Sadique', role: 'Dive team', bio: 'Helps guests settle into the water with patient guidance, practical knowledge and a genuine love for Kadmat.', initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg' },
+  { name: 'Jamhar', role: 'Dive team', bio: 'Keeps every day on the water welcoming, observant and connected to the lagoon’s changing conditions.', initials: 'J', imageUrl: 'media/team/jamhar.jpg' },
+  { name: 'Team member 4', role: 'Boat & safety team', bio: 'Supports smooth boat days, careful preparation and the safety details that let guests stay present.', initials: '04', imageUrl: 'media/team/team-member-4.jpg' },
+  { name: 'Team member 5', role: 'Water sports team', bio: 'Helps shape relaxed, memorable time on the lagoon, from surface activities to island-side sessions.', initials: '05', imageUrl: 'media/team/team-member-5.jpg' },
+  { name: 'Team member 6', role: 'Guest experience team', bio: 'Adds the local ease that turns a well-planned visit into a warm Scuba Lak memory.', initials: '06', imageUrl: 'media/team/team-member-6.jpg' }
 ];
+
+export const TEAM_GROUP_PHOTO = 'media/team/team-group-boat.jpg';
+export const TEAM_BEACH_GROUP_PHOTO = 'media/team/team-group-beach.jpg';
+
+export const TEAM_STORY = {
+  eyebrow: 'The Scuba Lak way',
+  title: 'People first. Reef always.',
+  description: 'Scuba Lak is a local-led diving and water sports team built around the character of Kadmat Island. We bring careful PADI standards, patient teaching and deep island knowledge to every experience - from a first breath in the blue lagoon to a deeper day along the outer reef. The work is shared: instructors, boat crew, water sports guides and guest hosts all help create days that feel safe, personal and genuinely connected to Lakshadweep.',
+  imageUrl: TEAM_GROUP_PHOTO,
+  imageAlt: 'Scuba Lak team members together aboard a dive boat in Kadmat lagoon'
+} as const;
 
 export const TESTIMONIALS: readonly Testimonial[] = [
   { quote: 'I arrived nervous and left already planning my next dive. The team made every step feel unhurried and completely safe.', name: 'Rhea Kapoor', detail: 'Open Water Diver · Mumbai', accent: 'mint' },
@@ -609,6 +622,8 @@ export const TESTIMONIALS: readonly Testimonial[] = [
 ];
 
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
+  { id: 'scuba-lak-team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
+  { id: 'scuba-lak-on-the-sands', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
   { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: 'Western lagoon', imageUrl: image('photo-1507525428034-b723cf961d3e', 1600), size: 'wide' },
   { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: 'Outer reef', imageUrl: image('photo-1544550285-f813152fb2fd', 1200), size: 'tall' },
   { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: 'Kadmat Island', imageUrl: image('photo-1500534623283-312aade485b7', 1200), size: 'standard' },
