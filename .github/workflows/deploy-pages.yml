@@ -38,6 +38,7 @@ jobs:
         run: |
           npm run build -- --base-href /ScubaLakKadmat/
           node scripts/prepare-pages.mjs
+          node scripts/verify-seo.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

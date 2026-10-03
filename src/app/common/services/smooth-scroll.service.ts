@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
@@ -23,6 +23,7 @@ export class SmoothScrollService {
   private readonly scrollListener = (): void => this.syncNativeScroll();
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     const view = this.document.defaultView;
     if (view) {
       const restoration = view.history.scrollRestoration;

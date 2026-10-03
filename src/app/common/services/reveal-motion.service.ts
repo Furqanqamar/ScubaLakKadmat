@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { DestroyRef, Injectable, inject } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, DestroyRef, Injectable, inject } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class RevealMotionService {
@@ -7,6 +7,7 @@ export class RevealMotionService {
   private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     const view = this.document.defaultView;
     const body = this.document.body;
     if (!view || !body || !('IntersectionObserver' in view) || view.matchMedia('(prefers-reduced-motion: reduce)').matches) {

@@ -1,7 +1,7 @@
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { DialogShellComponent } from '../../common/components/dialog-shell/dialog-shell.component';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { ServiceCardComponent } from '../../common/components/service-card/service-card.component';
 import {
@@ -13,7 +13,6 @@ import {
 } from '../../data/site-content';
 import {
   DestinationBriefing,
-  MarineService,
   PackageTier
 } from '../../models/site-data.model';
 
@@ -25,7 +24,6 @@ import {
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  private readonly router = inject(Router);
 
   readonly services = MARINE_SERVICES;
   readonly packages = TOUR_PACKAGES;
@@ -41,9 +39,6 @@ export class HomeComponent {
     this.activePackageId.set(id);
   }
 
-  openService(service: MarineService): void {
-    void this.router.navigate(['/experiences', service.id]);
-  }
 
   openBriefing(briefing: DestinationBriefing): void {
     this.selectedBriefing.set(briefing);

@@ -1,5 +1,7 @@
 import { ResponsiveImageDirective } from '../../directives/responsive-image.directive';
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+
+import { RouterLink } from '@angular/router';
 
 import { SITE_COPY } from '../../../data/site-copy';
 import { MarineService } from '../../../models/site-data.model';
@@ -7,7 +9,7 @@ import { MarineService } from '../../../models/site-data.model';
 @Component({
   selector: 'app-service-card',
   standalone: true,
-  imports: [ResponsiveImageDirective],
+  imports: [ResponsiveImageDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="service-card group relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-cursor="view" data-reveal>
@@ -48,14 +50,13 @@ import { MarineService } from '../../../models/site-data.model';
           <span><strong class="mr-1 font-medium text-white/90">{{ service().depth }}</strong> depth</span>
           <span class="hidden sm:inline"><strong class="mr-1 font-medium text-white/90">{{ service().duration }}</strong> time</span>
         </div>
-        <button
-          type="button"
+        <a
+          [routerLink]="['/experiences', service().id]"
           class="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold transition hover:border-[#b8f2df] hover:bg-[#b8f2df] hover:text-[#061419] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-[#061419]"
-          (click)="explore.emit(service())"
           [attr.aria-label]="'Explore ' + service().title"
         >
           {{ copy.actions.explore }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i>
-        </button>
+        </a>
       </div>
     </article>
   `
@@ -63,5 +64,4 @@ import { MarineService } from '../../../models/site-data.model';
 export class ServiceCardComponent {
   readonly copy = SITE_COPY;
   readonly service = input.required<MarineService>();
-  readonly explore = output<MarineService>();
 }

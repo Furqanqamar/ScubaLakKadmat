@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 
 @Component({
   selector: 'app-interactive-cursor',
@@ -30,6 +30,7 @@ export class InteractiveCursorComponent {
   readonly isInteractive = signal(false);
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     const view = this.document.defaultView;
     if (!view || !view.matchMedia('(pointer: fine)').matches || view.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;

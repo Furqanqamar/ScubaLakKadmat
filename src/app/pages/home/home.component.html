@@ -17,7 +17,7 @@
           <p class="eyebrow mb-6 text-[#b8f2df]"><span class="mr-2 inline-block h-2 w-2 rounded-full bg-[#b8f2df] shadow-[0_0_14px_#b8f2df]"></span> Kadmat Island · Lakshadweep</p>
           <h1 class="max-w-3xl font-serif text-[clamp(4.25rem,11vw,9.5rem)] leading-[0.82] tracking-[-0.075em]">The reef<br><em>starts here.</em></h1>
           <div class="mt-8 flex max-w-xl flex-col gap-7 sm:flex-row sm:items-end">
-            <p class="max-w-sm text-sm leading-7 text-white/70">Premium diving, PADI courses and water time in one of India’s last truly quiet blue places.</p>
+            <p class="max-w-sm text-sm leading-7 text-white/70">Scuba diving in Kadmat, Lakshadweep: explore lagoon dives, PADI courses, snorkelling and kayaking with the Scuba Lak island team.</p>
             <a class="group inline-flex shrink-0 items-center gap-3 font-mono text-[0.67rem] font-medium uppercase tracking-[0.16em] text-[#d6fff0]" [routerLink]="['/']" fragment="experiences">Explore the water <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[#b8f2df]/50 transition group-hover:bg-[#b8f2df] group-hover:text-[#061419]" aria-hidden="true">↓</span></a>
           </div>
         </div>
@@ -53,7 +53,7 @@
 
         <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           @for (service of services; track service.id) {
-            <app-service-card [service]="service" (explore)="openService($event)" />
+            <app-service-card [service]="service" />
           }
         </div>
       </div>

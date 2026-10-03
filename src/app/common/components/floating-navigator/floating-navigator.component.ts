@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -59,6 +59,7 @@ export class FloatingNavigatorComponent {
   readonly isVisible = computed(() => !this.isHome() || this.scrollY() > 360);
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     const view = this.document.defaultView;
     const onScroll = (): void => this.scrollY.set((view?.scrollY ?? 0) > 360 ? 361 : 0);
     view?.addEventListener('scroll', onScroll, { passive: true });

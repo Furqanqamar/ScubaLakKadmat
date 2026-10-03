@@ -18,6 +18,8 @@ export const SITE_COPY = {
     island: 'Know island',
     about: 'About us',
     gallery: 'Gallery',
+    accommodation: 'Kadmat accommodation',
+    tripPlanning: 'Plan your island trip',
     contact: 'Contact',
     contactDesk: 'Contact the dive desk',
     planDive: 'Plan your dive'
@@ -59,8 +61,8 @@ export const SITE_COPY = {
   },
   seo: {
     home: {
-      title: 'Scuba Lak, Kadmat Lakshadweep | Dive into the untouched',
-      description: 'Premium diving, PADI courses, island stays and water sports in Kadmat’s blue lagoon, Lakshadweep.'
+      title: 'Scuba Diving in Kadmat, Lakshadweep | Scuba Lak',
+      description: 'Explore scuba diving in Kadmat, Lakshadweep with Scuba Lak. Discover lagoon dives, PADI courses, snorkelling, kayaking and island-trip planning.'
     },
     about: {
       title: 'About Scuba Lak, Kadmat Lakshadweep',
@@ -79,8 +81,8 @@ export const SITE_COPY = {
       description: 'Choose lagoon diving, deep sea diving, PADI training or water sports on Kadmat Island.'
     },
     courses: {
-      title: 'PADI diving courses | Scuba Lak, Kadmat',
-      description: 'Browse PADI beginner, continuing education, specialty, safety, youth and professional diving courses.'
+      title: 'PADI Diving Courses in Kadmat, Lakshadweep | Scuba Lak',
+      description: 'Compare PADI courses in Kadmat, Lakshadweep: Open Water, Advanced, Rescue and more. Explore prerequisites, duration and skills before choosing your training.'
     },
     gallery: {
       title: 'Kadmat Island gallery | Scuba Lak',

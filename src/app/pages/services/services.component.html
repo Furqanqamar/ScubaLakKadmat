@@ -12,7 +12,7 @@
     <div class="mx-auto max-w-[90rem]">
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         @for (service of services; track service.id) {
-          <app-service-card [service]="service" (explore)="openService($event)" />
+          <app-service-card [service]="service" />
         }
       </div>
     </div>

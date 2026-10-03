@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
@@ -100,6 +100,7 @@ export class PageTransitionComponent {
   ];
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     this.destroyRef.onDestroy(() => this.clearTimers());
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))

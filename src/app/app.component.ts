@@ -10,15 +10,17 @@ import { RevealMotionService } from './common/services/reveal-motion.service';
 import { SmoothScrollService } from './common/services/smooth-scroll.service';
 import { SeoService } from './common/services/seo.service';
 import { ThemeService } from './common/services/theme.service';
+import { BreadcrumbsComponent } from './common/components/breadcrumbs/breadcrumbs.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteFooterComponent, FloatingNavigatorComponent, InteractiveCursorComponent, PageTransitionComponent, SiteHeaderComponent],
+  imports: [RouterOutlet, SiteFooterComponent, FloatingNavigatorComponent, InteractiveCursorComponent, PageTransitionComponent, SiteHeaderComponent, BreadcrumbsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-site-header />
     <router-outlet />
+    <app-breadcrumbs />
     <app-site-footer />
     <app-floating-navigator />
     <app-interactive-cursor />

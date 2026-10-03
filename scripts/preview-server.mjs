@@ -55,7 +55,7 @@ async function resolveRequestPath(requestUrl) {
     const details = await stat(requestedPath);
     return details.isDirectory() ? join(requestedPath, 'index.html') : requestedPath;
   } catch {
-    return url.pathname.includes('.') ? null : join(outputRoot, 'index.html');
+    return url.pathname.includes('.') ? null : join(outputRoot, '404.html');
   }
 }
 
@@ -85,6 +85,7 @@ const server = createServer(async (request, response) => {
     const extension = extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[extension] ?? 'application/octet-stream';
     const isHtml = extension === '.html';
+    const status = filePath === join(outputRoot, '404.html') ? 404 : 200;
     const cacheControl = isHtml
       ? 'public, max-age=0, must-revalidate'
       : isImmutableAsset(filePath)
@@ -117,7 +118,7 @@ const server = createServer(async (request, response) => {
     }
 
     if (request.method === 'HEAD') {
-      response.writeHead(200);
+      response.writeHead(status);
       response.end();
       return;
     }
@@ -125,12 +126,12 @@ const server = createServer(async (request, response) => {
     const canCompress = COMPRESSIBLE_TYPES.has(contentType.split(';')[0]) && /gzip/.test(request.headers['accept-encoding'] ?? '');
     if (canCompress) {
       response.setHeader('Content-Encoding', 'gzip');
-      response.writeHead(200);
+      response.writeHead(status);
       await pipeline(createReadStream(filePath), createGzip(), response);
       return;
     }
 
-    response.writeHead(200);
+    response.writeHead(status);
     await pipeline(createReadStream(filePath), response);
   } catch {
     if (response.headersSent) {

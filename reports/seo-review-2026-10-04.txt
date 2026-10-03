@@ -1,0 +1,98 @@
+SCUBA LAK SEARCH OPTIMISATION REVIEW — 4 OCTOBER 2026
+
+OBJECTIVE
+Build search relevance for Scuba Lak's real Kadmat services. First position is
+not guaranteed; ranking depends on competition, trust, links, location, query
+intent and Google's systems. No purchased links, fake reviews, hidden keyword
+lists, competitor-name stuffing or duplicate doorway pages have been added.
+
+RESEARCH / COMPETITOR OBSERVATIONS
+Lak Scuba (Kavaratti) clearly separates diving, individual courses and stays,
+and publishes identity/contact details and pricing. Its different island and
+similar brand name make consistent "Scuba Lak, Kadmat" identification important.
+Source: https://lakscuba.com/
+
+Lacadives separates beginner diving, courses, water sports, dive destinations,
+accommodation and editorial material. Clear paths between these topics help
+visitors plan an entire trip rather than only browse an activity.
+Source: https://www.lacadives.com/
+
+Dive Goa's search-visible homepage includes course options, prices and local
+conditions. Useful local details and verifiable business information are a
+stronger content model than broad claims of being India's best.
+Source: https://divegoa.com/
+
+These are qualitative page comparisons, not verified ranking positions,
+traffic estimates, keyword volumes or proof of competitor accreditation.
+
+IMPLEMENTED
+- Angular static prerendering: 36 indexable pages plus a separate 404 page.
+- Page content, headings, descriptions, canonicals and JSON-LD are available
+  in the initial HTML; client hydration preserves interactive features.
+- Course and experience URLs are preserved, avoiding a gratuitous URL migration.
+  Canonicals use HTTPS, correct GitHub project prefix and trailing directory slash.
+- Two original planning resources have descriptive, human-readable URLs:
+  /kadmat-accommodation/ and /lakshadweep-trip-planning/.
+- Service-card buttons became real crawlable links. Shared visible breadcrumbs
+  and footer guide links provide internal discovery paths.
+- Specific page titles, location-focused descriptions, social previews and
+  Organization/WebSite/WebPage/BreadcrumbList/Course/Service structured data.
+  No unsupported star rating, certification count, price or hotel inventory data.
+- Sitemap is generated from the actual indexable output, including all 22
+  courses and four experiences, rather than only the main navigation pages.
+- Unknown URLs use a noindex 404 page instead of pretending to be the homepage.
+- GitHub Pages preparation handles nested prerendered HTML and inline CSS.
+- Google ownership verification tag included with the user's authorization.
+
+SEARCH INTENT / CONTENT MAP
+Home: scuba diving Kadmat; scuba diving Lakshadweep; Scuba Lak Kadmat.
+Experiences: Kadmat diving and water sports; lagoon diving; certified-diver trips.
+Course directory: PADI courses Kadmat; diving certification Lakshadweep.
+Course pages: named course + Kadmat (Open Water, Advanced, Rescue, etc.).
+Water sports: Kadmat snorkelling/snorkeling, kayaking and glass-bottom boat
+  activities, only as supported by the existing service description.
+Kadmat guide: Kadmat Island travel, lagoon, beaches and island attractions.
+Lakshadweep guide: Lakshadweep islands, culture and responsible tourism.
+Accommodation guide: Kadmat accommodation and diving holiday stay planning.
+Travel guide: Lakshadweep trip planning, Kadmat arrivals and permit questions.
+About/contact: exact business identity, local team and confirmed contact details.
+No misspelling-stuffed paragraphs or meta-keywords tag: useful writing and
+accurate intent coverage take precedence over listing every possible phrase.
+
+BUSINESS / CONTENT REQUIREMENTS STILL NEEDED
+- Official domain, phone/WhatsApp, working email, postal address and social URLs.
+- Confirmed qualifications, centre affiliation, instructor roles and course
+  availability. Do not copy competitor credentials or claim ratings without proof.
+- Accommodation partner names, real room photos, amenities, dates, prices and
+  cancellation policies before publishing bookable hotel offers.
+- Genuine guest reviews with permission and authentic island/dive photography.
+- Dated, owner-checked travel information; operational schedules and permit
+  requirements must be checked with official sources, not guessed for SEO.
+- Establish/verify a Google Business Profile with accurate details and seek
+  legitimate relevant listings (for example an eligible PADI directory profile).
+  No third-party business listing has been created by this task.
+
+SEARCH CONSOLE / HOSTING
+Correct property: https://furqanqamar.github.io/ScubaLakKadmat/
+Use URL-prefix verification, not ownership of github.io as a domain.
+Submit: https://furqanqamar.github.io/ScubaLakKadmat/sitemap.xml
+Inspection and indexing request are not a guarantee of indexing or ranking.
+New properties need time before Search Console has meaningful performance or
+Core Web Vitals data. No ranking improvement is claimed before evidence exists.
+Google reads robots.txt at the origin root. A project-level robots.txt is useful
+for migration but cannot override https://furqanqamar.github.io/robots.txt.
+After moving to a permanent domain, update SITE_URL, rebuild, add the new Search
+Console property, update business listings and configure proper redirects.
+
+VALIDATION
+scripts/verify-seo.mjs checks all 36 static pages, unique titles, one H1 per page,
+canonical URLs, JSON-LD parsing, internal route targets, verification tag and 404.
+Production Angular build and strict TypeScript validation are required before
+deployment. Browser hydration and functionality are checked separately.
+This does not establish that every structured-data type earns a Google rich result.
+
+PRIMARY TECHNICAL REFERENCES
+https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+https://angular.dev/guide/ssr
+https://lakshadweep.gov.in/tourism/

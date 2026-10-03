@@ -41,5 +41,8 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () => import('./pages/contact/contact.component').then((module) => module.ContactComponent)
   },
-  { path: '**', redirectTo: '' }
+  { path: 'kadmat-accommodation', data: { guide: 'accommodation' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'lakshadweep-trip-planning', data: { guide: 'planning' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: '404', loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) },
+  { path: '**', loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) }
 ];
