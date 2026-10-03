@@ -96,3 +96,26 @@ https://developers.google.com/search/docs/fundamentals/seo-starter-guide
 https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
 https://angular.dev/guide/ssr
 https://lakshadweep.gov.in/tourism/
+
+PUBLISHED / GOOGLE TEST RESULTS
+SEO release commit: 215fd06. GitHub Pages deployment succeeded.
+All 36 sitemap URLs returned HTTP 200 with pre-rendered H1 content in live checks.
+A deliberately missing URL returned HTTP 404 with noindex metadata.
+Google Search Console ownership was verified using the published HTML tag.
+Homepage live test, 4 October 2026 at 00:52 IST:
+  URL is available to Google; page can be indexed.
+  Crawled as Google Inspection Tool smartphone.
+  Crawl allowed: Yes. Page fetch: Successful. Indexing allowed: Yes.
+  User-declared canonical: https://furqanqamar.github.io/ScubaLakKadmat/
+Homepage indexing request was accepted into the priority crawl queue.
+The URL was not yet indexed when the initial index report was checked.
+
+UNRESOLVED GOOGLE SITEMAP STATUS
+Google accepted the sitemap submission, but its status remains "Couldn't fetch".
+The exact submitted URL was checked against the property and is correct. Live
+HTTP checks returned 200 with application/xml and the expected sitemap namespace.
+There is no origin robots.txt restriction (origin robots.txt returns 404).
+The sitemap was resubmitted once after these checks; Google processing has not
+yet been confirmed successful. The cause is not established. Recheck Search
+Console before claiming sitemap discovery/indexing success; do not repeatedly
+resubmit URLs or promise a ranking date. No recurring monitoring was scheduled.
