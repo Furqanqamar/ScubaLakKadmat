@@ -70,8 +70,8 @@ const CURTAIN_REVEAL_MS = 980;
     @keyframes dotart-progress { from { transform: translateX(-100%); } to { transform: translateX(65%); } }
     @keyframes underwater-caustics { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
     @keyframes surface-glow { from { opacity: .42; transform: translateX(-50%) scale(.92); } to { opacity: .78; transform: translateX(-50%) scale(1.08); } }
-    @keyframes ray-sway { from { margin-left: -1.25rem; } to { margin-left: 1.25rem; } }
-    @keyframes bubble-rise { 0% { bottom: -4rem; opacity: 0; } 12% { opacity: .55; } 80% { opacity: .28; } 100% { bottom: 112%; opacity: 0; } }
+    @keyframes ray-sway { from { translate: -1.25rem 0; } to { translate: 1.25rem 0; } }
+    @keyframes bubble-rise { 0% { translate: 0 0; opacity: 0; } 12% { opacity: .55; } 80% { opacity: .28; } 100% { translate: 0 -120vh; opacity: 0; } }
     @keyframes bubble-sway { 0%, 100% { transform: translateX(-.8rem); } 50% { transform: translateX(.8rem); } }
   `
 })
@@ -100,6 +100,7 @@ export class PageTransitionComponent {
   ];
 
   constructor() {
+    this.destroyRef.onDestroy(() => this.clearTimers());
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => this.handleNavigation(event));
@@ -114,7 +115,7 @@ export class PageTransitionComponent {
     if (event instanceof NavigationStart) {
       const fromPath = this.cleanPath(this.router.url);
       const toPath = this.cleanPath(event.url);
-      if (fromPath === toPath) {
+      if (!this.router.navigated || fromPath === toPath || view.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         return;
       }
 

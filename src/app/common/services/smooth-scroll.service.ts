@@ -1,29 +1,42 @@
 import { DOCUMENT } from '@angular/common';
-import { DestroyRef, effect, inject, Injectable } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router } from '@angular/router';
+import { DestroyRef, inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class SmoothScrollService {
   private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly navigation = toSignal(this.router.events, { initialValue: null });
+  private readonly positions = new Map<number, number>();
+  private navigationId = 0;
+  private restoredPosition: number | undefined;
   private animationFrame: number | null = null;
   private scrollCheckFrame: number | null = null;
   private activeFragment: string | null = null;
-  private targetY = 0;
-  private isSmoothing = false;
+  private navigationTimer: number | undefined;
+  private readonly cancelScroll = (): void => {
+    const view = this.document.defaultView;
+    if (view && this.animationFrame !== null) view.cancelAnimationFrame(this.animationFrame);
+    this.animationFrame = null;
+  };
   private readonly scrollListener = (): void => this.syncNativeScroll();
 
   constructor() {
     const view = this.document.defaultView;
     if (view) {
-      this.targetY = view.scrollY;
+      const restoration = view.history.scrollRestoration;
+      view.history.scrollRestoration = 'manual';
       view.addEventListener('scroll', this.scrollListener, { passive: true });
+      view.addEventListener('wheel', this.cancelScroll, { passive: true });
+      view.addEventListener('touchstart', this.cancelScroll, { passive: true });
 
       this.destroyRef.onDestroy(() => {
+        view.history.scrollRestoration = restoration;
         view.removeEventListener('scroll', this.scrollListener);
+        view.removeEventListener('wheel', this.cancelScroll);
+        view.removeEventListener('touchstart', this.cancelScroll);
+        view.clearTimeout(this.navigationTimer);
         if (this.animationFrame !== null) {
           view.cancelAnimationFrame(this.animationFrame);
         }
@@ -33,15 +46,30 @@ export class SmoothScrollService {
       });
     }
 
-    effect(() => {
-      const event = this.navigation();
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.positions.set(this.navigationId, view?.scrollY ?? 0);
+        if (this.positions.size > 50) this.positions.delete(this.positions.keys().next().value!);
+        this.restoredPosition = event.restoredState ? this.positions.get(event.restoredState.navigationId) : undefined;
+        this.cancelScroll();
+        view?.clearTimeout(this.navigationTimer);
+        return;
+      }
       if (!(event instanceof NavigationEnd)) {
         return;
       }
 
       const fragment = this.router.parseUrl(event.urlAfterRedirects).fragment;
-      const view = this.document.defaultView;
-      view?.setTimeout(() => this.scrollAfterNavigation(fragment), 0);
+      this.navigationId = event.id;
+      this.cancelScroll();
+      view?.clearTimeout(this.navigationTimer);
+      this.activeFragment = fragment;
+      const restored = this.restoredPosition;
+      this.navigationTimer = view?.setTimeout(() => {
+        if (restored !== undefined) view.scrollTo({ top: restored, behavior: 'instant' });
+        else if (fragment) this.scrollAfterNavigation(fragment);
+        else view.scrollTo({ top: 0, behavior: 'instant' });
+      }, 0);
     });
   }
 
@@ -78,21 +106,17 @@ export class SmoothScrollService {
     }
 
     const headerOffset = 88;
-    const destination = target
-      ? Math.max(0, target.getBoundingClientRect().top + view.scrollY - headerOffset)
-      : 0;
+    // Layout offsets exclude the temporary translate/scale used by reveal motion.
+    let layoutTop = 0;
+    for (let element = target; element; element = element.offsetParent as HTMLElement | null) {
+      layoutTop += element.offsetTop;
+    }
+    const destination = target ? Math.max(0, layoutTop - headerOffset) : 0;
 
     this.animateTo(destination, target ? 1280 : 820);
   }
 
   private syncNativeScroll(): void {
-    if (!this.isSmoothing) {
-      const view = this.document.defaultView;
-      if (view) {
-        this.targetY = view.scrollY;
-      }
-    }
-
     const view = this.document.defaultView;
     if (!view || !this.activeFragment || this.scrollCheckFrame !== null) {
       return;
@@ -134,12 +158,9 @@ export class SmoothScrollService {
 
     if (view.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       view.scrollTo({ top: destination, left: 0, behavior: 'auto' });
-      this.targetY = destination;
       return;
     }
 
-    this.isSmoothing = true;
-    this.targetY = destination;
     const start = view.scrollY;
     const distance = destination - start;
     const startedAt = view.performance.now();
@@ -155,7 +176,6 @@ export class SmoothScrollService {
         this.animationFrame = view.requestAnimationFrame(frame);
       } else {
         this.animationFrame = null;
-        this.isSmoothing = false;
       }
     };
 

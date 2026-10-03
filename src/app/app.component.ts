@@ -26,8 +26,10 @@ import { ThemeService } from './common/services/theme.service';
   `
 })
 export class AppComponent {
-  private readonly smoothScroll = inject(SmoothScrollService);
-  private readonly revealMotion = inject(RevealMotionService);
-  private readonly seo = inject(SeoService);
-  private readonly theme = inject(ThemeService);
+  constructor() {
+    inject(SmoothScrollService);
+    inject(RevealMotionService);
+    inject(SeoService);
+    inject(ThemeService);
+  }
 }

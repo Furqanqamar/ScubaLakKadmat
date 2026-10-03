@@ -1,3 +1,5 @@
+import { SITE_COPY } from './site-copy';
+
 import {
   CompanyMilestone,
   ContactDetails,
@@ -16,46 +18,6 @@ import {
 
 const LOCAL_IMAGE_BASE = 'media/lakshadweep';
 
-const REAL_IMAGE_ASSETS: Readonly<Record<string, string>> = {
-  'photo-1500534623283-312aade485b7': 'optimized/agatti-beach.jpg',
-  'photo-1507525428034-b723cf961d3e': 'optimized/kadmat-reference.jpg',
-  'photo-1510414842594-a61c69b5ae57': 'optimized/agatti-sunset.jpg',
-  'photo-1493552152660-f915ab47ae9d': 'optimized/island-view-1.jpg',
-  'photo-1500375592092-40eb2168fd21': 'optimized/island-view-2.jpg',
-  'photo-1544551763-46a013bb70d5': 'optimized/agatti-shallow-boat.jpg',
-  'photo-1530053969600-caed2596d242': 'optimized/underwater-1.jpg',
-  'photo-1473116763249-2faaef81ccda': 'optimized/kadmat-kayaks.jpg',
-  'photo-1529156069898-49953e39b3ac': 'optimized/island-view-3.jpg',
-  'photo-1500530855697-b586d89ba3ee': 'optimized/island-view-4.jpg',
-  'photo-1469474968028-56623f02e42e': 'optimized/island-view-2.jpg',
-  'photo-1436491865332-7a61a109cc05': 'optimized/agatti-airport.jpg',
-  'photo-1474302770737-173ee21bab63': 'optimized/island-view-3.jpg',
-  'photo-1508614589041-895b88991e3e': 'optimized/island-view-4.jpg',
-  'photo-1559757175-0eb30cd8c063': 'optimized/underwater-2.jpg',
-  'photo-1560275619-4662e36fa65c': 'optimized/underwater-1.jpg',
-  'photo-1518495973542-4542c06a5843': 'optimized/underwater-1.jpg',
-  'photo-1516280440614-37939bbacd81': 'optimized/underwater-2.jpg',
-  'photo-1544551763-77ef2d0cfc6c': 'optimized/underwater-2.jpg',
-  'photo-1539635278303-d4002c07eae3': 'optimized/kadmat-kayaks.jpg',
-  'photo-1576091160399-112ba8d25d1d': 'optimized/underwater-1.jpg',
-  'photo-1497250681960-ef046c08a56e': 'optimized/kadmat-wind-boat.jpg',
-  'photo-1518709268805-4e9042af9f23': 'optimized/underwater-2.jpg',
-  'photo-1531058020387-3be344556be6': 'optimized/kadmat-water-sports.jpg',
-  'photo-1521791136064-7986c2920216': 'optimized/underwater-1.jpg',
-  'photo-1521737711867-e3b97375f902': 'optimized/underwater-2.jpg',
-  'photo-1504159506876-f8338247a14a': 'optimized/kadmat-kayaks.jpg',
-  'photo-1544550285-f813152fb2fd': 'optimized/underwater-2.jpg'
-};
-
-const image = (id: string, width = 1200): string => {
-  const localAsset = REAL_IMAGE_ASSETS[id];
-  if (localAsset) {
-    return `${LOCAL_IMAGE_BASE}/${localAsset}`;
-  }
-
-  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
-};
-
 export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
   {
     name: 'Agatti',
@@ -63,7 +25,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Gateway atoll',
     description: 'A slender coral island with the territory’s main air gateway, lagoon beaches and easy access to reef time.',
     highlight: 'The easiest first hello to Lakshadweep.',
-    imageUrl: image('photo-1500534623283-312aade485b7')
+    imageUrl: 'media/lakshadweep/optimized/agatti-beach.jpg'
   },
   {
     name: 'Amini',
@@ -71,7 +33,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Craft & lagoon life',
     description: 'A close-knit island known for traditional craft, coconut groves and the everyday rhythm of a lagoon community.',
     highlight: 'Local life with a soft blue horizon.',
-    imageUrl: image('photo-1507525428034-b723cf961d3e')
+    imageUrl: 'media/generated/island-amini.webp'
   },
   {
     name: 'Andrott',
@@ -79,7 +41,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'History & culture',
     description: 'The largest inhabited island, with a deeper cultural history, broad island roads and a more settled mainland feeling.',
     highlight: 'A window into island memory.',
-    imageUrl: image('photo-1510414842594-a61c69b5ae57')
+    imageUrl: 'media/generated/island-andrott.webp'
   },
   {
     name: 'Bangaram',
@@ -87,7 +49,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Barefoot escape',
     description: 'A picture-book atoll of sand, reef and open sky, visited for its quiet beaches and feeling of being far away.',
     highlight: 'The castaway chapter.',
-    imageUrl: image('photo-1493552152660-f915ab47ae9d')
+    imageUrl: 'media/generated/island-bangaram.webp'
   },
   {
     name: 'Bitra',
@@ -95,7 +57,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Small-island quiet',
     description: 'The smallest inhabited island is intimate and low-key, with the reef close to daily life and few distractions.',
     highlight: 'Small scale, big sky.',
-    imageUrl: image('photo-1500375592092-40eb2168fd21')
+    imageUrl: 'media/lakshadweep/optimized/island-view-2.jpg'
   },
   {
     name: 'Chetlat',
@@ -103,7 +65,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Northern atoll',
     description: 'A northern coral island shaped by coconut palms, turquoise shallows and a community that still moves with the sea.',
     highlight: 'A slower northern tide.',
-    imageUrl: image('photo-1544551763-46a013bb70d5')
+    imageUrl: 'media/generated/island-chetlat.webp'
   },
   {
     name: 'Kadmat',
@@ -119,7 +81,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Lagoon & sandbanks',
     description: 'A broad lagoon setting with sandbanks, water time and a strong connection between village life and the reef edge.',
     highlight: 'Big lagoon, gentle pace.',
-    imageUrl: image('photo-1473116763249-2faaef81ccda')
+    imageUrl: 'media/generated/island-kalpeni.webp'
   },
   {
     name: 'Kavaratti',
@@ -127,7 +89,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Culture & administration',
     description: 'The administrative capital pairs calm lagoons with mosques, food, local stories and the most visible civic life in the territory.',
     highlight: 'The cultural centre of the chain.',
-    imageUrl: image('photo-1529156069898-49953e39b3ac')
+    imageUrl: 'media/lakshadweep/optimized/kavaratti-aerial.jpg'
   },
   {
     name: 'Kiltan',
@@ -135,7 +97,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Northern reef life',
     description: 'A narrow northern island where reef flats, palms and community life meet in a particularly uncluttered horizon.',
     highlight: 'A quiet edge of the archipelago.',
-    imageUrl: image('photo-1500530855697-b586d89ba3ee')
+    imageUrl: 'media/generated/island-kiltan.webp'
   },
   {
     name: 'Minicoy',
@@ -143,7 +105,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Southern culture',
     description: 'Distinctive language, dance, boat traditions and Maldivian cultural links give Minicoy a character all its own.',
     highlight: 'A different rhythm within Lakshadweep.',
-    imageUrl: image('photo-1469474968028-56623f02e42e')
+    imageUrl: 'media/lakshadweep/optimized/island-view-4.jpg'
   }
 ];
 
@@ -153,42 +115,42 @@ export const KADMAT_ATTRACTIONS: readonly KadmatAttraction[] = [
     title: 'The western turquoise lagoon',
     location: 'West coast · Kadmat',
     description: 'A long, shallow blue room for first dives, glass boats, snorkelling and the kind of sunset that turns the water silver.',
-    imageUrl: image('photo-1507525428034-b723cf961d3e', 1400)
+    imageUrl: 'media/generated/attraction-western-lagoon.webp'
   },
   {
     id: 'silver-sands',
     title: 'Silver sand shoreline',
     location: 'Island-wide beach line',
     description: 'Walk the island by tide line, with coconut shade inland and a reef horizon that keeps opening in front of you.',
-    imageUrl: image('photo-1510414842594-a61c69b5ae57', 1400)
+    imageUrl: 'media/generated/attraction-silver-sands.webp'
   },
   {
     id: 'outer-reef',
     title: 'Outer-reef blue walls',
     location: 'West reef edge',
     description: 'Experienced divers can meet the drop-off, where the protected lagoon gives way to deeper open-ocean life and changing currents.',
-    imageUrl: image('photo-1544550285-f813152fb2fd', 1400)
+    imageUrl: 'media/generated/attraction-outer-reef.webp'
   },
   {
     id: 'reef-life',
     title: 'Coral gardens & marine life',
     location: 'Lagoon and reef sites',
     description: 'Look for reef fish, branching coral and the small, bright details that make slow, low-impact exploration so rewarding.',
-    imageUrl: image('photo-1530053969600-caed2596d242', 1400)
+    imageUrl: 'media/generated/attraction-reef-life.webp'
   },
   {
     id: 'island-culture',
     title: 'Island culture in the everyday',
     location: 'Village and harbour',
     description: 'The island is not a backdrop. Notice the boats, food, faith, coconut crafts and the warm, practical hospitality of Kadmat life.',
-    imageUrl: image('photo-1529156069898-49953e39b3ac', 1400)
+    imageUrl: 'media/generated/attraction-island-culture.webp'
   },
   {
     id: 'lagoon-paddle',
     title: 'Paddle at the tide’s pace',
     location: 'South lagoon',
     description: 'Kayak across glassy shallows, pause above the reef and let the island show you its quieter side.',
-    imageUrl: image('photo-1473116763249-2faaef81ccda', 1400)
+    imageUrl: 'media/generated/attraction-lagoon-paddle.webp'
   }
 ];
 
@@ -201,7 +163,7 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     cost: 'Planning range: ₹3,500–₹8,500 one way',
     booking: 'Book through authorised Lakshadweep Tourism / SPORTS channels or a permitted local operator after your entry permit is arranged.',
     note: 'The most atmospheric route. Sailings are seasonal and schedules change with weather.',
-    imageUrl: image('photo-1544551763-46a013bb70d5', 1400)
+    imageUrl: 'media/generated/transport-ship.webp'
   },
   {
     id: 'flight',
@@ -211,7 +173,7 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     cost: 'Planning range: ₹6,000–₹14,000 for the flight, plus permits and island transfers',
     booking: 'Reserve the flight with the operating airline, then coordinate the Agatti–Kadmat transfer through an authorised Lakshadweep operator.',
     note: 'Fastest scheduled option, but the final island leg must be planned as one itinerary.',
-    imageUrl: image('photo-1436491865332-7a61a109cc05', 1400)
+    imageUrl: 'media/lakshadweep/optimized/agatti-airport.jpg'
   },
   {
     id: 'seaplane',
@@ -221,7 +183,7 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     cost: 'Quote on request; availability and fares are seasonal',
     booking: 'Ask an authorised Lakshadweep tourism operator to confirm whether a seaplane service is operating for your dates.',
     note: 'A beautiful option when operating, but never assume it is available year-round.',
-    imageUrl: image('photo-1474302770737-173ee21bab63', 1400)
+    imageUrl: 'media/generated/transport-seaplane.webp'
   },
   {
     id: 'helicopter',
@@ -231,7 +193,7 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     cost: 'Quote on request; not a standard scheduled tourist transfer',
     booking: 'Use only official or authorised channels. Your island operator can advise whether a charter or permitted transfer is possible.',
     note: 'Availability is operational, not guaranteed. Never book through an unverified broker.',
-    imageUrl: image('photo-1508614589041-895b88991e3e', 1400)
+    imageUrl: 'media/generated/transport-helicopter.webp'
   }
 ];
 
@@ -263,7 +225,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Beginners & non-swimmers',
     duration: '2.5 hrs',
     badge: 'Beginner favourite',
-    imageUrl: image('photo-1544551763-46a013bb70d5'),
+    imageUrl: 'media/generated/service-lagoon-diving.webp',
     highlights: ['Full safety briefing', 'PADI pro in the water', 'Shallow coral exploration']
   },
   {
@@ -278,7 +240,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Advanced PADI divers',
     duration: '3.5 hrs',
     badge: 'Outer reef',
-    imageUrl: image('photo-1544550285-f813152fb2fd'),
+    imageUrl: 'media/generated/service-deep-sea-diving.webp',
     highlights: ['Outer reef wall sites', 'Small group departures', 'Top-tier dive equipment']
   },
   {
@@ -293,7 +255,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'New & certified divers',
     duration: '2-4 days',
     badge: 'Learn for life',
-    imageUrl: image('photo-1530053969600-caed2596d242'),
+    imageUrl: 'media/generated/service-padi-courses.webp',
     highlights: ['Open Water certification', 'Advanced Open Water', 'Flexible island schedule']
   },
   {
@@ -308,7 +270,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Every kind of explorer',
     duration: '1-6 hrs',
     badge: 'Easygoing',
-    imageUrl: image('photo-1500375592092-40eb2168fd21'),
+    imageUrl: 'media/generated/service-water-sports.webp',
     highlights: ['Glass boat ride', 'Guided kayaking', 'Lagoon snorkelling', 'Deep sea fishing']
   }
 ];
@@ -380,7 +342,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous scuba experience. Adequate swimming ability, general physical fitness and completed medical and liability documentation.',
     structure: ['3 knowledge-development sections', '3 confined-water training sessions', '2 open-water training dives'],
     taught: ['Pressure and equipment basics', 'Safe breathing and equalisation', 'Equipment assembly and use', 'Mask clearing and regulator recovery', 'Buoyancy, entries, exits and buddy procedures', 'Air monitoring, communication and basic emergency skills'],
-    outcome: 'A recognised supervised-diving certification that can be upgraded to PADI Open Water Diver.', imageUrl: image('photo-1544551763-46a013bb70d5')
+    outcome: 'A recognised supervised-diving certification that can be upgraded to PADI Open Water Diver.', imageUrl: 'media/generated/course-scuba-diver.webp'
   },
   {
     id: 'open-water-diver', category: 'Beginner certifications', eyebrow: 'The complete first step', title: 'PADI Open Water Diver',
@@ -390,7 +352,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous diving certification. Adequate swimming ability, suitable physical health, completed medical questionnaire and required forms.',
     structure: ['5 knowledge-development sections', '5 confined-water sessions', '4 open-water certification dives', 'Water-skills assessment including swim and survival float or tread-water exercise'],
     taught: ['Diving physics and physiology', 'Dive planning and no-decompression limits', 'Equipment care, assembly and pre-dive checks', 'Mask, regulator and alternate-air-source skills', 'Buoyancy, hovering, navigation and controlled ascents', 'Emergency procedures and responsible environmental awareness'],
-    outcome: 'Certification to dive with another appropriately certified diver, generally to 18 metres, subject to local conditions, law, training and experience.', imageUrl: image('photo-1530053969600-caed2596d242')
+    outcome: 'Certification to dive with another appropriately certified diver, generally to 18 metres, subject to local conditions, law, training and experience.', imageUrl: 'media/generated/course-open-water-diver.webp'
   },
   {
     id: 'advanced-open-water', category: 'Continuing education', eyebrow: 'Five ways to go further', title: 'PADI Advanced Open Water Diver',
@@ -400,7 +362,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or a qualifying certification from another recognised training organisation.',
     structure: ['Deep Adventure Dive', 'Underwater Navigation Adventure Dive', '3 elective Adventure Dives such as buoyancy, night, wreck, photography, nitrox or fish identification'],
     taught: ['Deep-dive planning and narcosis awareness', 'Gas consumption and depth effects', 'Compass and natural navigation', 'Improved buoyancy and trim', 'Specialised communication, photography, search or boat skills depending on electives'],
-    outcome: 'A stronger recreational foundation and a pathway toward a 30 metre maximum recreational depth for eligible adult divers.', imageUrl: image('photo-1544550285-f813152fb2fd')
+    outcome: 'A stronger recreational foundation and a pathway toward a 30 metre maximum recreational depth for eligible adult divers.', imageUrl: 'media/generated/course-advanced-open-water.webp'
   },
   {
     id: 'emergency-first-response', category: 'First aid & safety', eyebrow: 'Ready above and below water', title: 'Emergency First Response Primary & Secondary Care',
@@ -410,7 +372,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No scuba certification or diving experience. Participants must be capable of understanding and performing the skills.',
     structure: ['Independent knowledge development', 'Instructor demonstrations', 'Hands-on skill practice', 'Emergency scenarios'],
     taught: ['Scene safety and barrier use', 'Responsiveness assessment and CPR', 'Rescue breathing and AED use', 'Serious bleeding, shock and choking response', 'Injury and illness assessment', 'Bandaging, splinting, monitoring and escalation to medical help'],
-    outcome: 'Current CPR and first-aid competence for everyday emergencies and progression into Rescue Diver where applicable.', imageUrl: image('photo-1559757175-0eb30cd8c063')
+    outcome: 'Current CPR and first-aid competence for everyday emergencies and progression into Rescue Diver where applicable.', imageUrl: 'media/generated/course-emergency-first-response.webp'
   },
   {
     id: 'rescue-diver', category: 'Continuing education', eyebrow: 'Look out for the whole team', title: 'PADI Rescue Diver',
@@ -420,7 +382,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Adventure Diver with Underwater Navigation, or qualifying certification; current CPR and first-aid training within the previous 24 months. Advanced Open Water is strongly recommended.',
     structure: ['Knowledge development', 'Rescue-skill practice sessions', 'Open-water rescue exercises', 'At least 2 comprehensive rescue scenarios', 'Emergency-assistance plan'],
     taught: ['Self-rescue review and diver stress', 'Tired, panicked and distressed diver assistance', 'Missing-diver searches', 'Surfacing and removing an unresponsive diver', 'In-water rescue breathing and emergency coordination', 'Accident prevention and risk management'],
-    outcome: 'A major confidence and safety milestone, and an important prerequisite for PADI Divemaster.', imageUrl: image('photo-1560275619-4662e36fa65c')
+    outcome: 'A major confidence and safety milestone, and an important prerequisite for PADI Divemaster.', imageUrl: 'media/generated/course-rescue-diver.webp'
   },
   {
     id: 'deep-diver', category: 'Specialty diver courses', eyebrow: 'Go beyond the familiar', title: 'PADI Deep Diver',
@@ -430,7 +392,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Adventure Diver or a qualifying certification.',
     structure: ['Knowledge development', '4 open-water deep dives', 'Deep Adventure Dive may count as the first specialty dive when applicable'],
     taught: ['Deep-dive planning and gas management', 'Nitrogen narcosis awareness', 'No-decompression limits and emergency gas planning', 'Buoyancy control, buddy contact and safety stops', 'Special equipment and depth procedures'],
-    outcome: 'PADI Deep Diver specialty certification within recreational standards and instructor judgement.', imageUrl: image('photo-1544550285-f813152fb2fd')
+    outcome: 'PADI Deep Diver specialty certification within recreational standards and instructor judgement.', imageUrl: 'media/generated/course-deep-diver.webp'
   },
   {
     id: 'digital-underwater-photographer', category: 'Specialty diver courses', eyebrow: 'Make the blue memorable', title: 'PADI Digital Underwater Photographer',
@@ -440,7 +402,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification. Adapted confined-water versions may have different requirements.',
     structure: ['Knowledge development', '2 open-water dives', 'Confined-water adapted versions may be available'],
     taught: ['Camera and housing preparation', 'Leak prevention and maintenance', 'Composition and getting close safely', 'White balance, strobes and camera settings', 'Backscatter reduction and image review', 'Responsible behaviour around marine life'],
-    outcome: 'A practical foundation for producing more intentional underwater images.', imageUrl: image('photo-1518495973542-4542c06a5843')
+    outcome: 'A practical foundation for producing more intentional underwater images.', imageUrl: 'media/generated/course-digital-underwater-photographer.webp'
   },
   {
     id: 'enriched-air-nitrox', category: 'Specialty diver courses', eyebrow: 'More time in the right places', title: 'PADI Enriched Air Diver - Nitrox',
@@ -450,7 +412,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
     structure: ['Knowledge development', 'Oxygen-analysis and cylinder-management exercises', 'Optional enriched-air dives; open-water dives are not always required'],
     taught: ['Benefits and limitations of enriched air', 'Oxygen-toxicity risk and maximum operating depth', 'Cylinder analysis, labelling and documentation', 'Nitrox dive planning and computer settings', 'Safe handling and equipment considerations'],
-    outcome: 'The knowledge and practical skills to use enriched air safely within training limits.', imageUrl: image('photo-1516280440614-37939bbacd81')
+    outcome: 'The knowledge and practical skills to use enriched air safely within training limits.', imageUrl: 'media/generated/course-enriched-air-nitrox.webp'
   },
   {
     id: 'night-diver', category: 'Specialty diver courses', eyebrow: 'Meet the reef after sunset', title: 'PADI Night Diver',
@@ -460,7 +422,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
     structure: ['Knowledge development', '3 night dives'],
     taught: ['Primary and backup-light selection', 'Light signals and buddy communication', 'Navigation and orientation at night', 'Safe entries, exits, descents and ascents', 'Limited-visibility and light-failure management'],
-    outcome: 'PADI Night Diver specialty certification and a more confident after-dark dive routine.', imageUrl: image('photo-1544551763-77ef2d0cfc6c')
+    outcome: 'PADI Night Diver specialty certification and a more confident after-dark dive routine.', imageUrl: 'media/generated/course-night-diver.webp'
   },
   {
     id: 'adaptive-support-diver', category: 'Specialty diver courses', eyebrow: 'Buddy better', title: 'PADI Adaptive Support Diver',
@@ -470,7 +432,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver or qualifying certification, plus current EFR Primary and Secondary Care within the previous 24 months.',
     structure: ['Knowledge development', 'Confined-water skill practice', '2 open-water dives'],
     taught: ['Individual-ability assessment', 'Respectful communication and support planning', 'Adaptive buddy procedures', 'Equipment, entry and exit assistance', 'Alternative underwater communication', 'Diver stress, balance and trim support'],
-    outcome: 'A practical, human-centred approach to inclusive buddying.', imageUrl: image('photo-1539635278303-d4002c07eae3')
+    outcome: 'A practical, human-centred approach to inclusive buddying.', imageUrl: 'media/generated/course-adaptive-support-diver.webp'
   },
   {
     id: 'adaptive-techniques', category: 'Professional development', eyebrow: 'Inclusive teaching', title: 'PADI Adaptive Techniques',
@@ -480,7 +442,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'Entry requirements vary for PADI Divemasters, Assistant Instructors or Instructors. Current CPR and first-aid training may also be required.',
     structure: ['Individualised student assessment', 'Inclusive teaching workshops', 'Equipment and confined-water adaptations', 'Risk-assessment and training-plan exercises'],
     taught: ['Alternative communication methods', 'Adapting equipment configurations', 'Modifying confined-water skills', 'Entry and exit assistance', 'Support-diver coordination', 'Maintaining student dignity and independence'],
-    outcome: 'Professional techniques for building a more inclusive dive-learning environment.', imageUrl: image('photo-1529156069898-49953e39b3ac')
+    outcome: 'Professional techniques for building a more inclusive dive-learning environment.', imageUrl: 'media/generated/course-adaptive-techniques.webp'
   },
   {
     id: 'delayed-surface-marker-buoy', category: 'Specialty diver courses', eyebrow: 'Be seen from below', title: 'PADI Delayed Surface Marker Buoy Diver',
@@ -490,7 +452,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
     structure: ['Knowledge development', 'Confined-water or surface practice where appropriate', '2 open-water dives'],
     taught: ['DSMB and reel selection', 'Preparation and inflation', 'Entanglement prevention', 'Line tension and buoyancy control', 'Safety-stop reference use', 'Emergency release and uncontrolled-ascent prevention'],
-    outcome: 'A safer, more deliberate surface-signalling skill for boat and current environments.', imageUrl: image('photo-1469474968028-56623f02e42e')
+    outcome: 'A safer, more deliberate surface-signalling skill for boat and current environments.', imageUrl: 'media/generated/course-delayed-surface-marker-buoy.webp'
   },
   {
     id: 'emergency-oxygen-provider', category: 'First aid & safety', eyebrow: 'Respond before help arrives', title: 'PADI Emergency Oxygen Provider',
@@ -500,7 +462,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No diving certification or previous medical training required.',
     structure: ['Knowledge development', 'Instructor demonstrations', 'Hands-on oxygen equipment practice', 'Emergency scenarios'],
     taught: ['Recognising decompression illness and lung-overexpansion injury', 'When emergency oxygen may be needed', 'Oxygen-unit assembly and disassembly', 'Non-rebreather mask and demand-inhalator use', 'Patient monitoring and emergency-service activation'],
-    outcome: 'A practical first-response skill set for suspected diving injuries while awaiting professional care.', imageUrl: image('photo-1576091160399-112ba8d25d1d')
+    outcome: 'A practical first-response skill set for suspected diving injuries while awaiting professional care.', imageUrl: 'media/generated/course-emergency-oxygen-provider.webp'
   },
   {
     id: 'underwater-navigator', category: 'Specialty diver courses', eyebrow: 'Find your way home', title: 'PADI Underwater Navigator',
@@ -510,7 +472,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
     structure: ['Knowledge development', '3 open-water dives', 'Advanced Open Water Navigation Adventure Dive may count as the first specialty dive where applicable'],
     taught: ['Compass headings and reciprocal headings', 'Square and pattern navigation', 'Kick-cycle and time distance measurement', 'Natural references and underwater mapping', 'Object relocation and error management'],
-    outcome: 'More confident, independent navigation within your certified experience limits.', imageUrl: image('photo-1497250681960-ef046c08a56e')
+    outcome: 'More confident, independent navigation within your certified experience limits.', imageUrl: 'media/generated/course-underwater-navigator.webp'
   },
   {
     id: 'wreck-diver', category: 'Specialty diver courses', eyebrow: 'Explore responsibly', title: 'PADI Wreck Diver',
@@ -520,7 +482,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Adventure Diver or qualifying certification.',
     structure: ['Knowledge development', '4 open-water wreck dives', 'Wreck Adventure Dive may count as the first specialty dive where applicable'],
     taught: ['Wreck history and condition research', 'Exterior survey and hazard identification', 'Sharp-metal and entanglement avoidance', 'Reels, penetration lines and exit contact', 'Gas-management limits and protected-site respect'],
-    outcome: 'PADI Wreck Diver specialty certification. It does not authorise unrestricted overhead-environment penetration.', imageUrl: image('photo-1518709268805-4e9042af9f23')
+    outcome: 'PADI Wreck Diver specialty certification. It does not authorise unrestricted overhead-environment penetration.', imageUrl: 'media/generated/course-wreck-diver.webp'
   },
   {
     id: 'peak-performance-buoyancy', category: 'Specialty diver courses', eyebrow: 'Move like the water', title: 'PADI Peak Performance Buoyancy',
@@ -530,7 +492,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
     structure: ['Knowledge development', '2 open-water dives'],
     taught: ['Correct weighting and weight distribution', 'Horizontal trim and breath control', 'BCD buoyancy fine-tuning', 'Hovering, streamlining and efficient finning', 'Avoiding accidental coral contact'],
-    outcome: 'A calmer, more efficient and more reef-friendly diving style.', imageUrl: image('photo-1507525428034-b723cf961d3e')
+    outcome: 'A calmer, more efficient and more reef-friendly diving style.', imageUrl: 'media/generated/course-peak-performance-buoyancy.webp'
   },
   {
     id: 'divemaster', category: 'Professional development', eyebrow: 'Lead the way', title: 'PADI Divemaster',
@@ -540,7 +502,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Advanced Open Water and Rescue Diver or qualifying certifications, current EFR within 24 months, at least 40 logged dives to begin, medical clearance, swimming ability and fitness.',
     structure: ['Watermanship and stamina assessments', 'Rescue evaluation', 'Dive-skill demonstration circuits', 'Underwater mapping', 'Search and recovery', 'Deep-dive scenarios', 'Site setup, briefings and supervised guiding'],
     taught: ['Supervising certified and student divers', 'Dive briefings and site management', 'Physics, physiology and decompression theory', 'Equipment and recreational dive planning', 'Emergency planning, environmental awareness and industry conduct'],
-    outcome: 'Professional Divemaster certification normally requires a minimum of 60 logged dives and opens the route toward instructor development.', imageUrl: image('photo-1531058020387-3be344556be6')
+    outcome: 'Professional Divemaster certification normally requires a minimum of 60 logged dives and opens the route toward instructor development.', imageUrl: 'media/generated/course-divemaster.webp'
   },
   {
     id: 'emergency-first-response-instructor', category: 'Professional development', eyebrow: 'Teach life-saving skills', title: 'Emergency First Response Instructor - EFRI',
@@ -550,7 +512,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'Requirements depend on professional status and regional EFR standards. Current adult CPR and first-aid training is normally required.',
     structure: ['Independent preparation', 'Instructor-led knowledge development', 'Teaching workshops', 'Skill demonstrations', 'Practice teaching assignments', 'Final evaluation'],
     taught: ['EFR philosophy and standards', 'Teaching CPR and first aid', 'Knowledge-development facilitation', 'Medical-skill demonstrations', 'Emergency-scenario coaching', 'Student evaluation and certification administration'],
-    outcome: 'Authorisation to conduct the EFR programmes within your active teaching status and scope.', imageUrl: image('photo-1521791136064-7986c2920216')
+    outcome: 'Authorisation to conduct the EFR programmes within your active teaching status and scope.', imageUrl: 'media/generated/course-emergency-first-response-instructor.webp'
   },
   {
     id: 'assistant-instructor', category: 'Professional development', eyebrow: 'Start teaching', title: 'PADI Assistant Instructor',
@@ -560,7 +522,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Divemaster or qualifying leadership certification, certified diver status for at least 6 months, at least 60 logged dives to begin the IDC, current EFR, medical clearance and EFR Instructor qualification before the full pathway.',
     structure: ['Knowledge and teaching philosophy', 'Confined-water presentations', 'Open-water teaching assignments', 'Standards, evaluation and course administration'],
     taught: ['PADI teaching philosophy', 'Knowledge-development presentations', 'Confined-water skill teaching', 'Open-water assignments', 'Risk management and professional conduct'],
-    outcome: 'A teaching-level PADI rating and a path into the Open Water Scuba Instructor portion of the IDC and PADI Instructor Examination.', imageUrl: image('photo-1521737711867-e3b97375f902')
+    outcome: 'A teaching-level PADI rating and a path into the Open Water Scuba Instructor portion of the IDC and PADI Instructor Examination.', imageUrl: 'media/generated/course-assistant-instructor.webp'
   },
   {
     id: 'bubblemaker', category: 'Youth & introductory', eyebrow: 'Little explorers', title: 'PADI Bubblemaker',
@@ -570,7 +532,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous experience. Parental or guardian approval, water comfort and completed medical and participation forms.',
     structure: ['Equipment introduction', 'Supervised breathing underwater', 'Basic movement and equalisation awareness', 'Games and activities'],
     taught: ['Scuba equipment use', 'Underwater breathing', 'Simple hand signals', 'Safe movement and environmental respect'],
-    outcome: 'A supervised participation experience and a positive first memory of scuba - not a certification.', imageUrl: image('photo-1544551763-46a013bb70d5')
+    outcome: 'A supervised participation experience and a positive first memory of scuba - not a certification.', imageUrl: 'media/generated/course-bubblemaker.webp'
   },
   {
     id: 'seal-team', category: 'Youth & introductory', eyebrow: 'AquaMissions', title: 'PADI Seal Team',
@@ -580,7 +542,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No prior certification; participation follows instructor screening, guardian approval and required forms.',
     structure: ['AquaMissions 1-5 for Seal Team recognition', 'Optional specialty AquaMissions', 'Master Seal Team recognition after required specialty missions'],
     taught: ['Equipment use and breathing underwater', 'Mask clearing and regulator skills', 'Buoyancy and underwater communication', 'Environmental responsibility', 'Optional photography, navigation, search, night and wreck simulations'],
-    outcome: 'Youth programme recognition, not an open-water diver certification.', imageUrl: image('photo-1504159506876-f8338247a14a')
+    outcome: 'Youth programme recognition, not an open-water diver certification.', imageUrl: 'media/generated/course-seal-team.webp'
   },
   {
     id: 'discover-scuba-diving', category: 'Youth & introductory', eyebrow: 'Try the blue', title: 'PADI Discover Scuba Diving',
@@ -590,7 +552,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous certification. Basic comfort in the water, suitable medical fitness and completed required forms.',
     structure: ['Safety and knowledge briefing', 'Confined-water skills', 'Optional supervised open-water dive'],
     taught: ['Equipment use and safety rules', 'Equalisation and underwater breathing', 'Regulator and mask clearing', 'Basic buoyancy and hand signals', 'Responsible environmental interaction'],
-    outcome: 'A memorable supervised experience. Training may sometimes be credited toward Scuba Diver or Open Water when PADI requirements and timing allow.', imageUrl: image('photo-1544551763-46a013bb70d5')
+    outcome: 'A memorable supervised experience. Training may sometimes be credited toward Scuba Diver or Open Water when PADI requirements and timing allow.', imageUrl: 'media/generated/course-discover-scuba-diving.webp'
   }
 ];
 
@@ -624,14 +586,14 @@ export const TESTIMONIALS: readonly Testimonial[] = [
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
   { id: 'scuba-lak-team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
   { id: 'scuba-lak-on-the-sands', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
-  { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: 'Western lagoon', imageUrl: image('photo-1507525428034-b723cf961d3e', 1600), size: 'wide' },
-  { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: 'Outer reef', imageUrl: image('photo-1544550285-f813152fb2fd', 1200), size: 'tall' },
-  { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: 'Kadmat Island', imageUrl: image('photo-1500534623283-312aade485b7', 1200), size: 'standard' },
-  { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: 'Dive jetty', imageUrl: image('photo-1544551763-46a013bb70d5', 1200), size: 'wide' },
-  { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: 'Beachfront', imageUrl: image('photo-1510414842594-a61c69b5ae57', 1200), size: 'standard' },
-  { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: 'Lagoon dive site', imageUrl: image('photo-1530053969600-caed2596d242', 1200), size: 'tall' },
-  { id: 'blue-villa', title: 'Blue room mornings', description: 'A private beach-facing start before the first boat leaves the jetty.', location: 'Scuba Lak', imageUrl: image('photo-1564501049412-61c2a3083791', 1200), size: 'standard' },
-  { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: 'South lagoon', imageUrl: image('photo-1473116763249-2faaef81ccda', 1200), size: 'wide' }
+  { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-glass-water.webp', size: 'wide' },
+  { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-reef-wall.webp', size: 'tall' },
+  { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-shoreline.webp', size: 'standard' },
+  { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-boat-day.webp', size: 'wide' },
+  { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-palm-shadow.webp', size: 'standard' },
+  { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-underwater-light.webp', size: 'tall' },
+  { id: 'blue-villa', title: 'Blue room mornings', description: 'A private beach-facing start before the first boat leaves the jetty.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-blue-villa.webp', size: 'standard' },
+  { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-shore-paddle.webp', size: 'wide' }
 ];
 
 export const COMPANY_MILESTONES: readonly CompanyMilestone[] = [

@@ -1,3 +1,5 @@
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
+import { DialogShellComponent } from '../../common/components/dialog-shell/dialog-shell.component';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
@@ -18,7 +20,7 @@ import {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, ServiceCardComponent],
+  imports: [ResponsiveImageDirective, RouterLink, ServiceCardComponent, DialogShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html'
 })

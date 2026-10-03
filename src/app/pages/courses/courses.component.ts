@@ -1,3 +1,4 @@
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -7,7 +8,7 @@ import { CourseCategory } from '../../models/site-data.model';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html'
 })

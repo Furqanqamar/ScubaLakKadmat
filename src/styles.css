@@ -1,5 +1,7 @@
 @import "tailwindcss";
-@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "@fortawesome/fontawesome-free/css/solid.min.css";
+@import "@fortawesome/fontawesome-free/css/brands.min.css";
 @import "./styles/theme.css";
 
 :root {
@@ -25,12 +27,6 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-main > section:not(:first-child),
-#top > section:not(:first-child) {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
 }
 
 h1,
@@ -75,8 +71,7 @@ a {
 .motion-reveal {
   opacity: 0;
   transform: translate3d(0, 1.7rem, 0) scale(.985);
-  filter: blur(3px);
-  transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1), filter .8s cubic-bezier(.2,.8,.2,1);
+  transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);
 }
 
 .motion-reveal.is-visible {
@@ -221,7 +216,7 @@ button:focus-visible {
   background-size: cover;
   color: white;
 }
-.destination-hero--lakshadweep { background-image: url('/media/lakshadweep/optimized/island-view-1.jpg'); }
+.destination-hero--lakshadweep { background-image: url('/media/generated/banner-lakshadweep.webp'); }
 .destination-hero--kadmat { background-image: url('/media/lakshadweep/optimized/kadmat-reference.jpg'); }
 .destination-hero__wash { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.68) 44%, rgba(3,17,22,.1)), linear-gradient(0deg, rgba(3,17,22,.9), transparent 62%); }
 .destination-hero__content { position: relative; z-index: 1; }
@@ -269,19 +264,7 @@ button:focus-visible {
 .transport-card__copy > p strong { color: var(--ink); }
 .transport-card__note { border-left: 2px solid #b8cdbf; padding-left: .75rem; color: rgba(16,40,45,.48) !important; font-style: italic; }
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding: 1.25rem;
-  background: rgba(3,17,22,.78);
-  backdrop-filter: blur(16px);
-  animation: fade-in .2s ease both;
-}
 
-.modal-panel,
 .briefing-modal {
   position: relative;
   width: min(100%, 52rem);
@@ -293,29 +276,8 @@ button:focus-visible {
   animation: modal-in .28s cubic-bezier(.2,.8,.2,1) both;
 }
 
-.modal-panel {
-  display: flex;
-  min-height: min(35rem, calc(100vh - 2.5rem));
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--deep);
-}
 
-.modal-panel__image {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background-position: center;
-  background-size: cover;
-}
 
-.modal-panel::after {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(3,17,22,.06), rgba(3,17,22,.92) 85%);
-  content: '';
-}
 
 .briefing-modal {
   background: var(--sand);
@@ -347,10 +309,6 @@ button:focus-visible {
   color: rgba(16,40,45,.65);
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
 @keyframes modal-in {
   from { opacity: 0; transform: translateY(1rem) scale(.98); }
@@ -397,11 +355,11 @@ button:focus-visible {
   content: '';
 }
 
-.page-hero--deep { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.64)), url('/media/lakshadweep/underwater-1.jpg'); }
-.page-hero--course { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/lakshadweep/underwater-2.jpg'); }
-.page-hero--about { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/lakshadweep/island-view-3.jpg'); }
-.page-hero--gallery { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/lakshadweep/agatti-beach.jpg'); }
-.page-hero--contact { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.56)), url('/media/lakshadweep/island-view-2.jpg'); }
+.page-hero--deep { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.64)), url('/media/generated/banner-deep.webp'); }
+.page-hero--course { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/generated/banner-course.webp'); }
+.page-hero--about { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/generated/banner-about.webp'); }
+.page-hero--gallery { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.58)), url('/media/generated/banner-gallery.webp'); }
+.page-hero--contact { background-image: linear-gradient(90deg, rgba(3,17,22,.98), rgba(3,17,22,.56)), url('/media/generated/banner-contact.webp'); }
 
 .page-hero__watermark {
   position: absolute;
@@ -582,9 +540,14 @@ button:focus-visible {
 .gallery-card--tall { min-height: 30rem; }
 .gallery-card__copy em { position: absolute; right: 0; bottom: 0; display: grid; width: 2.15rem; height: 2.15rem; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: white; font-style: normal; transition: background .2s ease, color .2s ease; }
 .gallery-card:hover .gallery-card__copy em { background: var(--mint); color: var(--deep); }
-.gallery-lightbox { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 1rem; background: rgba(3,17,22,.82); backdrop-filter: blur(16px); }
-.gallery-lightbox__panel { width: min(100%, 70rem); max-height: calc(100vh - 2rem); overflow: hidden; border: 1px solid rgba(255,255,255,.15); border-radius: 1.5rem; background: var(--deep); box-shadow: 0 2rem 7rem rgba(0,0,0,.4); }
-.gallery-lightbox__panel > img { display: block; width: 100%; max-height: 65vh; object-fit: cover; }
+html.dialog-open { overflow: hidden; }
+[aria-disabled="true"] { cursor: not-allowed; opacity: .65; }
+@media (max-width: 639px) {
+  main h1, #top h1 { font-size: clamp(2.6rem, 11.7vw, 3.75rem); overflow-wrap: anywhere; }
+  .transport-card__copy dl div { grid-template-columns: 1fr; gap: .3rem; }
+}
+.gallery-lightbox__panel { width: 100%; border: 1px solid rgba(255,255,255,.15); border-radius: 1.5rem; background: var(--deep); }
+.gallery-lightbox__panel > img { display: block; width: 100%; max-height: 65dvh; object-fit: contain; }
 .gallery-lightbox__caption { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.2rem; }
 .empty-state { min-height: 70vh; padding: 14rem 1.25rem 6rem; background: var(--sand); color: var(--ink); }
 

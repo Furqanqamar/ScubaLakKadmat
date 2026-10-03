@@ -1,13 +1,11 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withRouterConfig } from '@angular/router';
 
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withInMemoryScrolling({
-      anchorScrolling: 'disabled',
-      scrollPositionRestoration: 'top'
-    }))
+    provideZonelessChangeDetection(),
+    provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' }))
   ]
 };

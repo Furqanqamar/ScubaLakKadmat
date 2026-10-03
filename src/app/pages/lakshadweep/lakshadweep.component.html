@@ -23,7 +23,7 @@
 
   <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32" data-reveal>
     <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.65fr_1.35fr] lg:gap-20">
-      <div><p class="eyebrow text-[#b8f2df]">The island atlas</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Every island keeps a different <em>secret.</em></h2><p class="mt-7 max-w-sm text-sm leading-7 text-white/55">This is a field guide to the inhabited islands and key visitor atolls. The archipelago is a living home first, a destination second.</p></div>
+      <div><p class="eyebrow text-[#b8f2df]">The island atlas</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Every island keeps a different <em>secret.</em></h2><p class="mt-7 max-w-sm text-sm leading-7 text-white/55">This is a field guide to the inhabited islands and key visitor atolls. The archipelago is a living home first, a destination second.</p><p class="mt-4 max-w-sm text-xs leading-6 text-white/65">{{ copy.imagery.islandNote }}</p></div>
       <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         @for (island of islands; track island.name) {
           <article class="island-card">

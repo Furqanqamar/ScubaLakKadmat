@@ -1,3 +1,4 @@
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -7,7 +8,7 @@ import { PADI_COURSES } from '../../data/site-content';
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './course-detail.component.html'
 })

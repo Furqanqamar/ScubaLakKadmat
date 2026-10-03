@@ -29,7 +29,7 @@ jobs:
           node-version: 22.22.3
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -37,8 +37,7 @@ jobs:
       - name: Build for the repository subpath
         run: |
           npm run build -- --base-href /ScubaLakKadmat/
-          find dist/scuba-lak/browser -name '*.css' -print0 | xargs -0 sed -i 's#/media/#/ScubaLakKadmat/media/#g'
-          cp dist/scuba-lak/browser/index.html dist/scuba-lak/browser/404.html
+          node scripts/prepare-pages.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

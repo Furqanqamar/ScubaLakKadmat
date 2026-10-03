@@ -11,7 +11,7 @@ import { SmoothScrollService } from '../../services/smooth-scroll.service';
   imports: [RouterLink, RouterLinkActive, BrandLockupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <header class="site-header">
+    <header class="site-header" (keydown.escape)="closeMenu()">
       <nav class="mx-auto flex max-w-[90rem] items-center justify-between" [attr.aria-label]="copy.navigation.primaryLabel">
         <a class="site-header__brand" routerLink="/" [attr.aria-label]="copy.brand.homeLabel" (click)="handleLogoClick($event)">
           <app-brand-lockup />
@@ -50,7 +50,7 @@ import { SmoothScrollService } from '../../services/smooth-scroll.service';
     .site-header__brand { display: inline-flex; color: #f4f1e9; }
     .nav-link { color: rgba(255,255,255,.62); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .61rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; transition: color .2s ease; }
     .nav-link:hover, .nav-link--active, .nav-link:focus-visible { color: #b8f2df; }
-    .menu-toggle { display: grid; width: 2.5rem; height: 2.5rem; place-content: center; gap: .33rem; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(6,20,25,.3); backdrop-filter: blur(12px); }
+    .menu-toggle { display: grid; width: 2.75rem; height: 2.75rem; place-content: center; gap: .33rem; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(6,20,25,.3); backdrop-filter: blur(12px); }
     .menu-toggle span { display: block; width: 1rem; height: 1px; background: #d6fff0; }
     .mobile-navigation { margin: 1.25rem auto 0; max-width: 90rem; border: 1px solid rgba(255,255,255,.14); border-radius: 1.25rem; background: rgba(6,20,25,.9); padding: .75rem; backdrop-filter: blur(18px); }
     .mobile-navigation a { display: block; border-radius: .8rem; padding: .85rem 1rem; color: rgba(255,255,255,.72); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }

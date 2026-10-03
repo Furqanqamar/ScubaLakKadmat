@@ -1,4 +1,8 @@
 export const SITE_COPY = {
+  imagery: {
+    illustration: 'AI-generated illustration',
+    islandNote: 'Selected island scenes are AI-generated interpretations, not photographs of the exact locations.'
+  },
   brand: {
     name: 'Scuba Lak',
     tagline: 'Kadmat Lakshadweep',
@@ -41,6 +45,7 @@ export const SITE_COPY = {
     coordinate: '11° 13′ N · 72° 46′ E'
   },
   footer: {
+    imageNote: 'Our team photographs and hero film are original Scuba Lak media. Other scenes include AI-generated illustrations inspired by island life, diving and travel; these are not documentary photographs or a guarantee of specific facilities.',
     legal: 'Scuba Lak · Kadmat Island · Lakshadweep · Dive softly · travel lightly · © 2026',
     socialNote: 'Social links are ready for your official handles'
   },

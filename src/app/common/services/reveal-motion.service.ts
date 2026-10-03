@@ -21,10 +21,12 @@ export class RevealMotionService {
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       }
-    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 40px 0px' });
 
     const observe = (root: ParentNode): void => {
-      root.querySelectorAll<HTMLElement>('[data-reveal]').forEach((element) => {
+      const elements = [...root.querySelectorAll<HTMLElement>('[data-reveal]')];
+      if (root instanceof view.HTMLElement && root.matches('[data-reveal]')) elements.unshift(root);
+      elements.forEach((element) => {
         if (!element.classList.contains('motion-reveal')) {
           element.classList.add('motion-reveal');
           observer.observe(element);

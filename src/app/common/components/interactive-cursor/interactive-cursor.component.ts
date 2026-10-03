@@ -6,15 +6,15 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span class="interactive-cursor" aria-hidden="true">
-      <span class="interactive-cursor__ring" [class.interactive-cursor__ring--active]="isInteractive()" [style.left.px]="cursorX()" [style.top.px]="cursorY()"></span>
-      <span class="interactive-cursor__dot" [style.left.px]="cursorX()" [style.top.px]="cursorY()"></span>
+    <span class="interactive-cursor" aria-hidden="true" [style.transform]="'translate3d(' + cursorX() + 'px,' + cursorY() + 'px,0)'">
+      <span class="interactive-cursor__ring" [class.interactive-cursor__ring--active]="isInteractive()"></span>
+      <span class="interactive-cursor__dot"></span>
     </span>
   `,
   styles: `
     :host { display: block; }
-    .interactive-cursor { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
-    .interactive-cursor__dot, .interactive-cursor__ring { position: fixed; top: -3rem; left: -3rem; pointer-events: none; }
+    .interactive-cursor { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; }
+    .interactive-cursor__dot, .interactive-cursor__ring { position: absolute; top: 0; left: 0; pointer-events: none; }
     .interactive-cursor__dot { width: .45rem; height: .45rem; transform: translate(-50%, -50%); border-radius: 999px; background: #b8f2df; box-shadow: 0 0 .9rem rgba(184,242,223,.65); transition: transform .18s ease, opacity .18s ease; }
     .interactive-cursor__ring { width: 2rem; height: 2rem; transform: translate(-50%, -50%); border: 1px solid rgba(214,255,240,.75); border-radius: 999px; opacity: .72; transition: width .32s cubic-bezier(.2,.8,.2,1), height .32s cubic-bezier(.2,.8,.2,1), border-color .24s ease, background .24s ease, opacity .24s ease, left .16s ease-out, top .16s ease-out; }
     .interactive-cursor__ring--active { width: 3.8rem; height: 3.8rem; border-color: rgba(184,242,223,.9); background: rgba(184,242,223,.08); opacity: 1; }
@@ -37,12 +37,20 @@ export class InteractiveCursorComponent {
 
     this.document.body?.classList.add('custom-cursor-enabled');
 
+    let frame: number | null = null;
+    let x = -100;
+    let y = -100;
     const handlePointerMove = (event: PointerEvent): void => {
       if (event.pointerType && event.pointerType !== 'mouse') {
         return;
       }
-      this.cursorX.set(event.clientX);
-      this.cursorY.set(event.clientY);
+      x = event.clientX;
+      y = event.clientY;
+      if (frame === null) frame = view.requestAnimationFrame(() => {
+        frame = null;
+        this.cursorX.set(x);
+        this.cursorY.set(y);
+      });
     };
     const handlePointerOver = (event: PointerEvent): void => {
       const target = this.closestInteractive(event.target);
@@ -65,6 +73,7 @@ export class InteractiveCursorComponent {
     this.document.addEventListener('pointerout', handlePointerOut, { passive: true });
 
     this.destroyRef.onDestroy(() => {
+      if (frame !== null) view.cancelAnimationFrame(frame);
       view.removeEventListener('pointermove', handlePointerMove);
       this.document.removeEventListener('pointerover', handlePointerOver);
       this.document.removeEventListener('pointerout', handlePointerOut);

@@ -23,6 +23,7 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=utf-8',
   '.webmanifest': 'application/manifest+json',
   '.webm': 'video/webm',
+  '.webp': 'image/webp',
   '.mp4': 'video/mp4',
   '.xml': 'application/xml; charset=utf-8'
 };
@@ -59,7 +60,7 @@ async function resolveRequestPath(requestUrl) {
 }
 
 function isImmutableAsset(filePath) {
-  return filePath.includes('/media/') || /-[A-Za-z0-9_-]{8,}\.(?:js|css)$/.test(filePath);
+  return /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?)$/.test(filePath);
 }
 
 const server = createServer(async (request, response) => {
@@ -69,7 +70,9 @@ const server = createServer(async (request, response) => {
     return;
   }
 
-  const filePath = await resolveRequestPath(request.url ?? '/');
+  let filePath;
+  try { filePath = await resolveRequestPath(request.url ?? '/'); }
+  catch { response.writeHead(400); response.end('Invalid URL'); return; }
   if (!filePath) {
     response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     response.end('Not found');
@@ -78,6 +81,7 @@ const server = createServer(async (request, response) => {
 
   try {
     await access(filePath);
+    const details = await stat(filePath);
     const extension = extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[extension] ?? 'application/octet-stream';
     const isHtml = extension === '.html';
@@ -85,13 +89,32 @@ const server = createServer(async (request, response) => {
       ? 'public, max-age=0, must-revalidate'
       : isImmutableAsset(filePath)
         ? 'public, max-age=31536000, immutable'
-        : 'public, max-age=86400';
+        : 'public, max-age=0, must-revalidate';
 
     response.setHeader('Content-Type', contentType);
     response.setHeader('Cache-Control', cacheControl);
     response.setHeader('X-Content-Type-Options', 'nosniff');
     response.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     response.setHeader('Vary', 'Accept-Encoding');
+    const etag = `W/"${details.size}-${Math.trunc(details.mtimeMs)}"`;
+    response.setHeader('ETag', etag);
+    response.setHeader('Last-Modified', details.mtime.toUTCString());
+    response.setHeader('Accept-Ranges', 'bytes');
+    if (request.headers['if-none-match'] === etag) {
+      response.writeHead(304); response.end(); return;
+    }
+
+    const range = request.headers.range;
+    if (range && request.method === 'GET') {
+      const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+      const start = match?.[1] ? Number(match[1]) : Math.max(0, details.size - Number(match?.[2]));
+      const end = match?.[1] && match[2] ? Math.min(Number(match[2]), details.size - 1) : details.size - 1;
+      if (!match || (!match[1] && !match[2]) || start > end || start >= details.size) {
+        response.writeHead(416, { 'Content-Range': `bytes */${details.size}` }); response.end(); return;
+      }
+      response.writeHead(206, { 'Content-Range': `bytes ${start}-${end}/${details.size}`, 'Content-Length': end - start + 1 });
+      await pipeline(createReadStream(filePath, { start, end }), response); return;
+    }
 
     if (request.method === 'HEAD') {
       response.writeHead(200);

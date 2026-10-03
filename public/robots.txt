@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://scubalak.com/sitemap.xml
+Sitemap: https://furqanqamar.github.io/ScubaLakKadmat/sitemap.xml

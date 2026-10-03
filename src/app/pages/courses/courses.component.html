@@ -10,9 +10,9 @@
 
   <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
     <div class="mx-auto max-w-[90rem]">
-      <div class="course-filter" role="tablist" aria-label="Filter PADI courses">
+      <div class="course-filter" role="group" aria-label="Filter PADI courses">
         @for (category of categories; track category) {
-          <button type="button" role="tab" [attr.aria-selected]="activeCategory() === category" [class.course-filter__active]="activeCategory() === category" (click)="setCategory(category)">{{ category }}</button>
+          <button type="button"  [attr.aria-pressed]="activeCategory() === category" [class.course-filter__active]="activeCategory() === category" (click)="setCategory(category)">{{ category }}</button>
         }
       </div>
 
@@ -20,7 +20,7 @@
         @for (course of filteredCourses(); track course.id) {
           <a class="course-card group" [routerLink]="['/courses', course.id]" data-cursor="view" data-reveal>
             <div class="course-card__image">
-              <img class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="lazy" decoding="async">
+              <img [appResponsiveImage]="course.imageUrl" class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="lazy" decoding="async">
               <span class="course-card__wash" aria-hidden="true"></span>
               <span class="course-card__category">{{ course.category }}</span>
               <span class="course-card__arrow" aria-hidden="true"><i class="fa-solid fa-location-arrow"></i></span>

@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { BrandLockupComponent } from '../brand-lockup/brand-lockup.component';
 import { SITE_COPY } from '../../../data/site-copy';
 import { SOCIAL_LINKS } from '../../../data/site-content';
+import { configuredSocialUrl } from '../../services/contact-links';
 
 interface FooterBubble {
   readonly id: number;
@@ -35,11 +37,12 @@ interface FooterBubble {
           <div class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/35"><a class="transition hover:text-[#b8f2df]" routerLink="/about">{{ copy.navigation.about }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/experiences">{{ copy.navigation.experiences }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/courses">{{ copy.navigation.courses }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep">{{ copy.navigation.island }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/gallery">{{ copy.navigation.gallery }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/contact">{{ copy.navigation.contact }}</a></div>
           <div class="flex flex-wrap gap-2">
             @for (social of socialLinks; track social.label) {
-              <a class="social-link" [href]="social.href" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i><span>{{ social.label }}</span></a>
+              <a class="social-link" [attr.href]="socialUrl(social.href)" [attr.aria-disabled]="!socialUrl(social.href)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i><span>{{ social.label }}</span></a>
             }
           </div>
         </div>
         <div class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><p class="max-w-xl font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.legal }}</p><p class="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.socialNote }}</p></div>
+        <p class="mt-5 max-w-4xl text-xs leading-6 text-white/60">{{ copy.footer.imageNote }}</p>
       </div>
     </footer>
   `,
@@ -60,15 +63,31 @@ interface FooterBubble {
     .social-link { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid rgba(184,242,223,.18); border-radius: 999px; padding: .55rem .7rem; color: rgba(214,255,240,.72); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .57rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
     .social-link:hover { border-color: rgba(184,242,223,.55); background: rgba(184,242,223,.1); color: #d6fff0; transform: translateY(-2px); }
     .social-link i { display: grid; width: 1.3rem; height: 1.3rem; place-items: center; border-radius: 999px; background: rgba(184,242,223,.1); color: #b8f2df; font-size: .72rem; }
+    .footer-underwater::before, .footer-underwater__surface-glow, .footer-underwater__ray, .footer-underwater__bubble { animation-play-state: var(--footer-play-state, paused); }
     @media (prefers-reduced-motion: reduce) { .footer-underwater::before, .footer-underwater__surface-glow, .footer-underwater__ray, .footer-underwater__bubble { animation: none; } }
     @keyframes footer-underwater-caustics { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
     @keyframes footer-surface-glow { from { opacity: .36; transform: translateX(-50%) scale(.92); } to { opacity: .72; transform: translateX(-50%) scale(1.08); } }
-    @keyframes footer-ray-sway { from { margin-left: -1.2rem; } to { margin-left: 1.2rem; } }
-    @keyframes footer-bubble-rise { 0% { bottom: -3rem; opacity: 0; } 12% { opacity: .5; } 80% { opacity: .24; } 100% { bottom: 112%; opacity: 0; } }
+    @keyframes footer-ray-sway { from { translate: -1.2rem 0; } to { translate: 1.2rem 0; } }
+    @keyframes footer-bubble-rise { 0% { translate: 0 0; opacity: 0; } 12% { opacity: .5; } 80% { opacity: .24; } 100% { translate: 0 -120vh; opacity: 0; } }
     @keyframes footer-bubble-sway { 0%, 100% { transform: translateX(-.8rem); } 50% { transform: translateX(.8rem); } }
   `
 })
 export class SiteFooterComponent {
+  readonly socialUrl = configuredSocialUrl;
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+  constructor() {
+    afterNextRender(() => {
+      const view = this.document.defaultView;
+      if (!view) return;
+      const observer = new view.IntersectionObserver(([entry]) => {
+        this.host.nativeElement.style.setProperty('--footer-play-state', entry.isIntersecting ? 'running' : 'paused');
+      });
+      observer.observe(this.host.nativeElement);
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
+  }
   readonly copy = SITE_COPY;
   readonly socialLinks = SOCIAL_LINKS;
   readonly bubbles: readonly FooterBubble[] = [

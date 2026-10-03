@@ -1,3 +1,4 @@
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +8,7 @@ import { MARINE_SERVICES } from '../../data/site-content';
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './service-detail.component.html'
 })

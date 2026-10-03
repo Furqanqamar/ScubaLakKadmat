@@ -1,7 +1,7 @@
 @if (course(); as selectedCourse) {
   <main class="page-surface">
     <section class="detail-hero detail-hero--course">
-      <img class="detail-hero__image" [src]="selectedCourse.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
+      <img [appResponsiveImage]="selectedCourse.imageUrl" sizes="100vw" class="detail-hero__image" [src]="selectedCourse.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
       <span class="detail-hero__wash" aria-hidden="true"></span>
       <div class="mx-auto w-full max-w-[90rem]"><a class="back-link" routerLink="/courses">← All PADI courses</a><p class="eyebrow mt-16 text-[#b8f2df]">{{ selectedCourse.category }} · {{ selectedCourse.eyebrow }}</p><h1 class="mt-6 max-w-4xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">{{ selectedCourse.title }}</h1><p class="mt-8 max-w-2xl text-base leading-8 text-white/65">{{ selectedCourse.shortDescription }}</p><div class="mt-9 flex flex-wrap gap-3"><span class="detail-pill">{{ selectedCourse.duration }}</span><span class="detail-pill">Age {{ selectedCourse.minimumAge }}</span><span class="detail-pill">{{ selectedCourse.depth }}</span></div></div>
     </section>

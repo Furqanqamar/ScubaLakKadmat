@@ -1,7 +1,7 @@
 @if (service(); as selectedService) {
   <main class="page-surface">
     <section class="detail-hero">
-      <img class="detail-hero__image" [src]="selectedService.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
+      <img [appResponsiveImage]="selectedService.imageUrl" sizes="100vw" class="detail-hero__image" [src]="selectedService.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
       <span class="detail-hero__wash" aria-hidden="true"></span>
       <div class="mx-auto w-full max-w-[90rem]">
         <a class="back-link" routerLink="/experiences">← All experiences</a>

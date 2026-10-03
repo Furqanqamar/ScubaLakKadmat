@@ -2,14 +2,15 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, output, signal } from '@angular/core';
 
 import { SITE_COPY } from '../../../data/site-copy';
+import { CONTACT_DETAILS } from '../../../data/site-content';
+import { CONTACT_PHONE } from '../../services/contact-links';
 import { ContactRequest } from '../../../models/site-data.model';
 
 type ContactField = keyof ContactRequest;
 
 type ValidationErrors = Partial<Record<ContactField, string>>;
 
-const WHATSAPP_NUMBER = '919447XXXXXX';
-const CONTACT_EMAIL = 'hello@scubalak.com';
+const CONTACT_EMAIL = CONTACT_DETAILS.email;
 
 @Component({
   selector: 'app-contact-hub',
@@ -27,9 +28,9 @@ const CONTACT_EMAIL = 'hello@scubalak.com';
           <p class="mt-6 max-w-md text-sm leading-7 text-white/65">Tell us what you want to see below the surface. Our dive team will shape the right day, gear and guide around you.</p>
 
           <div class="mt-9 space-y-3">
-            <a class="contact-link group" [href]="whatsappUrl()" target="_blank" rel="noopener noreferrer">
+            <a class="contact-link group" [attr.href]="whatsappUrl()" [attr.aria-disabled]="!whatsappUrl()" target="_blank" rel="noopener noreferrer">
               <span class="contact-link__mark bg-[#b8f2df] text-[#061419]" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span>
-              <span><strong>WhatsApp the dive desk</strong><small>{{ copy.common.fastestResponse }}</small></span>
+              <span><strong>WhatsApp the dive desk</strong><small>{{ whatsappUrl() ? copy.common.fastestResponse : 'Number awaiting confirmation — please use email' }}</small></span>
               <i class="fa-solid fa-arrow-right ml-auto text-white/40 transition group-hover:translate-x-1 group-hover:text-[#b8f2df]" aria-hidden="true"></i>
             </a>
             <button class="contact-link group w-full text-left" type="button" (click)="openMailClient()">
@@ -49,12 +50,13 @@ const CONTACT_EMAIL = 'hello@scubalak.com';
           @if (isSubmitted()) {
             <div class="flex min-h-[25rem] flex-col items-center justify-center text-center">
               <div class="flex h-16 w-16 items-center justify-center rounded-full border border-[#b8f2df]/40 bg-[#b8f2df]/10 text-2xl text-[#b8f2df]" aria-hidden="true">✓</div>
-              <p class="eyebrow mt-6 text-[#b8f2df]">Message received</p>
-              <h3 class="mt-3 font-serif text-3xl">We’ll meet you at the reef.</h3>
-              <p class="mt-3 max-w-sm text-sm leading-6 text-white/60">Your request is ready to send. For the quickest confirmation, continue in WhatsApp using the button below.</p>
+              <p class="eyebrow mt-6 text-[#b8f2df]" role="status">Message prepared</p>
+              <h3 class="mt-3 font-serif text-3xl">One more step to send.</h3>
+              <p class="mt-3 max-w-sm text-sm leading-6 text-white/60">Nothing has been sent yet. Continue using your messaging app, or email the dive desk.</p>
               <div class="mt-7 flex flex-wrap justify-center gap-3">
-                <button class="button button--mint" type="button" (click)="openWhatsApp()">{{ copy.common.continueWhatsApp }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i></button>
+                @if (whatsappUrl()) { <button class="button button--mint" type="button" (click)="openWhatsApp()">{{ copy.common.continueWhatsApp }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i></button> }
                 <button class="button button--ghost" type="button" (click)="startAnotherRequest()">Send another</button>
+                <button class="button button--ghost" type="button" (click)="openMailClient()">Continue by email</button>
               </div>
             </div>
           } @else {
@@ -69,32 +71,32 @@ const CONTACT_EMAIL = 'hello@scubalak.com';
             <div class="grid gap-5 sm:grid-cols-2">
               <label class="field">
                 <span>Name <em>*</em></span>
-                <input autocomplete="name" [value]="name()" (input)="setField('name', $event)" placeholder="Your full name">
-                @if (showError('name')) { <small>{{ errors().name }}</small> }
+                <input maxlength="100" autocomplete="name" required [attr.aria-invalid]="showError('name')" [attr.aria-describedby]="showError('name') ? 'name-error' : null" [value]="name()" (input)="setField('name', $event)" placeholder="Your full name">
+                @if (showError('name')) { <small id="name-error">{{ errors().name }}</small> }
               </label>
               <label class="field">
                 <span>Email <em>*</em></span>
-                <input type="email" autocomplete="email" [value]="email()" (input)="setField('email', $event)" placeholder="you@example.com">
-                @if (showError('email')) { <small>{{ errors().email }}</small> }
+                <input maxlength="254" type="email" autocomplete="email" required [attr.aria-invalid]="showError('email')" [attr.aria-describedby]="showError('email') ? 'email-error' : null" [value]="email()" (input)="setField('email', $event)" placeholder="you@example.com">
+                @if (showError('email')) { <small id="email-error">{{ errors().email }}</small> }
               </label>
               <label class="field">
                 <span>WhatsApp / phone</span>
-                <input type="tel" autocomplete="tel" [value]="phone()" (input)="setField('phone', $event)" placeholder="+91 ...">
+                <input maxlength="30" type="tel" autocomplete="tel" [value]="phone()" (input)="setField('phone', $event)" placeholder="+91 ...">
               </label>
               <label class="field">
                 <span>I'm curious about <em>*</em></span>
-                <select [value]="interest()" (change)="setField('interest', $event)">
+                <select required [attr.aria-invalid]="showError('interest')" [attr.aria-describedby]="showError('interest') ? 'interest-error' : null" [value]="interest()" (change)="setField('interest', $event)">
                   <option value="" disabled>Select an experience</option>
                   @for (option of interestOptions; track option) {
                     <option [value]="option">{{ option }}</option>
                   }
                 </select>
-                @if (showError('interest')) { <small>{{ errors().interest }}</small> }
+                @if (showError('interest')) { <small id="interest-error">{{ errors().interest }}</small> }
               </label>
               <label class="field sm:col-span-2">
                 <span>Say hello <em>*</em></span>
-                <textarea rows="4" [value]="message()" (input)="setField('message', $event)" placeholder="Tell us your dates, experience level or dream marine encounter..."></textarea>
-                @if (showError('message')) { <small>{{ errors().message }}</small> }
+                <textarea maxlength="2000" rows="4" required [attr.aria-invalid]="showError('message')" [attr.aria-describedby]="showError('message') ? 'message-error' : null" [value]="message()" (input)="setField('message', $event)" placeholder="Tell us your dates, experience level or dream marine encounter..."></textarea>
+                @if (showError('message')) { <small id="message-error">{{ errors().message }}</small> }
               </label>
             </div>
 
@@ -184,6 +186,7 @@ export class ContactHubComponent {
   });
 
   readonly whatsappUrl = computed(() => {
+    if (!CONTACT_PHONE) return null;
     const form = this.formState();
     const text = [
       'Hello Scuba Lak, Kadmat Lakshadweep,',
@@ -192,7 +195,7 @@ export class ContactHubComponent {
       form.message ? `Here are my details: ${form.message}` : ''
     ].filter(Boolean).join('\n');
 
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/${CONTACT_PHONE}?text=${encodeURIComponent(text)}`;
   });
 
   readonly mailtoUrl = computed(() => {
@@ -262,7 +265,9 @@ export class ContactHubComponent {
       return;
     }
 
-    const openedWindow = this.document.defaultView?.open(this.whatsappUrl(), '_blank', 'noopener,noreferrer');
+    const url = this.whatsappUrl();
+    if (!url) return;
+    const openedWindow = this.document.defaultView?.open(url, '_blank', 'noopener,noreferrer');
     if (openedWindow) {
       openedWindow.opener = null;
     }

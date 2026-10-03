@@ -6,6 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 import { SITE_COPY } from '../../data/site-copy';
+import { MARINE_SERVICES, PADI_COURSES } from '../../data/site-content';
 
 interface SeoEntry {
   readonly title: string;
@@ -31,7 +32,7 @@ export class SeoService {
     const path = url.split('?')[0].split('#')[0] || '/';
     const entry = this.entryFor(path);
     const canonicalPath = path === '/' ? '/' : path.replace(/\/$/, '');
-    const canonicalUrl = `https://scubalak.com${canonicalPath}`;
+    const canonicalUrl = `https://furqanqamar.github.io/ScubaLakKadmat${canonicalPath}`;
 
     this.title.setTitle(entry.title);
     this.meta.updateTag({ name: 'description', content: entry.description });
@@ -46,6 +47,10 @@ export class SeoService {
   }
 
   private entryFor(path: string): SeoEntry {
+    const course = PADI_COURSES.find((item) => path === `/courses/${item.id}`);
+    if (course) return { title: `${course.title} | Scuba Lak, Kadmat`, description: course.shortDescription };
+    const service = MARINE_SERVICES.find((item) => path === `/experiences/${item.id}`);
+    if (service) return { title: `${service.title} | Scuba Lak, Kadmat`, description: service.description };
     if (path === '/') return SITE_COPY.seo.home;
     if (path.startsWith('/about')) return SITE_COPY.seo.about;
     if (path.startsWith('/lakshadweep')) return SITE_COPY.seo.lakshadweep;

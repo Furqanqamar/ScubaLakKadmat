@@ -1,3 +1,4 @@
+import { ResponsiveImageDirective } from '../../directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 import { SITE_COPY } from '../../../data/site-copy';
@@ -6,10 +7,11 @@ import { MarineService } from '../../../models/site-data.model';
 @Component({
   selector: 'app-service-card',
   standalone: true,
+  imports: [ResponsiveImageDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="service-card group relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-cursor="view" data-reveal>
-      <img
+      <img [appResponsiveImage]="service().imageUrl"
         class="absolute inset-0 -z-20 h-full w-full object-cover object-center transition duration-700 ease-out group-hover:scale-105"
         [src]="service().imageUrl"
         [alt]="service().title"
