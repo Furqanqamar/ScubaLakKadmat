@@ -1,4 +1,7 @@
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
+import { MediaStoryComponent } from '../../common/components/media-story/media-story.component';
+import { MEDIA_COPY } from '../../data/media-copy';
+import { SERVICE_MOMENTS } from '../../data/media-stories';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -8,11 +11,13 @@ import { MARINE_SERVICES } from '../../data/site-content';
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink, MediaStoryComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './service-detail.component.html'
 })
 export class ServiceDetailComponent {
+  readonly mediaCopy = MEDIA_COPY;
+  readonly moments = computed(() => SERVICE_MOMENTS[this.service()?.id ?? ''] ?? []);
   private readonly route = inject(ActivatedRoute);
   private readonly routeParam = toSignal(this.route.paramMap, { initialValue: null });
   readonly service = computed(() => {

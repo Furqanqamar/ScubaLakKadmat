@@ -60,7 +60,8 @@ async function resolveRequestPath(requestUrl) {
 }
 
 function isImmutableAsset(filePath) {
-  return /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?)$/.test(filePath);
+  return /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?)$/.test(filePath)
+    || /\/media\/originals\/[\w-]+-[a-f0-9]{12}\.(?:webp|mp4)$/.test(filePath);
 }
 
 const server = createServer(async (request, response) => {

@@ -93,14 +93,24 @@ export interface Testimonial {
   readonly accent: 'mint' | 'coral' | 'sand';
 }
 
-export interface GalleryItem {
+export type MediaCategory = 'Diving & training' | 'Island life' | 'Island journeys' | 'Team' | 'Illustrations';
+
+interface GalleryItemBase {
   readonly id: string;
   readonly title: string;
   readonly description: string;
   readonly location: string;
   readonly imageUrl: string;
   readonly size: 'wide' | 'tall' | 'standard';
+  readonly category?: MediaCategory;
+  readonly width?: number;
+  readonly height?: number;
 }
+
+export type GalleryItem = GalleryItemBase & (
+  { readonly kind?: 'image' } |
+  { readonly kind: 'video'; readonly videoUrl: string; readonly videoUrlMobile: string; readonly durationLabel: string }
+);
 
 export interface CompanyMilestone {
   readonly year: string;

@@ -27,7 +27,7 @@
       <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         @for (island of islands; track island.name) {
           <article class="island-card">
-            <div class="island-card__image" [style.background-image]="'linear-gradient(180deg, rgba(3,17,22,.04), rgba(3,17,22,.88)), url(' + island.imageUrl + ')'" role="img" [attr.aria-label]="island.name"></div>
+            <div class="island-card__image"><img class="card-photo" [appResponsiveImage]="island.imageUrl" [src]="island.imageUrl" [alt]="island.name + ' Island'" width="1200" height="800" loading="lazy" decoding="async"><span class="card-photo-wash"></span></div>
             <div class="island-card__copy"><div class="flex items-center justify-between gap-3"><span>{{ island.type }}</span><small>{{ island.orientation }}</small></div><h3>{{ island.name }}</h3><p>{{ island.description }}</p><em>{{ island.highlight }}</em></div>
           </article>
         }

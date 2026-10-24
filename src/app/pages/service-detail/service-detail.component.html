@@ -26,6 +26,7 @@
       </div>
     </section>
 
+    @if (moments().length) { <app-media-story [items]="moments()" [title]="selectedService.id === 'water-sports' ? mediaCopy.islandTitle : mediaCopy.trainingTitle" [introduction]="selectedService.id === 'water-sports' ? mediaCopy.islandIntro : mediaCopy.trainingIntro" /> }
   </main>
 } @else {
   <main class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That experience has drifted.</h1><a class="button-link button-link--dark mt-8" routerLink="/experiences">Back to experiences</a></main>

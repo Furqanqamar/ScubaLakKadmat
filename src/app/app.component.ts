@@ -11,6 +11,7 @@ import { SmoothScrollService } from './common/services/smooth-scroll.service';
 import { SeoService } from './common/services/seo.service';
 import { ThemeService } from './common/services/theme.service';
 import { BreadcrumbsComponent } from './common/components/breadcrumbs/breadcrumbs.component';
+import { MediaCacheService } from './common/services/media-cache.service';
 
 @Component({
   selector: 'app-root',
@@ -33,5 +34,6 @@ export class AppComponent {
     inject(RevealMotionService);
     inject(SeoService);
     inject(ThemeService);
+    inject(MediaCacheService);
   }
 }

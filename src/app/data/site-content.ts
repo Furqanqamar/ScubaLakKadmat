@@ -1,4 +1,5 @@
 import { SITE_COPY } from './site-copy';
+import { ORIGINAL_MEDIA } from './original-media.generated';
 
 import {
   CompanyMilestone,
@@ -25,7 +26,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Gateway atoll',
     description: 'A slender coral island with the territory’s main air gateway, lagoon beaches and easy access to reef time.',
     highlight: 'The easiest first hello to Lakshadweep.',
-    imageUrl: 'media/lakshadweep/optimized/agatti-beach.jpg'
+    imageUrl: ORIGINAL_MEDIA['agatti-from-vessel'].imageUrl
   },
   {
     name: 'Amini',
@@ -33,7 +34,7 @@ export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
     orientation: 'Craft & lagoon life',
     description: 'A close-knit island known for traditional craft, coconut groves and the everyday rhythm of a lagoon community.',
     highlight: 'Local life with a soft blue horizon.',
-    imageUrl: 'media/generated/island-amini.webp'
+    imageUrl: ORIGINAL_MEDIA['amini-embarkation'].imageUrl
   },
   {
     name: 'Andrott',
@@ -115,7 +116,7 @@ export const KADMAT_ATTRACTIONS: readonly KadmatAttraction[] = [
     title: 'The western turquoise lagoon',
     location: 'West coast · Kadmat',
     description: 'A long, shallow blue room for first dives, glass boats, snorkelling and the kind of sunset that turns the water silver.',
-    imageUrl: 'media/generated/attraction-western-lagoon.webp'
+    imageUrl: ORIGINAL_MEDIA['kadmat-clear-lagoon'].imageUrl
   },
   {
     id: 'silver-sands',
@@ -221,7 +222,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Beginners & non-swimmers',
     duration: '2.5 hrs',
     badge: 'Beginner favourite',
-    imageUrl: 'media/generated/service-lagoon-diving.webp',
+    imageUrl: ORIGINAL_MEDIA['young-diver-preparation'].imageUrl,
     highlights: ['Full safety briefing', 'PADI pro in the water', 'Shallow coral exploration']
   },
   {
@@ -251,7 +252,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'New & certified divers',
     duration: '2-4 days',
     badge: 'Learn for life',
-    imageUrl: 'media/generated/service-padi-courses.webp',
+    imageUrl: ORIGINAL_MEDIA['dive-preparation'].imageUrl,
     highlights: ['Open Water certification', 'Advanced Open Water', 'Flexible island schedule']
   },
   {
@@ -336,7 +337,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous scuba experience. Adequate swimming ability, general physical fitness and completed medical and liability documentation.',
     structure: ['3 knowledge-development sections', '3 confined-water training sessions', '2 open-water training dives'],
     taught: ['Pressure and equipment basics', 'Safe breathing and equalisation', 'Equipment assembly and use', 'Mask clearing and regulator recovery', 'Buoyancy, entries, exits and buddy procedures', 'Air monitoring, communication and basic emergency skills'],
-    outcome: 'A recognised supervised-diving certification that can be upgraded to PADI Open Water Diver.', imageUrl: 'media/generated/course-scuba-diver.webp'
+    outcome: 'A recognised supervised-diving certification that can be upgraded to PADI Open Water Diver.', imageUrl: ORIGINAL_MEDIA['mask-fitting-training'].imageUrl
   },
   {
     id: 'open-water-diver', category: 'Beginner certifications', eyebrow: 'The complete first step', title: 'PADI Open Water Diver',
@@ -346,7 +347,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous diving certification. Adequate swimming ability, suitable physical health, completed medical questionnaire and required forms.',
     structure: ['5 knowledge-development sections', '5 confined-water sessions', '4 open-water certification dives', 'Water-skills assessment including swim and survival float or tread-water exercise'],
     taught: ['Diving physics and physiology', 'Dive planning and no-decompression limits', 'Equipment care, assembly and pre-dive checks', 'Mask, regulator and alternate-air-source skills', 'Buoyancy, hovering, navigation and controlled ascents', 'Emergency procedures and responsible environmental awareness'],
-    outcome: 'Certification to dive with another appropriately certified diver, generally to 18 metres, subject to local conditions, law, training and experience.', imageUrl: 'media/generated/course-open-water-diver.webp'
+    outcome: 'Certification to dive with another appropriately certified diver, generally to 18 metres, subject to local conditions, law, training and experience.', imageUrl: ORIGINAL_MEDIA['shore-training'].imageUrl
   },
   {
     id: 'advanced-open-water', category: 'Continuing education', eyebrow: 'Five ways to go further', title: 'PADI Advanced Open Water Diver',
@@ -546,7 +547,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'No previous certification. Basic comfort in the water, suitable medical fitness and completed required forms.',
     structure: ['Safety and knowledge briefing', 'Confined-water skills', 'Optional supervised open-water dive'],
     taught: ['Equipment use and safety rules', 'Equalisation and underwater breathing', 'Regulator and mask clearing', 'Basic buoyancy and hand signals', 'Responsible environmental interaction'],
-    outcome: 'A memorable supervised experience. Training may sometimes be credited toward Scuba Diver or Open Water when PADI requirements and timing allow.', imageUrl: 'media/generated/course-discover-scuba-diving.webp'
+    outcome: 'A memorable supervised experience. Training may sometimes be credited toward Scuba Diver or Open Water when PADI requirements and timing allow.', imageUrl: ORIGINAL_MEDIA['enjoying-clear-water'].imageUrl
   }
 ];
 
@@ -578,8 +579,9 @@ export const TESTIMONIALS: readonly Testimonial[] = [
 ];
 
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
-  { id: 'scuba-lak-team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
-  { id: 'scuba-lak-on-the-sands', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
+  ...Object.values(ORIGINAL_MEDIA),
+  { id: 'scuba-lak-team', category: 'Team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
+  { id: 'scuba-lak-on-the-sands', category: 'Team', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
   { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-glass-water.webp', size: 'wide' },
   { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-reef-wall.webp', size: 'tall' },
   { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-shoreline.webp', size: 'standard' },

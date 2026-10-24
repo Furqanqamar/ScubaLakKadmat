@@ -1,0 +1,180 @@
+[
+  {
+    "id": "dive-centre-evening",
+    "file": "dive center a evening view.HEIC",
+    "kind": "image",
+    "title": "Evening at the dive centre",
+    "description": "The Scuba Lak dive centre in the soft evening light, with Kadmat’s beach and lagoon close by.",
+    "location": "Scuba Lak · Kadmat Island",
+    "category": "Island life"
+  },
+  {
+    "id": "kadmat-beach",
+    "file": "beach view kadmat.HEIC",
+    "kind": "image",
+    "title": "Sunset through the palms",
+    "description": "Kadmat’s beach at dusk, with the lagoon and a pink horizon framed by coastal trees and a hammock.",
+    "location": "Kadmat Island",
+    "category": "Island life"
+  },
+  {
+    "id": "first-dive-preparation",
+    "file": "Beginner first dive prepration.MOV",
+    "kind": "video",
+    "start": 3,
+    "length": 15,
+    "title": "Before the first dive",
+    "description": "A beginner prepares for a first scuba experience with the Scuba Lak team, taking time over equipment and the steps before entering the water.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "beginner-getting-ready",
+    "file": "beginer getting ready.MOV",
+    "kind": "video",
+    "start": 4,
+    "length": 15,
+    "title": "Getting ready, one step at a time",
+    "description": "A closer look at the preparation before a beginner’s dive in Kadmat, with the team alongside to guide the process.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "pre-dive-briefing-two",
+    "file": "pre dive breefing 2.mov",
+    "kind": "video",
+    "start": 0.4,
+    "length": 8,
+    "title": "A moment for the briefing",
+    "description": "The team and guests pause for a pre-dive briefing before their time in Kadmat’s lagoon.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "pre-dive-briefing",
+    "file": "Pre dive breefing.mov",
+    "kind": "video",
+    "start": 0.5,
+    "length": 10,
+    "title": "The dive begins with a conversation",
+    "description": "A real pre-dive briefing with Scuba Lak: time to listen, ask questions and get ready together.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "kadmat-clear-lagoon",
+    "file": "Not a pool lagoon in kadmat.MOV",
+    "kind": "video",
+    "start": 2,
+    "length": 14,
+    "title": "A lagoon, not a swimming pool",
+    "description": "The remarkable clarity of Kadmat’s shallow lagoon, filmed from the water’s edge. These colours belong to the island itself.",
+    "location": "Kadmat lagoon",
+    "category": "Island life"
+  },
+  {
+    "id": "preparation-at-sea",
+    "file": "prepration at sea.mov",
+    "kind": "video",
+    "start": 5,
+    "length": 16,
+    "title": "Getting set at sea",
+    "description": "Preparations aboard the dive boat before heading into the water off Kadmat. The boat is part of the day’s learning and teamwork.",
+    "location": "Waters off Kadmat",
+    "category": "Diving & training"
+  },
+  {
+    "id": "way-to-the-reef",
+    "file": "way to the reef.MOV",
+    "kind": "video",
+    "start": 3,
+    "length": 15,
+    "title": "On the way to the reef",
+    "description": "A boat journey across Kadmat’s bright lagoon towards the reef, with open water and island views along the way.",
+    "location": "Kadmat lagoon",
+    "category": "Island journeys"
+  },
+  {
+    "id": "kadmat-evening",
+    "file": "mormal evening in kadmat.mov",
+    "kind": "video",
+    "start": 5,
+    "length": 16,
+    "title": "An ordinary Kadmat evening",
+    "description": "A quiet evening on Kadmat, when the light softens and island life settles into a slower rhythm.",
+    "location": "Kadmat Island",
+    "category": "Island life"
+  },
+  {
+    "id": "agatti-from-vessel",
+    "file": "Agathi island view from vessal.HEIC",
+    "kind": "image",
+    "title": "Agatti from the water",
+    "description": "Agatti Island seen from a vessel: a glimpse of the shoreline and lagoon on an island journey through Lakshadweep.",
+    "location": "Agatti Island · Lakshadweep",
+    "category": "Island journeys"
+  },
+  {
+    "id": "enjoying-clear-water",
+    "file": "enjoing the cleen water.HEIC",
+    "kind": "image",
+    "title": "Time in the clear water",
+    "description": "A relaxed moment in Kadmat’s clear lagoon, surrounded by the pale turquoise water that makes the island so memorable.",
+    "location": "Kadmat lagoon",
+    "category": "Island life"
+  },
+  {
+    "id": "amini-embarkation",
+    "file": "Embarcation amini island.heic",
+    "kind": "image",
+    "title": "Embarkation at Amini",
+    "description": "A view of embarkation at Amini Island, part of the everyday connection between Lakshadweep’s communities and the sea.",
+    "location": "Amini Island · Lakshadweep",
+    "category": "Island journeys"
+  },
+  {
+    "id": "young-diver-preparation",
+    "file": "young-diver-getting ready.HEIC",
+    "kind": "image",
+    "title": "One-to-one preparation in the lagoon",
+    "description": "An instructor and participant work through preparation together in Kadmat’s shallow lagoon before their dive.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "shore-training",
+    "file": "Pre-dive-training-in-shore.HEIC",
+    "kind": "image",
+    "title": "Learning from the shore",
+    "description": "Pre-dive training in Kadmat’s shallow water, with time to become familiar with the equipment before the dive.",
+    "location": "Kadmat lagoon · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "pre-dive-preparation",
+    "file": "pre-dive preprartion.HEIC",
+    "kind": "image",
+    "title": "The shore-side kit check",
+    "description": "Scuba equipment prepared on Kadmat’s sand before a session, with the lagoon just a few steps away.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "dive-preparation",
+    "file": "Dive Prepration.heic",
+    "kind": "image",
+    "title": "Equipment ready beneath the palms",
+    "description": "Scuba cylinders and dive equipment lined up in the shade beside Scuba Lak, with Kadmat’s beach and lagoon beyond.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training"
+  },
+  {
+    "id": "mask-fitting-training",
+    "file": "Pre-dive-training.JPG",
+    "kind": "image",
+    "title": "A little adjustment, a little confidence",
+    "description": "An instructor helps a participant adjust their mask in Kadmat’s shallow lagoon during pre-dive preparation. Small, careful steps help a first experience feel more familiar.",
+    "location": "Kadmat lagoon · Scuba Lak",
+    "category": "Diving & training"
+  }
+]

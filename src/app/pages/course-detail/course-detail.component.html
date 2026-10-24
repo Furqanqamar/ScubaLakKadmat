@@ -21,6 +21,7 @@
     </section>
 
     <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div class="mx-auto max-w-[90rem]"><div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"><div><p class="eyebrow text-[#b8f2df]">Ready when you are</p><h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2></div><a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact">Talk to the course desk <span aria-hidden="true">↗</span></a></div></div></section>
+    @if (showTraining()) { <app-media-story [items]="moments" [title]="mediaCopy.trainingTitle" [introduction]="mediaCopy.trainingIntro" /> }
   </main>
 } @else {
   <main class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That course is not in the logbook.</h1><a class="button-link button-link--dark mt-8" routerLink="/courses">Back to PADI courses</a></main>

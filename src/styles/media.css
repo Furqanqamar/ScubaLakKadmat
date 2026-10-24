@@ -1,0 +1,45 @@
+.media-image { background-color: var(--deep); background-size: cover; background-position: center; }
+.media-image:not(.media-image--loaded) { animation: media-placeholder 1.8s ease-in-out infinite alternate; }
+@keyframes media-placeholder { from { background-color: #10282d; } to { background-color: #21444a; } }
+.media-collection { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.media-collection .gallery-card { height: 29rem; min-height: 0; }
+.media-collection .gallery-card img { position: absolute; inset: 0; }
+.media-collection .gallery-card__copy { padding-right: 2.5rem; }
+.media-collection .gallery-card__copy strong { line-height: 1.15; }
+.media-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.media-filters--types { margin-bottom: 2rem; padding-top: .75rem; border-top: 1px solid var(--theme-border); }
+.media-filter { min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--theme-border); border-radius: 999px; font-size: .75rem; transition: background .2s, color .2s; }
+.media-filter[aria-pressed='true'] { background: var(--ink); color: var(--mint); }
+.media-filter:hover { border-color: var(--ink); }
+.media-filter i { margin-right: .3rem; }
+.media-play { position: absolute; top: 42%; left: 50%; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border: 1px solid rgb(255 255 255 / .7); border-radius: 50%; background: rgb(6 20 25 / .3); color: white; transform: translate(-50%, -50%); backdrop-filter: blur(8px); transition: background .2s, scale .2s; }
+.media-play i { margin-left: .15rem; font-size: .9rem; }
+.gallery-card:hover .media-play { background: rgb(184 242 223 / .9); color: var(--deep); scale: 1.08; }
+.media-duration { position: absolute; top: 1rem; right: 1rem; padding: .3rem .55rem; border-radius: 999px; background: rgb(6 20 25 / .65); color: white; font-variant-numeric: tabular-nums; font-size: .7rem; }
+.media-viewer__stage { position: relative; display: grid; min-height: 16rem; place-items: center; overflow: hidden; border-radius: 1.5rem 1.5rem 0 0; background: #02090d; }
+.media-viewer__stage > img, .media-viewer__stage > video { display: block; width: 100%; height: min(68dvh, 48rem); object-fit: contain; }
+.media-viewer__status { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; padding: 2rem; background: rgb(3 17 22 / .7); color: white; text-align: center; font-size: .8rem; }
+.media-viewer__status--loading { pointer-events: none; }
+.media-spinner { width: 2rem; height: 2rem; border: 2px solid rgb(184 242 223 / .25); border-top-color: var(--mint); border-radius: 50%; animation: media-spin .8s linear infinite; }
+@keyframes media-spin { to { rotate: 360deg; } }
+.media-story { padding: 5rem 1.25rem; background: var(--sand); color: var(--ink); }
+.media-story__heading { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
+.media-empty { grid-column: 1 / -1; padding: 3rem 1rem; color: var(--ink); text-align: center; }
+.card-photo { width: 100%; height: 100%; object-fit: cover; }
+.card-photo-wash { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(3 17 22 / .04) 10%, rgb(3 17 22 / .95)); }
+.page-hero > .page-hero__photo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.page-hero--real { background-image: none; }
+.page-hero--real::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(3 17 22 / .9), rgb(3 17 22 / .45)); }
+@media (min-width: 640px) {
+  .media-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .media-story { padding: 6rem 2rem; }
+}
+@media (min-width: 1024px) {
+  .media-collection { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .media-collection--gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .media-story { padding: 7rem 2.5rem; }
+  .media-story__heading { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .media-image:not(.media-image--loaded), .media-spinner { animation: none; }
+}

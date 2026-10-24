@@ -29,7 +29,7 @@ export class HomeComponent {
   readonly packages = TOUR_PACKAGES;
   readonly briefings = DESTINATION_BRIEFINGS;
   readonly testimonials = TESTIMONIALS;
-  readonly gallery = GALLERY_ITEMS.slice(0, 4);
+  readonly gallery = GALLERY_ITEMS.filter(item => ['dive-centre-evening', 'kadmat-beach', 'mask-fitting-training', 'agatti-from-vessel'].includes(item.id));
 
   readonly activePackageId = signal<PackageTier>('budget');
   readonly activePackage = computed(() => this.packages.find((tourPackage) => tourPackage.id === this.activePackageId()) ?? this.packages[0]);
