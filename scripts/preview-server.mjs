@@ -9,6 +9,8 @@ import { fileURLToPath } from 'node:url';
 const projectRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const outputRoot = resolve(projectRoot, 'dist/scuba-lak/browser');
 const port = Number(process.env.PORT ?? 4004);
+const basePath = process.env.PREVIEW_BASE_PATH ?? '/';
+if (!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(basePath)) throw new Error('PREVIEW_BASE_PATH must be an absolute directory path ending in /');
 
 const MIME_TYPES = {
   '.css': 'text/css; charset=utf-8',
@@ -24,6 +26,8 @@ const MIME_TYPES = {
   '.webmanifest': 'application/manifest+json',
   '.webm': 'video/webm',
   '.webp': 'image/webp',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
   '.mp4': 'video/mp4',
   '.xml': 'application/xml; charset=utf-8'
 };
@@ -44,7 +48,8 @@ const isInsideOutput = (filePath) => filePath === outputRoot || filePath.startsW
 
 async function resolveRequestPath(requestUrl) {
   const url = new URL(requestUrl, 'http://localhost');
-  const pathname = decodeURIComponent(url.pathname);
+  if (!url.pathname.startsWith(basePath)) return null;
+  const pathname = decodeURIComponent('/' + url.pathname.slice(basePath.length));
   const requestedPath = resolve(outputRoot, `.${normalize(pathname)}`);
 
   if (!isInsideOutput(requestedPath)) {
@@ -61,7 +66,7 @@ async function resolveRequestPath(requestUrl) {
 
 function isImmutableAsset(filePath) {
   return /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?)$/.test(filePath)
-    || /\/media\/originals\/[\w-]+-[a-f0-9]{12}\.(?:webp|mp4)$/.test(filePath);
+    || /\/media\/(?:originals|hero)\/[\w-]+-[a-f0-9]{12}\.(?:webp|mp4|webm)$/.test(filePath);
 }
 
 const server = createServer(async (request, response) => {
@@ -145,5 +150,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, '127.0.0.1', () => {
-  console.log(`Production preview: http://localhost:${port}/`);
+  console.log(`Production preview: http://localhost:${port}${basePath}`);
 });

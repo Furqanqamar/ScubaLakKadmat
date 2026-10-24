@@ -4,6 +4,7 @@
 @import "@fortawesome/fontawesome-free/css/brands.min.css";
 @import "./styles/theme.css";
 @import "./styles/media.css";
+@import "./styles/usability.css";
 
 :root {
   color-scheme: light;
@@ -63,11 +64,16 @@ a {
 }
 
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  body.custom-cursor-enabled,
-  body.custom-cursor-enabled * {
+  html:not(.dialog-open) body.custom-cursor-enabled,
+  html:not(.dialog-open) body.custom-cursor-enabled * {
     cursor: none !important;
   }
 }
+
+html.dialog-open { cursor: auto; }
+html.dialog-open dialog, html.dialog-open dialog::backdrop { cursor: auto; }
+html.dialog-open a, html.dialog-open button, html.dialog-open select { cursor: pointer; }
+html.dialog-open input, html.dialog-open textarea { cursor: text; }
 
 .motion-reveal {
   opacity: 0;

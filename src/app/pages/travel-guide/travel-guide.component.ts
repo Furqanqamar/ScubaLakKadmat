@@ -1,14 +1,15 @@
+import { TravelFaqComponent } from '../../common/components/travel-faq/travel-faq.component';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TRAVEL_GUIDES } from '../../data/travel-guides';
 
 @Component({
-  selector: 'app-travel-guide', standalone: true, imports: [RouterLink],
+  selector: 'app-travel-guide', standalone: true, imports: [RouterLink, TravelFaqComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (guide(); as guide) {
-      <main class="page-surface">
+      <main id="main-content" tabindex="-1" class="page-surface">
         <section class="page-hero page-hero--about"><div class="mx-auto max-w-[90rem]">
           <p class="eyebrow text-[#b8f2df]">{{ guide.eyebrow }}</p>
           <h1 class="mt-6 max-w-5xl font-serif text-5xl leading-tight text-white sm:text-7xl">{{ guide.title }}</h1>
@@ -31,6 +32,7 @@ import { TRAVEL_GUIDES } from '../../data/travel-guides';
             <a class="button-link" href="https://lakshadweep.gov.in/tourism/">Official Lakshadweep tourism information</a>
           </nav>
         </div></section>
+        <div id="reach-permits" tabindex="-1"><app-travel-faq /></div>
       </main>
     }
   `

@@ -1,12 +1,13 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { OverlayStateService } from '../../services/overlay-state.service';
 
 @Component({
   selector: 'app-interactive-cursor',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span class="interactive-cursor" aria-hidden="true" [style.transform]="'translate3d(' + cursorX() + 'px,' + cursorY() + 'px,0)'">
+    <span class="interactive-cursor" [class.interactive-cursor--hidden]="overlays.active()" aria-hidden="true" [style.transform]="'translate3d(' + cursorX() + 'px,' + cursorY() + 'px,0)'">
       <span class="interactive-cursor__ring" [class.interactive-cursor__ring--active]="isInteractive()"></span>
       <span class="interactive-cursor__dot"></span>
     </span>
@@ -14,6 +15,7 @@ import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, si
   styles: `
     :host { display: block; }
     .interactive-cursor { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; }
+    .interactive-cursor--hidden { display: none; }
     .interactive-cursor__dot, .interactive-cursor__ring { position: absolute; top: 0; left: 0; pointer-events: none; }
     .interactive-cursor__dot { width: .45rem; height: .45rem; transform: translate(-50%, -50%); border-radius: 999px; background: #b8f2df; box-shadow: 0 0 .9rem rgba(184,242,223,.65); transition: transform .18s ease, opacity .18s ease; }
     .interactive-cursor__ring { width: 2rem; height: 2rem; transform: translate(-50%, -50%); border: 1px solid rgba(214,255,240,.75); border-radius: 999px; opacity: .72; transition: width .32s cubic-bezier(.2,.8,.2,1), height .32s cubic-bezier(.2,.8,.2,1), border-color .24s ease, background .24s ease, opacity .24s ease, left .16s ease-out, top .16s ease-out; }
@@ -22,6 +24,7 @@ import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, si
   `
 })
 export class InteractiveCursorComponent {
+  readonly overlays = inject(OverlayStateService);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
 

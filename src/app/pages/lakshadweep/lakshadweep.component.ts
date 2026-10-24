@@ -3,7 +3,6 @@ import { ResponsiveImageDirective } from '../../common/directives/responsive-ima
 import { RouterLink } from '@angular/router';
 
 import { LAKSHADWEEP_ISLANDS } from '../../data/site-content';
-import { SITE_COPY } from '../../data/site-copy';
 
 @Component({
   selector: 'app-lakshadweep',
@@ -13,6 +12,5 @@ import { SITE_COPY } from '../../data/site-copy';
   templateUrl: './lakshadweep.component.html'
 })
 export class LakshadweepComponent {
-  readonly copy = SITE_COPY;
   readonly islands = LAKSHADWEEP_ISLANDS;
 }

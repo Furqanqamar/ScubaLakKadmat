@@ -1,3 +1,4 @@
+import { enquiryParams } from '../../data/enquiry-context';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { MediaStoryComponent } from '../../common/components/media-story/media-story.component';
 import { MEDIA_COPY } from '../../data/media-copy';
@@ -16,6 +17,7 @@ import { PADI_COURSES } from '../../data/site-content';
   templateUrl: './course-detail.component.html'
 })
 export class CourseDetailComponent {
+  readonly enquiryParams = enquiryParams;
   readonly mediaCopy = MEDIA_COPY;
   readonly moments = TRAINING_MOMENTS;
   readonly showTraining = computed(() => ['scuba-diver', 'open-water-diver', 'discover-scuba-diving'].includes(this.course()?.id ?? ''));

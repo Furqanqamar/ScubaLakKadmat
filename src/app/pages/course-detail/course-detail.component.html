@@ -1,5 +1,5 @@
 @if (course(); as selectedCourse) {
-  <main class="page-surface">
+  <main id="main-content" tabindex="-1" class="page-surface">
     <section class="detail-hero detail-hero--course">
       <img [appResponsiveImage]="selectedCourse.imageUrl" sizes="100vw" class="detail-hero__image" [src]="selectedCourse.imageUrl" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
       <span class="detail-hero__wash" aria-hidden="true"></span>
@@ -8,7 +8,7 @@
 
     <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
       <div class="mx-auto grid max-w-[90rem] gap-14 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
-        <div><p class="eyebrow text-[#9d7047]">Start here</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em]">Everything you need to know before you commit.</h2><a class="button-link button-link--dark mt-8" routerLink="/contact">Ask about this course <span aria-hidden="true">↗</span></a></div>
+        <div><p class="eyebrow text-[#9d7047]">Start here</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em]">Everything you need to know before you commit.</h2><a class="button-link button-link--dark mt-8" routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('course', selectedCourse.id)">Ask about this course <span aria-hidden="true">↗</span></a></div>
         <div><p class="text-lg leading-9 text-[#10282d]/70">{{ selectedCourse.about }}</p><div class="mt-10 grid gap-4 sm:grid-cols-2"><div class="fact-card"><span>Prerequisite</span><p>{{ selectedCourse.prerequisite }}</p></div><div class="fact-card"><span>What you leave with</span><p>{{ selectedCourse.outcome }}</p></div></div></div>
       </div>
     </section>
@@ -20,9 +20,9 @@
       </div>
     </section>
 
-    <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div class="mx-auto max-w-[90rem]"><div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"><div><p class="eyebrow text-[#b8f2df]">Ready when you are</p><h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2></div><a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact">Talk to the course desk <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div class="mx-auto max-w-[90rem]"><div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"><div><p class="eyebrow text-[#b8f2df]">Ready when you are</p><h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2></div><a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('course', selectedCourse.id)">Talk to the course desk <span aria-hidden="true">↗</span></a></div></div></section>
     @if (showTraining()) { <app-media-story [items]="moments" [title]="mediaCopy.trainingTitle" [introduction]="mediaCopy.trainingIntro" /> }
   </main>
 } @else {
-  <main class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That course is not in the logbook.</h1><a class="button-link button-link--dark mt-8" routerLink="/courses">Back to PADI courses</a></main>
+  <main id="main-content" tabindex="-1" class="empty-state"><p class="eyebrow">Not found</p><h1 class="mt-4 font-serif text-5xl">That course is not in the logbook.</h1><a class="button-link button-link--dark mt-8" routerLink="/courses">Back to PADI courses</a></main>
 }

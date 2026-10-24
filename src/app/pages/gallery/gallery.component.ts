@@ -18,11 +18,11 @@ export class GalleryComponent {
   readonly items = GALLERY_ITEMS;
   readonly cover = ORIGINAL_MEDIA['kadmat-beach'];
   readonly copy = MEDIA_COPY;
-  readonly categories: readonly ('All moments' | MediaCategory)[] = ['All moments', 'Diving & training', 'Island life', 'Island journeys', 'Team', 'Illustrations'];
+  readonly categories: readonly ('All moments' | MediaCategory)[] = ['All moments', 'Diving & training', 'Island life', 'Island journeys', 'Team', 'Reef & island views'];
   readonly category = signal<'All moments' | MediaCategory>('All moments');
   readonly type = signal<'all' | 'image' | 'video'>('all');
   readonly filteredItems = computed(() => this.items.filter(item =>
-    (this.category() === 'All moments' || (item.category ?? 'Illustrations') === this.category()) &&
+    (this.category() === 'All moments' || (item.category ?? 'Reef & island views') === this.category()) &&
     (this.type() === 'all' || (item.kind ?? 'image') === this.type())
   ));
 }

@@ -47,8 +47,8 @@ import { MarineService } from '../../../models/site-data.model';
 
       <div class="mt-7 flex items-end justify-between gap-4 border-t border-white/15 pt-5">
         <div class="flex gap-5 font-mono text-[0.62rem] uppercase tracking-[0.13em] text-white/55">
-          <span><strong class="mr-1 font-medium text-white/90">{{ service().depth }}</strong> depth</span>
-          <span class="hidden sm:inline"><strong class="mr-1 font-medium text-white/90">{{ service().duration }}</strong> time</span>
+          <span><strong class="mr-1 font-medium text-white/90">{{ service().depth }}</strong> {{ service().category === 'Course' ? 'limits' : service().category === 'Water sports' ? 'setting' : 'depth' }}</span>
+          @if (service().duration) { <span class="hidden sm:inline"><strong class="mr-1 font-medium text-white/90">{{ service().duration }}</strong> outing</span> }
         </div>
         <a
           [routerLink]="['/experiences', service().id]"

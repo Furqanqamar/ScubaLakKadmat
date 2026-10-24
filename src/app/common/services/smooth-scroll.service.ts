@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationSkipped, NavigationStart, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class SmoothScrollService {
@@ -48,6 +48,11 @@ export class SmoothScrollService {
     }
 
     this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+      if (event instanceof NavigationSkipped) {
+        const fragment = this.router.parseUrl(event.url).fragment;
+        if (fragment) this.scrollAfterNavigation(fragment);
+        return;
+      }
       if (event instanceof NavigationStart) {
         this.positions.set(this.navigationId, view?.scrollY ?? 0);
         if (this.positions.size > 50) this.positions.delete(this.positions.keys().next().value!);
@@ -70,6 +75,8 @@ export class SmoothScrollService {
         if (restored !== undefined) view.scrollTo({ top: restored, behavior: 'instant' });
         else if (fragment) this.scrollAfterNavigation(fragment);
         else view.scrollTo({ top: 0, behavior: 'instant' });
+        const focusTarget = this.document.getElementById(fragment || 'main-content');
+        if (restored === undefined && focusTarget) { if (!focusTarget.hasAttribute('tabindex')) focusTarget.setAttribute('tabindex', '-1'); focusTarget.focus({ preventScroll: true }); }
       }, 0);
     });
   }

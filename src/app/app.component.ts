@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { InteractiveCursorComponent } from './common/components/interactive-cursor/interactive-cursor.component';
 import { PageTransitionComponent } from './common/components/page-transition/page-transition.component';
@@ -16,9 +17,10 @@ import { MediaCacheService } from './common/services/media-cache.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteFooterComponent, FloatingNavigatorComponent, InteractiveCursorComponent, PageTransitionComponent, SiteHeaderComponent, BreadcrumbsComponent],
+  imports: [RouterLink, RouterOutlet, SiteFooterComponent, FloatingNavigatorComponent, InteractiveCursorComponent, PageTransitionComponent, SiteHeaderComponent, BreadcrumbsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <a class="skip-link" [routerLink]="pagePath()" fragment="main-content" queryParamsHandling="preserve">Skip to content</a>
     <app-site-header />
     <router-outlet />
     <app-breadcrumbs />
@@ -29,6 +31,9 @@ import { MediaCacheService } from './common/services/media-cache.service';
   `
 })
 export class AppComponent {
+  private readonly router = inject(Router);
+  private readonly navigation = toSignal(this.router.events);
+  readonly pagePath = computed(() => { this.navigation(); return this.router.url.split(/[?#]/)[0] || '/'; });
   constructor() {
     inject(SmoothScrollService);
     inject(RevealMotionService);

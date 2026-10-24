@@ -1,4 +1,4 @@
-<main class="page-surface">
+<main id="main-content" tabindex="-1" class="page-surface">
   <section class="destination-hero destination-hero--kadmat">
     <div class="destination-hero__wash"></div>
     <div class="destination-hero__content mx-auto max-w-[90rem]">
@@ -28,9 +28,7 @@
     </div>
   </section>
 
-  <section class="bg-[#f4f1e9] px-5 py-24 sm:px-8 lg:px-10 lg:py-32" data-reveal>
-    <div class="mx-auto max-w-[90rem]"><div class="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p class="eyebrow text-[#7b8e89]">How to get here</p><h2 class="mt-5 max-w-2xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] sm:text-7xl">The journey is part of the <em>story.</em></h2></div><p class="max-w-md text-sm leading-7 text-[#10282d]/60 md:pb-1">Travel times are planning estimates. Confirm the current season, permit rules, weather and route with your operator before booking.</p></div><div class="mt-12 grid gap-4 md:grid-cols-2">@for (option of transportOptions; track option.id) { <article class="transport-card"><div class="transport-card__image" [style.background-image]="'linear-gradient(90deg, rgba(3,17,22,.9), rgba(3,17,22,.18)), url(' + option.imageUrl + ')'" role="img" [attr.aria-label]="option.title"><span>{{ option.mode }}</span></div><div class="transport-card__copy"><h3>{{ option.title }}</h3><dl><div><dt>Time</dt><dd>{{ option.duration }}</dd></div></dl><p><strong>How to book:</strong> {{ option.booking }}</p><p class="transport-card__note">{{ option.note }}</p></div></article> }</div></div>
-  </section>
+  <app-travel-faq />
 
   <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32"><div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div><p class="eyebrow text-[#b8f2df]">A good day in Kadmat</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Let the island set the <em>tempo.</em></h2></div><div class="grid gap-4 sm:grid-cols-3"><article class="dark-note"><span>Morning</span><h3>Walk the silver edge</h3><p>Before the sun climbs, the beach and lagoon hold the softest light.</p></article><article class="dark-note"><span>Afternoon</span><h3>Meet the reef</h3><p>Choose a lagoon lesson, a snorkel, a dive or a boat ride into the blue.</p></article><article class="dark-note"><span>Evening</span><h3>Listen for the island</h3><p>Local food, palms in the breeze and a horizon that keeps its promises.</p></article></div></div></section>
 

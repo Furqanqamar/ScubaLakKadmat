@@ -1,8 +1,4 @@
 export const SITE_COPY = {
-  imagery: {
-    illustration: 'AI-generated illustration',
-    islandNote: 'Selected island scenes are AI-generated interpretations, not photographs of the exact locations.'
-  },
   brand: {
     name: 'Scuba Lak',
     tagline: 'Kadmat Lakshadweep',
@@ -13,6 +9,8 @@ export const SITE_COPY = {
   navigation: {
     primaryLabel: 'Primary navigation',
     toggleLabel: 'Toggle navigation',
+    closeLabel: 'Close navigation',
+    menuTitle: 'Explore Scuba Lak',
     experiences: 'Experiences',
     courses: 'PADI courses',
     island: 'Know island',
@@ -47,14 +45,11 @@ export const SITE_COPY = {
     coordinate: '11° 13′ N · 72° 46′ E'
   },
   footer: {
-    imageNote: 'Our team photographs, island moments, training photos and films are original Scuba Lak media. Some other scenes are AI-generated illustrations inspired by island life, diving and travel; illustrations are not documentary photographs or a guarantee of specific facilities.',
     legal: 'Scuba Lak · Kadmat Island · Lakshadweep · Dive softly · travel lightly · © 2026',
-    socialNote: 'Social links are ready for your official handles'
   },
   common: {
     kadmatLocation: 'Kadmat Island · Lakshadweep',
     emailClient: 'Open your email client',
-    fastestResponse: 'Fastest response · day or night',
     continueWhatsApp: 'Continue in WhatsApp',
     sendEnquiry: 'Send enquiry',
     dismiss: 'Dismiss'
@@ -66,7 +61,7 @@ export const SITE_COPY = {
     },
     about: {
       title: 'About Scuba Lak, Kadmat Lakshadweep',
-      description: 'Meet the local-led Scuba Lak team, our PADI standards, island history and reef-minded approach.'
+      description: 'Meet Scuba Lak in Kadmat, Lakshadweep, and explore the team, diving experiences and island life.'
     },
     lakshadweep: {
       title: 'Lakshadweep island guide | Scuba Lak',

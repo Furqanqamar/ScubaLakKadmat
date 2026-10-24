@@ -1,0 +1,33 @@
+.skip-link { position: fixed; top: .75rem; left: .75rem; z-index: 150; transform: translateY(-200%); padding: .85rem 1.2rem; border-radius: .6rem; background: var(--mint); color: var(--deep); font-size: 1rem; font-weight: 700; }
+.skip-link:focus { transform: none; }
+main:focus, #enquiry:focus, #reach-permits:focus { outline: none; }
+.eyebrow { font-size: .75rem; line-height: 1.6; }
+.text-sm { font-size: 1rem; line-height: 1.75; }
+.button-link { min-height: 44px; font-size: .9rem; line-height: 1.4; }
+.button-link:focus-visible, summary:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--theme-gold); outline-offset: 4px; }
+app-service-card { display: block; height: 100%; min-width: 0; }
+.service-card { height: 100%; }
+.service-card > div:last-child { margin-top: auto; padding-top: 1.3rem; }
+.service-card > div:nth-last-child(2) { padding-bottom: 1.75rem; }
+.service-card > div:last-child > div { display: flex; flex-wrap: wrap; gap: .5rem; font-size: .75rem; color: rgb(255 255 255 / .85); }
+.service-card a { min-height: 44px; font-size: .85rem; }
+.course-filter button { min-height: 44px; font-size: .8rem; color: var(--ink); }
+.course-card { display: flex; height: 100%; flex-direction: column; }
+.course-card__image { flex: 1; min-height: 27rem; }
+.course-card__copy h2 { overflow-wrap: anywhere; font-size: clamp(1.65rem, 2.2vw, 2.3rem); line-height: 1.1; }
+.course-card__copy p { font-size: .95rem; line-height: 1.6; color: rgb(255 255 255 / .9); }
+.course-card__copy small, .course-card__category, .course-card__meta, .package-tab__meta, .detail-pill { font-size: .78rem; line-height: 1.6; }
+.course-card__meta { flex-wrap: wrap; gap: .6rem; margin-top: auto; }
+.gallery-card__copy small, .gallery-teaser__label small { font-size: .72rem; line-height: 1.6; color: var(--mint); }
+.stat-block small { line-height: 1.7; }
+.team-card__image { aspect-ratio: 4 / 5; }
+.people-link { display: flex; justify-content: center; align-items: center; gap: .8rem; min-height: 60px; padding: 1.5rem; background: var(--sand); text-decoration: underline; text-underline-offset: .3em; }
+.site-footer a:not(.footer-brand) { min-height: 44px; align-content: center; font-size: .8rem; line-height: 1.6; color: rgb(255 255 255 / .82); }
+.site-footer p { font-size: .76rem; line-height: 1.8; color: rgb(255 255 255 / .72); }
+.site-header__brand:focus-visible, .footer-brand:focus-visible { outline: 2px solid var(--mint); outline-offset: 7px; border-radius: .5rem; }
+.site-header__brand, .footer-brand, app-brand-lockup { transform: none !important; animation: none !important; transition: none !important; }
+@media (max-width: 639px) {
+  .course-card__image { min-height: 29rem; }
+  .site-footer { padding-bottom: 6.5rem; }
+  .package-tab { gap: .75rem; }
+}

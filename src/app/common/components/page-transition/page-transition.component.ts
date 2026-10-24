@@ -15,9 +15,8 @@ interface TransitionBubble {
   readonly delay: number;
 }
 
-const CURTAIN_COVER_MS = 720;
-const CURTAIN_HOLD_MS = 650;
-const CURTAIN_REVEAL_MS = 980;
+const CURTAIN_COVER_MS = 120;
+const CURTAIN_REVEAL_MS = 160;
 
 @Component({
   selector: 'app-page-transition',
@@ -61,7 +60,7 @@ const CURTAIN_REVEAL_MS = 980;
     .page-transition__line { position: relative; display: block; height: 2px; margin: 2rem auto 0; overflow: hidden; width: min(12rem, 80%); background: rgba(184,242,223,.16); }
     .page-transition__line span { position: absolute; inset: 0 auto 0 0; width: 55%; background: #b8f2df; animation: dotart-progress .8s cubic-bezier(.2,.8,.2,1) both; }
     .page-transition__coordinate { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 3; color: rgba(214,255,240,.44); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .56rem; font-weight: 600; letter-spacing: .1em; }
-    .page-transition--reveal { animation: dotart-curtain-reveal ${CURTAIN_REVEAL_MS}ms cubic-bezier(.77,0,.18,1) both; }
+    .page-transition--reveal { pointer-events: none; animation: dotart-curtain-reveal ${CURTAIN_REVEAL_MS}ms cubic-bezier(.77,0,.18,1) both; }
     .page-transition--reveal .page-transition__content { opacity: 0; transition: opacity .18s ease; }
     @media (max-width: 639px) { .page-transition__coordinate { right: 1rem; bottom: 1rem; } }
     @media (prefers-reduced-motion: reduce) { .page-transition, .page-transition--reveal { animation-duration: .01ms; } .page-transition__line span, .page-transition__water::before, .page-transition__surface-glow, .page-transition__ray, .page-transition__bubble { animation: none; } }
@@ -80,7 +79,6 @@ export class PageTransitionComponent {
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
   private readonly timers: number[] = [];
-  private coverStartedAt = 0;
 
   readonly isActive = signal(false);
   readonly phase = signal<TransitionPhase>('cover');
@@ -121,23 +119,19 @@ export class PageTransitionComponent {
       }
 
       this.clearTimers();
-      this.coverStartedAt = Date.now();
       this.label.set(this.getLabel(toPath));
-      this.phase.set('cover');
-      this.isActive.set(true);
+      this.timers.push(view.setTimeout(() => { this.phase.set('cover'); this.isActive.set(true); }, 120));
       return;
     }
 
-    if (!(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) || !this.isActive()) {
+    if (!(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError)) {
       return;
     }
 
-    const elapsedSinceCoverStarted = Date.now() - this.coverStartedAt;
-    const revealDelay = Math.max(0, CURTAIN_COVER_MS + CURTAIN_HOLD_MS - elapsedSinceCoverStarted);
-    const hideDelay = revealDelay + CURTAIN_REVEAL_MS;
-
-    this.timers.push(view.setTimeout(() => this.phase.set('reveal'), revealDelay));
-    this.timers.push(view.setTimeout(() => this.isActive.set(false), hideDelay));
+    this.clearTimers();
+    if (!this.isActive()) return;
+    this.phase.set('reveal');
+    this.timers.push(view.setTimeout(() => this.isActive.set(false), CURTAIN_REVEAL_MS));
   }
 
   private cleanPath(url: string): string {

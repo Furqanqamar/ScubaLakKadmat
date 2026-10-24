@@ -51,6 +51,11 @@ export interface ContactRequest {
   readonly phone: string;
   readonly interest: string;
   readonly message: string;
+  readonly arrivalDate?: string;
+  readonly flexibility?: string;
+  readonly guests?: number | null;
+  readonly experienceLevel?: string;
+  readonly context?: { readonly kind: 'experience' | 'course' | 'package'; readonly id: string; readonly label: string } | null;
 }
 
 export type CourseCategory =
@@ -93,7 +98,7 @@ export interface Testimonial {
   readonly accent: 'mint' | 'coral' | 'sand';
 }
 
-export type MediaCategory = 'Diving & training' | 'Island life' | 'Island journeys' | 'Team' | 'Illustrations';
+export type MediaCategory = 'Diving & training' | 'Island life' | 'Island journeys' | 'Team' | 'Reef & island views';
 
 interface GalleryItemBase {
   readonly id: string;
@@ -111,12 +116,6 @@ export type GalleryItem = GalleryItemBase & (
   { readonly kind?: 'image' } |
   { readonly kind: 'video'; readonly videoUrl: string; readonly videoUrlMobile: string; readonly durationLabel: string }
 );
-
-export interface CompanyMilestone {
-  readonly year: string;
-  readonly title: string;
-  readonly description: string;
-}
 
 export interface IslandProfile {
   readonly name: string;

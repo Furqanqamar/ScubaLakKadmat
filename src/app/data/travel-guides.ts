@@ -16,7 +16,6 @@ export const TRAVEL_GUIDES: Readonly<Record<string, TravelGuide>> = {
     faqs: [
       { question: 'Does Scuba Lak show live hotel availability?', answer: 'No. Contact the team for a dated proposal. Confirm the named property, room category, availability and terms in writing before paying.' },
       { question: 'Can I plan accommodation with a PADI course?', answer: 'You can ask the team to plan both together. Share the course you are interested in and your travel dates, and confirm the training schedule before finalising the number of nights.' },
-      { question: 'Is every accommodation image a photograph of a bookable room?', answer: 'No. Some website imagery is AI-generated illustration. Request current photographs of the exact property and room included in your quote.' }
     ]
   },
   planning: {

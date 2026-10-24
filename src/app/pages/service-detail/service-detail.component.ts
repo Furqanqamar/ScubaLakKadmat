@@ -1,3 +1,4 @@
+import { enquiryParams } from '../../data/enquiry-context';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { MediaStoryComponent } from '../../common/components/media-story/media-story.component';
 import { MEDIA_COPY } from '../../data/media-copy';
@@ -16,6 +17,7 @@ import { MARINE_SERVICES } from '../../data/site-content';
   templateUrl: './service-detail.component.html'
 })
 export class ServiceDetailComponent {
+  readonly enquiryParams = enquiryParams;
   readonly mediaCopy = MEDIA_COPY;
   readonly moments = computed(() => SERVICE_MOMENTS[this.service()?.id ?? ''] ?? []);
   private readonly route = inject(ActivatedRoute);

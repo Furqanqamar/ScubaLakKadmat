@@ -5,6 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 
 import { SITE_COPY } from '../../../data/site-copy';
 import { SmoothScrollService } from '../../services/smooth-scroll.service';
+import { OverlayStateService } from '../../services/overlay-state.service';
 
 @Component({
   selector: 'app-floating-navigator',
@@ -48,15 +49,17 @@ export class FloatingNavigatorComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly smoothScroll = inject(SmoothScrollService);
+  private readonly overlays = inject(OverlayStateService);
   private readonly navigation = toSignal(this.router.events, { initialValue: null });
 
   readonly scrollY = signal(0);
   readonly copy = SITE_COPY;
-  readonly isHome = computed(() => {
+  private readonly path = computed(() => {
     this.navigation();
-    return this.router.url.split('?')[0].split('#')[0] === '/';
+    return this.router.url.split(/[?#]/)[0];
   });
-  readonly isVisible = computed(() => !this.isHome() || this.scrollY() > 360);
+  readonly isHome = computed(() => this.path() === '/');
+  readonly isVisible = computed(() => !this.overlays.active() && this.path() !== '/contact' && (!this.isHome() || this.scrollY() > 360));
 
   constructor() {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;

@@ -5,6 +5,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { breadcrumbs, canonicalUrl, pageSeo, SITE_URL } from '../../data/seo-data';
+import { BUSINESS_CONTACT } from '../../data/business-config';
+import { CONTACT_EMAIL, CONTACT_PHONE } from './contact-links';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -30,7 +32,7 @@ export class SeoService {
     for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': page?.label ?? 'Kadmat Island', locale: 'en_IN', type: 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
     for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
     this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
-    const organization = { '@type': 'Organization', '@id': SITE_URL + '#organization', name: 'Scuba Lak', url: SITE_URL, logo: new URL('media/scuba-lak-logo-white.png', SITE_URL).href, location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' } };
+    const organization = { '@type': 'Organization', '@id': SITE_URL + '#organization', name: 'Scuba Lak', url: SITE_URL, logo: new URL('media/scuba-lak-logo-white.png', SITE_URL).href, location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' }, ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}), ...(CONTACT_EMAIL ? { email: CONTACT_EMAIL } : {}), sameAs: [...BUSINESS_CONTACT.socials.filter(social => !social.href.includes('wa.me')).map(social => social.href), ...(BUSINESS_CONTACT.mapsUrl ? [BUSINESS_CONTACT.mapsUrl] : [])] };
     const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '#website', url: SITE_URL, name: 'Scuba Lak — Kadmat Lakshadweep', publisher: { '@id': organization['@id'] }, inLanguage: 'en-IN' }];
     if (page) {
       graph.push({ '@type': 'WebPage', '@id': canonical + '#webpage', url: canonical, name: title, description, inLanguage: 'en-IN', isPartOf: { '@id': SITE_URL + '#website' } });

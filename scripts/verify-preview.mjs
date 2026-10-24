@@ -8,6 +8,10 @@ for (const path of ['/', '/about', '/courses', '/experiences', '/gallery', '/con
 const video = await fetch(`${base}/media/kadmat-hero.mp4`, { headers: { Range: 'bytes=0-1023' } });
 assert.equal(video.status, 206);
 assert.equal((await video.arrayBuffer()).byteLength, 1024);
+const optimizedHero = await fetch(`${base}/media/hero/kadmat-1129128f8403.mp4`, { method: 'HEAD' });
+assert.equal(optimizedHero.status, 200);
+assert.match(optimizedHero.headers.get('cache-control') ?? '', /max-age=31536000, immutable/);
+assert.equal(optimizedHero.headers.get('content-type'), 'video/mp4');
 const logo = await fetch(`${base}/media/scuba-lak-logo-white.png`);
 assert.doesNotMatch(logo.headers.get('cache-control') ?? '', /immutable/);
 const etag = logo.headers.get('etag');

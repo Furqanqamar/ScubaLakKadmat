@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { GalleryItem } from '../../../models/site-data.model';
 import { MEDIA_COPY } from '../../../data/media-copy';
 import { ResponsiveImageDirective } from '../../directives/responsive-image.directive';
@@ -26,12 +26,17 @@ import { MediaViewerComponent } from '../media-viewer/media-viewer.component';
         </button>
       } @empty { <p class="media-empty" role="status">{{ copy.empty }}</p> }
     </div>
-    @if (selected(); as item) { <app-media-viewer [item]="item" (closed)="selected.set(null)" /> }
+    @if (selected(); as item) { <app-media-viewer [item]="item" [position]="selectedIndex() + 1" [total]="items().length" (previous)="move(-1)" (next)="move(1)" (closed)="selected.set(null)" /> }
   `
 })
 export class MediaCollectionComponent {
   readonly items = input.required<readonly GalleryItem[]>();
   readonly galleryLayout = input(false);
   readonly selected = signal<GalleryItem | null>(null);
+  readonly selectedIndex = computed(() => this.items().findIndex(item => item.id === this.selected()?.id));
   readonly copy = MEDIA_COPY;
+  move(delta: number): void {
+    const items = this.items();
+    if (items.length) this.selected.set(items[(this.selectedIndex() + delta + items.length) % items.length]);
+  }
 }

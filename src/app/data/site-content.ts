@@ -1,19 +1,14 @@
-import { SITE_COPY } from './site-copy';
 import { ORIGINAL_MEDIA } from './original-media.generated';
 
 import {
-  CompanyMilestone,
-  ContactDetails,
   DestinationBriefing,
   GalleryItem,
   IslandProfile,
   KadmatAttraction,
   MarineService,
   PadiCourse,
-  SocialLink,
   TeamMember,
   Testimonial,
-  TransportOption,
   TourPackage
 } from '../models/site-data.model';
 
@@ -155,60 +150,6 @@ export const KADMAT_ATTRACTIONS: readonly KadmatAttraction[] = [
   }
 ];
 
-export const KADMAT_TRANSPORT: readonly TransportOption[] = [
-  {
-    id: 'ship',
-    mode: 'Ship',
-    title: 'Passenger ship from Kochi',
-    duration: 'Approx. 14–18 hours, vessel and sea conditions dependent',
-    booking: 'Book through authorised Lakshadweep Tourism / SPORTS channels or a permitted local operator after your entry permit is arranged.',
-    note: 'The most atmospheric route. Sailings are seasonal and schedules change with weather.',
-    imageUrl: 'media/generated/transport-ship.webp'
-  },
-  {
-    id: 'flight',
-    mode: 'Flight / plane',
-    title: 'Fly to Agatti, then transfer',
-    duration: 'Kochi to Agatti is usually around 1.5 hours; add the authorised boat or onward transfer to Kadmat.',
-    booking: 'Reserve the flight with the operating airline, then coordinate the Agatti–Kadmat transfer through an authorised Lakshadweep operator.',
-    note: 'Fastest scheduled option, but the final island leg must be planned as one itinerary.',
-    imageUrl: 'media/lakshadweep/optimized/agatti-airport.jpg'
-  },
-  {
-    id: 'seaplane',
-    mode: 'Seaplane',
-    title: 'Seasonal seaplane connection',
-    duration: 'Often around 1–2 hours including water transfer, subject to the current route',
-    booking: 'Ask an authorised Lakshadweep tourism operator to confirm whether a seaplane service is operating for your dates.',
-    note: 'A beautiful option when operating, but never assume it is available year-round.',
-    imageUrl: 'media/generated/transport-seaplane.webp'
-  },
-  {
-    id: 'helicopter',
-    mode: 'Helicopter',
-    title: 'Helicopter or medical / charter transfer',
-    duration: 'Route and flight time vary; weather and operational clearance apply',
-    booking: 'Use only official or authorised channels. Your island operator can advise whether a charter or permitted transfer is possible.',
-    note: 'Availability is operational, not guaranteed. Never book through an unverified broker.',
-    imageUrl: 'media/generated/transport-helicopter.webp'
-  }
-];
-
-export const SOCIAL_LINKS: readonly SocialLink[] = [
-  { label: 'Instagram', handle: 'Add your official handle', href: 'https://www.instagram.com/', icon: 'fa-brands fa-instagram' },
-  { label: 'Facebook', handle: 'Add your official page', href: 'https://www.facebook.com/', icon: 'fa-brands fa-facebook-f' },
-  { label: 'WhatsApp', handle: 'Message the dive desk', href: 'https://wa.me/919447XXXXXX', icon: 'fa-brands fa-whatsapp' }
-];
-
-export const CONTACT_DETAILS: ContactDetails = {
-  address: 'Scuba Lak, Kadmat Island',
-  area: 'Lakshadweep, India · Arabian Sea',
-  phone: '+91 9447 XX XX XX',
-  email: 'hello@scubalak.com',
-  officeHours: 'Every day · 08:00–20:00 IST',
-  responseTime: 'Usually within one working day'
-};
-
 export const MARINE_SERVICES: readonly MarineService[] = [
   {
     id: 'lagoon-diving',
@@ -220,8 +161,8 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     detailedDescription: 'Move slowly through warm, sheltered water with a PADI professional beside you. At five metres, the lagoon opens up a luminous world of coral bommies, butterflyfish and shy reef life without the pressure of the open sea.',
     depth: '5 m',
     audience: 'Beginners & non-swimmers',
-    duration: '2.5 hrs',
-    badge: 'Beginner favourite',
+    duration: '',
+    badge: 'First-time divers',
     imageUrl: ORIGINAL_MEDIA['young-diver-preparation'].imageUrl,
     highlights: ['Full safety briefing', 'PADI pro in the water', 'Shallow coral exploration']
   },
@@ -235,7 +176,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     detailedDescription: 'For certified divers ready to meet the outer reef, Kadmat\'s western edge delivers dramatic walls, eagle rays and schools of pelagic life. The plan is always matched to your logged experience, comfort and the day\'s sea conditions.',
     depth: '30 m',
     audience: 'Advanced PADI divers',
-    duration: '3.5 hrs',
+    duration: '',
     badge: 'Outer reef',
     imageUrl: 'media/generated/service-deep-sea-diving.webp',
     highlights: ['Outer reef wall sites', 'Small group departures', 'Top-tier dive equipment']
@@ -248,9 +189,9 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     title: 'PADI courses',
     description: 'Trade the holiday feeling for a new skill set. Learn at your pace with Open Water and Advanced Open Water tracks.',
     detailedDescription: 'From your first pool session to advanced navigation and deep-diving skills, our courses pair international PADI standards with the clarity of learning in a real island environment. Small groups keep every question welcome.',
-    depth: '18 m',
+    depth: 'Course-specific',
     audience: 'New & certified divers',
-    duration: '2-4 days',
+    duration: '',
     badge: 'Learn for life',
     imageUrl: ORIGINAL_MEDIA['dive-preparation'].imageUrl,
     highlights: ['Open Water certification', 'Advanced Open Water', 'Flexible island schedule']
@@ -265,7 +206,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     detailedDescription: 'Not every adventure needs a tank. Drift above the reef, paddle the lagoon at golden hour or head offshore with a local crew who knows the water\'s moods. Build your own mix of slow mornings and big blue afternoons.',
     depth: 'Surface',
     audience: 'Every kind of explorer',
-    duration: '1-6 hrs',
+    duration: '',
     badge: 'Easygoing',
     imageUrl: 'media/generated/service-water-sports.webp',
     highlights: ['Glass boat ride', 'Guided kayaking', 'Lagoon snorkelling', 'Deep sea fishing']
@@ -279,10 +220,10 @@ export const TOUR_PACKAGES: readonly TourPackage[] = [
     name: 'Barefoot basecamp',
     kicker: 'Budget friendly framework',
     tagline: 'Everything you need. Nothing you don\'t.',
-    duration: '3 nights / 4 days',
-    description: 'A considered island escape that keeps the focus on clear water, slow mornings and the reef right outside your door.',
+    duration: '',
+    description: 'A starting point for discussing a simpler Kadmat stay. Share your dates, group size and travel preferences; accommodation, activities and arrangements must be confirmed in a tailored quotation.',
     idealFor: 'First-time island travellers, curious couples and small groups.',
-    inclusions: ['Standard beachfront lodging', 'Guided lagoon snorkelling', 'Glass boat cruise', 'Entry permit processing', 'Breakfast and island transfers']
+    inclusions: ['Standard beachfront lodging', 'Guided lagoon snorkelling', 'Glass boat cruise', 'Entry permit processing']
   },
   {
     id: 'premium',
@@ -290,11 +231,10 @@ export const TOUR_PACKAGES: readonly TourPackage[] = [
     name: 'Blue room retreat',
     kicker: 'Premium luxury framework',
     tagline: 'A private side of the island.',
-    duration: '4 nights / 5 days',
-    description: 'A slower, more spacious way into Kadmat, with the best gear, private guidance and meals shaped around the coast.',
+    duration: '',
+    description: 'A starting point for discussing a more private Kadmat stay, diving and coastal meals. Confirm the property, room, activities, equipment, transfers and written terms for your dates.',
     idealFor: 'Experienced divers, milestone trips and guests who want the island to themselves.',
-    featured: true,
-    inclusions: ['Private beach-facing AC villa', 'Multiple deep sea dives with top-tier gear', 'Private kayaking guide', 'Custom coastal meals', 'Priority permit and island transfers']
+    inclusions: ['Private beach-facing AC villa', 'Multiple deep sea dives with top-tier gear', 'Private kayaking guide', 'Custom coastal meals']
   }
 ];
 
@@ -552,12 +492,9 @@ export const PADI_COURSES: readonly PadiCourse[] = [
 ];
 
 export const TEAM_MEMBERS: readonly TeamMember[] = [
-  { name: 'Shamsudheen', role: 'Senior instructor', bio: 'Brings calm discipline and years of water experience to every briefing, first breath and reef descent.', initials: 'S', imageUrl: 'media/team/shamsudheen.jpg' },
-  { name: 'Mohammed Sadique', role: 'Dive team', bio: 'Helps guests settle into the water with patient guidance, practical knowledge and a genuine love for Kadmat.', initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg' },
-  { name: 'Jamhar', role: 'Dive team', bio: 'Keeps every day on the water welcoming, observant and connected to the lagoon’s changing conditions.', initials: 'J', imageUrl: 'media/team/jamhar.jpg' },
-  { name: 'Team member 4', role: 'Boat & safety team', bio: 'Supports smooth boat days, careful preparation and the safety details that let guests stay present.', initials: '04', imageUrl: 'media/team/team-member-4.jpg' },
-  { name: 'Team member 5', role: 'Water sports team', bio: 'Helps shape relaxed, memorable time on the lagoon, from surface activities to island-side sessions.', initials: '05', imageUrl: 'media/team/team-member-5.jpg' },
-  { name: 'Team member 6', role: 'Guest experience team', bio: 'Adds the local ease that turns a well-planned visit into a warm Scuba Lak memory.', initials: '06', imageUrl: 'media/team/team-member-6.jpg' }
+  { name: 'Shamsudheen', role: 'Senior instructor', bio: '', initials: 'S', imageUrl: 'media/team/shamsudheen.jpg' },
+  { name: 'Mohammed Sadique', role: '', bio: '', initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg' },
+  { name: 'Jamhar', role: '', bio: '', initials: 'J', imageUrl: 'media/team/jamhar.jpg' }
 ];
 
 export const TEAM_GROUP_PHOTO = 'media/team/team-group-boat.jpg';
@@ -571,36 +508,18 @@ export const TEAM_STORY = {
   imageAlt: 'Scuba Lak team members together aboard a dive boat in Kadmat lagoon'
 } as const;
 
-export const TESTIMONIALS: readonly Testimonial[] = [
-  { quote: 'I arrived nervous and left already planning my next dive. The team made every step feel unhurried and completely safe.', name: 'Rhea Kapoor', detail: 'Open Water Diver · Mumbai', accent: 'mint' },
-  { quote: 'Kadmat is the rare place where the photographs do not quite prepare you. The outer reef was quietly extraordinary.', name: 'Daniel Thomas', detail: 'Deep sea guest · London', accent: 'coral' },
-  { quote: 'The whole week felt personal - from the permit help to the last sunset kayak. It was luxury in the most human sense.', name: 'Ananya & Karan', detail: 'Blue room retreat · Bengaluru', accent: 'sand' },
-  { quote: 'My instructor noticed the tiny things and gave me room to learn. I feel like a real diver now, not someone who passed a test.', name: 'Ishaan Shah', detail: 'PADI Advanced Open Water · Delhi', accent: 'mint' }
-];
+export const TESTIMONIALS: readonly Testimonial[] = [];
 
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
   ...Object.values(ORIGINAL_MEDIA),
   { id: 'scuba-lak-team', category: 'Team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
   { id: 'scuba-lak-on-the-sands', category: 'Team', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
-  { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-glass-water.webp', size: 'wide' },
-  { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-reef-wall.webp', size: 'tall' },
-  { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-shoreline.webp', size: 'standard' },
-  { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-boat-day.webp', size: 'wide' },
-  { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-palm-shadow.webp', size: 'standard' },
-  { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-underwater-light.webp', size: 'tall' },
-  { id: 'blue-villa', title: 'Blue room mornings', description: 'A private beach-facing start before the first boat leaves the jetty.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-blue-villa.webp', size: 'standard' },
-  { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: SITE_COPY.imagery.illustration, imageUrl: 'media/generated/gallery-shore-paddle.webp', size: 'wide' }
+  { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-glass-water.webp', size: 'wide' },
+  { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-reef-wall.webp', size: 'tall' },
+  { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-shoreline.webp', size: 'standard' },
+  { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-boat-day.webp', size: 'wide' },
+  { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-palm-shadow.webp', size: 'standard' },
+  { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-underwater-light.webp', size: 'tall' },
+  { id: 'blue-villa', title: 'Blue room mornings', description: 'Soft coastal light, natural textures and a quiet island-inspired interior.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-blue-villa.webp', size: 'standard' },
+  { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-shore-paddle.webp', size: 'wide' }
 ];
-
-export const COMPANY_MILESTONES: readonly CompanyMilestone[] = [
-  { year: '01', title: 'A small idea in a big blue place', description: 'Scuba Lak began with a simple belief: the best diving experiences are built on patience, local knowledge and a genuine respect for the reef.' },
-  { year: '02', title: 'From guiding to teaching', description: 'As more guests arrived curious and unqualified, the dive desk grew into a PADI learning space for first certifications, new confidence and professional pathways.' },
-  { year: '03', title: 'More care in every direction', description: 'Today, safety, marine awareness and small-group attention shape every programme - from a first lagoon breath to an outer-reef deep dive.' }
-];
-
-export const ABOUT_STATS = [
-  { value: '1,200+', label: 'certifications & experiences delivered' },
-  { value: '7 yrs', label: 'of island-led dive culture' },
-  { value: '4:1', label: 'guest-to-guide focus on courses' },
-  { value: '30 m', label: 'of blue to explore responsibly' }
-] as const;

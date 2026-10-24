@@ -4,7 +4,8 @@ import { RouterLink } from '@angular/router';
 
 import { BrandLockupComponent } from '../brand-lockup/brand-lockup.component';
 import { SITE_COPY } from '../../../data/site-copy';
-import { SOCIAL_LINKS } from '../../../data/site-content';
+import { BUSINESS_CONTACT } from '../../../data/business-config';
+import { HomeLinkDirective } from '../../directives/home-link.directive';
 import { configuredSocialUrl } from '../../services/contact-links';
 
 interface FooterBubble {
@@ -18,7 +19,7 @@ interface FooterBubble {
 @Component({
   selector: 'app-site-footer',
   standalone: true,
-  imports: [RouterLink, BrandLockupComponent],
+  imports: [RouterLink, BrandLockupComponent, HomeLinkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer class="site-footer bg-[#061419] px-5 py-10 text-white sm:px-8 lg:px-10">
@@ -33,16 +34,15 @@ interface FooterBubble {
       </div>
       <div class="mx-auto max-w-[90rem] border-t border-white/10 pt-8">
         <div class="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
-          <a class="footer-brand" routerLink="/" [attr.aria-label]="copy.brand.homeLabel"><app-brand-lockup /></a>
-          <div class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/35"><a class="transition hover:text-[#b8f2df]" routerLink="/about">{{ copy.navigation.about }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/experiences">{{ copy.navigation.experiences }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/courses">{{ copy.navigation.courses }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep">{{ copy.navigation.island }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/gallery">{{ copy.navigation.gallery }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/contact">{{ copy.navigation.contact }}</a></div>
-          <div class="flex flex-wrap gap-2">
+          <a class="footer-brand" appHomeLink routerLink="/" [attr.aria-label]="copy.brand.homeLabel"><app-brand-lockup /></a>
+          <div class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/35"><a class="transition hover:text-[#b8f2df]" routerLink="/about">{{ copy.navigation.about }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/experiences">{{ copy.navigation.experiences }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/courses">{{ copy.navigation.courses }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep">{{ copy.navigation.island }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/gallery">{{ copy.navigation.gallery }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/contact" fragment="enquiry">{{ copy.navigation.contact }}</a></div>
+          @if (socialLinks.length) { <div class="flex flex-wrap gap-2">
             @for (social of socialLinks; track social.label) {
               <a class="social-link" [attr.href]="socialUrl(social.href)" [attr.aria-disabled]="!socialUrl(social.href)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i><span>{{ social.label }}</span></a>
             }
-          </div>
+          </div> }
         </div>
-        <div class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><p class="max-w-xl font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.legal }}</p><p class="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.socialNote }}</p></div>
-        <p class="mt-5 max-w-4xl text-xs leading-6 text-white/60">{{ copy.footer.imageNote }}</p>
+        <div class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><p class="max-w-xl font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.legal }}</p></div>
       </div>
     </footer>
   `,
@@ -89,7 +89,7 @@ export class SiteFooterComponent {
     });
   }
   readonly copy = SITE_COPY;
-  readonly socialLinks = SOCIAL_LINKS;
+  readonly socialLinks = BUSINESS_CONTACT.socials.filter(item => configuredSocialUrl(item.href));
   readonly bubbles: readonly FooterBubble[] = [
     { id: 1, left: 7, size: 7, duration: 7600, delay: -1200 },
     { id: 2, left: 18, size: 14, duration: 9000, delay: -5100 },

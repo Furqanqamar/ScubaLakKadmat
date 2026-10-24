@@ -1,11 +1,12 @@
 export const MEDIA_COPY = {
   all: 'All moments', allMedia: 'All media', photos: 'Photos', videos: 'Films',
   open: 'Open', play: 'Play film', close: 'Close media',
+  previous: 'Previous image or film', next: 'Next image or film', of: 'of',
   loading: 'Loading your island moment…',
   error: 'This film could not load. Please try again.', retry: 'Try again',
   imageError: 'This photo could not load. Please try again.',
   sound: 'Sound starts muted. Use the player controls to listen.',
-  galleryIntro: 'Real moments from Scuba Lak: first dives, patient briefings, journeys between islands and evenings beside the lagoon. Choose a photo or a short film to see the story.',
+  galleryIntro: 'First dives, patient briefings, island journeys and quiet evenings beside the lagoon. Choose a photo or a short film to see the story.',
   categoryLabel: 'Filter gallery by subject', typeLabel: 'Filter gallery by media type',
   originalEyebrow: 'Through our own lens',
   trainingTitle: 'Before the bubbles, a little confidence.',
