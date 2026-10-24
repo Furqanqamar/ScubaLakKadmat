@@ -160,7 +160,6 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     mode: 'Ship',
     title: 'Passenger ship from Kochi',
     duration: 'Approx. 14–18 hours, vessel and sea conditions dependent',
-    cost: 'Planning range: ₹3,500–₹8,500 one way',
     booking: 'Book through authorised Lakshadweep Tourism / SPORTS channels or a permitted local operator after your entry permit is arranged.',
     note: 'The most atmospheric route. Sailings are seasonal and schedules change with weather.',
     imageUrl: 'media/generated/transport-ship.webp'
@@ -170,7 +169,6 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     mode: 'Flight / plane',
     title: 'Fly to Agatti, then transfer',
     duration: 'Kochi to Agatti is usually around 1.5 hours; add the authorised boat or onward transfer to Kadmat.',
-    cost: 'Planning range: ₹6,000–₹14,000 for the flight, plus permits and island transfers',
     booking: 'Reserve the flight with the operating airline, then coordinate the Agatti–Kadmat transfer through an authorised Lakshadweep operator.',
     note: 'Fastest scheduled option, but the final island leg must be planned as one itinerary.',
     imageUrl: 'media/lakshadweep/optimized/agatti-airport.jpg'
@@ -180,7 +178,6 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     mode: 'Seaplane',
     title: 'Seasonal seaplane connection',
     duration: 'Often around 1–2 hours including water transfer, subject to the current route',
-    cost: 'Quote on request; availability and fares are seasonal',
     booking: 'Ask an authorised Lakshadweep tourism operator to confirm whether a seaplane service is operating for your dates.',
     note: 'A beautiful option when operating, but never assume it is available year-round.',
     imageUrl: 'media/generated/transport-seaplane.webp'
@@ -190,7 +187,6 @@ export const KADMAT_TRANSPORT: readonly TransportOption[] = [
     mode: 'Helicopter',
     title: 'Helicopter or medical / charter transfer',
     duration: 'Route and flight time vary; weather and operational clearance apply',
-    cost: 'Quote on request; not a standard scheduled tourist transfer',
     booking: 'Use only official or authorised channels. Your island operator can advise whether a charter or permitted transfer is possible.',
     note: 'Availability is operational, not guaranteed. Never book through an unverified broker.',
     imageUrl: 'media/generated/transport-helicopter.webp'
@@ -282,8 +278,7 @@ export const TOUR_PACKAGES: readonly TourPackage[] = [
     name: 'Barefoot basecamp',
     kicker: 'Budget friendly framework',
     tagline: 'Everything you need. Nothing you don\'t.',
-    priceLabel: 'From INR 18,500',
-    priceNote: 'per person - 3 nights / 4 days',
+    duration: '3 nights / 4 days',
     description: 'A considered island escape that keeps the focus on clear water, slow mornings and the reef right outside your door.',
     idealFor: 'First-time island travellers, curious couples and small groups.',
     inclusions: ['Standard beachfront lodging', 'Guided lagoon snorkelling', 'Glass boat cruise', 'Entry permit processing', 'Breakfast and island transfers']
@@ -294,8 +289,7 @@ export const TOUR_PACKAGES: readonly TourPackage[] = [
     name: 'Blue room retreat',
     kicker: 'Premium luxury framework',
     tagline: 'A private side of the island.',
-    priceLabel: 'From INR 42,000',
-    priceNote: 'per person - 4 nights / 5 days',
+    duration: '4 nights / 5 days',
     description: 'A slower, more spacious way into Kadmat, with the best gear, private guidance and meals shaped around the coast.',
     idealFor: 'Experienced divers, milestone trips and guests who want the island to themselves.',
     featured: true,

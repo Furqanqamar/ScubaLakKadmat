@@ -14,7 +14,7 @@ export const SEO_PAGES: Readonly<Record<string, PageSeo>> = {
   '/gallery': { ...SITE_COPY.seo.gallery, label: 'Gallery' },
   '/contact': { ...SITE_COPY.seo.contact, label: 'Contact' },
   '/kadmat-accommodation': { title: 'Kadmat Accommodation & Diving Stay Planning | Scuba Lak', description: 'Plan accommodation for a Kadmat diving holiday in Lakshadweep. Compare stay priorities, transfers and package inclusions before requesting a tailored quote.', label: 'Kadmat accommodation' },
-  '/lakshadweep-trip-planning': { title: 'Lakshadweep Trip Planning: Kadmat Travel Guide | Scuba Lak', description: 'Plan a Kadmat Island holiday around diving, water sports and accommodation. Find questions to ask about Lakshadweep permits, arrivals, transfers and trip costs.', label: 'Lakshadweep trip planning' }
+  '/lakshadweep-trip-planning': { title: 'Lakshadweep Trip Planning: Kadmat Travel Guide | Scuba Lak', description: 'Plan a Kadmat Island holiday around diving, water sports and accommodation. Find questions to ask about Lakshadweep permits, arrivals, transfers and personalised itineraries.', label: 'Lakshadweep trip planning' }
 };
 export function canonicalUrl(path: string): string {
   return new URL(path === '/' ? '' : path.replace(/^\/+|\/+$/g, '') + '/', SITE_URL).href;

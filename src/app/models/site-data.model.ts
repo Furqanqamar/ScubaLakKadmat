@@ -28,8 +28,7 @@ export interface TourPackage {
   readonly name: string;
   readonly kicker: string;
   readonly tagline: string;
-  readonly priceLabel: string;
-  readonly priceNote: string;
+  readonly duration: string;
   readonly description: string;
   readonly inclusions: readonly string[];
   readonly idealFor: string;
@@ -131,7 +130,6 @@ export interface TransportOption {
   readonly mode: string;
   readonly title: string;
   readonly duration: string;
-  readonly cost: string;
   readonly booking: string;
   readonly note: string;
   readonly imageUrl: string;
