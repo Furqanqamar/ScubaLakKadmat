@@ -1,5 +1,6 @@
 import { MARINE_SERVICES, PADI_COURSES } from './site-content';
 import { SITE_COPY } from './site-copy';
+import { islandGuide, islandIllustration } from './island-guides';
 
 // Update when the permanent domain is ready; regenerate the static build.
 export const SITE_URL = 'https://furqanqamar.github.io/ScubaLakKadmat/';
@@ -20,6 +21,8 @@ export function canonicalUrl(path: string): string {
   return new URL(path === '/' ? '' : path.replace(/^\/+|\/+$/g, '') + '/', SITE_URL).href;
 }
 export function pageSeo(path: string): PageSeo | undefined {
+  const island = path.startsWith('/lakshadweep/') ? islandGuide(path.slice('/lakshadweep/'.length)) : undefined;
+  if (island) return { title: `${island.name}: Island Story & Travel Notes | Scuba Lak`, description: island.summary, label: island.name, image: islandIllustration(island.slug).src };
   const course = PADI_COURSES.find(item => path === `/courses/${item.id}`);
   if (course) return { title: `${course.title} in Kadmat | Scuba Lak`, description: `Explore ${course.title} in Kadmat, Lakshadweep. Review prerequisites, duration, training skills and course structure before planning your dive trip.`, label: course.title, image: course.imageUrl };
   const service = MARINE_SERVICES.find(item => path === `/experiences/${item.id}`);
@@ -30,6 +33,7 @@ export function breadcrumbs(path: string): readonly { label: string; path: strin
   const items = [{ label: 'Home', path: '/' }];
   if (path.startsWith('/courses/')) items.push({ label: 'PADI courses', path: '/courses' });
   if (path.startsWith('/experiences/')) items.push({ label: 'Experiences', path: '/experiences' });
+  if (path.startsWith('/lakshadweep/')) items.push({ label: 'Lakshadweep island atlas', path: '/lakshadweep' });
   if (path !== '/') items.push({ label: pageSeo(path)?.label ?? 'Page not found', path });
   return items;
 }

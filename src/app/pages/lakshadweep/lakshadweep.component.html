@@ -7,7 +7,7 @@
       <p class="mt-8 max-w-2xl text-base leading-8 text-white/65">A scattered constellation of coral islands, lagoons and sandbars where the sea is not scenery. It is the road, the pantry, the playground and the memory.</p>
       <div class="mt-9 flex flex-wrap gap-3"><a class="button-link button-link--mint" routerLink="/kadmat">Meet Kadmat <span aria-hidden="true">↗</span></a><a class="button-link border border-white/25 text-white/80 hover:border-white/60 hover:text-white" routerLink="/gallery">See the visual diary <span aria-hidden="true">↗</span></a></div>
     </div>
-    <span class="page-hero__watermark">LAGOON / 36</span>
+    <app-hero-watermark page="lakshadweep" />
   </section>
 
   <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28" data-reveal>
@@ -21,17 +21,14 @@
     </div>
   </section>
 
-  <section class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32" data-reveal>
-    <div class="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.65fr_1.35fr] lg:gap-20">
-      <div><p class="eyebrow text-[#b8f2df]">The island atlas</p><h2 class="mt-5 max-w-sm font-serif text-5xl leading-[0.94] tracking-[-0.05em] sm:text-6xl">Every island keeps a different <em>secret.</em></h2><p class="mt-7 max-w-sm text-sm leading-7 text-white/55">This is a field guide to the inhabited islands and key visitor atolls. The archipelago is a living home first, a destination second.</p></div>
-      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        @for (island of islands; track island.name) {
-          <article class="island-card">
-            <div class="island-card__image"><img class="card-photo" [appResponsiveImage]="island.imageUrl" [src]="island.imageUrl" [alt]="island.name + ' Island'" width="1200" height="800" loading="lazy" decoding="async"><span class="card-photo-wash"></span></div>
-            <div class="island-card__copy"><div class="flex items-center justify-between gap-3"><span>{{ island.type }}</span><small>{{ island.orientation }}</small></div><h3>{{ island.name }}</h3><p>{{ island.description }}</p><em>{{ island.highlight }}</em></div>
-          </article>
-        }
+  <section id="island-atlas" class="island-atlas">
+    <div class="island-atlas__inner">
+      <div class="island-atlas__heading"><div><p class="eyebrow">{{ copy.atlasEyebrow }}</p><h2>{{ copy.atlasTitle }}</h2></div><p>{{ copy.atlasDescription }}</p></div>
+      <div class="island-atlas__filters" role="group" [attr.aria-label]="copy.atlasEyebrow">
+        @for (filter of filters; track filter.id) { <button type="button" [attr.aria-pressed]="activeFilter() === filter.id" (click)="activeFilter.set(filter.id)">{{ filter.label }}</button> }
       </div>
+      <div class="island-atlas__grid">@for (island of islands(); track island.slug) { <app-island-card [island]="island" /> }</div>
+      <p class="island-atlas__note">{{ copy.atlasNote }}</p>
     </div>
   </section>
 

@@ -129,15 +129,6 @@ export type GalleryItem = GalleryItemBase & (
   { readonly kind: 'video'; readonly videoUrl: string; readonly videoUrlMobile: string; readonly durationLabel: string }
 );
 
-export interface IslandProfile {
-  readonly name: string;
-  readonly type: string;
-  readonly orientation: string;
-  readonly description: string;
-  readonly highlight: string;
-  readonly imageUrl: string;
-}
-
 export interface KadmatAttraction {
   readonly id: string;
   readonly title: string;

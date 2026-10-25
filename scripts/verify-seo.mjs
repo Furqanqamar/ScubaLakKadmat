@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 const output = new URL('../dist/scuba-lak/browser/', import.meta.url);
 const sitemap = await readFile(new URL('sitemap.xml', output), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert.equal(urls.length, 36);
+const islandContent = JSON.parse(await readFile(new URL('../src/app/data/island-guides.json', import.meta.url), 'utf8'));
+assert.equal(urls.length, 36 + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
 const documents = new Map();
@@ -35,6 +36,15 @@ for (const url of urls) {
 }
 for (const [pathname, html] of documents) {
   const base = html.match(/<base href="([^"]+)"/)?.[1] ?? '/';
+  const heroLabels = { '/lakshadweep/': '36 Islands', '/experiences/': '4 Experiences', '/courses/': 'PADI Courses', '/kadmat/': 'Kadmat Island' };
+  const heroLabel = heroLabels[pathname.replace(/^\/ScubaLakKadmat/, '')];
+  if (heroLabel) {
+    const watermark = html.match(/<app-hero-watermark\b[^>]*>([\s\S]*?)<\/app-hero-watermark>/);
+    assert.ok(watermark, `Missing shared hero label: ${pathname}`);
+    assert.match(watermark[0], /aria-hidden="true"/, `Hero watermark must remain decorative: ${pathname}`);
+    assert.equal(watermark[1].replace(/<[^>]*>/g, '').trim(), heroLabel, `Unclear hero label: ${pathname}`);
+    assert.doesNotMatch(html, /LAGOON \/ 36|04 \/ 04|PADI \/ 22|KADMAT \/ 08/, `Legacy hero code: ${pathname}`);
+  }
   const diveIcons = [...html.matchAll(/<app-dive-icon\b[^>]*data-dive-icon="([^"]+)"[^>]*>([\s\S]*?)<\/app-dive-icon>/g)];
   for (const icon of diveIcons) {
     assert.match(icon[0], /aria-hidden="true"/, `Decorative icon must not repeat nearby text: ${pathname}`);
@@ -105,4 +115,4 @@ for (const file of await readdir(output)) {
   const css = await readFile(new URL(file, output), 'utf8');
   assert.ok(!css.includes('./ScubaLakKadmat/media/'), 'Corrupt font URL');
 }
-console.log(`SEO checks passed: 36 static pages, unique titles, one H1, canonicals, structured data, ${checkedLinks} internal links, ${checkedAnchors} anchor targets, confirmed contact details, verification tag and noindex 404.`);
+console.log(`SEO checks passed: ${urls.length} static pages, unique titles, one H1, canonicals, structured data, ${checkedLinks} internal links, ${checkedAnchors} anchor targets, confirmed contact details, verification tag and noindex 404.`);

@@ -3,7 +3,6 @@ import { ORIGINAL_MEDIA } from './original-media.generated';
 import {
   DestinationBriefing,
   GalleryItem,
-  IslandProfile,
   KadmatAttraction,
   MarineService,
   PadiCourse,
@@ -11,99 +10,6 @@ import {
   Testimonial,
   TourPackage
 } from '../models/site-data.model';
-
-const LOCAL_IMAGE_BASE = 'media/lakshadweep';
-
-export const LAKSHADWEEP_ISLANDS: readonly IslandProfile[] = [
-  {
-    name: 'Agatti',
-    type: 'Airport island',
-    orientation: 'Gateway atoll',
-    description: 'A slender coral island with the territory’s main air gateway, lagoon beaches and easy access to reef time.',
-    highlight: 'The easiest first hello to Lakshadweep.',
-    imageUrl: ORIGINAL_MEDIA['agatti-from-vessel'].imageUrl
-  },
-  {
-    name: 'Amini',
-    type: 'Inhabited island',
-    orientation: 'Craft & lagoon life',
-    description: 'A close-knit island known for traditional craft, coconut groves and the everyday rhythm of a lagoon community.',
-    highlight: 'Local life with a soft blue horizon.',
-    imageUrl: ORIGINAL_MEDIA['amini-embarkation'].imageUrl
-  },
-  {
-    name: 'Andrott',
-    type: 'Inhabited island',
-    orientation: 'History & culture',
-    description: 'The largest inhabited island, with a deeper cultural history, broad island roads and a more settled mainland feeling.',
-    highlight: 'A window into island memory.',
-    imageUrl: 'media/generated/island-andrott.webp'
-  },
-  {
-    name: 'Bangaram',
-    type: 'Uninhabited resort island',
-    orientation: 'Barefoot escape',
-    description: 'A picture-book atoll of sand, reef and open sky, visited for its quiet beaches and feeling of being far away.',
-    highlight: 'The castaway chapter.',
-    imageUrl: 'media/generated/island-bangaram.webp'
-  },
-  {
-    name: 'Bitra',
-    type: 'Inhabited island',
-    orientation: 'Small-island quiet',
-    description: 'The smallest inhabited island is intimate and low-key, with the reef close to daily life and few distractions.',
-    highlight: 'Small scale, big sky.',
-    imageUrl: 'media/lakshadweep/optimized/island-view-2.jpg'
-  },
-  {
-    name: 'Chetlat',
-    type: 'Inhabited island',
-    orientation: 'Northern atoll',
-    description: 'A northern coral island shaped by coconut palms, turquoise shallows and a community that still moves with the sea.',
-    highlight: 'A slower northern tide.',
-    imageUrl: 'media/generated/island-chetlat.webp'
-  },
-  {
-    name: 'Kadmat',
-    type: 'Diving island',
-    orientation: 'Western lagoon',
-    description: 'An eight-kilometre ribbon of silver sand and turquoise water, built for reef visibility, water sports and long walks.',
-    highlight: 'The Scuba Lak home base.',
-    imageUrl: `${LOCAL_IMAGE_BASE}/optimized/kadmat-reference.jpg`
-  },
-  {
-    name: 'Kalpeni',
-    type: 'Inhabited island',
-    orientation: 'Lagoon & sandbanks',
-    description: 'A broad lagoon setting with sandbanks, water time and a strong connection between village life and the reef edge.',
-    highlight: 'Big lagoon, gentle pace.',
-    imageUrl: 'media/generated/island-kalpeni.webp'
-  },
-  {
-    name: 'Kavaratti',
-    type: 'Capital island',
-    orientation: 'Culture & administration',
-    description: 'The administrative capital pairs calm lagoons with mosques, food, local stories and the most visible civic life in the territory.',
-    highlight: 'The cultural centre of the chain.',
-    imageUrl: 'media/lakshadweep/optimized/kavaratti-aerial.jpg'
-  },
-  {
-    name: 'Kiltan',
-    type: 'Inhabited island',
-    orientation: 'Northern reef life',
-    description: 'A narrow northern island where reef flats, palms and community life meet in a particularly uncluttered horizon.',
-    highlight: 'A quiet edge of the archipelago.',
-    imageUrl: 'media/generated/island-kiltan.webp'
-  },
-  {
-    name: 'Minicoy',
-    type: 'Inhabited island',
-    orientation: 'Southern culture',
-    description: 'Distinctive language, dance, boat traditions and Maldivian cultural links give Minicoy a character all its own.',
-    highlight: 'A different rhythm within Lakshadweep.',
-    imageUrl: 'media/lakshadweep/optimized/island-view-4.jpg'
-  }
-];
 
 export const KADMAT_ATTRACTIONS: readonly KadmatAttraction[] = [
   {

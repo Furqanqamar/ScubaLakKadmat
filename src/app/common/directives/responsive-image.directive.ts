@@ -1,5 +1,8 @@
 import { afterNextRender, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
 import { ORIGINAL_IMAGE_INFO } from '../../data/original-image-info.generated';
+import { ISLAND_MEDIA } from '../../data/island-media.generated';
+
+const ISLAND_IMAGE_INFO = Object.fromEntries(Object.values(ISLAND_MEDIA).map(image => [image.src, image]));
 
 @Directive({
   selector: 'img[appResponsiveImage]',
@@ -16,7 +19,7 @@ export class ResponsiveImageDirective {
   readonly loaded = signal(false);
   private readonly element = inject<ElementRef<HTMLImageElement>>(ElementRef);
   readonly placeholder = computed(() => {
-    const info = ORIGINAL_IMAGE_INFO[this.appResponsiveImage()];
+    const info = ORIGINAL_IMAGE_INFO[this.appResponsiveImage()] ?? ISLAND_IMAGE_INFO[this.appResponsiveImage()];
     return info ? `url("${info.placeholder}")` : null;
   });
   constructor() {
@@ -26,6 +29,7 @@ export class ResponsiveImageDirective {
   readonly srcset = computed(() => {
     const source = this.appResponsiveImage();
     if (ORIGINAL_IMAGE_INFO[source]) return ORIGINAL_IMAGE_INFO[source].srcset;
+    if (ISLAND_IMAGE_INFO[source]) return ISLAND_IMAGE_INFO[source].srcset;
     if (!source.includes('media/generated/') || !source.endsWith('.webp')) return null;
     const stem = source.slice(0, -5);
     return `${stem}-480.webp 480w, ${stem}-800.webp 800w, ${source} 1536w`;

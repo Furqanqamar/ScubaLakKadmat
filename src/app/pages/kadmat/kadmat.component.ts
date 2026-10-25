@@ -7,11 +7,12 @@ import { ISLAND_MOMENTS } from '../../data/media-stories';
 import { RouterLink } from '@angular/router';
 
 import { KADMAT_ATTRACTIONS } from '../../data/site-content';
+import { HeroWatermarkComponent } from '../../common/components/hero-watermark/hero-watermark.component';
 
 @Component({
   selector: 'app-kadmat',
   standalone: true,
-  imports: [RouterLink, ResponsiveImageDirective, MediaStoryComponent, TravelFaqComponent],
+  imports: [RouterLink, ResponsiveImageDirective, MediaStoryComponent, TravelFaqComponent, HeroWatermarkComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kadmat.component.html'
 })

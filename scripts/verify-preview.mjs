@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 const base = process.env.PREVIEW_URL ?? 'http://localhost:4004';
-for (const path of ['/', '/about', '/courses', '/experiences', '/gallery', '/contact', '/lakshadweep', '/kadmat']) {
+for (const path of ['/', '/about', '/courses', '/experiences', '/gallery', '/contact', '/lakshadweep', '/kadmat', '/lakshadweep/kadmat', '/lakshadweep/pitti-suheli', '/lakshadweep/pitti-bird']) {
   const response = await fetch(base + path);
   assert.equal(response.status, 200, path);
   assert.match(await response.text(), /<app-root/);
@@ -20,4 +20,14 @@ await logo.body?.cancel();
 assert.equal((await fetch(`${base}/media/scuba-lak-logo-white.png`, { headers: { 'If-None-Match': etag } })).status, 304);
 assert.equal((await fetch(`${base}/%ZZ`)).status, 400);
 assert.equal((await fetch(`${base}/missing.webp`)).status, 404);
+const unknownIsland = await fetch(`${base}/lakshadweep/not-an-island`);
+assert.equal(unknownIsland.status, 404);
+assert.match(await unknownIsland.text(), /noindex/);
+const atlas = await (await fetch(`${base}/lakshadweep`)).text();
+const islandImage = atlas.match(/src="(media\/islands\/[^\"]+\.webp)"/)?.[1];
+assert.ok(islandImage);
+const islandAsset = await fetch(`${base}/${islandImage}`, { method: 'HEAD' });
+assert.equal(islandAsset.status, 200);
+assert.equal(islandAsset.headers.get('content-type'), 'image/webp');
+assert.match(islandAsset.headers.get('cache-control') ?? '', /max-age=31536000, immutable/);
 console.log('Preview checks passed: routes, video ranges, cache revalidation, malformed URLs and missing files.');

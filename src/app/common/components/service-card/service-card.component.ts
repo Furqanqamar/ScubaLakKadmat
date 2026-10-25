@@ -14,9 +14,9 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
   imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <article class="service-card group relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-cursor="view" data-reveal>
+    <article class="service-card relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-reveal>
       <img [appResponsiveImage]="service().imageUrl"
-        class="absolute inset-0 -z-20 h-full w-full object-cover object-center transition duration-700 ease-out group-hover:scale-105"
+        class="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         [src]="service().imageUrl"
         [alt]="service().title"
         width="1200"

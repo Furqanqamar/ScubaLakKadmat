@@ -44,6 +44,12 @@ export const SITE_COPY = {
     about: 'The people behind the bubbles',
     coordinate: '11° 13′ N · 72° 46′ E'
   },
+  heroWatermarks: {
+    lakshadweep: '36 Islands',
+    experiences: '4 Experiences',
+    courses: 'PADI Courses',
+    kadmat: 'Kadmat Island'
+  },
   footer: {
     navigationLabel: 'Footer navigation',
     socialLabel: 'Scuba Lak social profiles',

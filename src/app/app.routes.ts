@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/lakshadweep/lakshadweep.component').then((module) => module.LakshadweepComponent)
   },
   {
+    path: 'lakshadweep/:islandSlug',
+    loadComponent: () => import('./pages/island-guide/island-guide.component').then(module => module.IslandGuideComponent)
+  },
+  {
     path: 'kadmat',
     loadComponent: () => import('./pages/kadmat/kadmat.component').then((module) => module.KadmatComponent)
   },

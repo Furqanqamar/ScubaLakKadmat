@@ -7,6 +7,7 @@ import { filter } from 'rxjs';
 import { breadcrumbs, canonicalUrl, pageSeo, SITE_URL } from '../../data/seo-data';
 import { BUSINESS_CONTACT } from '../../data/business-config';
 import { CONTACT_EMAIL, CONTACT_PHONE } from './contact-links';
+import { islandGuide } from '../../data/island-guides';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -22,6 +23,7 @@ export class SeoService {
   private update(url: string): void {
     const path = url.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
     const page = pageSeo(path);
+    const island = path.startsWith('/lakshadweep/') ? islandGuide(path.slice('/lakshadweep/'.length)) : undefined;
     const title = page?.title ?? 'Page not found | Scuba Lak';
     const description = page?.description ?? 'This page is unavailable. Explore diving, courses and travel information for Kadmat Island with Scuba Lak.';
     const canonical = canonicalUrl(path);
@@ -29,7 +31,7 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ name: 'robots', content: page ? 'index, follow, max-image-preview:large' : 'noindex, follow' });
-    for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': page?.label ?? 'Kadmat Island', locale: 'en_IN', type: 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
+    for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': island ? `${island.name} — stylised island illustration` : page?.label ?? 'Kadmat Island', locale: 'en_IN', type: island ? 'article' : 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
     for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
     this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
     const organization = { '@type': 'Organization', '@id': SITE_URL + '#organization', name: 'Scuba Lak', url: SITE_URL, logo: new URL('media/scuba-lak-logo-white.png', SITE_URL).href, location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' }, ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}), ...(CONTACT_EMAIL ? { email: CONTACT_EMAIL } : {}), sameAs: [...BUSINESS_CONTACT.socials.filter(social => !social.href.includes('wa.me')).map(social => social.href), ...(BUSINESS_CONTACT.mapsUrl ? [BUSINESS_CONTACT.mapsUrl] : [])] };
@@ -39,6 +41,10 @@ export class SeoService {
       if (path !== '/') graph.push({ '@type': 'BreadcrumbList', itemListElement: breadcrumbs(path).map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.label, item: canonicalUrl(item.path) })) });
       if (path.startsWith('/courses/')) graph.push({ '@type': 'Course', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] } });
       if (path.startsWith('/experiences/')) graph.push({ '@type': 'Service', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] }, areaServed: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep' } });
+      if (island) {
+        graph.push({ '@type': 'Place', '@id': canonical + '#place', name: island.name, description: island.summary, containedInPlace: { '@type': 'Place', name: 'Lakshadweep, India' } });
+        graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, image, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, about: { '@id': canonical + '#place' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, articleSection: 'Lakshadweep island stories' });
+      }
     }
     let structured = this.document.getElementById('site-structured-data');
     if (!structured) { structured = this.document.createElement('script'); structured.id = 'site-structured-data'; structured.setAttribute('type', 'application/ld+json'); this.document.head.appendChild(structured); }

@@ -5,6 +5,7 @@
 @import "./styles/theme.css";
 @import "./styles/media.css";
 @import "./styles/usability.css";
+@import "./styles/island-guides.css";
 
 :root {
   color-scheme: light;
@@ -126,17 +127,11 @@ html.dialog-open input, html.dialog-open textarea { cursor: text; }
   object-position: center center;
 }
 
-.service-card,
-.attraction-card,
-.island-card,
-.transport-card,
 .gallery-card,
 .course-card {
   will-change: transform;
 }
 
-.service-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .3s ease; }
-.service-card:hover { transform: translateY(-.55rem); border-color: rgba(184,242,223,.5); box-shadow: 0 1.8rem 4rem rgba(3,17,22,.18); }
 .gallery-card, .course-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease; }
 .gallery-card:hover, .course-card:hover { transform: translateY(-.45rem); }
 
@@ -231,18 +226,8 @@ button:focus-visible {
 .destination-note span { color: #9d7047; font-family: var(--font-body); font-size: .6rem; letter-spacing: .13em; text-transform: uppercase; }
 .destination-note h3 { margin-top: 1.2rem; font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; line-height: 1.05; }
 .destination-note p { margin-top: .75rem; color: rgba(16,40,45,.58); font-size: .78rem; line-height: 1.65; }
-.island-card { position: relative; min-height: 20rem; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 1.25rem; background: #061419; transition: transform .3s ease, border-color .3s ease; }
-.island-card:hover { transform: translateY(-4px); border-color: rgba(184,242,223,.5); }
-.island-card__image, .attraction-card__image, .transport-card__image { position: absolute; inset: 0; background-position: center; background-size: cover; transition: transform .6s ease; }
-.island-card:hover .island-card__image, .attraction-card:hover .attraction-card__image, .transport-card:hover .transport-card__image { transform: scale(1.05); }
-.island-card__copy { position: absolute; right: 1rem; bottom: 1rem; left: 1rem; }
-.island-card__copy > div span, .island-card__copy > div small { color: rgba(214,255,240,.7); font-family: var(--font-body); font-size: .54rem; letter-spacing: .09em; text-transform: uppercase; }
-.island-card__copy > div small { color: rgba(255,255,255,.44); text-align: right; }
-.island-card__copy h3 { margin-top: .45rem; font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; line-height: 1; }
-.island-card__copy p { margin-top: .55rem; color: rgba(255,255,255,.62); font-size: .7rem; line-height: 1.5; }
-.island-card__copy em { display: block; margin-top: .65rem; color: #b8f2df; font-family: var(--font-body); font-size: .57rem; letter-spacing: .06em; }
-.attraction-card { position: relative; min-height: 25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 1.5rem; background: #061419; transition: transform .3s ease, border-color .3s ease; }
-.attraction-card:hover { transform: translateY(-4px); border-color: rgba(184,242,223,.5); }
+.attraction-card__image, .transport-card__image { position: absolute; inset: 0; background-position: center; background-size: cover; }
+.attraction-card { position: relative; min-height: 25rem; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 1.5rem; background: #061419; }
 .attraction-card__copy { position: absolute; right: 1.25rem; bottom: 1.25rem; left: 1.25rem; }
 .attraction-card__copy > span { color: #b8f2df; font-family: var(--font-body); font-size: .57rem; letter-spacing: .13em; text-transform: uppercase; }
 .attraction-card__copy h3 { margin-top: .5rem; font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; line-height: 1; }
@@ -378,6 +363,19 @@ button:focus-visible {
   letter-spacing: -.1em;
   line-height: 1;
   pointer-events: none;
+}
+
+.page-hero__watermark--label {
+  display: block;
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(.6rem, 1.4vw, 1.4rem);
+  max-inline-size: calc(100% - 2.5rem);
+  color: color-mix(in srgb, var(--theme-mint) 8%, transparent);
+  font-size: clamp(2rem, 9.3vw, 10rem);
+  font-weight: 500;
+  letter-spacing: -.06em;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .detail-hero {
@@ -518,8 +516,7 @@ button:focus-visible {
 .milestone { display: grid; grid-template-columns: 3.25rem 1fr; gap: 1rem; border-top: 1px solid rgba(16,40,45,.14); padding-top: 1.5rem; }
 .milestone > span { color: #9d7047; font-family: var(--font-body); font-size: .7rem; }
 .team-card__image { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 1.25rem; background: #20454b; }
-.team-card__image img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.78); transition: transform .5s ease, filter .5s ease; }
-.team-card:hover .team-card__image img { transform: scale(1.04); filter: saturate(1); }
+.team-card__image img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.78); }
 .team-card__image span { position: absolute; right: .8rem; bottom: .8rem; display: grid; width: 2.4rem; height: 2.4rem; place-items: center; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; background: rgba(3,17,22,.35); backdrop-filter: blur(10px); color: var(--mint); font-family: var(--font-body); font-size: .61rem; }
 
 .testimonial-bubble { position: relative; border-radius: 1.4rem 1.4rem 1.4rem .25rem; background: #f4f1e9; padding: 1.35rem; }

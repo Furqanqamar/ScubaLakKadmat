@@ -1,0 +1,60 @@
+@if (island(); as island) {
+  <main id="main-content" tabindex="-1" class="page-surface island-story">
+    <header class="island-story__hero">
+      <div class="island-story__hero-inner">
+        <div class="island-story__intro">
+          <a class="island-story__back" routerLink="/lakshadweep" fragment="island-atlas"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>{{ copy.backToAtlas }}</a>
+          <p class="eyebrow">{{ copy.guideEyebrow }}</p>
+          <h1>{{ island.name }}</h1>
+          <p class="island-story__tagline">{{ island.tagline }}</p>
+          <p class="island-story__introduction">{{ island.introduction }}</p>
+          <div class="island-story__meta"><span>{{ labels[island.category] }}</span><span>{{ island.region }}</span></div>
+        </div>
+        @if (illustration(); as image) {
+          <figure class="island-story__illustration">
+            <img [src]="image.src" [appResponsiveImage]="image.src" [width]="image.width" [height]="image.height" sizes="(max-width: 767px) 100vw, 48vw" [alt]="island.name + ' — ' + copy.illustrationAlt" fetchpriority="high" loading="eager" decoding="async">
+            <figcaption>{{ copy.illustrationNote }}</figcaption>
+          </figure>
+        }
+      </div>
+    </header>
+
+    <section class="island-story__facts" [attr.aria-label]="island.name + ' ' + copy.factsSuffix">
+      <dl>@for (fact of island.facts; track fact.label) { <div><dt>{{ fact.label }}</dt><dd>{{ fact.value }}</dd></div> }</dl>
+    </section>
+
+    <div class="island-story__reading">
+      <aside class="island-story__sidebar">
+        <nav [attr.aria-label]="copy.contents">
+          <p class="eyebrow">{{ copy.contents }}</p>
+          @for (section of sections(); track section.id) { <a [routerLink]="['/lakshadweep', island.slug]" [fragment]="section.id">{{ section.title }}<span aria-hidden="true">↗</span></a> }
+          <a [routerLink]="['/lakshadweep', island.slug]" fragment="before-you-go">{{ copy.planningTitle }}<span aria-hidden="true">↗</span></a>
+        </nav>
+      </aside>
+      <article class="island-story__article">
+        @for (section of sections(); track section.id) {
+          <section [id]="section.id" class="island-story__section">
+            <h2>{{ section.title }}</h2>
+            @for (paragraph of section.paragraphs; track $index) { <p>{{ paragraph }}</p> }
+            @if (section.image; as image) {
+              <figure class="island-story__photo">
+                <img [src]="image.src" [appResponsiveImage]="image.src" [width]="image.width" [height]="image.height" sizes="(max-width: 767px) 100vw, (max-width: 1279px) 65vw, 800px" [alt]="image.caption ?? island.name" loading="lazy" decoding="async">
+                <figcaption><span>{{ image.caption }}</span><small>{{ copy.photoCredit }}: {{ image.credit }}@if (image.sourceUrl) { · <a [href]="image.sourceUrl" target="_blank" rel="noopener noreferrer">{{ copy.photoSource }}</a> }@if (image.licenseUrl) { · <a [href]="image.licenseUrl" target="_blank" rel="noopener noreferrer">{{ image.license }}</a> }@if (image.sourceUrl) { <span class="island-story__adaptation">{{ copy.photoAdaptation }}</span> }</small></figcaption>
+              </figure>
+            }
+          </section>
+        }
+        <section id="before-you-go" class="island-story__planning">
+          <p class="eyebrow">{{ copy.planningEyebrow }}</p><h2>{{ copy.planningTitle }}</h2><p class="island-story__access">{{ island.access }}</p><p>{{ copy.planningNote }}</p>
+          <a class="button-link button-link--dark" routerLink="/lakshadweep-trip-planning">{{ copy.planningLink }}<span aria-hidden="true">↗</span></a>
+          @if (island.slug === 'kadmat') { <a class="island-story__kadmat-link" routerLink="/kadmat">{{ copy.kadmatLink }}<span aria-hidden="true">↗</span></a> }
+        </section>
+        <section class="island-story__sources"><h2>{{ copy.sourcesTitle }}</h2><ul>@for (source of island.sources; track source.url) { <li><a [href]="source.url" target="_blank" rel="noopener noreferrer">{{ source.label }}<span aria-hidden="true">↗</span></a></li> }</ul></section>
+      </article>
+    </div>
+    <section class="island-story__related">
+      <div class="island-atlas__heading"><div><p class="eyebrow">{{ copy.relatedEyebrow }}</p><h2>{{ copy.relatedTitle }}</h2></div><a routerLink="/lakshadweep" fragment="island-atlas">{{ copy.backToAtlas }}<span aria-hidden="true">↗</span></a></div>
+      <div class="island-atlas__grid">@for (guide of related(); track guide.slug) { <app-island-card [island]="guide" /> }</div>
+    </section>
+  </main>
+} @else { <app-not-found /> }
