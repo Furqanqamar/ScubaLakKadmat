@@ -42,6 +42,12 @@ jobs:
           node scripts/verify-island-guides.mjs
           node scripts/verify-offerings.mjs
           node scripts/verify-kadmat-focus.mjs
+          node scripts/verify-real-content.mjs
+          node scripts/verify-brand-assets.mjs
+          node scripts/verify-team-profiles.mjs
+          node scripts/verify-hero-video.mjs
+          node_modules/.bin/esbuild scripts/verify-page-transition.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-transition.mjs
+          node tmp/verify-page-transition.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

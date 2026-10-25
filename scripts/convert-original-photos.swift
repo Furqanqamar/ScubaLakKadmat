@@ -5,7 +5,8 @@ import ImageIO
 let sourceRoot = URL(fileURLWithPath: CommandLine.arguments[1])
 let temporaryRoot = URL(fileURLWithPath: CommandLine.arguments[2], isDirectory: true)
 try FileManager.default.createDirectory(at: temporaryRoot, withIntermediateDirectories: true)
-let manifest = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: "scripts/original-media.json"))) as! [[String: Any]]
+let manifestPath = CommandLine.arguments.count > 3 ? CommandLine.arguments[3] : "scripts/original-media.json"
+let manifest = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: manifestPath))) as! [[String: Any]]
 for entry in manifest where entry["kind"] as? String == "image" {
     let source = sourceRoot.appendingPathComponent(entry["file"] as! String)
     let imageSource = CGImageSourceCreateWithURL(source as CFURL, nil)!

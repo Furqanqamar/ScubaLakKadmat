@@ -1,7 +1,6 @@
 import { MARINE_SERVICES, PADI_COURSES } from './site-content';
 import { SITE_COPY } from './site-copy';
 import { islandGuide, islandIllustration } from './island-guides';
-import { ORIGINAL_MEDIA } from './original-media.generated';
 
 // Update when the permanent domain is ready; regenerate the static build.
 export const SITE_URL = 'https://furqanqamar.github.io/ScubaLakKadmat/';
@@ -11,7 +10,6 @@ export const SEO_PAGES: Readonly<Record<string, PageSeo>> = {
   '/about': { ...SITE_COPY.seo.about, label: 'About Scuba Lak' },
   '/lakshadweep': { ...SITE_COPY.seo.lakshadweep, label: 'Lakshadweep island guide' },
   '/kadmat': { ...SITE_COPY.seo.kadmat, label: 'Kadmat Island guide' },
-  '/kadmat-dive-sites': { ...SITE_COPY.seo.diveSites, label: 'Kadmat dive spots', image: ORIGINAL_MEDIA['way-to-the-reef'].imageUrl },
   '/experiences': { ...SITE_COPY.seo.experiences, label: 'Diving & water sports' },
   '/courses': { ...SITE_COPY.seo.courses, label: 'PADI diving courses' },
   '/gallery': { ...SITE_COPY.seo.gallery, label: 'Gallery' },
@@ -36,7 +34,6 @@ export function breadcrumbs(path: string): readonly { label: string; path: strin
   if (path.startsWith('/courses/')) items.push({ label: 'PADI courses', path: '/courses' });
   if (path.startsWith('/experiences/')) items.push({ label: 'Experiences', path: '/experiences' });
   if (path.startsWith('/lakshadweep/')) items.push({ label: 'Lakshadweep island atlas', path: '/lakshadweep' });
-  if (path === '/kadmat-dive-sites') items.push({ label: 'Kadmat Island', path: '/kadmat' });
   if (path !== '/') items.push({ label: pageSeo(path)?.label ?? 'Page not found', path });
   return items;
 }

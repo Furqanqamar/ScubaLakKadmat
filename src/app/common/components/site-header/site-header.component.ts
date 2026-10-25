@@ -18,11 +18,10 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
           <app-brand-lockup />
         </a>
 
-        <div class="hidden items-center gap-4 xl:flex">
+        <div class="hidden items-center gap-6 xl:flex">
           <a class="nav-link" routerLink="/experiences" routerLinkActive="nav-link--active">{{ copy.navigation.experiences }}</a>
           <a class="nav-link" routerLink="/courses" routerLinkActive="nav-link--active">{{ copy.navigation.courses }}</a>
           <a class="nav-link" routerLink="/kadmat" routerLinkActive="nav-link--active">{{ copy.navigation.island }}</a>
-          <a class="nav-link" routerLink="/kadmat-dive-sites" routerLinkActive="nav-link--active">{{ copy.navigation.diveSites }}</a>
           <a class="nav-link" routerLink="/about" routerLinkActive="nav-link--active">{{ copy.navigation.about }}</a>
           <a class="nav-link" routerLink="/gallery" routerLinkActive="nav-link--active">{{ copy.navigation.gallery }}</a>
           <a class="nav-link" routerLink="/contact" fragment="enquiry" routerLinkActive="nav-link--active">{{ copy.navigation.contact }}</a>
@@ -40,7 +39,6 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
           <a routerLink="/experiences" (click)="closeMenu()">{{ copy.navigation.experiences }}</a>
           <a routerLink="/courses" (click)="closeMenu()">{{ copy.navigation.courses }}</a>
           <a routerLink="/kadmat" (click)="closeMenu()">{{ copy.navigation.island }}</a>
-          <a routerLink="/kadmat-dive-sites" (click)="closeMenu()">{{ copy.navigation.diveSites }}</a>
           <a routerLink="/about" (click)="closeMenu()">{{ copy.navigation.about }}</a>
           <a routerLink="/gallery" (click)="closeMenu()">{{ copy.navigation.gallery }}</a>
           <a routerLink="/contact" fragment="enquiry" (click)="closeMenu()">{{ copy.navigation.contactDesk }}</a>

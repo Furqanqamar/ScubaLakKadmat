@@ -1,9 +1,11 @@
+import { BRAND_ASSETS } from './brand-assets.generated';
+
 export const SITE_COPY = {
   brand: {
     name: 'Scuba Lak',
     tagline: 'Kadmat Lakshadweep',
-    logoSrc: 'media/scuba-lak-logo.png',
-    faviconSrc: 'media/scuba-lak-logo-white.png',
+    logoSrc: BRAND_ASSETS.logoSrc,
+    logoSrcset: BRAND_ASSETS.logoSrcset,
     homeLabel: 'Scuba Lak, Kadmat Lakshadweep home'
   },
   navigation: {
@@ -14,7 +16,6 @@ export const SITE_COPY = {
     experiences: 'Experiences',
     courses: 'PADI courses',
     island: 'Kadmat',
-    diveSites: 'Dive spots',
     archipelago: 'Lakshadweep atlas',
     about: 'About us',
     gallery: 'Gallery',
@@ -82,11 +83,7 @@ export const SITE_COPY = {
     },
     kadmat: {
       title: 'Kadmat Island Diving & Water Activities | Scuba Lak',
-      description: 'Why dive Kadmat? Discover an unhurried island, lagoon experiences, reef diving and a friendly Scuba Lak team. Explore water activities and plan your dive.'
-    },
-    diveSites: {
-      title: '19 Kadmat Dive Spots: Secret Garden, The Wall & More | Scuba Lak',
-      description: 'Explore 19 Kadmat dive spots, including Secret Garden, The Wall, Turtle Town and Double Reef. Ask Scuba Lak about site suitability and your next dive.'
+      description: 'Explore Kadmat Island diving with Scuba Lak: 19 named dive spots, lagoon experiences, water activities and a friendly local team in Lakshadweep.'
     },
     experiences: {
       title: 'Diving and water sports | Scuba Lak, Kadmat',

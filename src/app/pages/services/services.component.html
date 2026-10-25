@@ -1,5 +1,6 @@
 <main id="main-content" tabindex="-1" class="page-surface">
-  <section class="page-hero page-hero--deep">
+  <section class="page-hero page-hero--real">
+    <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" loading="eager" fetchpriority="high" decoding="async">
     <app-hero-watermark page="experiences" />
     <div class="mx-auto max-w-[90rem]">
       <p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p>
@@ -10,7 +11,7 @@
   <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
     <div class="mx-auto max-w-[90rem]">
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">@for (service of services; track service.id) { <app-service-card [service]="service" /> }</div>
-      <a class="button-link button-link--dark mt-10" routerLink="/kadmat-dive-sites">{{ copy.spotLink }}<span aria-hidden="true">↗</span></a>
+      <a class="button-link button-link--dark mt-10" routerLink="/kadmat" fragment="dive-spots">{{ copy.spotLink }}<span aria-hidden="true">↗</span></a>
     </div>
   </section>
   <app-media-story [items]="moments" [title]="mediaCopy.trainingTitle" [introduction]="mediaCopy.trainingIntro" />

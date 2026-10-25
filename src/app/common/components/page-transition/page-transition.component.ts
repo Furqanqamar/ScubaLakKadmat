@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationSkipped, NavigationStart, Router } from '@angular/router';
 
 import { SITE_COPY } from '../../../data/site-copy';
 
@@ -15,8 +15,9 @@ interface TransitionBubble {
   readonly delay: number;
 }
 
-const CURTAIN_COVER_MS = 120;
-const CURTAIN_REVEAL_MS = 160;
+const CURTAIN_COVER_MS = 320;
+const CURTAIN_HOLD_MS = 240;
+const CURTAIN_REVEAL_MS = 440;
 
 @Component({
   selector: 'app-page-transition',
@@ -79,6 +80,8 @@ export class PageTransitionComponent {
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
   private readonly timers: number[] = [];
+  private activeNavigationId: number | null = null;
+  private coverStartedAt = 0;
 
   readonly isActive = signal(false);
   readonly phase = signal<TransitionPhase>('cover');
@@ -115,23 +118,37 @@ export class PageTransitionComponent {
       const fromPath = this.cleanPath(this.router.url);
       const toPath = this.cleanPath(event.url);
       if (!this.router.navigated || fromPath === toPath || view.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this.clearTimers();
+        this.activeNavigationId = null;
+        this.isActive.set(false);
         return;
       }
 
       this.clearTimers();
+      this.activeNavigationId = event.id;
       this.label.set(this.getLabel(toPath));
-      this.timers.push(view.setTimeout(() => { this.phase.set('cover'); this.isActive.set(true); }, 120));
+      // Start immediately, even when a cached route finishes in the same turn.
+      // Keep an existing cover in place through redirects or rapid navigation.
+      if (!this.isActive() || this.phase() === 'reveal') {
+        this.coverStartedAt = view.performance.now();
+        this.phase.set('cover');
+        this.isActive.set(true);
+      }
       return;
     }
 
-    if (!(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError)) {
+    if (!(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError || event instanceof NavigationSkipped)
+      || event.id !== this.activeNavigationId) {
       return;
     }
 
+    this.activeNavigationId = null;
     this.clearTimers();
     if (!this.isActive()) return;
-    this.phase.set('reveal');
-    this.timers.push(view.setTimeout(() => this.isActive.set(false), CURTAIN_REVEAL_MS));
+    const elapsed = view.performance.now() - this.coverStartedAt;
+    const revealDelay = Math.max(0, CURTAIN_COVER_MS + CURTAIN_HOLD_MS - elapsed);
+    this.timers.push(view.setTimeout(() => this.phase.set('reveal'), revealDelay));
+    this.timers.push(view.setTimeout(() => this.isActive.set(false), revealDelay + CURTAIN_REVEAL_MS));
   }
 
   private cleanPath(url: string): string {

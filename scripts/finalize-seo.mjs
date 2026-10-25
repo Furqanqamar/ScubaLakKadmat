@@ -12,6 +12,8 @@ async function walk(directory) {
 const urls = [];
 for (const file of await walk(output)) {
   const html = await readFile(file, 'utf8');
+  // Angular emits static refresh documents for legacy route redirects.
+  if (/<meta\b[^>]+http-equiv="refresh"/i.test(html)) continue;
   if (/<meta[^>]+name="robots"[^>]+content="noindex/i.test(html)) continue;
   const canonical = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1];
   if (!canonical) throw new Error(`Missing canonical: ${file}`);

@@ -21,6 +21,9 @@ assert.equal((serviceCard.match(/<a\b/g) ?? []).length, 1, 'Each service card sh
 assert.match(serviceCard, /\[routerLink\]="\['\/experiences', service\(\)\.id\]"/);
 assert.match(serviceCard, /hover:bg-\[#b8f2df\]/, 'Preserve feedback on the actual Explore link');
 assert.match(serviceCard, /focus:ring-2/, 'Preserve keyboard focus on the actual Explore link');
+const spotList = await readFile(new URL('src/app/common/components/kadmat-dive-spots/kadmat-dive-spots.component.ts', root), 'utf8');
+assert.match(spotList, /<ol\b[^>]*class="kadmat-spots__list"/);
+assert.doesNotMatch(spotList.match(/<li\b[^>]*>/)?.[0] ?? '', /\(click\)|tabindex|data-cursor|role=/, 'Dive-spot list rows stay static; only their enquiry arrows are links');
 
 const courses = await readFile(new URL('src/app/pages/courses/courses.component.html', root), 'utf8');
 const gallery = await readFile(new URL('src/app/common/components/media-collection/media-collection.component.ts', root), 'utf8');

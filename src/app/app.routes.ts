@@ -23,7 +23,8 @@ export const routes: Routes = [
   },
   {
     path: 'kadmat-dive-sites',
-    loadComponent: () => import('./pages/dive-sites/dive-sites.component').then(module => module.DiveSitesComponent)
+    redirectTo: '/kadmat#dive-spots',
+    pathMatch: 'full'
   },
   {
     path: 'experiences',

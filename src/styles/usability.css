@@ -1,6 +1,6 @@
 .skip-link { position: fixed; top: .75rem; left: .75rem; z-index: 150; transform: translateY(-200%); padding: .85rem 1.2rem; border-radius: .6rem; background: var(--mint); color: var(--deep); font-size: 1rem; font-weight: 700; }
 .skip-link:focus { transform: none; }
-main:focus, #enquiry:focus, #reach-permits:focus { outline: none; }
+main:focus, #enquiry:focus, #reach-permits:focus, #team:focus { outline: none; }
 .eyebrow { font-size: .75rem; line-height: 1.6; }
 .text-sm { font-size: 1rem; line-height: 1.75; }
 .button-link { min-height: 44px; font-size: .9rem; line-height: 1.4; }

@@ -1,11 +1,12 @@
 import { ORIGINAL_MEDIA } from './original-media.generated';
+import { ADDITIONAL_MEDIA } from './additional-media.generated';
+import { TEAM_PORTRAITS } from './team-portraits.generated';
 
 import {
   GalleryItem,
   MarineService,
   PadiCourse,
-  TeamMember,
-  Testimonial
+  TeamMember
 } from '../models/site-data.model';
 
 
@@ -37,7 +38,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Advanced PADI divers',
     duration: '',
     badge: 'Outer reef',
-    imageUrl: 'media/generated/service-deep-sea-diving.webp',
+    imageUrl: ADDITIONAL_MEDIA['reef-diver-coral'].imageUrl,
     highlights: ['Outer reef wall sites', 'Small group departures', 'Top-tier dive equipment']
   },
   {
@@ -67,7 +68,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     audience: 'Every kind of explorer',
     duration: '',
     badge: 'Easygoing',
-    imageUrl: 'media/generated/service-water-sports.webp',
+    imageUrl: ORIGINAL_MEDIA['enjoying-clear-water'].imageUrl,
     highlights: ['Glass boat ride', 'Guided kayaking', 'Lagoon snorkelling', 'Deep sea fishing']
   }
 ];
@@ -102,7 +103,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or a qualifying certification from another recognised training organisation.',
     structure: ['Deep Adventure Dive', 'Underwater Navigation Adventure Dive', '3 elective Adventure Dives such as buoyancy, night, wreck, photography, nitrox or fish identification'],
     taught: ['Deep-dive planning and narcosis awareness', 'Gas consumption and depth effects', 'Compass and natural navigation', 'Improved buoyancy and trim', 'Specialised communication, photography, search or boat skills depending on electives'],
-    outcome: 'A stronger recreational foundation and a pathway toward a 30 metre maximum recreational depth for eligible adult divers.', imageUrl: 'media/generated/course-advanced-open-water.webp'
+    outcome: 'A stronger recreational foundation and a pathway toward a 30 metre maximum recreational depth for eligible adult divers.', imageUrl: ADDITIONAL_MEDIA['blue-water-diver'].imageUrl
   },
   {
     id: 'emergency-first-response', category: 'First aid & safety', eyebrow: 'Ready above and below water', title: 'Emergency First Response Primary & Secondary Care',
@@ -152,7 +153,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Advanced Open Water and Rescue Diver or qualifying certifications, current EFR within 24 months, at least 40 logged dives to begin, medical clearance, swimming ability and fitness.',
     structure: ['Watermanship and stamina assessments', 'Rescue evaluation', 'Dive-skill demonstration circuits', 'Underwater mapping', 'Search and recovery', 'Deep-dive scenarios', 'Site setup, briefings and supervised guiding'],
     taught: ['Supervising certified and student divers', 'Dive briefings and site management', 'Physics, physiology and decompression theory', 'Equipment and recreational dive planning', 'Emergency planning, environmental awareness and industry conduct'],
-    outcome: 'Professional Divemaster certification normally requires a minimum of 60 logged dives and opens the route toward instructor development.', imageUrl: 'media/generated/course-divemaster.webp'
+    outcome: 'Professional Divemaster certification normally requires a minimum of 60 logged dives and opens the route toward instructor development.', imageUrl: ADDITIONAL_MEDIA['guided-group-dive'].imageUrl
   },
   {
     id: 'emergency-first-response-instructor', category: 'Professional development', eyebrow: 'Teach life-saving skills', title: 'Emergency First Response Instructor - EFRI',
@@ -172,7 +173,7 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     prerequisite: 'PADI Divemaster or qualifying leadership certification, certified diver status for at least 6 months, at least 60 logged dives to begin the IDC, current EFR, medical clearance and EFR Instructor qualification before the full pathway.',
     structure: ['Knowledge and teaching philosophy', 'Confined-water presentations', 'Open-water teaching assignments', 'Standards, evaluation and course administration'],
     taught: ['PADI teaching philosophy', 'Knowledge-development presentations', 'Confined-water skill teaching', 'Open-water assignments', 'Risk management and professional conduct'],
-    outcome: 'A teaching-level PADI rating and a path into the Open Water Scuba Instructor portion of the IDC and PADI Instructor Examination.', imageUrl: 'media/generated/course-assistant-instructor.webp'
+    outcome: 'A teaching-level PADI rating and a path into the Open Water Scuba Instructor portion of the IDC and PADI Instructor Examination.', imageUrl: ADDITIONAL_MEDIA['lagoon-dive-group'].imageUrl
   },
   {
     id: 'bubblemaker', category: 'Youth & introductory', eyebrow: 'Little explorers', title: 'PADI Bubblemaker',
@@ -207,12 +208,13 @@ export const PADI_COURSES: readonly PadiCourse[] = [
 ];
 
 export const TEAM_MEMBERS: readonly TeamMember[] = [
-  { id: 'shamsudheen', name: 'Shamsudheen', role: 'Senior instructor', bio: null, initials: 'S', imageUrl: 'media/team/shamsudheen.jpg', imageAlt: 'Shamsudheen, Scuba Lak senior instructor, beside the lagoon' },
-  { id: 'mohammed-sadique', name: 'Mohammed Sadique', role: null, bio: null, initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg', imageAlt: 'Mohammed Sadique aboard a boat in the lagoon' },
-  { id: 'jamhar', name: 'Jamhar', role: null, bio: null, initials: 'J', imageUrl: 'media/team/jamhar.jpg', imageAlt: 'Jamhar aboard a Scuba Lak boat' },
-  { id: 'crew-04', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-4.jpg', imageAlt: 'Scuba Lak team portrait, photograph four' },
-  { id: 'crew-05', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-5.jpg', imageAlt: 'Scuba Lak team portrait, photograph five' },
-  { id: 'crew-06', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-6.jpg', imageAlt: 'Scuba Lak team portrait, photograph six' }
+  { id: 'shamsudheen', name: 'Shamsudheen', imageUrl: 'media/team/shamsudheen.jpg', imageAlt: 'Shamsudheen beside the Kadmat lagoon', width: 1000, height: 1250 },
+  { id: 'mohammed-sadique', name: 'Mohammed Sadique', imageUrl: 'media/team/mohammed-sadique.jpg', imageAlt: 'Mohammed Sadique aboard a boat in the lagoon', width: 800, height: 1000 },
+  { id: 'jamhar', name: 'Jamhar', imageUrl: 'media/team/jamhar.jpg', imageAlt: 'Jamhar aboard a Scuba Lak boat', width: 800, height: 1000 },
+  { id: 'al-ameen', name: 'Al Ameen', imageUrl: 'media/team/team-member-4.jpg', imageAlt: 'Al Ameen aboard a boat in Kadmat lagoon', width: 1000, height: 1250 },
+  { id: 'saheer', name: 'Saheer', imageUrl: 'media/team/team-member-5.jpg', imageAlt: 'Saheer aboard a boat beside the lagoon', width: 1000, height: 1250 },
+  { id: 'lukman', name: 'Lukman', imageUrl: 'media/team/team-member-6.jpg', imageAlt: 'Lukman sitting on a boat railing in Kadmat lagoon', width: 600, height: 750 },
+  { id: 'amjad-khan', name: 'Amjad Khan', imageUrl: TEAM_PORTRAITS['amjad-khan'].imageUrl, imageAlt: 'Amjad Khan, Scuba Lak team member', width: TEAM_PORTRAITS['amjad-khan'].width, height: TEAM_PORTRAITS['amjad-khan'].height }
 ];
 
 export const TEAM_GROUP_PHOTO = 'media/team/team-group-boat.jpg';
@@ -226,17 +228,9 @@ export const TEAM_STORY = {
   imageAlt: 'Scuba Lak team members together aboard a dive boat in Kadmat lagoon'
 } as const;
 
-export const TESTIMONIALS: readonly Testimonial[] = [];
-
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
+  ...Object.values(ADDITIONAL_MEDIA),
   ...Object.values(ORIGINAL_MEDIA),
   { id: 'scuba-lak-team', category: 'Team', title: 'The people behind the bubbles', description: 'Three of the Scuba Lak team between dives, surrounded by Kadmat’s clear lagoon and the easy camaraderie that shapes every day on the water.', location: 'Kadmat lagoon · Scuba Lak', imageUrl: TEAM_GROUP_PHOTO, size: 'tall' },
   { id: 'scuba-lak-on-the-sands', category: 'Team', title: 'Local knowledge, shared', description: 'The wider Scuba Lak crew on Kadmat’s silver sands - a local-led team bringing careful standards, warm island hospitality and a deep respect for the reef.', location: 'Kadmat Island beach', imageUrl: TEAM_BEACH_GROUP_PHOTO, size: 'tall' },
-  { id: 'glass-water', title: 'Glass water, first light', description: 'The western lagoon before the wind arrives - the quietest hour on the island.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-glass-water.webp', size: 'wide' },
-  { id: 'reef-wall', title: 'Where the reef falls away', description: 'Blue turns to depth on an outer-reef descent with the day\'s visibility wide open.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-reef-wall.webp', size: 'tall' },
-  { id: 'shoreline', title: 'Eight kilometres of shoreline', description: 'A slow walk between palms, tide lines and the sea that keeps changing colour.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-shoreline.webp', size: 'standard' },
-  { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-boat-day.webp', size: 'wide' },
-  { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-palm-shadow.webp', size: 'standard' },
-  { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-underwater-light.webp', size: 'tall' },
-  { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-shore-paddle.webp', size: 'wide' }
 ];

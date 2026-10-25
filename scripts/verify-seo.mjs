@@ -8,7 +8,7 @@ const siteContent = await readFile(new URL('../src/app/data/site-content.ts', im
 const courseCatalogue = siteContent.split('export const PADI_COURSES:')[1].split('export const TEAM_MEMBERS:')[0];
 const courseCount = [...courseCatalogue.matchAll(/\bid: '[a-z0-9-]+', category:/g)].length;
 assert.equal(courseCount, 13, 'Only the remaining offered courses should be published');
-assert.equal(urls.length, 15 + courseCount + islandContent.islands.length);
+assert.equal(urls.length, 14 + courseCount + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
 const documents = new Map();
@@ -66,10 +66,10 @@ for (const [pathname, html] of documents) {
     assert.ok(!html.includes('background-video__control'), 'Hero Play/Pause control must remain removed');
     assert.equal((html.match(/class="kadmat-reason"/g) ?? []).length, 6, 'Home must explain six reasons to dive Kadmat');
     assert.deepEqual(diveIcons.slice(0, 4).map(icon => icon[1]), ['lagoon', 'deep-diver', 'certification', 'kayak'], 'Home service cards must retain the shared SVG icons');
-    assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit'), ...Array(6).fill('activity')], 'Home icons must use the correct size hierarchy');
+    assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit')], 'Home icons must use the correct size hierarchy');
   }
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/about/') {
-    assert.equal((html.match(/class="team-card"/g) ?? []).length, 6, 'All six original team portraits must remain visible');
+    assert.equal((html.match(/class="team-card"/g) ?? []).length, 7, 'All seven named team portraits must remain visible');
     assert.equal((html.match(/class="benefit-item"/g) ?? []).length, 6, 'About must explain all six benefits');
     for (const index of [4, 5, 6]) assert.ok(html.includes(`media/team/team-member-${index}.jpg`), `Missing original portrait ${index}`);
     assert.deepEqual(diveIcons.map(icon => icon[1]), ['kayak', 'schedule', 'mask', 'tanks', 'coral', 'instructor'], 'About must use the same benefit artwork as Home');

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BackgroundVideoComponent } from '../../common/components/background-video/background-video.component';
-import { DiveSiteCollectionComponent } from '../../common/components/dive-site-collection/dive-site-collection.component';
+import { GuestReviewsComponent } from '../../common/components/guest-reviews/guest-reviews.component';
 import { ServiceCardComponent } from '../../common/components/service-card/service-card.component';
 import { WhyKadmatComponent } from '../../common/components/why-kadmat/why-kadmat.component';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
@@ -12,7 +12,7 @@ import { GALLERY_ITEMS, MARINE_SERVICES } from '../../data/site-content';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BackgroundVideoComponent, DiveSiteCollectionComponent, WhyKadmatComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent],
+  imports: [BackgroundVideoComponent, GuestReviewsComponent, WhyKadmatComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html'
 })
@@ -21,5 +21,5 @@ export class HomeComponent {
   readonly accommodation = ACCOMMODATION_INFO;
   readonly siteCount = KADMAT_DIVE_SITES.length;
   readonly services = MARINE_SERVICES;
-  readonly gallery = GALLERY_ITEMS.filter(item => ['kadmat-beach', 'mask-fitting-training', 'enjoying-clear-water', 'pre-dive-preparation'].includes(item.id));
+  readonly gallery = GALLERY_ITEMS.filter(item => ['guided-group-dive', 'reef-diver-coral', 'coral-and-light', 'kadmat-beach'].includes(item.id));
 }

@@ -1,6 +1,6 @@
 import { MediaCollectionComponent } from '../../common/components/media-collection/media-collection.component';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
-import { ORIGINAL_MEDIA } from '../../data/original-media.generated';
+import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 
 import { GALLERY_ITEMS } from '../../data/site-content';
@@ -16,7 +16,7 @@ import { MEDIA_COPY } from '../../data/media-copy';
 })
 export class GalleryComponent {
   readonly items = GALLERY_ITEMS;
-  readonly cover = ORIGINAL_MEDIA['kadmat-beach'];
+  readonly cover = ADDITIONAL_MEDIA['coral-and-light'];
   readonly copy = MEDIA_COPY;
   readonly categories: readonly ('All moments' | MediaCategory)[] = ['All moments', 'Diving & training', 'Island life', 'Island journeys', 'Team', 'Reef & island views'];
   readonly category = signal<'All moments' | MediaCategory>('All moments');

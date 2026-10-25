@@ -5,7 +5,7 @@
       <p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p>
       <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1>
       <p class="mt-8 max-w-xl text-base leading-8 text-white/75">{{ copy.introduction }}</p>
-      <div class="mt-9 flex flex-wrap gap-3"><a class="button-link button-link--mint" routerLink="/kadmat-dive-sites">{{ copy.spotsLink }}<span aria-hidden="true">↗</span></a><a class="button-link border border-white/25 text-white" routerLink="/contact" fragment="enquiry" [queryParams]="{ interest: 'diving' }">{{ copy.closingAction }}<span aria-hidden="true">↗</span></a></div>
+      <div class="mt-9 flex flex-wrap gap-3"><a class="button-link button-link--mint" routerLink="/kadmat" fragment="dive-spots">{{ copy.spotsLink }}<span aria-hidden="true">↓</span></a><a class="button-link border border-white/25 text-white" routerLink="/contact" fragment="enquiry" [queryParams]="{ interest: 'diving' }">{{ copy.closingAction }}<span aria-hidden="true">↗</span></a></div>
     </div>
     <app-hero-watermark page="kadmat" />
   </section>
@@ -19,7 +19,7 @@
     </div>
   </section>
 
-  <app-dive-site-collection />
+  <app-kadmat-dive-spots />
   <app-media-story [items]="moments" [title]="mediaCopy.islandTitle" [introduction]="mediaCopy.islandIntro" />
 
   <section class="bg-[#e8e2d4] px-5 py-20 sm:px-8 lg:px-10 lg:py-24">

@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { PADI_COURSES } from '../../data/site-content';
 import { SITE_COPY } from '../../data/site-copy';
 import { KADMAT_COPY } from '../../data/kadmat-diving';
+import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
 import { CourseCategory } from '../../models/site-data.model';
 import { COURSE_ICONS } from '../../data/dive-icons';
 import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
@@ -18,6 +19,7 @@ import { HeroWatermarkComponent } from '../../common/components/hero-watermark/h
   templateUrl: './courses.component.html'
 })
 export class CoursesComponent {
+  readonly cover = ADDITIONAL_MEDIA['sunlit-blue-diver'];
   readonly copy = KADMAT_COPY.courses;
   readonly icons = COURSE_ICONS;
   readonly courses = PADI_COURSES;

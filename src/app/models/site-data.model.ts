@@ -59,12 +59,11 @@ export interface PadiCourse {
 
 export interface TeamMember {
   readonly id: string;
-  readonly name: string | null;
-  readonly role: string | null;
-  readonly bio: string | null;
+  readonly name: string;
   readonly imageUrl: string;
   readonly imageAlt: string;
-  readonly initials: string | null;
+  readonly width: number;
+  readonly height: number;
 }
 
 export interface SiteBenefit {
@@ -73,13 +72,6 @@ export interface SiteBenefit {
   readonly summary: string;
   readonly description: string;
   readonly icon: DiveIconName;
-}
-
-export interface Testimonial {
-  readonly quote: string;
-  readonly name: string;
-  readonly detail: string;
-  readonly accent: 'mint' | 'coral' | 'sand';
 }
 
 export type MediaCategory = 'Diving & training' | 'Island life' | 'Island journeys' | 'Team' | 'Reef & island views';

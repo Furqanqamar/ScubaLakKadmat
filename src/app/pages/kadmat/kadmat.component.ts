@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DiveSiteCollectionComponent } from '../../common/components/dive-site-collection/dive-site-collection.component';
+import { KadmatDiveSpotsComponent } from '../../common/components/kadmat-dive-spots/kadmat-dive-spots.component';
 import { HeroWatermarkComponent } from '../../common/components/hero-watermark/hero-watermark.component';
 import { MediaStoryComponent } from '../../common/components/media-story/media-story.component';
 import { ServiceCardComponent } from '../../common/components/service-card/service-card.component';
@@ -13,7 +13,7 @@ import { MARINE_SERVICES } from '../../data/site-content';
 
 @Component({
   selector: 'app-kadmat', standalone: true,
-  imports: [RouterLink, DiveSiteCollectionComponent, WhyKadmatComponent, ServiceCardComponent, MediaStoryComponent, TravelFaqComponent, HeroWatermarkComponent],
+  imports: [RouterLink, KadmatDiveSpotsComponent, WhyKadmatComponent, ServiceCardComponent, MediaStoryComponent, TravelFaqComponent, HeroWatermarkComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kadmat.component.html'
 })
