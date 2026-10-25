@@ -1,0 +1,29 @@
+:host {
+  display: inline-flex;
+  width: var(--dive-icon-size, 1.25em);
+  height: auto;
+  max-inline-size: 100%;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  vertical-align: middle;
+  line-height: 0;
+}
+svg { display: block; width: 100%; height: auto; aspect-ratio: 1; overflow: hidden; }
+path { vector-effect: non-scaling-stroke; stroke-width: var(--dive-icon-stroke, var(--icon-stroke-standard)); }
+
+/* Minimum-size fallbacks also keep unsupported container-query browsers safe. */
+:host([data-icon-context='benefit']) { --dive-icon-size: var(--icon-benefit-min); --dive-icon-stroke: var(--icon-stroke-display); }
+:host([data-icon-context='benefit-detail']) { --dive-icon-size: var(--icon-benefit-detail-min); --dive-icon-stroke: var(--icon-stroke-standard); }
+:host([data-icon-context='service']) { --dive-icon-size: var(--icon-service-min); --dive-icon-stroke: var(--icon-stroke-compact); }
+:host([data-icon-context='course']) { --dive-icon-size: var(--icon-course-min); --dive-icon-stroke: var(--icon-stroke-compact); }
+:host([data-icon-context='detail']) { --dive-icon-size: var(--icon-detail-min); --dive-icon-stroke: var(--icon-stroke-display); }
+:host([data-icon-context='activity']) { --dive-icon-size: var(--icon-activity-min); --dive-icon-stroke: var(--icon-stroke-standard); }
+
+@supports (width: 1cqi) {
+  :host([data-icon-context='benefit']) { --dive-icon-size: clamp(var(--icon-benefit-min), 16cqi, var(--icon-benefit-max)); }
+  :host([data-icon-context='benefit-detail']) { --dive-icon-size: clamp(var(--icon-benefit-detail-min), 12cqi, var(--icon-benefit-detail-max)); }
+  :host([data-icon-context='service']) { --dive-icon-size: clamp(var(--icon-service-min), 13cqi, var(--icon-service-max)); }
+  :host([data-icon-context='course']) { --dive-icon-size: clamp(var(--icon-course-min), 10cqi, var(--icon-course-max)); }
+  :host([data-icon-context='detail']) { --dive-icon-size: clamp(var(--icon-detail-min), 9cqi, var(--icon-detail-max)); }
+  :host([data-icon-context='activity']) { --dive-icon-size: clamp(var(--icon-activity-min), 16cqi, var(--icon-activity-max)); }
+}

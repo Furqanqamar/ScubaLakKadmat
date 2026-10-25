@@ -4,15 +4,18 @@ import { RouterLink } from '@angular/router';
 
 import { PADI_COURSES } from '../../data/site-content';
 import { CourseCategory } from '../../models/site-data.model';
+import { COURSE_ICONS } from '../../data/dive-icons';
+import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html'
 })
 export class CoursesComponent {
+  readonly icons = COURSE_ICONS;
   readonly courses = PADI_COURSES;
   readonly categories: readonly ('All' | CourseCategory)[] = [
     'All', 'Beginner certifications', 'Continuing education', 'First aid & safety', 'Specialty diver courses', 'Professional development', 'Youth & introductory'

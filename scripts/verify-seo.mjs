@@ -35,16 +35,43 @@ for (const url of urls) {
 }
 for (const [pathname, html] of documents) {
   const base = html.match(/<base href="([^"]+)"/)?.[1] ?? '/';
+  const diveIcons = [...html.matchAll(/<app-dive-icon\b[^>]*data-dive-icon="([^"]+)"[^>]*>([\s\S]*?)<\/app-dive-icon>/g)];
+  for (const icon of diveIcons) {
+    assert.match(icon[0], /aria-hidden="true"/, `Decorative icon must not repeat nearby text: ${pathname}`);
+    assert.match(icon[0], /data-icon-context="(?:benefit|benefit-detail|service|course|detail|activity)"/, `Every icon needs a context-specific responsive size: ${pathname}`);
+    assert.match(icon[2], /viewBox="0 0 80 80"/, `Inconsistent SVG artboard: ${pathname}`);
+    assert.match(icon[2], /stroke="currentColor"/, `SVG must inherit the theme: ${pathname}`);
+    assert.match(icon[2], /<path\b[^>]*\bd="M/, `Missing SVG paths: ${pathname}`);
+    assert.doesNotMatch(icon[2], /<image\b|<foreignObject\b|<script\b|\bonload=/i, `Unsafe or raster icon: ${pathname}`);
+  }
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/') {
     const hero = html.match(/<video\b[^>]*background-video__image[^>]*>/)?.[0];
     assert.ok(hero, 'Hero video must be present without requiring a Play action');
     for (const attribute of ['autoplay', 'muted', 'loop', 'playsinline']) assert.match(hero, new RegExp(`\\b${attribute}(?:[\\s=>])`));
     assert.doesNotMatch(hero, /\bcontrols(?:[\s=>])/);
     assert.ok(!html.includes('background-video__control'), 'Hero Play/Pause control must remain removed');
+    assert.equal((html.match(/class="benefit-item"/g) ?? []).length, 6, 'Home must show all six benefits');
+    assert.deepEqual(diveIcons.map(icon => icon[1]), ['lagoon', 'deep-diver', 'certification', 'kayak', 'kayak', 'schedule', 'mask', 'tanks', 'coral', 'instructor'], 'Home service and benefit cards must use the shared SVG icons');
+    assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit')], 'Home icons must use the correct size hierarchy');
+  }
+  if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/about/') {
+    assert.equal((html.match(/class="team-card"/g) ?? []).length, 6, 'All six original team portraits must remain visible');
+    assert.equal((html.match(/class="benefit-item"/g) ?? []).length, 6, 'About must explain all six benefits');
+    for (const index of [4, 5, 6]) assert.ok(html.includes(`media/team/team-member-${index}.jpg`), `Missing original portrait ${index}`);
+    assert.deepEqual(diveIcons.map(icon => icon[1]), ['kayak', 'schedule', 'mask', 'tanks', 'coral', 'instructor'], 'About must use the same benefit artwork as Home');
+    for (const icon of diveIcons) assert.match(icon[0], /data-icon-context="benefit-detail"/, 'About icons need the detailed-layout size');
+  }
+  if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/courses/') {
+    assert.equal(diveIcons.length, 22, 'Every PADI course card needs a matching SVG icon');
+    for (const icon of diveIcons) assert.match(icon[0], /data-icon-context="course"/, 'Course cards need compact icons');
+  }
+  for (const social of html.matchAll(/<a\b[^>]*class="social-link"[^>]*>([\s\S]*?)<\/a>/g)) {
+    assert.equal(social[1].replace(/<[^>]*>/g, '').trim(), '', 'Footer social links must be icon-only');
   }
   const detail = pathname.match(/\/(courses|experiences)\/([^/]+)\/$/);
   if (detail) {
     const kind = detail[1] === 'courses' ? 'course' : 'experience';
+    assert.equal(diveIcons.length, kind === 'course' ? 1 : detail[2] === 'water-sports' ? 5 : 4, `Missing shared detail-page icons: ${pathname}`);
     assert.ok(html.includes(`kind=${kind}&amp;item=${detail[2]}#enquiry`) || html.includes(`kind=${kind}&item=${detail[2]}#enquiry`), `Missing enquiry context: ${pathname}`);
   }
   const localPage = new URL(pathname.replace(/^\/ScubaLakKadmat\//, base), 'https://local.test');

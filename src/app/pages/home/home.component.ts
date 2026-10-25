@@ -1,5 +1,6 @@
 import { enquiryParams } from '../../data/enquiry-context';
 import { BackgroundVideoComponent } from '../../common/components/background-video/background-video.component';
+import { BenefitsSectionComponent } from '../../common/components/benefits-section/benefits-section.component';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { DialogShellComponent } from '../../common/components/dialog-shell/dialog-shell.component';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
@@ -21,7 +22,7 @@ import {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BackgroundVideoComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent, DialogShellComponent],
+  imports: [BackgroundVideoComponent, BenefitsSectionComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent, DialogShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html'
 })

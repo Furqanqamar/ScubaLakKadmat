@@ -32,17 +32,17 @@ interface FooterBubble {
           <span class="footer-underwater__bubble" [style.left.%]="bubble.left" [style.width.px]="bubble.size" [style.height.px]="bubble.size" [style.animation-delay.ms]="bubble.delay" [style.animation-duration.ms]="bubble.duration"></span>
         }
       </div>
-      <div class="mx-auto max-w-[90rem] border-t border-white/10 pt-8">
-        <div class="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
+      <div class="mx-auto max-w-[90rem]">
+        <div class="footer-layout">
           <a class="footer-brand" appHomeLink routerLink="/" [attr.aria-label]="copy.brand.homeLabel"><app-brand-lockup /></a>
-          <div class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.58rem] uppercase tracking-[0.15em] text-white/35"><a class="transition hover:text-[#b8f2df]" routerLink="/about">{{ copy.navigation.about }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/experiences">{{ copy.navigation.experiences }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/courses">{{ copy.navigation.courses }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep">{{ copy.navigation.island }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/gallery">{{ copy.navigation.gallery }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a class="transition hover:text-[#b8f2df]" routerLink="/contact" fragment="enquiry">{{ copy.navigation.contact }}</a></div>
-          @if (socialLinks.length) { <div class="flex flex-wrap gap-2">
+          @if (socialLinks.length) { <nav class="footer-socials" [attr.aria-label]="copy.footer.socialLabel">
             @for (social of socialLinks; track social.label) {
-              <a class="social-link" [attr.href]="socialUrl(social.href)" [attr.aria-disabled]="!socialUrl(social.href)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i><span>{{ social.label }}</span></a>
+              <a class="social-link" [href]="social.href" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i></a>
             }
-          </div> }
+          </nav> }
+          <nav class="footer-navigation" [attr.aria-label]="copy.footer.navigationLabel"><a routerLink="/about">{{ copy.navigation.about }}</a><a routerLink="/experiences">{{ copy.navigation.experiences }}</a><a routerLink="/courses">{{ copy.navigation.courses }}</a><a routerLink="/lakshadweep">{{ copy.navigation.island }}</a><a routerLink="/gallery">{{ copy.navigation.gallery }}</a><a routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a routerLink="/contact" fragment="enquiry">{{ copy.navigation.contact }}</a></nav>
         </div>
-        <div class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><p class="max-w-xl font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/30">{{ copy.footer.legal }}</p></div>
+        <div class="footer-legal"><p>{{ copy.footer.legal }}</p></div>
       </div>
     </footer>
   `,
@@ -59,10 +59,18 @@ interface FooterBubble {
     .footer-underwater__ray--two { left: 43%; width: 19%; transform: rotate(-5deg); animation-delay: -3s; opacity: .3; }
     .footer-underwater__ray--three { right: 8%; width: 12%; transform: rotate(-19deg); animation-delay: -5s; opacity: .24; }
     .footer-underwater__bubble { position: absolute; bottom: -3rem; z-index: 2; display: block; border: 1px solid rgba(214,255,240,.42); border-radius: 50%; background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.5), transparent 16%), rgba(184,242,223,.035); box-shadow: inset -3px -4px 8px rgba(184,242,223,.08), 0 0 12px rgba(184,242,223,.08); opacity: 0; animation-name: footer-bubble-rise, footer-bubble-sway; animation-timing-function: ease-in, ease-in-out; animation-iteration-count: infinite, infinite; animation-fill-mode: both, both; }
-    .footer-brand { display: inline-flex; }
-    .social-link { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid rgba(184,242,223,.18); border-radius: 999px; padding: .55rem .7rem; color: rgba(214,255,240,.72); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .57rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
-    .social-link:hover { border-color: rgba(184,242,223,.55); background: rgba(184,242,223,.1); color: #d6fff0; transform: translateY(-2px); }
-    .social-link i { display: grid; width: 1.3rem; height: 1.3rem; place-items: center; border-radius: 999px; background: rgba(184,242,223,.1); color: #b8f2df; font-size: .72rem; }
+    .footer-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; align-items: center; }
+    .footer-brand { display: inline-flex; flex: none; justify-self: start; min-width: max-content; }
+    .footer-socials { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; }
+    .footer-navigation { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .3rem 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; }
+    .footer-navigation a { display: inline-flex; align-items: center; font-family: var(--font-body); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s ease; }
+    .footer-navigation a:hover { color: var(--mint); }
+    .footer-legal { margin-top: 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; font-family: var(--font-body); }
+    .social-link { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgb(184 242 223 / .35); border-radius: 50%; color: var(--mint); transition: background .2s ease, border-color .2s ease; }
+    .social-link:hover { border-color: var(--mint); background: rgb(184 242 223 / .1); }
+    .social-link i { color: var(--mint); font-size: 1.1rem; }
+    .social-link:focus-visible, .footer-navigation a:focus-visible { outline: 2px solid var(--mint); outline-offset: 5px; }
+    @media (min-width: 640px) { .footer-layout { grid-template-columns: minmax(0, 1fr) auto; gap: 1.75rem 2.5rem; } .footer-socials { justify-self: end; } .footer-navigation { display: flex; flex-wrap: wrap; gap: .4rem 1.75rem; } .footer-legal { padding-right: 6.5rem; } }
     .footer-underwater::before, .footer-underwater__surface-glow, .footer-underwater__ray, .footer-underwater__bubble { animation-play-state: var(--footer-play-state, paused); }
     @media (prefers-reduced-motion: reduce) { .footer-underwater::before, .footer-underwater__surface-glow, .footer-underwater__ray, .footer-underwater__bubble { animation: none; } }
     @keyframes footer-underwater-caustics { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
@@ -73,7 +81,6 @@ interface FooterBubble {
   `
 })
 export class SiteFooterComponent {
-  readonly socialUrl = configuredSocialUrl;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);

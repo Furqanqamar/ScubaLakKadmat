@@ -492,9 +492,12 @@ export const PADI_COURSES: readonly PadiCourse[] = [
 ];
 
 export const TEAM_MEMBERS: readonly TeamMember[] = [
-  { name: 'Shamsudheen', role: 'Senior instructor', bio: '', initials: 'S', imageUrl: 'media/team/shamsudheen.jpg' },
-  { name: 'Mohammed Sadique', role: '', bio: '', initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg' },
-  { name: 'Jamhar', role: '', bio: '', initials: 'J', imageUrl: 'media/team/jamhar.jpg' }
+  { id: 'shamsudheen', name: 'Shamsudheen', role: 'Senior instructor', bio: null, initials: 'S', imageUrl: 'media/team/shamsudheen.jpg', imageAlt: 'Shamsudheen, Scuba Lak senior instructor, beside the lagoon' },
+  { id: 'mohammed-sadique', name: 'Mohammed Sadique', role: null, bio: null, initials: 'MS', imageUrl: 'media/team/mohammed-sadique.jpg', imageAlt: 'Mohammed Sadique aboard a boat in the lagoon' },
+  { id: 'jamhar', name: 'Jamhar', role: null, bio: null, initials: 'J', imageUrl: 'media/team/jamhar.jpg', imageAlt: 'Jamhar aboard a Scuba Lak boat' },
+  { id: 'crew-04', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-4.jpg', imageAlt: 'Scuba Lak team portrait, photograph four' },
+  { id: 'crew-05', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-5.jpg', imageAlt: 'Scuba Lak team portrait, photograph five' },
+  { id: 'crew-06', name: null, role: null, bio: null, initials: null, imageUrl: 'media/team/team-member-6.jpg', imageAlt: 'Scuba Lak team portrait, photograph six' }
 ];
 
 export const TEAM_GROUP_PHOTO = 'media/team/team-group-boat.jpg';

@@ -1,3 +1,5 @@
+import type { DiveIconName } from './dive-icon.model';
+
 export type MarineServiceCategory = 'Diving' | 'Course' | 'Water sports';
 
 export type MarineServiceIcon = 'lagoon' | 'deep-sea' | 'course' | 'sports';
@@ -84,11 +86,21 @@ export interface PadiCourse {
 }
 
 export interface TeamMember {
-  readonly name: string;
-  readonly role: string;
-  readonly bio: string;
+  readonly id: string;
+  readonly name: string | null;
+  readonly role: string | null;
+  readonly bio: string | null;
   readonly imageUrl: string;
-  readonly initials: string;
+  readonly imageAlt: string;
+  readonly initials: string | null;
+}
+
+export interface SiteBenefit {
+  readonly id: string;
+  readonly title: string;
+  readonly summary: string;
+  readonly description: string;
+  readonly icon: DiveIconName;
 }
 
 export interface Testimonial {

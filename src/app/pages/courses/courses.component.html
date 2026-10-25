@@ -22,9 +22,8 @@
             <div class="course-card__image">
               <img [appResponsiveImage]="course.imageUrl" class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="lazy" decoding="async">
               <span class="course-card__wash" aria-hidden="true"></span>
-              <span class="course-card__category">{{ course.category }}</span>
-              <span class="course-card__arrow" aria-hidden="true"><i class="fa-solid fa-location-arrow"></i></span>
-              <div class="course-card__copy"><small>{{ course.eyebrow }}</small><h2>{{ course.title }}</h2><p>{{ course.shortDescription }}</p></div>
+              <div class="course-card__header"><span class="course-card__category">{{ course.category }}</span><span class="course-card__arrow" aria-hidden="true"><i class="fa-solid fa-location-arrow"></i></span></div>
+              <div class="course-card__copy"><div class="course-card__identity"><app-dive-icon [name]="icons[course.category]" context="course" /><small>{{ course.eyebrow }}</small></div><h2>{{ course.title }}</h2><p>{{ course.shortDescription }}</p></div>
             </div>
             <div class="course-card__meta"><span>{{ course.duration }}</span><span>{{ course.minimumAge }}</span></div>
           </a>

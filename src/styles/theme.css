@@ -24,3 +24,22 @@
   --theme-border: rgba(214, 255, 240, .16);
   --theme-overlay: rgba(0, 8, 12, .84);
 }
+
+/* Icon hierarchy: bounded sizes, tuned by each card's available inline space. */
+:root {
+  --icon-benefit-min: 3rem;
+  --icon-benefit-max: 4rem;
+  --icon-benefit-detail-min: 2.5rem;
+  --icon-benefit-detail-max: 3.5rem;
+  --icon-service-min: 2rem;
+  --icon-service-max: 3rem;
+  --icon-course-min: 2rem;
+  --icon-course-max: 2.75rem;
+  --icon-detail-min: 2.5rem;
+  --icon-detail-max: 4rem;
+  --icon-activity-min: 2rem;
+  --icon-activity-max: 3rem;
+  --icon-stroke-compact: 1.15px;
+  --icon-stroke-standard: 1.3px;
+  --icon-stroke-display: 1.45px;
+}

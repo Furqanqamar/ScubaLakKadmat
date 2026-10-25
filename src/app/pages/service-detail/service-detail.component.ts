@@ -8,15 +8,19 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { MARINE_SERVICES } from '../../data/site-content';
+import { SERVICE_HIGHLIGHT_ICONS, SERVICE_ICONS } from '../../data/dive-icons';
+import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
 
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink, MediaStoryComponent],
+  imports: [ResponsiveImageDirective, RouterLink, MediaStoryComponent, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './service-detail.component.html'
 })
 export class ServiceDetailComponent {
+  readonly icons = SERVICE_ICONS;
+  readonly highlightIcons = SERVICE_HIGHLIGHT_ICONS;
   readonly enquiryParams = enquiryParams;
   readonly mediaCopy = MEDIA_COPY;
   readonly moments = computed(() => SERVICE_MOMENTS[this.service()?.id ?? ''] ?? []);

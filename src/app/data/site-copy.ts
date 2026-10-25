@@ -45,6 +45,8 @@ export const SITE_COPY = {
     coordinate: '11° 13′ N · 72° 46′ E'
   },
   footer: {
+    navigationLabel: 'Footer navigation',
+    socialLabel: 'Scuba Lak social profiles',
     legal: 'Scuba Lak · Kadmat Island · Lakshadweep · Dive softly · travel lightly · © 2026',
   },
   common: {

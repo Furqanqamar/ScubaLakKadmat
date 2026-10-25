@@ -5,11 +5,13 @@ import { RouterLink } from '@angular/router';
 
 import { SITE_COPY } from '../../../data/site-copy';
 import { MarineService } from '../../../models/site-data.model';
+import { SERVICE_ICONS } from '../../../data/dive-icons';
+import { DiveIconComponent } from '../dive-icon/dive-icon.component';
 
 @Component({
   selector: 'app-service-card',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink],
+  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="service-card group relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-cursor="view" data-reveal>
@@ -25,14 +27,9 @@ import { MarineService } from '../../../models/site-data.model';
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(3,17,22,.16)_0%,rgba(3,17,22,.92)_92%)]"></div>
       <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_20%,rgba(184,242,223,.2),transparent_33%)]"></div>
 
-      <div class="flex items-start justify-between gap-4">
-        <div class="service-icon flex h-12 w-12 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-2xl text-[#d6fff0] backdrop-blur-md" aria-hidden="true">
-          @switch (service().icon) {
-            @case ('lagoon') { <i class="fa-solid fa-water"></i> }
-            @case ('deep-sea') { <i class="fa-solid fa-fish"></i> }
-            @case ('course') { <i class="fa-solid fa-certificate"></i> }
-            @default { <i class="fa-solid fa-person-swimming"></i> }
-          }
+      <div class="service-card__header">
+        <div class="service-icon" aria-hidden="true">
+          <app-dive-icon [name]="icons[service().icon]" context="service" />
         </div>
         @if (service().badge; as badge) {
           <span class="rounded-full border border-[#b8f2df]/30 bg-[#b8f2df]/10 px-3 py-1.5 font-mono text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#d6fff0]">{{ badge }}</span>
@@ -62,6 +59,7 @@ import { MarineService } from '../../../models/site-data.model';
   `
 })
 export class ServiceCardComponent {
+  readonly icons = SERVICE_ICONS;
   readonly copy = SITE_COPY;
   readonly service = input.required<MarineService>();
 }

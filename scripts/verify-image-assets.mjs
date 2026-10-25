@@ -26,6 +26,15 @@ for (const id of Object.keys(scenes)) {
 }
 console.log(`Verified ${hashes.size} distinct WebP assets, ${(bytes / 1024 / 1024).toFixed(1)} MB total.`);
 
+const teamPortraits = [...content.matchAll(/imageUrl: '(media\/team\/[^']+\.jpg)'/g)].map(match => match[1]);
+assert.equal(teamPortraits.length, 6, 'Keep all six owner-supplied team portraits');
+assert.equal(new Set(teamPortraits).size, 6, 'Team portraits must retain their original order and distinct files');
+for (const path of teamPortraits) {
+  const photo = readFileSync('public/' + path);
+  assert.equal(photo.readUInt16BE(0), 0xffd8, `Invalid team JPEG: ${path}`);
+}
+console.log('Verified all six original team portrait files.');
+
 const originalSource = readFileSync('src/app/data/original-media.generated.ts', 'utf8');
 const originalMedia = JSON.parse(originalSource.split('export const ORIGINAL_MEDIA = ')[1].split(' as const satisfies')[0]);
 const imageSource = readFileSync('src/app/data/original-image-info.generated.ts', 'utf8');
