@@ -2,9 +2,9 @@
   <section class="page-hero page-hero--course">
     <app-hero-watermark page="courses" />
     <div class="mx-auto max-w-[90rem]">
-      <p class="eyebrow text-[#b8f2df]">Training that travels</p>
-      <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">Learn the language<br><em>of the ocean.</em></h1>
-      <p class="mt-8 max-w-2xl text-base leading-8 text-white/60">The full PADI pathway, from your first bubble to professional leadership - taught with the patience, sea sense and small-group attention Kadmat deserves.</p>
+      <p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p>
+      <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1>
+      <p class="mt-8 max-w-2xl text-base leading-8 text-white/70">{{ copy.introduction }}</p>
     </div>
   </section>
 
@@ -30,7 +30,7 @@
         }
       </div>
 
-      <div class="mt-10 rounded-[1.5rem] border border-[#10282d]/10 bg-[#e8e2d4] p-6 sm:p-8"><p class="eyebrow text-[#9d7047]">A note before you book</p><p class="mt-4 max-w-3xl text-sm leading-7 text-[#10282d]/65">Course schedules, equipment inclusion, boat arrangements, accommodation and minimum participant numbers can vary. Contact our team to plan your course around your dates and group. All participants complete the required PADI medical and administrative forms; certification depends on satisfactory performance, not only the number of days or dives.</p></div>
+      <div class="mt-10 rounded-[1.5rem] border border-[#10282d]/10 bg-[#e8e2d4] p-6 sm:p-8"><p class="eyebrow text-[#9d7047]">{{ bookingNote.eyebrow }}</p><p class="mt-4 max-w-3xl text-sm leading-7 text-[#10282d]/65">{{ bookingNote.body }}</p></div>
     </div>
   </section>
 </main>

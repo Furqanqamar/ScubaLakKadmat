@@ -13,10 +13,12 @@ export const SITE_COPY = {
     menuTitle: 'Explore Scuba Lak',
     experiences: 'Experiences',
     courses: 'PADI courses',
-    island: 'Know island',
+    island: 'Kadmat',
+    diveSites: 'Dive spots',
+    archipelago: 'Lakshadweep atlas',
     about: 'About us',
     gallery: 'Gallery',
-    accommodation: 'Kadmat accommodation',
+    accommodation: 'Where to stay',
     tripPlanning: 'Plan your island trip',
     contact: 'Contact',
     contactDesk: 'Contact the dive desk',
@@ -26,7 +28,6 @@ export const SITE_COPY = {
     explore: 'Explore',
     exploreExperiences: 'Explore experiences',
     knowKadmat: 'Know Kadmat',
-    buildTrip: 'Build this trip',
     askIslandTeam: 'Ask the island team',
     scrollToTop: 'Scroll to top',
     returnHome: 'Return to home page'
@@ -50,6 +51,10 @@ export const SITE_COPY = {
     courses: 'PADI Courses',
     kadmat: 'Kadmat Island'
   },
+  courseBookingNote: {
+    eyebrow: 'A note before you book',
+    body: 'Course schedules, equipment inclusion, boat arrangements and minimum participant numbers can vary. Contact our dive team to plan your course around your dates and group. All participants complete the required PADI medical and administrative forms; certification depends on satisfactory performance, not only the number of days or dives.'
+  },
   footer: {
     navigationLabel: 'Footer navigation',
     socialLabel: 'Scuba Lak social profiles',
@@ -65,7 +70,7 @@ export const SITE_COPY = {
   seo: {
     home: {
       title: 'Scuba Diving in Kadmat, Lakshadweep | Scuba Lak',
-      description: 'Explore scuba diving in Kadmat, Lakshadweep with Scuba Lak. Discover lagoon dives, PADI courses, snorkelling, kayaking and island-trip planning.'
+      description: 'Dive Kadmat with Scuba Lak: lagoon experiences, PADI courses, 19 named dive spots, snorkelling and kayaking with a friendly island team in Lakshadweep.'
     },
     about: {
       title: 'About Scuba Lak, Kadmat Lakshadweep',
@@ -76,8 +81,12 @@ export const SITE_COPY = {
       description: 'Explore Lakshadweep’s coral islands, culture, nature, permits, tourism and responsible travel notes.'
     },
     kadmat: {
-      title: 'Kadmat Island guide | Scuba Lak, Lakshadweep',
-      description: 'Plan a Kadmat Island visit with lagoon attractions, reef locations, transport options and island context.'
+      title: 'Kadmat Island Diving & Water Activities | Scuba Lak',
+      description: 'Why dive Kadmat? Discover an unhurried island, lagoon experiences, reef diving and a friendly Scuba Lak team. Explore water activities and plan your dive.'
+    },
+    diveSites: {
+      title: '19 Kadmat Dive Spots: Secret Garden, The Wall & More | Scuba Lak',
+      description: 'Explore 19 Kadmat dive spots, including Secret Garden, The Wall, Turtle Town and Double Reef. Ask Scuba Lak about site suitability and your next dive.'
     },
     experiences: {
       title: 'Diving and water sports | Scuba Lak, Kadmat',
@@ -93,7 +102,7 @@ export const SITE_COPY = {
     },
     contact: {
       title: 'Contact Scuba Lak dive desk | Kadmat Lakshadweep',
-      description: 'Contact Scuba Lak for diving, PADI courses, permits, island stays, transport and water sports.'
+      description: 'Contact Scuba Lak in Kadmat for diving, PADI courses and water sports. Ask for introductions to independent resorts or homestay hosts if needed.'
     },
     detail: {
       title: 'Experience details | Scuba Lak, Kadmat Lakshadweep',

@@ -132,7 +132,6 @@ export const COURSE_ICONS = {
   'Beginner certifications': 'certification',
   'Continuing education': 'compass',
   'First aid & safety': 'rescue',
-  'Specialty diver courses': 'coral',
   'Professional development': 'instructor',
   'Youth & introductory': 'mask'
 } as const satisfies Readonly<Record<CourseCategory, DiveIconName>>;

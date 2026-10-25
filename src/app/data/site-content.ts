@@ -1,60 +1,13 @@
 import { ORIGINAL_MEDIA } from './original-media.generated';
 
 import {
-  DestinationBriefing,
   GalleryItem,
-  KadmatAttraction,
   MarineService,
   PadiCourse,
   TeamMember,
-  Testimonial,
-  TourPackage
+  Testimonial
 } from '../models/site-data.model';
 
-export const KADMAT_ATTRACTIONS: readonly KadmatAttraction[] = [
-  {
-    id: 'western-lagoon',
-    title: 'The western turquoise lagoon',
-    location: 'West coast · Kadmat',
-    description: 'A long, shallow blue room for first dives, glass boats, snorkelling and the kind of sunset that turns the water silver.',
-    imageUrl: ORIGINAL_MEDIA['kadmat-clear-lagoon'].imageUrl
-  },
-  {
-    id: 'silver-sands',
-    title: 'Silver sand shoreline',
-    location: 'Island-wide beach line',
-    description: 'Walk the island by tide line, with coconut shade inland and a reef horizon that keeps opening in front of you.',
-    imageUrl: 'media/generated/attraction-silver-sands.webp'
-  },
-  {
-    id: 'outer-reef',
-    title: 'Outer-reef blue walls',
-    location: 'West reef edge',
-    description: 'Experienced divers can meet the drop-off, where the protected lagoon gives way to deeper open-ocean life and changing currents.',
-    imageUrl: 'media/generated/attraction-outer-reef.webp'
-  },
-  {
-    id: 'reef-life',
-    title: 'Coral gardens & marine life',
-    location: 'Lagoon and reef sites',
-    description: 'Look for reef fish, branching coral and the small, bright details that make slow, low-impact exploration so rewarding.',
-    imageUrl: 'media/generated/attraction-reef-life.webp'
-  },
-  {
-    id: 'island-culture',
-    title: 'Island culture in the everyday',
-    location: 'Village and harbour',
-    description: 'The island is not a backdrop. Notice the boats, food, faith, coconut crafts and the warm, practical hospitality of Kadmat life.',
-    imageUrl: 'media/generated/attraction-island-culture.webp'
-  },
-  {
-    id: 'lagoon-paddle',
-    title: 'Paddle at the tide’s pace',
-    location: 'South lagoon',
-    description: 'Kayak across glassy shallows, pause above the reef and let the island show you its quieter side.',
-    imageUrl: 'media/generated/attraction-lagoon-paddle.webp'
-  }
-];
 
 export const MARINE_SERVICES: readonly MarineService[] = [
   {
@@ -63,7 +16,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     icon: 'lagoon',
     eyebrow: 'Soft entry',
     title: 'Lagoon diving',
-    description: 'A calm, shallow introduction to Kadmat\'s living coral garden - made for first breaths and non-swimmers.',
+    description: 'Your first underwater breath, guided gently in Kadmat’s shallow lagoon. Beginners and non-swimmers welcome.',
     detailedDescription: 'Move slowly through warm, sheltered water with a PADI professional beside you. At five metres, the lagoon opens up a luminous world of coral bommies, butterflyfish and shy reef life without the pressure of the open sea.',
     depth: '5 m',
     audience: 'Beginners & non-swimmers',
@@ -78,7 +31,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     icon: 'deep-sea',
     eyebrow: 'Open ocean',
     title: 'Deep sea diving',
-    description: 'Go where the reef wall falls away: blue-water drops, marine walls and the wild rhythm of the open ocean.',
+    description: 'Explore Kadmat’s outer reefs with a dive plan matched to your certification, experience and the conditions.',
     detailedDescription: 'For certified divers ready to meet the outer reef, Kadmat\'s western edge delivers dramatic walls, eagle rays and schools of pelagic life. The plan is always matched to your logged experience, comfort and the day\'s sea conditions.',
     depth: '30 m',
     audience: 'Advanced PADI divers',
@@ -93,7 +46,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     icon: 'course',
     eyebrow: 'Get certified',
     title: 'PADI courses',
-    description: 'Trade the holiday feeling for a new skill set. Learn at your pace with Open Water and Advanced Open Water tracks.',
+    description: 'Build confidence with PADI training, from Open Water to the next step in your diving journey.',
     detailedDescription: 'From your first pool session to advanced navigation and deep-diving skills, our courses pair international PADI standards with the clarity of learning in a real island environment. Small groups keep every question welcome.',
     depth: 'Course-specific',
     audience: 'New & certified divers',
@@ -108,7 +61,7 @@ export const MARINE_SERVICES: readonly MarineService[] = [
     icon: 'sports',
     eyebrow: 'Surface stories',
     title: 'Water sports',
-    description: 'Keep the salt on your skin with glass-bottom boat rides, kayaking, snorkelling and deep sea fishing.',
+    description: 'Snorkel, kayak, ride a glass-bottom boat or head out for deep sea fishing with the island crew.',
     detailedDescription: 'Not every adventure needs a tank. Drift above the reef, paddle the lagoon at golden hour or head offshore with a local crew who knows the water\'s moods. Build your own mix of slow mornings and big blue afternoons.',
     depth: 'Surface',
     audience: 'Every kind of explorer',
@@ -119,60 +72,6 @@ export const MARINE_SERVICES: readonly MarineService[] = [
   }
 ];
 
-export const TOUR_PACKAGES: readonly TourPackage[] = [
-  {
-    id: 'budget',
-    tone: 'sand',
-    name: 'Barefoot basecamp',
-    kicker: 'Budget friendly framework',
-    tagline: 'Everything you need. Nothing you don\'t.',
-    duration: '',
-    description: 'A starting point for discussing a simpler Kadmat stay. Share your dates, group size and travel preferences; accommodation, activities and arrangements must be confirmed in a tailored quotation.',
-    idealFor: 'First-time island travellers, curious couples and small groups.',
-    inclusions: ['Standard beachfront lodging', 'Guided lagoon snorkelling', 'Glass boat cruise', 'Entry permit processing']
-  },
-  {
-    id: 'premium',
-    tone: 'coral',
-    name: 'Blue room retreat',
-    kicker: 'Premium luxury framework',
-    tagline: 'A private side of the island.',
-    duration: '',
-    description: 'A starting point for discussing a more private Kadmat stay, diving and coastal meals. Confirm the property, room, activities, equipment, transfers and written terms for your dates.',
-    idealFor: 'Experienced divers, milestone trips and guests who want the island to themselves.',
-    inclusions: ['Private beach-facing AC villa', 'Multiple deep sea dives with top-tier gear', 'Private kayaking guide', 'Custom coastal meals']
-  }
-];
-
-export const DESTINATION_BRIEFINGS: readonly DestinationBriefing[] = [
-  {
-    id: 'lakshadweep',
-    index: '01',
-    label: 'The archipelago',
-    title: 'Lakshadweep is still wonderfully hard to reach.',
-    teaser: 'An exotic coral archipelago with a raw, untouched marine ecosystem and a deliberately limited number of visitors.',
-    body: 'Lakshadweep is a chain of coral atolls and islands in the Arabian Sea, where turquoise water, reef flats and coconut-lined shores still set the pace. Restricted permit access protects the ecosystem and makes every arrival feel considered.',
-    detail: 'Come with curiosity, patience and a light footprint. The quiet is part of the luxury.'
-  },
-  {
-    id: 'kadmat',
-    index: '02',
-    label: 'Your island',
-    title: 'Kadmat is eight kilometres of pure blue perspective.',
-    teaser: 'A slim island jewel with a massive western lagoon, soft sand and the kind of reef visibility divers remember for years.',
-    body: 'Kadmat\'s long, narrow shape gives the island a rare sense of horizon. Its western turquoise lagoon is made for easy water time, while the outer reef drops into deeper blue for experienced divers.',
-    detail: 'Watch the light change across the lagoon. It never looks the same twice.'
-  },
-  {
-    id: 'why-us',
-    index: '03',
-    label: 'Our standard',
-    title: 'The good stuff is in the details.',
-    teaser: 'Elite PADI professionals, top-tier oxygen and safety standards, and a deep commitment to leaving the reef better than we found it.',
-    body: 'Our team brings international diving discipline to local knowledge. Every briefing is unhurried, every kit is checked, and every route considers the reef, the weather and the humans in our care.',
-    detail: 'Small groups. Honest conditions. A respectful relationship with the sea.'
-  }
-];
 
 export const PADI_COURSES: readonly PadiCourse[] = [
   {
@@ -226,56 +125,6 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     outcome: 'A major confidence and safety milestone, and an important prerequisite for PADI Divemaster.', imageUrl: 'media/generated/course-rescue-diver.webp'
   },
   {
-    id: 'deep-diver', category: 'Specialty diver courses', eyebrow: 'Go beyond the familiar', title: 'PADI Deep Diver',
-    shortDescription: 'Plan and conduct recreational dives beyond the normal Open Water range, progressively reaching 40 metres.',
-    about: 'Deep Diver builds gas-management, planning, narcosis-awareness, buddy-contact, buoyancy and safety skills for recreational diving beyond the Open Water depth range.',
-    duration: 'Usually 2 days', minimumAge: '15 years', depth: 'Progressively up to 40 m / 130 ft',
-    prerequisite: 'PADI Adventure Diver or a qualifying certification.',
-    structure: ['Knowledge development', '4 open-water deep dives', 'Deep Adventure Dive may count as the first specialty dive when applicable'],
-    taught: ['Deep-dive planning and gas management', 'Nitrogen narcosis awareness', 'No-decompression limits and emergency gas planning', 'Buoyancy control, buddy contact and safety stops', 'Special equipment and depth procedures'],
-    outcome: 'PADI Deep Diver specialty certification within recreational standards and instructor judgement.', imageUrl: 'media/generated/course-deep-diver.webp'
-  },
-  {
-    id: 'digital-underwater-photographer', category: 'Specialty diver courses', eyebrow: 'Make the blue memorable', title: 'PADI Digital Underwater Photographer',
-    shortDescription: 'Create clearer, better-composed and more colourful underwater photographs while protecting marine life.',
-    about: 'Learn camera-system choice, housing care, composition, colour management, lighting and backscatter reduction so your images show the reef as you experienced it.',
-    duration: 'Usually 1-2 days', minimumAge: 'Normally 10 years', depth: 'Set by training environment and diver qualification',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification. Adapted confined-water versions may have different requirements.',
-    structure: ['Knowledge development', '2 open-water dives', 'Confined-water adapted versions may be available'],
-    taught: ['Camera and housing preparation', 'Leak prevention and maintenance', 'Composition and getting close safely', 'White balance, strobes and camera settings', 'Backscatter reduction and image review', 'Responsible behaviour around marine life'],
-    outcome: 'A practical foundation for producing more intentional underwater images.', imageUrl: 'media/generated/course-digital-underwater-photographer.webp'
-  },
-  {
-    id: 'enriched-air-nitrox', category: 'Specialty diver courses', eyebrow: 'More time in the right places', title: 'PADI Enriched Air Diver - Nitrox',
-    shortDescription: 'Learn to plan and use enriched air with a higher oxygen percentage and lower nitrogen load than standard air.',
-    about: 'The course covers benefits, limitations, oxygen exposure, operating depth, cylinder analysis, labelling and dive-computer settings for nitrox.',
-    duration: 'Usually half a day to 1 day', minimumAge: '12 years', depth: 'Maximum operating depth determined by gas analysis and training',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
-    structure: ['Knowledge development', 'Oxygen-analysis and cylinder-management exercises', 'Optional enriched-air dives; open-water dives are not always required'],
-    taught: ['Benefits and limitations of enriched air', 'Oxygen-toxicity risk and maximum operating depth', 'Cylinder analysis, labelling and documentation', 'Nitrox dive planning and computer settings', 'Safe handling and equipment considerations'],
-    outcome: 'The knowledge and practical skills to use enriched air safely within training limits.', imageUrl: 'media/generated/course-enriched-air-nitrox.webp'
-  },
-  {
-    id: 'night-diver', category: 'Specialty diver courses', eyebrow: 'Meet the reef after sunset', title: 'PADI Night Diver',
-    shortDescription: 'Discover night-active marine life while building confidence with lights, communication and navigation in limited visibility.',
-    about: 'Night Diver trains divers to plan, organise and conduct dives after sunset, with careful attention to controlled descents, ascents, light failure and protecting night-active marine life.',
-    duration: 'Usually 2-3 evenings', minimumAge: '12 years', depth: 'Set by instructor, site and diver experience',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
-    structure: ['Knowledge development', '3 night dives'],
-    taught: ['Primary and backup-light selection', 'Light signals and buddy communication', 'Navigation and orientation at night', 'Safe entries, exits, descents and ascents', 'Limited-visibility and light-failure management'],
-    outcome: 'PADI Night Diver specialty certification and a more confident after-dark dive routine.', imageUrl: 'media/generated/course-night-diver.webp'
-  },
-  {
-    id: 'adaptive-support-diver', category: 'Specialty diver courses', eyebrow: 'Buddy better', title: 'PADI Adaptive Support Diver',
-    shortDescription: 'Become a more capable, respectful buddy for divers with physical or mental challenges.',
-    about: 'Adaptive Support Diver focuses on awareness, respectful communication and practical assistance without unnecessarily reducing another diver\'s independence.',
-    duration: 'Usually 1-2 days', minimumAge: 'Normally 15 years', depth: 'Set by training environment and participant readiness',
-    prerequisite: 'PADI Open Water Diver or qualifying certification, plus current EFR Primary and Secondary Care within the previous 24 months.',
-    structure: ['Knowledge development', 'Confined-water skill practice', '2 open-water dives'],
-    taught: ['Individual-ability assessment', 'Respectful communication and support planning', 'Adaptive buddy procedures', 'Equipment, entry and exit assistance', 'Alternative underwater communication', 'Diver stress, balance and trim support'],
-    outcome: 'A practical, human-centred approach to inclusive buddying.', imageUrl: 'media/generated/course-adaptive-support-diver.webp'
-  },
-  {
     id: 'adaptive-techniques', category: 'Professional development', eyebrow: 'Inclusive teaching', title: 'PADI Adaptive Techniques',
     shortDescription: 'Professional-development training for PADI Divemasters and Instructors who want to support more students well.',
     about: 'Adaptive Techniques helps dive professionals modify communication, teaching and skill-development techniques for students with physical or mental challenges while protecting dignity and independence.',
@@ -286,16 +135,6 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     outcome: 'Professional techniques for building a more inclusive dive-learning environment.', imageUrl: 'media/generated/course-adaptive-techniques.webp'
   },
   {
-    id: 'delayed-surface-marker-buoy', category: 'Specialty diver courses', eyebrow: 'Be seen from below', title: 'PADI Delayed Surface Marker Buoy Diver',
-    shortDescription: 'Deploy a DSMB safely from underwater as a boat-visible position marker and ascent reference.',
-    about: 'This specialty builds confidence with DSMB selection, reel management, neutral deployment, controlled ascent and safety-stop procedures.',
-    duration: 'Usually 1 day', minimumAge: 'Normally 12 years', depth: 'Set by training environment and diver qualification',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
-    structure: ['Knowledge development', 'Confined-water or surface practice where appropriate', '2 open-water dives'],
-    taught: ['DSMB and reel selection', 'Preparation and inflation', 'Entanglement prevention', 'Line tension and buoyancy control', 'Safety-stop reference use', 'Emergency release and uncontrolled-ascent prevention'],
-    outcome: 'A safer, more deliberate surface-signalling skill for boat and current environments.', imageUrl: 'media/generated/course-delayed-surface-marker-buoy.webp'
-  },
-  {
     id: 'emergency-oxygen-provider', category: 'First aid & safety', eyebrow: 'Respond before help arrives', title: 'PADI Emergency Oxygen Provider',
     shortDescription: 'Recognise diving-related injuries and provide emergency oxygen while professional medical care is activated.',
     about: 'Suitable for divers, boat crew, lifeguards, freedivers and aquatic professionals. No water session is required.',
@@ -304,36 +143,6 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     structure: ['Knowledge development', 'Instructor demonstrations', 'Hands-on oxygen equipment practice', 'Emergency scenarios'],
     taught: ['Recognising decompression illness and lung-overexpansion injury', 'When emergency oxygen may be needed', 'Oxygen-unit assembly and disassembly', 'Non-rebreather mask and demand-inhalator use', 'Patient monitoring and emergency-service activation'],
     outcome: 'A practical first-response skill set for suspected diving injuries while awaiting professional care.', imageUrl: 'media/generated/course-emergency-oxygen-provider.webp'
-  },
-  {
-    id: 'underwater-navigator', category: 'Specialty diver courses', eyebrow: 'Find your way home', title: 'PADI Underwater Navigator',
-    shortDescription: 'Combine compass, natural-navigation and distance skills to move with purpose underwater.',
-    about: 'Underwater Navigator improves your ability to determine position, direction and distance while maintaining buddy contact and correcting navigation errors.',
-    duration: 'Usually 1-2 days', minimumAge: '10 years', depth: 'Set by training environment and diver qualification',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
-    structure: ['Knowledge development', '3 open-water dives', 'Advanced Open Water Navigation Adventure Dive may count as the first specialty dive where applicable'],
-    taught: ['Compass headings and reciprocal headings', 'Square and pattern navigation', 'Kick-cycle and time distance measurement', 'Natural references and underwater mapping', 'Object relocation and error management'],
-    outcome: 'More confident, independent navigation within your certified experience limits.', imageUrl: 'media/generated/course-underwater-navigator.webp'
-  },
-  {
-    id: 'wreck-diver', category: 'Specialty diver courses', eyebrow: 'Explore responsibly', title: 'PADI Wreck Diver',
-    shortDescription: 'Survey and explore wrecks responsibly with hazard awareness, navigation and limited-penetration discipline.',
-    about: 'Wreck Diver covers wreck assessment, navigation, entanglement awareness, line-and-reel use, specialised finning and limited penetration where conditions allow.',
-    duration: 'Usually 2 days', minimumAge: '15 years', depth: 'Set by wreck, instructor and recreational limits',
-    prerequisite: 'PADI Adventure Diver or qualifying certification.',
-    structure: ['Knowledge development', '4 open-water wreck dives', 'Wreck Adventure Dive may count as the first specialty dive where applicable'],
-    taught: ['Wreck history and condition research', 'Exterior survey and hazard identification', 'Sharp-metal and entanglement avoidance', 'Reels, penetration lines and exit contact', 'Gas-management limits and protected-site respect'],
-    outcome: 'PADI Wreck Diver specialty certification. It does not authorise unrestricted overhead-environment penetration.', imageUrl: 'media/generated/course-wreck-diver.webp'
-  },
-  {
-    id: 'peak-performance-buoyancy', category: 'Specialty diver courses', eyebrow: 'Move like the water', title: 'PADI Peak Performance Buoyancy',
-    shortDescription: 'Refine weighting, trim and breathing control to use less air and protect the reef beneath you.',
-    about: 'Peak Performance Buoyancy helps divers improve comfort, air consumption and environmental awareness by making every movement more intentional.',
-    duration: 'Usually 1 day', minimumAge: '10 years', depth: 'Set by training environment and diver qualification',
-    prerequisite: 'PADI Open Water Diver, Junior Open Water Diver or qualifying certification.',
-    structure: ['Knowledge development', '2 open-water dives'],
-    taught: ['Correct weighting and weight distribution', 'Horizontal trim and breath control', 'BCD buoyancy fine-tuning', 'Hovering, streamlining and efficient finning', 'Avoiding accidental coral contact'],
-    outcome: 'A calmer, more efficient and more reef-friendly diving style.', imageUrl: 'media/generated/course-peak-performance-buoyancy.webp'
   },
   {
     id: 'divemaster', category: 'Professional development', eyebrow: 'Lead the way', title: 'PADI Divemaster',
@@ -412,7 +221,7 @@ export const TEAM_BEACH_GROUP_PHOTO = 'media/team/team-group-beach.jpg';
 export const TEAM_STORY = {
   eyebrow: 'The Scuba Lak way',
   title: 'People first. Reef always.',
-  description: 'Scuba Lak is a local-led diving and water sports team built around the character of Kadmat Island. We bring careful PADI standards, patient teaching and deep island knowledge to every experience - from a first breath in the blue lagoon to a deeper day along the outer reef. The work is shared: instructors, boat crew, water sports guides and guest hosts all help create days that feel safe, personal and genuinely connected to Lakshadweep.',
+  description: 'Scuba Lak is Kadmat’s local-led diving and water activities team. Patient teaching, experienced divers and a friendly island welcome shape every day—from first lagoon breaths to outer-reef adventures. Tell us your comfort level, curiosity and timing. We’ll plan around you and the sea.',
   imageUrl: TEAM_GROUP_PHOTO,
   imageAlt: 'Scuba Lak team members together aboard a dive boat in Kadmat lagoon'
 } as const;
@@ -429,6 +238,5 @@ export const GALLERY_ITEMS: readonly GalleryItem[] = [
   { id: 'boat-day', title: 'Out past the lagoon', description: 'The dive boat heading for the edge of the island, where the water gets honest.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-boat-day.webp', size: 'wide' },
   { id: 'palm-shadow', title: 'The long afternoon', description: 'A little shade, a little salt and nowhere else to be.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-palm-shadow.webp', size: 'standard' },
   { id: 'underwater-light', title: 'Light under the surface', description: 'Coral gardens, a calm breath and the feeling of being invited in.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-underwater-light.webp', size: 'tall' },
-  { id: 'blue-villa', title: 'Blue room mornings', description: 'Soft coastal light, natural textures and a quiet island-inspired interior.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-blue-villa.webp', size: 'standard' },
   { id: 'shore-paddle', title: 'The soft way out', description: 'Kayaking through the lagoon at the pace of the tide.', location: 'Reef & island views', imageUrl: 'media/generated/gallery-shore-paddle.webp', size: 'wide' }
 ];

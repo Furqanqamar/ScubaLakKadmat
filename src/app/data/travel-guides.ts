@@ -1,27 +1,30 @@
+import { ACCOMMODATION_INFO } from './accommodation-info';
+
 export interface TravelGuide {
   readonly eyebrow: string; readonly title: string; readonly introduction: string;
+  readonly contactLabel: string; readonly contactInterest: 'accommodation' | 'diving';
   readonly sections: readonly { title: string; body: string; checklist: readonly string[] }[];
   readonly faqs: readonly { question: string; answer: string }[];
 }
 export const TRAVEL_GUIDES: Readonly<Record<string, TravelGuide>> = {
   accommodation: {
-    eyebrow: 'Stay for the island, not just the dive',
-    title: 'Kadmat accommodation for your diving holiday',
-    introduction: 'A Lakshadweep holiday works best when your stay, diving schedule and island transfers are planned together. Use this guide to discuss what matters to you before requesting an accommodation-and-diving proposal from Scuba Lak. Properties, room categories and availability must be confirmed for your dates; this page is not a live hotel inventory.',
+    eyebrow: ACCOMMODATION_INFO.eyebrow,
+    title: 'Where to stay in Kadmat: resorts & homestays',
+    introduction: ACCOMMODATION_INFO.description + ' ' + ACCOMMODATION_INFO.helpDescription,
+    contactLabel: ACCOMMODATION_INFO.actionLabel, contactInterest: 'accommodation',
     sections: [
-      { title: 'Choose a stay around your days on the water', body: 'A course-focused trip and a relaxed beach holiday have different needs. Ask how the proposed accommodation connects to the dive meeting point, where briefings take place, and how much time you have between training and meals.', checklist: ['Distance and transport to the dive meeting point', 'Quiet time for course study and rest', 'Check-in and check-out around island arrival times'] },
-      { title: 'Compare room features, not only the package name', body: 'Budget and premium are starting points for a conversation, not promises about a particular property. Before confirming, request the property name, current photographs, exact room type and a written list of amenities.', checklist: ['Air conditioning, bathroom and occupancy arrangements', 'Beach access versus an actual sea-facing room', 'Meal plan, dietary needs, drinking water and connectivity'] },
-      { title: 'Personalise your island stay', body: 'Every island stay is planned individually around the season, group size, length of stay and mode of transport. Share your preferences with our team to coordinate accommodation, diving, equipment, certification, permit support and transfers.', checklist: ['Room category, occupancy and number of nights', 'Diving or course inclusions and equipment arrangements', 'Arrival transfers, cancellation terms and weather-related changes'] }
+      { title: ACCOMMODATION_INFO.options[0].title, body: ACCOMMODATION_INFO.options[0].description, checklist: ['Ask the resort for current room photographs and facilities', 'Check its location and distance from your dive meeting point', 'Confirm the room, meals and booking terms directly'] },
+      { title: ACCOMMODATION_INFO.options[1].title, body: ACCOMMODATION_INFO.options[1].description, checklist: ['Discuss occupancy, bathroom arrangements and meals with the host', 'Confirm check-in and check-out around your island travel', 'Ask the host about local transport and any house rules'] },
+      { title: ACCOMMODATION_INFO.helpTitle, body: ACCOMMODATION_INFO.helpDescription, checklist: ['Share your intended diving dates with Scuba Lak', 'Ask us to help you reach a resort or homestay host', 'Make your accommodation booking directly with the property'] },
+      { title: 'Confirm the stay with your host', body: ACCOMMODATION_INFO.disclaimer, checklist: ['Written confirmation from the property, not an accommodation package from Scuba Lak', 'Payments, changes and cancellations handled with the property', 'Confirm any transfers and permit assistance with the relevant provider'] }
     ],
-    faqs: [
-      { question: 'Does Scuba Lak show live hotel availability?', answer: 'No. Contact the team for a dated proposal. Confirm the named property, room category, availability and terms in writing before paying.' },
-      { question: 'Can I plan accommodation with a PADI course?', answer: 'You can ask the team to plan both together. Share the course you are interested in and your travel dates, and confirm the training schedule before finalising the number of nights.' },
-    ]
+    faqs: ACCOMMODATION_INFO.faqs
   },
   planning: {
     eyebrow: 'A practical start to your island journey',
     title: 'Plan a Lakshadweep trip around Kadmat Island',
-    introduction: 'Kadmat brings together lagoon time, scuba diving, water sports and quiet island days. Start with the experience you want, then coordinate dates, accommodation and arrival arrangements. This planning checklist helps you ask useful questions without treating changing transport schedules or provisional itineraries as a confirmed booking.',
+    introduction: 'Start your Kadmat visit with the diving experience or course you want. Discuss your diving dates with Scuba Lak, arrange accommodation directly with a third-party resort or homestay, and confirm your journey with the relevant transport providers. We can help you reach out to local accommodation providers if needed.',
+    contactLabel: 'Ask the dive team', contactInterest: 'diving',
     sections: [
       { title: 'Start with the right diving experience', body: 'Tell the team whether you want an introductory experience, dives as an already certified diver, or a certification course. Share your experience and any concerns during the booking conversation; the instructor must confirm suitability and the required participation documents.', checklist: ['Introductory lagoon diving or a supervised first experience', 'Certified-diver outings matched to experience and conditions', 'Course prerequisites, duration, study and assessment requirements'] },
       { title: 'Coordinate arrival and island transfers', body: 'Do not assume that reaching Lakshadweep means an immediate connection to Kadmat. Ask for the complete mainland-to-island itinerary and confirm each operator, transfer point and travel day before committing to flights or accommodation.', checklist: ['Confirmed arrival point and onward Kadmat connection', 'Current operating timetable and baggage arrangements', 'Contingency time and policies for delays or weather changes'] },
@@ -29,7 +32,7 @@ export const TRAVEL_GUIDES: Readonly<Record<string, TravelGuide>> = {
       { title: 'Keep the island and reef in the plan', body: 'Leave time for the island beyond your activity schedule. Respect local customs and prayer spaces, ask before photographing people, avoid touching coral or collecting marine life, and take litter back from the beach and boat.', checklist: ['Comfortable time between diving and onward travel, agreed with your instructor', 'Appropriate clothing and respectful village visits', 'Reusable essentials and careful waste disposal'] }
     ],
     faqs: [
-      { question: 'How can I personalise my Kadmat diving holiday?', answer: 'Share your preferred season, dates, group size, mode of transport, length of stay and diving interests. Our team can help shape a personalised itinerary and provide a tailored quote directly.' },
+      { question: 'How can I personalise my Kadmat diving visit?', answer: 'Share your dates, group size, diving experience and training interests. Our team can help plan your diving. Book your accommodation directly with a third-party resort or homestay; we can help you reach out to them if needed.' },
       { question: 'Can a non-swimmer join every diving activity?', answer: 'No. Tell the team your swimming ability before choosing an activity. Introductory experiences and certification courses have different requirements; the instructor must confirm eligibility for the specific programme.' },
       { question: 'Where can I check official Lakshadweep travel information?', answer: 'Use the Lakshadweep Administration website and your authorised travel provider for current entry guidance. Recheck operational arrangements close to your travel date.' }
     ]

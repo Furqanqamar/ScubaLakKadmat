@@ -40,6 +40,8 @@ jobs:
           node scripts/prepare-pages.mjs
           node scripts/verify-seo.mjs
           node scripts/verify-island-guides.mjs
+          node scripts/verify-offerings.mjs
+          node scripts/verify-kadmat-focus.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

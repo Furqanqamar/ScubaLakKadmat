@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 const base = process.env.PREVIEW_URL ?? 'http://localhost:4004';
-for (const path of ['/', '/about', '/courses', '/experiences', '/gallery', '/contact', '/lakshadweep', '/kadmat', '/lakshadweep/kadmat', '/lakshadweep/pitti-suheli', '/lakshadweep/pitti-bird']) {
+for (const path of ['/', '/about', '/courses', '/experiences', '/gallery', '/contact', '/lakshadweep', '/kadmat', '/kadmat-dive-sites', '/lakshadweep/kadmat', '/lakshadweep/pitti-suheli', '/lakshadweep/pitti-bird']) {
   const response = await fetch(base + path);
   assert.equal(response.status, 200, path);
   assert.match(await response.text(), /<app-root/);

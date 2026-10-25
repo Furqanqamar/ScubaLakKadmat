@@ -3,9 +3,9 @@ import { readFile } from 'node:fs/promises';
 import postcss from 'postcss';
 
 const root = new URL('../', import.meta.url);
-const css = await readFile(new URL('src/styles.css', root), 'utf8');
+const css = await readFile(new URL('src/styles.css', root), 'utf8') + await readFile(new URL('src/styles/kadmat-diving.css', root), 'utf8');
 const serviceCard = await readFile(new URL('src/app/common/components/service-card/service-card.component.ts', root), 'utf8');
-const staticCards = ['service-card', 'island-card', 'attraction-card', 'transport-card', 'team-card'];
+const staticCards = ['service-card', 'island-card', 'attraction-card', 'transport-card', 'team-card', 'dive-spot-card', 'kadmat-reason'];
 
 postcss.parse(css).walkRules(rule => {
   for (const name of staticCards) {

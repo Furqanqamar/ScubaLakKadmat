@@ -5,7 +5,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BUSINESS_CONTACT } from '../../../data/business-config';
 import { ENQUIRY_COPY } from '../../../data/enquiry-copy';
 import { resolveEnquiry } from '../../../data/enquiry-context';
-import { MARINE_SERVICES, PADI_COURSES, TOUR_PACKAGES } from '../../../data/site-content';
+import { MARINE_SERVICES, PADI_COURSES } from '../../../data/site-content';
+import { KADMAT_DIVE_SITES } from '../../../data/kadmat-diving';
 import { ContactRequest } from '../../../models/site-data.model';
 import { ENQUIRY_DELIVERY_CONFIG, EnquiryDeliveryService } from '../../services/enquiry-delivery.service';
 import { validateEnquiry } from '../../services/enquiry-validation';
@@ -32,8 +33,7 @@ export class ContactHubComponent {
   readonly options = computed(() => {
     switch (this.form().interest) {
       case 'courses': return [{ value: 'experience:padi-courses', label: this.copy.chooseCourse }, ...PADI_COURSES.map(item => ({ value: `course:${item.id}`, label: item.title }))];
-      case 'trip': return TOUR_PACKAGES.map(item => ({ value: `package:${item.id}`, label: item.name }));
-      case 'diving': return MARINE_SERVICES.filter(item => item.category === 'Diving').map(item => ({ value: `experience:${item.id}`, label: item.title }));
+      case 'diving': return [...MARINE_SERVICES.filter(item => item.category === 'Diving').map(item => ({ value: `experience:${item.id}`, label: item.title })), ...KADMAT_DIVE_SITES.map(item => ({ value: `dive-site:${item.id}`, label: item.name }))];
       case 'water-sports': return MARINE_SERVICES.filter(item => item.id === 'water-sports').map(item => ({ value: `experience:${item.id}`, label: item.title }));
       default: return [];
     }
@@ -50,7 +50,8 @@ export class ContactHubComponent {
     effect(() => {
       const params = this.params(); if (!params) return;
       const context = resolveEnquiry(params.get('kind'), params.get('item'));
-      this.form.update(form => ({ ...form, interest: context?.category ?? 'general', context }));
+      const interest = this.copy.categories.find(category => category.id === params.get('interest'))?.id;
+      this.form.update(form => ({ ...form, interest: context?.category ?? interest ?? 'general', context }));
     });
   }
   setField(field: keyof ContactRequest, event: Event): void {

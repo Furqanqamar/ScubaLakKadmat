@@ -4,10 +4,6 @@ export type MarineServiceCategory = 'Diving' | 'Course' | 'Water sports';
 
 export type MarineServiceIcon = 'lagoon' | 'deep-sea' | 'course' | 'sports';
 
-export type PackageTier = 'budget' | 'premium';
-
-export type PackageTone = 'sand' | 'coral';
-
 export interface MarineService {
   readonly id: string;
   readonly category: MarineServiceCategory;
@@ -24,29 +20,6 @@ export interface MarineService {
   readonly highlights: readonly string[];
 }
 
-export interface TourPackage {
-  readonly id: PackageTier;
-  readonly tone: PackageTone;
-  readonly name: string;
-  readonly kicker: string;
-  readonly tagline: string;
-  readonly duration: string;
-  readonly description: string;
-  readonly inclusions: readonly string[];
-  readonly idealFor: string;
-  readonly featured?: boolean;
-}
-
-export interface DestinationBriefing {
-  readonly id: 'lakshadweep' | 'kadmat' | 'why-us';
-  readonly index: string;
-  readonly label: string;
-  readonly title: string;
-  readonly teaser: string;
-  readonly body: string;
-  readonly detail: string;
-}
-
 export interface ContactRequest {
   readonly name: string;
   readonly email: string;
@@ -57,14 +30,13 @@ export interface ContactRequest {
   readonly flexibility?: string;
   readonly guests?: number | null;
   readonly experienceLevel?: string;
-  readonly context?: { readonly kind: 'experience' | 'course' | 'package'; readonly id: string; readonly label: string } | null;
+  readonly context?: { readonly kind: 'experience' | 'course' | 'dive-site'; readonly id: string; readonly label: string } | null;
 }
 
 export type CourseCategory =
   | 'Beginner certifications'
   | 'Continuing education'
   | 'First aid & safety'
-  | 'Specialty diver courses'
   | 'Professional development'
   | 'Youth & introductory';
 
@@ -128,14 +100,6 @@ export type GalleryItem = GalleryItemBase & (
   { readonly kind?: 'image' } |
   { readonly kind: 'video'; readonly videoUrl: string; readonly videoUrlMobile: string; readonly durationLabel: string }
 );
-
-export interface KadmatAttraction {
-  readonly id: string;
-  readonly title: string;
-  readonly location: string;
-  readonly description: string;
-  readonly imageUrl: string;
-}
 
 export interface TransportOption {
   readonly id: string;

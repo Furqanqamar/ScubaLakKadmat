@@ -8,6 +8,7 @@ import { breadcrumbs, canonicalUrl, pageSeo, SITE_URL } from '../../data/seo-dat
 import { BUSINESS_CONTACT } from '../../data/business-config';
 import { CONTACT_EMAIL, CONTACT_PHONE } from './contact-links';
 import { islandGuide } from '../../data/island-guides';
+import kadmatContent from '../../data/kadmat-diving.json';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -41,6 +42,7 @@ export class SeoService {
       if (path !== '/') graph.push({ '@type': 'BreadcrumbList', itemListElement: breadcrumbs(path).map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.label, item: canonicalUrl(item.path) })) });
       if (path.startsWith('/courses/')) graph.push({ '@type': 'Course', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] } });
       if (path.startsWith('/experiences/')) graph.push({ '@type': 'Service', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] }, areaServed: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep' } });
+      if (path === '/kadmat-dive-sites') graph.push({ '@type': 'ItemList', name: page.label, numberOfItems: kadmatContent.sites.length, itemListElement: kadmatContent.sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: `${canonical}#spot-${site.id}` })) });
       if (island) {
         graph.push({ '@type': 'Place', '@id': canonical + '#place', name: island.name, description: island.summary, containedInPlace: { '@type': 'Place', name: 'Lakshadweep, India' } });
         graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, image, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, about: { '@id': canonical + '#place' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, articleSection: 'Lakshadweep island stories' });

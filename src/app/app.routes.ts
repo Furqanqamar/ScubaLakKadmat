@@ -22,6 +22,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/kadmat/kadmat.component').then((module) => module.KadmatComponent)
   },
   {
+    path: 'kadmat-dive-sites',
+    loadComponent: () => import('./pages/dive-sites/dive-sites.component').then(module => module.DiveSitesComponent)
+  },
+  {
     path: 'experiences',
     loadComponent: () => import('./pages/services/services.component').then((module) => module.ServicesComponent)
   },

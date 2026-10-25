@@ -4,7 +4,11 @@ const output = new URL('../dist/scuba-lak/browser/', import.meta.url);
 const sitemap = await readFile(new URL('sitemap.xml', output), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 const islandContent = JSON.parse(await readFile(new URL('../src/app/data/island-guides.json', import.meta.url), 'utf8'));
-assert.equal(urls.length, 36 + islandContent.islands.length);
+const siteContent = await readFile(new URL('../src/app/data/site-content.ts', import.meta.url), 'utf8');
+const courseCatalogue = siteContent.split('export const PADI_COURSES:')[1].split('export const TEAM_MEMBERS:')[0];
+const courseCount = [...courseCatalogue.matchAll(/\bid: '[a-z0-9-]+', category:/g)].length;
+assert.equal(courseCount, 13, 'Only the remaining offered courses should be published');
+assert.equal(urls.length, 15 + courseCount + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
 const documents = new Map();
@@ -60,9 +64,9 @@ for (const [pathname, html] of documents) {
     for (const attribute of ['autoplay', 'muted', 'loop', 'playsinline']) assert.match(hero, new RegExp(`\\b${attribute}(?:[\\s=>])`));
     assert.doesNotMatch(hero, /\bcontrols(?:[\s=>])/);
     assert.ok(!html.includes('background-video__control'), 'Hero Play/Pause control must remain removed');
-    assert.equal((html.match(/class="benefit-item"/g) ?? []).length, 6, 'Home must show all six benefits');
-    assert.deepEqual(diveIcons.map(icon => icon[1]), ['lagoon', 'deep-diver', 'certification', 'kayak', 'kayak', 'schedule', 'mask', 'tanks', 'coral', 'instructor'], 'Home service and benefit cards must use the shared SVG icons');
-    assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit')], 'Home icons must use the correct size hierarchy');
+    assert.equal((html.match(/class="kadmat-reason"/g) ?? []).length, 6, 'Home must explain six reasons to dive Kadmat');
+    assert.deepEqual(diveIcons.slice(0, 4).map(icon => icon[1]), ['lagoon', 'deep-diver', 'certification', 'kayak'], 'Home service cards must retain the shared SVG icons');
+    assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit'), ...Array(6).fill('activity')], 'Home icons must use the correct size hierarchy');
   }
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/about/') {
     assert.equal((html.match(/class="team-card"/g) ?? []).length, 6, 'All six original team portraits must remain visible');
@@ -72,7 +76,7 @@ for (const [pathname, html] of documents) {
     for (const icon of diveIcons) assert.match(icon[0], /data-icon-context="benefit-detail"/, 'About icons need the detailed-layout size');
   }
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/courses/') {
-    assert.equal(diveIcons.length, 22, 'Every PADI course card needs a matching SVG icon');
+    assert.equal(diveIcons.length, courseCount, 'Every offered PADI course card needs a matching SVG icon');
     for (const icon of diveIcons) assert.match(icon[0], /data-icon-context="course"/, 'Course cards need compact icons');
   }
   for (const social of html.matchAll(/<a\b[^>]*class="social-link"[^>]*>([\s\S]*?)<\/a>/g)) {

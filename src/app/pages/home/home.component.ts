@@ -1,55 +1,25 @@
-import { enquiryParams } from '../../data/enquiry-context';
-import { BackgroundVideoComponent } from '../../common/components/background-video/background-video.component';
-import { BenefitsSectionComponent } from '../../common/components/benefits-section/benefits-section.component';
-import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
-import { DialogShellComponent } from '../../common/components/dialog-shell/dialog-shell.component';
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
+import { BackgroundVideoComponent } from '../../common/components/background-video/background-video.component';
+import { DiveSiteCollectionComponent } from '../../common/components/dive-site-collection/dive-site-collection.component';
 import { ServiceCardComponent } from '../../common/components/service-card/service-card.component';
-import {
-  DESTINATION_BRIEFINGS,
-  GALLERY_ITEMS,
-  MARINE_SERVICES,
-  TESTIMONIALS,
-  TOUR_PACKAGES
-} from '../../data/site-content';
-import {
-  DestinationBriefing,
-  PackageTier
-} from '../../models/site-data.model';
+import { WhyKadmatComponent } from '../../common/components/why-kadmat/why-kadmat.component';
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
+import { ACCOMMODATION_INFO } from '../../data/accommodation-info';
+import { KADMAT_COPY, KADMAT_DIVE_SITES } from '../../data/kadmat-diving';
+import { GALLERY_ITEMS, MARINE_SERVICES } from '../../data/site-content';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BackgroundVideoComponent, BenefitsSectionComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent, DialogShellComponent],
+  imports: [BackgroundVideoComponent, DiveSiteCollectionComponent, WhyKadmatComponent, ResponsiveImageDirective, RouterLink, ServiceCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-
-  readonly enquiryParams = enquiryParams;
+  readonly copy = KADMAT_COPY.home;
+  readonly accommodation = ACCOMMODATION_INFO;
+  readonly siteCount = KADMAT_DIVE_SITES.length;
   readonly services = MARINE_SERVICES;
-  readonly packages = TOUR_PACKAGES;
-  readonly briefings = DESTINATION_BRIEFINGS;
-  readonly testimonials = TESTIMONIALS;
-  readonly gallery = GALLERY_ITEMS.filter(item => ['dive-centre-evening', 'kadmat-beach', 'mask-fitting-training', 'agatti-from-vessel'].includes(item.id));
-
-  readonly activePackageId = signal<PackageTier>('budget');
-  readonly activePackage = computed(() => this.packages.find((tourPackage) => tourPackage.id === this.activePackageId()) ?? this.packages[0]);
-  readonly selectedBriefing = signal<DestinationBriefing | null>(null);
-
-  setPackage(id: PackageTier): void {
-    this.activePackageId.set(id);
-  }
-
-
-  openBriefing(briefing: DestinationBriefing): void {
-    this.selectedBriefing.set(briefing);
-  }
-
-  closeOverview(): void {
-    this.selectedBriefing.set(null);
-  }
-
+  readonly gallery = GALLERY_ITEMS.filter(item => ['kadmat-beach', 'mask-fitting-training', 'enjoying-clear-water', 'pre-dive-preparation'].includes(item.id));
 }

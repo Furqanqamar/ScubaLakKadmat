@@ -30,7 +30,11 @@ assert.equal((await attempt({ mode: 'endpoint', url: 'https://test.invalid/enqui
 assert.equal((await attempt({ mode: 'endpoint', url: 'http://test.invalid/enquiries' }, { accepted: true })).calls, 0);
 assert.equal(resolveEnquiry('course', 'open-water-diver')?.category, 'courses');
 assert.equal(resolveEnquiry('experience', 'lagoon-diving')?.label, 'Lagoon diving');
-assert.equal(resolveEnquiry('package', 'premium')?.category, 'trip');
+assert.deepEqual(resolveEnquiry('dive-site', 'secret-garden'), { kind: 'dive-site', id: 'secret-garden', label: 'Secret Garden · Kadmat dive spot', category: 'diving' });
+assert.equal(resolveEnquiry('dive-site', 'not-a-site'), null);
+assert.equal(resolveEnquiry('dive-site', '../private'), null);
+assert.equal(resolveEnquiry('package', 'premium'), null);
+assert.equal(resolveEnquiry('course', 'deep-diver'), null);
 assert.equal(resolveEnquiry('course', '../private'), null);
 assert.equal(resolveEnquiry('course', 'not-a-course'), null);
 assert.equal(resolveEnquiry('invalid', 'premium'), null);

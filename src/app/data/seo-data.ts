@@ -1,6 +1,7 @@
 import { MARINE_SERVICES, PADI_COURSES } from './site-content';
 import { SITE_COPY } from './site-copy';
 import { islandGuide, islandIllustration } from './island-guides';
+import { ORIGINAL_MEDIA } from './original-media.generated';
 
 // Update when the permanent domain is ready; regenerate the static build.
 export const SITE_URL = 'https://furqanqamar.github.io/ScubaLakKadmat/';
@@ -10,12 +11,13 @@ export const SEO_PAGES: Readonly<Record<string, PageSeo>> = {
   '/about': { ...SITE_COPY.seo.about, label: 'About Scuba Lak' },
   '/lakshadweep': { ...SITE_COPY.seo.lakshadweep, label: 'Lakshadweep island guide' },
   '/kadmat': { ...SITE_COPY.seo.kadmat, label: 'Kadmat Island guide' },
+  '/kadmat-dive-sites': { ...SITE_COPY.seo.diveSites, label: 'Kadmat dive spots', image: ORIGINAL_MEDIA['way-to-the-reef'].imageUrl },
   '/experiences': { ...SITE_COPY.seo.experiences, label: 'Diving & water sports' },
   '/courses': { ...SITE_COPY.seo.courses, label: 'PADI diving courses' },
   '/gallery': { ...SITE_COPY.seo.gallery, label: 'Gallery' },
   '/contact': { ...SITE_COPY.seo.contact, label: 'Contact' },
-  '/kadmat-accommodation': { title: 'Kadmat Accommodation & Diving Stay Planning | Scuba Lak', description: 'Plan accommodation for a Kadmat diving holiday in Lakshadweep. Compare stay priorities, transfers and package inclusions before requesting a tailored quote.', label: 'Kadmat accommodation' },
-  '/lakshadweep-trip-planning': { title: 'Lakshadweep Trip Planning: Kadmat Travel Guide | Scuba Lak', description: 'Plan a Kadmat Island holiday around diving, water sports and accommodation. Find questions to ask about Lakshadweep permits, arrivals, transfers and personalised itineraries.', label: 'Lakshadweep trip planning' }
+  '/kadmat-accommodation': { title: 'Where to Stay in Kadmat: Independent Resorts & Homestays | Scuba Lak', description: 'Arrange Kadmat accommodation directly with third-party resorts or homestays. Scuba Lak focuses on diving and can help you contact local accommodation providers.', label: 'Where to stay in Kadmat' },
+  '/lakshadweep-trip-planning': { title: 'Lakshadweep Trip Planning: Kadmat Diving Guide | Scuba Lak', description: 'Plan your Kadmat diving visit with Scuba Lak. Read travel and permit notes, and arrange accommodation independently with third-party resorts or homestays.', label: 'Kadmat diving trip planning' }
 };
 export function canonicalUrl(path: string): string {
   return new URL(path === '/' ? '' : path.replace(/^\/+|\/+$/g, '') + '/', SITE_URL).href;
@@ -34,6 +36,7 @@ export function breadcrumbs(path: string): readonly { label: string; path: strin
   if (path.startsWith('/courses/')) items.push({ label: 'PADI courses', path: '/courses' });
   if (path.startsWith('/experiences/')) items.push({ label: 'Experiences', path: '/experiences' });
   if (path.startsWith('/lakshadweep/')) items.push({ label: 'Lakshadweep island atlas', path: '/lakshadweep' });
+  if (path === '/kadmat-dive-sites') items.push({ label: 'Kadmat Island', path: '/kadmat' });
   if (path !== '/') items.push({ label: pageSeo(path)?.label ?? 'Page not found', path });
   return items;
 }
