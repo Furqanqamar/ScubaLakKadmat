@@ -54,6 +54,8 @@ jobs:
           node tmp/verify-media-swipe.mjs
           node_modules/.bin/esbuild scripts/verify-reveal-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-reveal-motion.mjs
           node tmp/verify-reveal-motion.mjs
+          node_modules/.bin/esbuild scripts/verify-cursor-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-cursor-motion.mjs
+          node tmp/verify-cursor-motion.mjs
           node scripts/verify-card-interactions.mjs
           node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
           node tmp/verify-enquiry.mjs
