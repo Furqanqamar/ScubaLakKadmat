@@ -30,6 +30,12 @@ for (const url of urls) {
   assert.ok(json, `Structured data: ${url}`);
   const graph = JSON.parse(json)['@graph'];
   assert.ok(graph.some(item => item['@type'] === 'WebPage'));
+  const organization = graph.find(item => item['@type'] === 'Organization');
+  assert.equal(organization?.telephone, '+919447982559', `Primary call number: ${url}`);
+  assert.deepEqual(organization?.contactPoint, [
+    { '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: '+919447982559', url: 'https://wa.me/919447982559' },
+    { '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: '+919400205847', url: 'https://wa.me/919400205847' }
+  ], `Both WhatsApp contacts must be consistent: ${url}`);
   for (const match of html.matchAll(/href="([^"#]+)"/g)) {
     const href = match[1];
     if (!href.startsWith('/') || href.startsWith('//')) continue;
@@ -69,7 +75,7 @@ for (const [pathname, html] of documents) {
     assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit')], 'Home icons must use the correct size hierarchy');
   }
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/about/') {
-    assert.equal((html.match(/class="team-card"/g) ?? []).length, 7, 'All seven named team portraits must remain visible');
+    assert.equal((html.match(/class="team-card"/g) ?? []).length, 8, 'All eight named team portraits must remain visible');
     assert.equal((html.match(/class="benefit-item"/g) ?? []).length, 6, 'About must explain all six benefits');
     for (const index of [4, 5, 6]) assert.ok(html.includes(`media/team/team-member-${index}.jpg`), `Missing original portrait ${index}`);
     assert.deepEqual(diveIcons.map(icon => icon[1]), ['kayak', 'schedule', 'mask', 'tanks', 'coral', 'instructor'], 'About must use the same benefit artwork as Home');
@@ -78,6 +84,34 @@ for (const [pathname, html] of documents) {
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/courses/') {
     assert.equal(diveIcons.length, courseCount, 'Every offered PADI course card needs a matching SVG icon');
     for (const icon of diveIcons) assert.match(icon[0], /data-icon-context="course"/, 'Course cards need compact icons');
+  }
+  if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/contact/') {
+    const enquiryForm = html.match(/<form\b[^>]*id="enquiry-form"[^>]*>([\s\S]*?)<\/form>/)?.[1];
+    assert.ok(enquiryForm, 'Contact enquiry form must remain available');
+    const fields = [...enquiryForm.matchAll(/<(input|select|textarea)\b[^>]*\bname="([^"]+)"/g)];
+    assert.deepEqual(fields.map(field => [field[1], field[2]]), [['input', 'name'], ['input', 'email'], ['input', 'phone'], ['textarea', 'message']], 'Keep the enquiry form to the four requested fields');
+    assert.doesNotMatch(enquiryForm, /<select\b|type="(?:date|number)"/, 'No extra booking questions');
+    const rows = [...html.matchAll(/<div\b[^>]*class="contact-number-row"[^>]*>([\s\S]*?)<\/div>/g)];
+    assert.equal(rows.length, 4, 'Both contact sections need both phone numbers');
+    for (const [index, row] of rows.entries()) {
+      const number = ['919447982559', '919400205847'][index % 2];
+      const display = ['+91 94479 82559', '+91 94002 05847'][index % 2];
+      const links = [...row[1].matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/g)].map(match => match[0]);
+      assert.equal(links.length, 2, 'Each number has separate WhatsApp and call links');
+      assert.match(links[0], /class="contact-number-whatsapp"/, 'WhatsApp icon must sit to the left');
+      assert.match(links[0], /fa-brands fa-whatsapp/);
+      assert.ok(links[0].includes(`aria-label="WhatsApp · ${display}"`));
+      assert.match(links[0], /target="_blank"/);
+      assert.match(links[0], /rel="noopener noreferrer"/);
+      const whatsapp = new URL(decodeAttribute(links[0].match(/href="([^"]+)"/)?.[1] ?? ''));
+      assert.equal(whatsapp.origin + whatsapp.pathname, `https://wa.me/${number}`);
+      if (index < 2) assert.ok(whatsapp.searchParams.get('text')?.startsWith('Scuba Lak enquiry'));
+      else assert.equal(whatsapp.search, '', 'Direct contact links do not need form text');
+      assert.match(links[1], /class="contact-number-call"/);
+      assert.ok(links[1].includes(`href="tel:+${number}"`));
+      assert.ok(links[1].includes(`aria-label="Call · ${display}"`));
+      assert.ok(links[1].includes(`>${display}</a>`));
+    }
   }
   for (const social of html.matchAll(/<a\b[^>]*class="social-link"[^>]*>([\s\S]*?)<\/a>/g)) {
     assert.equal(social[1].replace(/<[^>]*>/g, '').trim(), '', 'Footer social links must be icon-only');

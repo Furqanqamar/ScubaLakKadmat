@@ -10,6 +10,28 @@ import { EnquiryDeliveryConfig } from '../src/app/data/business-config';
 import { ContactHubComponent } from '../src/app/common/components/contact-hub/contact-hub.component';
 import { validateEnquiry } from '../src/app/common/services/enquiry-validation';
 import { OverlayStateService } from '../src/app/common/services/overlay-state.service';
+import { CONTACT_PHONE, CONTACT_NUMBERS, CONTACT_WHATSAPP, whatsappLink } from '../src/app/common/services/contact-links';
+
+assert.equal(CONTACT_PHONE, '+919447982559', 'Keep the existing primary call number');
+assert.deepEqual(CONTACT_WHATSAPP, [
+  { number: '+919447982559', displayNumber: '+91 94479 82559', href: 'https://wa.me/919447982559' },
+  { number: '+919400205847', displayNumber: '+91 94002 05847', href: 'https://wa.me/919400205847' }
+]);
+assert.deepEqual(CONTACT_NUMBERS, [
+  { number: '+919447982559', displayNumber: '+91 94479 82559', callHref: 'tel:+919447982559', whatsappHref: 'https://wa.me/919447982559' },
+  { number: '+919400205847', displayNumber: '+91 94002 05847', callHref: 'tel:+919400205847', whatsappHref: 'https://wa.me/919400205847' }
+], 'Both contacts need separate call and WhatsApp destinations');
+const whatsappMessage = 'Scuba Lak enquiry\nName: Test visitor\nSelection: Secret Garden · Kadmat dive spot\nDates & guests: 2 + 1 🤿';
+for (const contact of CONTACT_WHATSAPP) {
+  const href = whatsappLink(whatsappMessage, contact.number);
+  assert.ok(href);
+  const link = new URL(href);
+  assert.equal(link.origin + link.pathname, contact.href);
+  assert.equal(link.searchParams.get('text'), whatsappMessage, 'Preserve complete enquiry text for either number');
+  assert.equal([...link.searchParams.keys()].length, 1);
+}
+assert.equal(whatsappLink(whatsappMessage), whatsappLink(whatsappMessage, CONTACT_WHATSAPP[0].number));
+for (const invalid of [null, '', '9400205847', '+919400205847?text=other', '+0']) assert.equal(whatsappLink(whatsappMessage, invalid), null);
 
 // Isolated mock transport only: no requests leave this process.
 const request = { name: 'Test visitor', email: 'test@example.test', phone: '', interest: 'courses', message: 'A mock enquiry for testing.' };
@@ -40,9 +62,10 @@ assert.equal(resolveEnquiry('course', 'not-a-course'), null);
 assert.equal(resolveEnquiry('invalid', 'premium'), null);
 assert.deepEqual(validateEnquiry(request), {});
 assert.ok(validateEnquiry({ ...request, name: '', email: 'bad', message: '' }).name);
-assert.ok(validateEnquiry({ ...request, guests: 1.5 }).guests);
-assert.ok(validateEnquiry({ ...request, arrivalDate: '2027-02-30' }, new Date(2026, 9, 25)).arrivalDate);
-assert.ok(validateEnquiry({ ...request, arrivalDate: '2026-10-24' }, new Date(2026, 9, 25)).arrivalDate);
+assert.deepEqual(validateEnquiry({ ...request, phone: '+91 94002 05847' }), {});
+assert.ok(validateEnquiry({ ...request, message: 'Short' }).message);
+assert.ok(validateEnquiry({ ...request, name: 'a'.repeat(101) }).name);
+assert.ok(validateEnquiry({ ...request, message: 'a'.repeat(2001) }).message);
 
 // Exercise the actual submit handler with signals and a controlled mock service.
 // No Angular DOM fixture or live endpoint is needed for these state transitions.
@@ -79,4 +102,4 @@ const releaseFirst = overlays.acquire(), releaseSecond = overlays.acquire();
 releaseFirst(); assert.equal(overlays.active(), true); assert.equal(locked, true);
 releaseFirst(); assert.equal(overlays.active(), true);
 releaseSecond(); assert.equal(overlays.active(), false); assert.equal(locked, false);
-console.log('Interaction checks passed: enquiry context and validation, disabled delivery, explicit acknowledgement, error/data retention, retry, submitting/duplicate guards and nested overlay locks. No live enquiries sent.');
+console.log('Interaction checks passed: both WhatsApp numbers and encoded enquiry messages, primary call number, enquiry context and validation, disabled delivery, explicit acknowledgement, error/data retention, retry, submitting/duplicate guards and nested overlay locks. No live enquiries sent.');

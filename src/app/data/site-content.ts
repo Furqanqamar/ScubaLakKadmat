@@ -214,7 +214,8 @@ export const TEAM_MEMBERS: readonly TeamMember[] = [
   { id: 'al-ameen', name: 'Al Ameen', imageUrl: 'media/team/team-member-4.jpg', imageAlt: 'Al Ameen aboard a boat in Kadmat lagoon', width: 1000, height: 1250 },
   { id: 'saheer', name: 'Saheer', imageUrl: 'media/team/team-member-5.jpg', imageAlt: 'Saheer aboard a boat beside the lagoon', width: 1000, height: 1250 },
   { id: 'lukman', name: 'Lukman', imageUrl: 'media/team/team-member-6.jpg', imageAlt: 'Lukman sitting on a boat railing in Kadmat lagoon', width: 600, height: 750 },
-  { id: 'amjad-khan', name: 'Amjad Khan', imageUrl: TEAM_PORTRAITS['amjad-khan'].imageUrl, imageAlt: 'Amjad Khan, Scuba Lak team member', width: TEAM_PORTRAITS['amjad-khan'].width, height: TEAM_PORTRAITS['amjad-khan'].height }
+  { id: 'amjad-khan', name: 'Amjad Khan', imageUrl: TEAM_PORTRAITS['amjad-khan'].imageUrl, imageAlt: 'Amjad Khan, Scuba Lak team member', width: TEAM_PORTRAITS['amjad-khan'].width, height: TEAM_PORTRAITS['amjad-khan'].height },
+  { id: 'thoufeque', name: 'Thoufeque', imageUrl: TEAM_PORTRAITS['thoufeque'].imageUrl, imageAlt: 'Thoufeque aboard a boat with the sea behind him', width: TEAM_PORTRAITS['thoufeque'].width, height: TEAM_PORTRAITS['thoufeque'].height }
 ];
 
 export const TEAM_GROUP_PHOTO = 'media/team/team-group-boat.jpg';

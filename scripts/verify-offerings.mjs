@@ -31,8 +31,11 @@ for (const html of [home, accommodation, planning, contact]) {
   assert.doesNotMatch(html, /accommodation-and-diving proposal|Budget and premium|Build this trip|Barefoot basecamp|Blue room retreat|kind=package|package:budget|package:premium/);
   assert.doesNotMatch(html, /"@type":"(?:Hotel|Resort|LodgingBusiness|Offer)"/);
 }
-assert.match(contact, /value="accommodation"/);
-assert.match(contact, /Third-party stay introductions/);
-assert.doesNotMatch(contact, /value="trip"/);
+const enquiryForm = contact.match(/<form\b[^>]*id="enquiry-form"[^>]*>([\s\S]*?)<\/form>/)?.[1];
+assert.ok(enquiryForm, 'Keep the simple contact form');
+assert.deepEqual([...enquiryForm.matchAll(/<(?:input|select|textarea)\b[^>]*\bname="([^"]+)"/g)].map(field => field[1]), ['name', 'email', 'phone', 'message'], 'No accommodation or trip selectors in the simplified form');
+assert.match(contact, /Can Scuba Lak help me find accommodation\?/);
+assert.match(contact, /third-party resorts or homestay hosts/);
+assert.match(contact, /Accommodation is provided and booked independently with the property/);
 assert.doesNotMatch(gallery, /gallery-blue-villa|Blue room mornings/);
 console.log('Offering checks passed: 9 specialty courses removed from listings, detail pages and sitemap; 13 courses remain; no accommodation packages; independent stays and introductions clearly explained.');

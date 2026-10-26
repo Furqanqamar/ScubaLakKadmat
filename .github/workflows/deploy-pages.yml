@@ -48,6 +48,8 @@ jobs:
           node scripts/verify-hero-video.mjs
           node_modules/.bin/esbuild scripts/verify-page-transition.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-transition.mjs
           node tmp/verify-page-transition.mjs
+          node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
+          node tmp/verify-enquiry.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

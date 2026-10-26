@@ -4,5 +4,12 @@
     "file": "WhatsApp Image 2026-10-25 at 12.09.07 (1).jpeg",
     "kind": "image",
     "objectPosition": "50% 30%"
+  },
+  {
+    "id": "thoufeque",
+    "file": "WhatsApp Image 2026-10-25 at 20.00.08.jpeg",
+    "kind": "image",
+    "objectPosition": "50% 50%",
+    "crop": { "x": 1100, "y": 1600, "width": 1280, "height": 1600 }
   }
 ]

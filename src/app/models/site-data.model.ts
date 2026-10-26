@@ -26,10 +26,6 @@ export interface ContactRequest {
   readonly phone: string;
   readonly interest: string;
   readonly message: string;
-  readonly arrivalDate?: string;
-  readonly flexibility?: string;
-  readonly guests?: number | null;
-  readonly experienceLevel?: string;
   readonly context?: { readonly kind: 'experience' | 'course' | 'dive-site'; readonly id: string; readonly label: string } | null;
 }
 
