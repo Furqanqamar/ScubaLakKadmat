@@ -26,7 +26,7 @@ import { MediaViewerComponent } from '../media-viewer/media-viewer.component';
         </button>
       } @empty { <p class="media-empty" role="status">{{ copy.empty }}</p> }
     </div>
-    @if (selected(); as item) { <app-media-viewer [item]="item" [position]="selectedIndex() + 1" [total]="items().length" (previous)="move(-1)" (next)="move(1)" (closed)="selected.set(null)" /> }
+    @if (selected(); as item) { <app-media-viewer [item]="item" [items]="items()" [position]="selectedIndex() + 1" [total]="items().length" (previous)="move(-1)" (next)="move(1)" (closed)="selected.set(null)" /> }
   `
 })
 export class MediaCollectionComponent {

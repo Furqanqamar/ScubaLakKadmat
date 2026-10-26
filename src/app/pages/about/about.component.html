@@ -1,8 +1,7 @@
 <main id="main-content" tabindex="-1" class="page-surface">
   <section data-page-hero class="page-hero page-hero--real">
     <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" loading="eager" fetchpriority="high" decoding="async">
-    <div class="page-hero__watermark">ABOUT / SCUBA LAK</div>
-    <div class="mx-auto max-w-[90rem]"><p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p><h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1><p class="mt-8 max-w-xl text-base leading-8 text-white/75">{{ copy.introduction }}</p></div>
+    <div class="mx-auto max-w-[90rem]"><p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p><h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1><p class="mt-8 max-w-xl text-base leading-8 text-on-dark-secondary">{{ copy.introduction }}</p></div>
   </section>
   <section id="team" aria-labelledby="team-title" class="bg-[#10282d] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-32">
     <div class="mx-auto max-w-[90rem]">
@@ -11,13 +10,13 @@
           <p class="eyebrow text-[#b8f2df]">Meet the team</p>
           <h2 id="team-title" class="mt-5 max-w-2xl font-serif text-5xl leading-[0.92] tracking-[-0.055em] sm:text-7xl">Different strengths.<br><em>One careful standard.</em></h2>
         </div>
-        <p class="max-w-sm text-sm leading-7 text-white/55 md:pb-1">The best days underwater are held up by a lot of invisible work above it.</p>
+        <p class="max-w-sm text-sm leading-7 text-on-dark-secondary md:pb-1">The best days underwater are held up by a lot of invisible work above it.</p>
       </div>
       <div class="team-grid">
         @for (member of team; track member.id) {
           <article class="team-card" [attr.aria-labelledby]="'team-member-' + member.id">
-            <div class="team-card__image">
-              <img [appResponsiveImage]="member.imageUrl" [src]="member.imageUrl" [alt]="member.imageAlt" [width]="member.width" [height]="member.height" sizes="(max-width: 391px) calc(100vw - 40px), (max-width: 639px) 352px, (max-width: 1023px) calc(50vw - 44px), (max-width: 1295px) calc(25vw - 38px), 286px" loading="lazy" decoding="async">
+            <div class="team-card__image" [style.--portrait-scale]="member.portrait.scale" [style.--portrait-origin]="member.portrait.origin" [style.--portrait-brightness]="member.portrait.brightness" [style.--portrait-contrast]="member.portrait.contrast" [style.--portrait-saturation]="member.portrait.saturation">
+              <img [appResponsiveImage]="member.imageUrl" [src]="member.imageUrl" [alt]="member.imageAlt" [width]="member.width" [height]="member.height" sizes="(max-width: 391px) calc(100vw - 40px), (max-width: 639px) 352px, (max-width: 791px) calc(50vw - 44px), (max-width: 1023px) 352px, (max-width: 1295px) calc(25vw - 38px), 286px" loading="lazy" decoding="async">
             </div>
             <h3 class="team-card__name" [id]="'team-member-' + member.id">{{ member.name }}</h3>
           </article>
@@ -30,7 +29,7 @@
         <div class="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
           <p class="eyebrow text-[#b8f2df]">{{ teamStory.eyebrow }}</p>
           <h3 class="mt-5 max-w-xl font-serif text-4xl leading-[0.96] tracking-[-0.045em] sm:text-6xl">{{ teamStory.title }}</h3>
-          <p class="mt-7 max-w-2xl text-sm leading-7 text-white/65">{{ teamStory.description }}</p>
+          <p class="mt-7 max-w-2xl text-sm leading-7 text-on-dark-secondary">{{ teamStory.description }}</p>
         </div>
       </div>
     </div>

@@ -171,7 +171,7 @@ const collection = readFileSync('src/app/common/components/media-collection/medi
 assert.match(collection, /\(click\)="selected\.set\(item\)"/);
 assert.match(collection, /@if \(selected\(\); as item\) \{ <app-media-viewer/);
 assert.doesNotMatch(collection, /data-page-video|<video|<source/, 'Film cards must not expose preload sources or instantiate players');
-const viewer = readFileSync('src/app/common/components/media-viewer/media-viewer.component.ts', 'utf8');
+const viewer = readFileSync('src/app/common/components/media-viewer/media-viewer-slide.component.ts', 'utf8');
 assert.match(viewer, /@if \(video\(\); as film\) \{\s*<video/);
 assert.match(viewer, /\[src\]="film\.videoUrlMobile"[^>]+media="\(max-width: 767px\)"/);
 assert.match(viewer, /\[src\]="film\.videoUrl"/, 'The click-created player keeps responsive video sources');

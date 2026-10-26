@@ -10,6 +10,24 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#061419">
+    <!-- The prerendered curtain covers the very first paint, before app CSS/JS. -->
+    <style id="initial-loader-critical">
+      .page-transition--initial { position: fixed; inset: 0; z-index: 90; overflow: hidden; background: #061419; color: #d6fff0; }
+      html .page-transition.page-transition--initial:not(.page-transition--reveal) { transform: translateY(0); animation: none; }
+      html.initial-loader-failed .page-transition--initial { display: none; }
+    </style>
+    <noscript><style>.page-transition--initial { display: none !important; }</style></noscript>
+    <script>
+      // Fail open if the app cannot start. Normal release waits for page media.
+      (() => {
+        const fallback = window.setTimeout(() => {
+          document.documentElement.classList.add('initial-loader-failed');
+        }, 35000);
+        document.addEventListener('scuba-lak:initial-ready', () => {
+          window.clearTimeout(fallback);
+        }, { once: true });
+      })();
+    </script>
     <link rel="canonical" href="https://furqanqamar.github.io/ScubaLakKadmat/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Scuba Lak, Kadmat Lakshadweep">

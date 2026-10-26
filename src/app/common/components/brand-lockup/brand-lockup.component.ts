@@ -15,7 +15,7 @@ import { SITE_COPY } from '../../../data/site-copy';
     .brand-lockup__mark-shell { flex: none; }
     .brand-lockup__wordmark { display: flex; flex: none; flex-direction: column; align-items: flex-start; line-height: 1; white-space: nowrap; }
     .brand-lockup__wordmark strong { color: inherit; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.3rem, 2.3vw, 1.3rem); font-weight: 500; letter-spacing: .1em; }
-    .brand-lockup__wordmark small { margin-top: .46rem; color: var(--theme-mint); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .54rem; font-weight: 700; letter-spacing: .18em; }
+    .brand-lockup__wordmark small { margin-top: .46rem; color: var(--theme-mint); font-family: var(--font-body); font-size: var(--text-label); line-height: 1.4; font-weight: 600; letter-spacing: .06em; }
   `
 })
 export class BrandLockupComponent {

@@ -63,9 +63,9 @@ interface FooterBubble {
     .footer-brand { display: inline-flex; flex: none; justify-self: start; min-width: max-content; }
     .footer-socials { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; }
     .footer-navigation { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .3rem 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; }
-    .footer-navigation a { display: inline-flex; align-items: center; font-family: var(--font-body); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s ease; }
+    .footer-navigation a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-control); line-height: 1.6; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .2s ease; }
     .footer-navigation a:hover { color: var(--mint); }
-    .footer-legal { margin-top: 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; font-family: var(--font-body); }
+    .footer-legal { margin-top: 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-caption); line-height: 1.8; }
     .social-link { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgb(184 242 223 / .35); border-radius: 50%; color: var(--mint); transition: background .2s ease, border-color .2s ease; }
     .social-link:hover { border-color: var(--mint); background: rgb(184 242 223 / .1); }
     .social-link i { color: var(--mint); font-size: 1.1rem; }

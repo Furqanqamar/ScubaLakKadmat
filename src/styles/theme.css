@@ -8,6 +8,8 @@
   --theme-clay: #e8e2d4;
   --theme-coral: #f1c0a7;
   --theme-gold: #9d7047;
+  --theme-gold-text: #805735;
+  --theme-muted-text: #52645f;
   --theme-border: rgba(16, 40, 45, .12);
   --theme-overlay: rgba(3, 17, 22, .78);
 }
@@ -21,6 +23,8 @@
   --theme-clay: #10282d;
   --theme-coral: #d89a84;
   --theme-gold: #d5ae7a;
+  --theme-gold-text: #e1bd89;
+  --theme-muted-text: #bed2cc;
   --theme-border: rgba(214, 255, 240, .16);
   --theme-overlay: rgba(0, 8, 12, .84);
 }

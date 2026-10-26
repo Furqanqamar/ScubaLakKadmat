@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { TEAM_MEMBERS, TEAM_STORY } from '../../data/site-content';
 import { KADMAT_COPY } from '../../data/kadmat-diving';
+import portraitPresentation from '../../data/team-portrait-presentation.json';
 
 @Component({
   selector: 'app-about',
@@ -22,6 +23,11 @@ export class AboutComponent {
   readonly mediaCopy = MEDIA_COPY;
   readonly moments = ABOUT_MOMENTS;
   readonly cover = ORIGINAL_MEDIA['dive-centre-evening'];
-  readonly team = TEAM_MEMBERS;
+  // Presentation-only adjustments; supplied photo files and identities stay intact.
+  readonly team = TEAM_MEMBERS.map(member => ({
+    ...member,
+    portrait: portraitPresentation[member.id as keyof typeof portraitPresentation]
+      ?? { scale: 1, origin: '50% 50%', brightness: 1, contrast: 1, saturation: 1 }
+  }));
   readonly teamStory = TEAM_STORY;
 }

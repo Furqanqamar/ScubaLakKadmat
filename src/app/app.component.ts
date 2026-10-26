@@ -20,6 +20,7 @@ import { MediaCacheService } from './common/services/media-cache.service';
   imports: [RouterLink, RouterOutlet, SiteFooterComponent, FloatingNavigatorComponent, InteractiveCursorComponent, PageTransitionComponent, SiteHeaderComponent, BreadcrumbsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <app-page-transition />
     <a class="skip-link" [routerLink]="pagePath()" fragment="main-content" queryParamsHandling="preserve">Skip to content</a>
     <app-site-header />
     <router-outlet />
@@ -27,7 +28,6 @@ import { MediaCacheService } from './common/services/media-cache.service';
     <app-site-footer />
     <app-floating-navigator />
     <app-interactive-cursor />
-    <app-page-transition />
   `
 })
 export class AppComponent {

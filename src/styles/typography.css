@@ -1,0 +1,17 @@
+/* Shared reading scale. Keep decorative numerals and display headings separate. */
+:root {
+  --text-label: .75rem;
+  --text-caption: .8125rem;
+  --text-control: .875rem;
+  --text-small: .9375rem;
+  --text-body: 1rem;
+  --text-on-dark: #e2eeea;
+}
+
+.text-label { font-size: var(--text-label); line-height: 1.6; letter-spacing: .12em; }
+.text-caption { font-size: var(--text-caption); line-height: 1.65; }
+.text-control { font-size: var(--text-control); line-height: 1.5; }
+.text-sm { font-size: var(--text-body); line-height: 1.75; }
+.text-muted { color: var(--theme-muted-text); }
+.text-accent { color: var(--theme-gold-text); }
+.text-on-dark-secondary { color: var(--text-on-dark); }

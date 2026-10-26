@@ -48,6 +48,7 @@ jobs:
           node scripts/verify-hero-video.mjs
           node_modules/.bin/esbuild scripts/verify-page-transition.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-transition.mjs
           node tmp/verify-page-transition.mjs
+          node scripts/verify-initial-loader.mjs
           node_modules/.bin/esbuild scripts/verify-page-media-readiness.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-media-readiness.mjs
           node tmp/verify-page-media-readiness.mjs
           node_modules/.bin/esbuild scripts/verify-media-swipe.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-media-swipe.mjs
@@ -57,6 +58,8 @@ jobs:
           node_modules/.bin/esbuild scripts/verify-cursor-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-cursor-motion.mjs
           node tmp/verify-cursor-motion.mjs
           node scripts/verify-card-interactions.mjs
+          node scripts/verify-readability.mjs
+          node scripts/verify-clean-heroes.mjs
           node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
           node tmp/verify-enquiry.mjs
 

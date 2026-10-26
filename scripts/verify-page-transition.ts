@@ -8,7 +8,7 @@ import { PageTransitionComponent } from '../src/app/common/components/page-trans
 import { PageMediaReadinessService } from '../src/app/common/services/page-media-readiness.service';
 
 // Run the real component against a deterministic clock; no browser or network.
-function createHarness(platform = 'browser') {
+function createHarness(platform = 'browser', initialVisit = false) {
   let now = 0;
   let nextTimer = 0;
   let reducedMotion = false;
@@ -16,8 +16,9 @@ function createHarness(platform = 'browser') {
   const heroCallbacks = new Set<() => void>();
   const heroHistory: (() => void)[] = [];
   const timers = new Map<number, { at: number; callback: () => void }>();
+  const documentEvents: string[] = [];
   const events = new Subject<RouterEvent>();
-  const router = { events, navigated: true, url: '/' };
+  const router = { events, navigated: false, url: '/' };
   const view = {
     performance: { now: () => now },
     matchMedia: () => ({ matches: reducedMotion }),
@@ -29,7 +30,7 @@ function createHarness(platform = 'browser') {
     clearTimeout: (id: number) => timers.delete(id)
   };
   const injector = Injector.create({ providers: [
-    { provide: DOCUMENT, useValue: { defaultView: view } },
+    { provide: DOCUMENT, useValue: { defaultView: view, dispatchEvent: (event: Event) => { documentEvents.push(event.type); return true; } } },
     { provide: PLATFORM_ID, useValue: platform },
     { provide: Router, useValue: router },
     { provide: PageMediaReadinessService, useValue: { waitForPage(callback: () => void) {
@@ -39,22 +40,33 @@ function createHarness(platform = 'browser') {
     } } }
   ] });
   const component = runInInjectionContext(injector, () => new PageTransitionComponent());
+  const advance = (milliseconds: number): void => {
+    const target = now + milliseconds;
+    while (true) {
+      const next = [...timers.entries()].filter(([, timer]) => timer.at <= target).sort((a, b) => a[1].at - b[1].at)[0];
+      if (!next) break;
+      now = next[1].at;
+      timers.delete(next[0]);
+      next[1].callback();
+    }
+    now = target;
+  };
+  // Most cases below exercise a later SPA navigation, after the first cover
+  // has completed. Initial-load cases keep the real prerendered state intact.
+  if (platform === 'browser' && !initialVisit) {
+    events.next(new NavigationStart(0, '/'));
+    events.next(new NavigationEnd(0, '/', '/'));
+    advance(1000);
+    router.navigated = true;
+    now = 0;
+    heroHistory.length = 0;
+  }
   return {
-    component, router, events, timers, heroCallbacks, heroHistory,
+    component, router, events, timers, heroCallbacks, heroHistory, documentEvents,
     delayHero: () => { heroPending = true; },
     heroReady: () => { for (const callback of heroCallbacks) callback(); heroCallbacks.clear(); },
     reduceMotion: () => { reducedMotion = true; },
-    advance(milliseconds: number) {
-      const target = now + milliseconds;
-      while (true) {
-        const next = [...timers.entries()].filter(([, timer]) => timer.at <= target).sort((a, b) => a[1].at - b[1].at)[0];
-        if (!next) break;
-        now = next[1].at;
-        timers.delete(next[0]);
-        next[1].callback();
-      }
-      now = target;
-    },
+    advance,
     destroy() { injector.destroy(); }
   };
 }
@@ -62,6 +74,7 @@ function createHarness(platform = 'browser') {
 const fast = createHarness();
 fast.events.next(new NavigationStart(1, '/courses'));
 assert.equal(fast.component.isActive(), true, 'Cached navigation must show the curtain immediately');
+assert.equal(fast.component.isInitial(), false, 'Later navigation keeps the existing incoming animation');
 assert.equal(fast.component.label(), 'The course desk');
 fast.events.next(new NavigationEnd(1, '/courses', '/courses'));
 fast.advance(559);
@@ -91,8 +104,10 @@ for (const url of ['/#experiences', '/?interest=diving']) {
   assert.equal(samePage.component.isActive(), false, 'Do not animate hash or query-only changes');
   assert.equal(samePage.timers.size, 0);
 }
-const initial = createHarness();
-initial.router.navigated = false;
+const initial = createHarness('browser', true);
+assert.equal(initial.component.isActive(), true, 'The loader must exist before any client navigation event');
+assert.equal(initial.component.isInitial(), true, 'The initial curtain must already cover the full viewport');
+assert.equal(initial.component.phase(), 'cover');
 initial.delayHero();
 initial.events.next(new NavigationStart(4, '/courses'));
 initial.events.next(new NavigationEnd(4, '/courses', '/courses'));
@@ -100,6 +115,26 @@ initial.advance(2000);
 assert.equal(initial.component.isActive(), true, 'Initial visits also wait for page media');
 initial.heroReady(); initial.advance(440);
 assert.equal(initial.component.isActive(), false);
+assert.equal(initial.component.isInitial(), false);
+assert.deepEqual(initial.documentEvents, ['scuba-lak:initial-ready'], 'Successful first reveal cancels the startup fail-safe exactly once');
+initial.router.navigated = true;
+initial.router.url = '/courses';
+initial.events.next(new NavigationStart(40, '/about'));
+assert.equal(initial.component.isInitial(), false, 'Never replay the first-load state on a later page change');
+initial.events.next(new NavigationEnd(40, '/about', '/about'));
+initial.advance(1000);
+assert.equal(initial.documentEvents.length, 1);
+
+const initialReduced = createHarness('browser', true);
+initialReduced.reduceMotion();
+initialReduced.delayHero();
+initialReduced.events.next(new NavigationStart(41, '/'));
+initialReduced.events.next(new NavigationEnd(41, '/', '/'));
+assert.equal(initialReduced.component.isActive(), true, 'Reduced-motion initial visits still wait for media');
+initialReduced.heroReady();
+assert.equal(initialReduced.component.isActive(), false);
+assert.equal(initialReduced.timers.size, 0, 'Reduced motion does not add a first-load reveal delay');
+
 const reduced = createHarness();
 reduced.reduceMotion();
 reduced.events.next(new NavigationStart(5, '/about'));
@@ -180,5 +215,7 @@ assert.equal(destroyed.component.label(), 'The course desk', 'Destroying the com
 
 const server = createHarness('server');
 server.events.next(new NavigationStart(13, '/courses'));
-assert.equal(server.component.isActive(), false, 'Server rendering must not start animations');
-console.log('Page transition checks passed: immediate cover, one-second cached routes, slow route/hero readiness, stale-image guards, hash/query exclusions, static reduced-motion loading, redirects, rapid navigation, cancellation/error recovery, SSR and cleanup.');
+assert.equal(server.component.isActive(), true, 'Static HTML must include the first-paint cover');
+assert.equal(server.component.isInitial(), true, 'The server cover is already in place, not animating in');
+assert.equal(server.timers.size, 0, 'Server rendering must not start timers');
+console.log('Page transition checks passed: prerendered first-paint cover, single initial reveal, normal later navigation, one-second cached routes, slow page-media readiness, stale guards, hash/query exclusions, reduced motion, redirects, cancellation/error recovery, SSR and cleanup.');

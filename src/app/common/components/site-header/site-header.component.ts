@@ -28,7 +28,7 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
         </div>
 
         <div class="flex items-center gap-3">
-          <a class="hidden rounded-full border border-[#b8f2df]/60 bg-[#b8f2df] px-4 py-2.5 text-xs font-bold text-[#061419] transition hover:bg-[#e2fff5] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-transparent sm:inline-flex" routerLink="/contact" fragment="enquiry">{{ copy.navigation.planDive }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i></a>
+          <a class="hidden min-h-11 items-center rounded-full border border-[#b8f2df]/60 bg-[#b8f2df] px-4 py-2.5 text-control font-bold text-[#061419] transition hover:bg-[#e2fff5] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-transparent sm:inline-flex" routerLink="/contact" fragment="enquiry">{{ copy.navigation.planDive }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i></a>
           <button class="menu-toggle" type="button" [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-navigation" [attr.aria-label]="copy.navigation.toggleLabel" (click)="toggleMenu()"><span></span><span></span></button>
         </div>
       </nav>
@@ -48,9 +48,9 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
   `,
   styles: `
     :host { display: block; }
-    .site-header { position: absolute; inset: 0 0 auto; z-index: 40; padding: 1.25rem 1.25rem; color: white; }
+    .site-header { position: absolute; inset: 0 0 auto; z-index: 40; padding: 1.25rem 1.25rem; background: linear-gradient(180deg, rgb(3 17 22 / .78), rgb(3 17 22 / .66) 75%, transparent); color: white; }
     .site-header__brand { display: inline-flex; color: #f4f1e9; }
-    .nav-link { color: rgba(255,255,255,.85); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .76rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; transition: color .2s ease; }
+    .nav-link { display: inline-flex; align-items: center; min-height: 44px; color: #f4f1e9; font-family: var(--font-body); font-size: var(--text-control); line-height: 1.5; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; transition: color .2s ease; }
     .nav-link:hover, .nav-link--active, .nav-link:focus-visible { color: #b8f2df; }
     .menu-toggle { display: grid; width: 2.75rem; height: 2.75rem; place-content: center; gap: .33rem; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(6,20,25,.3); backdrop-filter: blur(12px); }
     .menu-toggle span { display: block; width: 1rem; height: 1px; background: #d6fff0; }

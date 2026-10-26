@@ -26,7 +26,7 @@ const CURTAIN_REVEAL_MS = 440;
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isActive()) {
-      <div class="page-transition" [class.page-transition--reveal]="phase() === 'reveal'" role="status" aria-live="polite" [attr.aria-label]="copy.transition.loading">
+      <div class="page-transition" [class.page-transition--initial]="isInitial()" [class.page-transition--reveal]="phase() === 'reveal'" role="status" aria-live="polite" [attr.aria-label]="copy.transition.loading">
         <div class="page-transition__water" aria-hidden="true">
           <span class="page-transition__ray page-transition__ray--one"></span>
           <span class="page-transition__ray page-transition__ray--two"></span>
@@ -47,6 +47,7 @@ const CURTAIN_REVEAL_MS = 440;
   styles: `
     :host { display: block; }
     .page-transition { position: fixed; inset: 0; z-index: 90; isolation: isolate; overflow: hidden; background: #061419; color: #d6fff0; pointer-events: all; animation: dotart-curtain-cover ${CURTAIN_COVER_MS}ms cubic-bezier(.77,0,.18,1) both; }
+    .page-transition--initial:not(.page-transition--reveal) { animation: none; transform: translateY(0); }
     .page-transition::after { position: absolute; right: -8%; bottom: -7rem; left: -8%; z-index: 1; height: 11rem; border-radius: 50% 50% 0 0 / 80% 80% 0 0; background: linear-gradient(180deg, rgba(16,40,45,.35), #10282d 50%); box-shadow: 0 -2rem 5rem rgba(184,242,223,.08); content: ''; }
     .page-transition__water { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: radial-gradient(ellipse at 50% -15%, rgba(184,242,223,.2), transparent 42%), linear-gradient(180deg, #0d3a48 0%, #06242f 43%, #061419 100%); }
     .page-transition__water::before { position: absolute; inset: -15%; background: repeating-radial-gradient(ellipse at 50% 0%, rgba(184,242,223,.08) 0 1px, transparent 1px 32px); filter: blur(1px); opacity: .6; animation: underwater-caustics 11s ease-in-out infinite alternate; content: ''; }
@@ -61,7 +62,7 @@ const CURTAIN_REVEAL_MS = 440;
     .page-transition__title { margin-top: 1rem; color: #f4f1e9; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.8rem, 8vw, 5.5rem); letter-spacing: -.06em; line-height: .9; }
     .page-transition__line { position: relative; display: block; height: 2px; margin: 2rem auto 0; overflow: hidden; width: min(12rem, 80%); background: rgba(184,242,223,.16); }
     .page-transition__line span { position: absolute; inset: 0 auto 0 0; width: 55%; background: #b8f2df; animation: dotart-progress .8s cubic-bezier(.2,.8,.2,1) both; }
-    .page-transition__coordinate { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 3; color: rgba(214,255,240,.44); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; font-size: .56rem; font-weight: 600; letter-spacing: .1em; }
+    .page-transition__coordinate { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 3; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-label); line-height: 1.6; font-weight: 500; letter-spacing: .08em; }
     .page-transition--reveal { pointer-events: none; animation: dotart-curtain-reveal ${CURTAIN_REVEAL_MS}ms cubic-bezier(.77,0,.18,1) both; }
     .page-transition--reveal .page-transition__content { opacity: 0; transition: opacity .18s ease; }
     @media (max-width: 639px) { .page-transition__coordinate { right: 1rem; bottom: 1rem; } }
@@ -87,10 +88,13 @@ export class PageTransitionComponent {
   private coverStartedAt = 0;
   private reducedMotion = false;
 
-  readonly isActive = signal(false);
+  // Render the first cover on the server too: hydration must not insert a
+  // curtain over an already-visible page, or replay its incoming animation.
+  readonly isActive = signal(true);
+  readonly isInitial = signal(true);
   readonly phase = signal<TransitionPhase>('cover');
   readonly copy = SITE_COPY;
-  readonly label = signal<string>(this.copy.transition.defaultLabel);
+  readonly label = signal<string>(this.getLabel(this.cleanPath(this.router.url)));
   readonly bubbles: readonly TransitionBubble[] = [
     { id: 1, left: 8, size: 7, duration: 6900, delay: -1200 },
     { id: 2, left: 17, size: 15, duration: 8200, delay: -5100 },
@@ -106,6 +110,7 @@ export class PageTransitionComponent {
 
   constructor() {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
+    this.coverStartedAt = this.document.defaultView?.performance.now() ?? 0;
     this.destroyRef.onDestroy(() => { this.activeNavigationId = null; this.clearPending(); });
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -124,7 +129,7 @@ export class PageTransitionComponent {
       if (this.router.navigated && fromPath === toPath) {
         this.clearPending();
         this.activeNavigationId = null;
-        this.isActive.set(false);
+        this.finishTransition();
         return;
       }
 
@@ -165,11 +170,18 @@ export class PageTransitionComponent {
   private reveal(): void {
     const view = this.document.defaultView;
     if (!view) return;
-    if (this.reducedMotion) { this.isActive.set(false); return; }
+    if (this.reducedMotion) { this.finishTransition(); return; }
     const elapsed = view.performance.now() - this.coverStartedAt;
     const revealDelay = Math.max(0, CURTAIN_COVER_MS + CURTAIN_HOLD_MS - elapsed);
     this.timers.push(view.setTimeout(() => this.phase.set('reveal'), revealDelay));
-    this.timers.push(view.setTimeout(() => this.isActive.set(false), revealDelay + CURTAIN_REVEAL_MS));
+    this.timers.push(view.setTimeout(() => this.finishTransition(), revealDelay + CURTAIN_REVEAL_MS));
+  }
+
+  private finishTransition(): void {
+    this.isActive.set(false);
+    if (!this.isInitial()) return;
+    this.isInitial.set(false);
+    this.document.dispatchEvent(new Event('scuba-lak:initial-ready'));
   }
 
   private clearPending(): void {

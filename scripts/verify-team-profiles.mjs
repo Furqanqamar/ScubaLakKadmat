@@ -70,7 +70,23 @@ const template = await readFile(new URL('src/app/pages/about/about.component.htm
 assert.match(template, /class="team-grid"/);
 assert.doesNotMatch(template, /member\.(?:role|bio|initials)/);
 const styles = await readFile(new URL('src/styles.css', root), 'utf8');
+const presentation = JSON.parse(await readFile(new URL('src/app/data/team-portrait-presentation.json', root), 'utf8'));
+assert.deepEqual(Object.keys(presentation), expected.map(([id]) => id), 'Every confirmed person has an explicit portrait treatment');
+for (const [id, settings] of Object.entries(presentation)) {
+  assert.ok(settings.scale >= 1 && settings.scale <= 1.6, `${id}: use restrained crops, never expose empty frame edges`);
+  assert.match(settings.origin, /^\d+% \d+%$/);
+  assert.ok(settings.origin.split(' ').every(value => Number.parseInt(value) >= 0 && Number.parseInt(value) <= 100));
+  for (const key of ['brightness', 'contrast', 'saturation']) assert.ok(settings[key] >= .85 && settings[key] <= 1.1, `${id}: preserve a natural photo treatment`);
+}
+assert.equal(presentation.lukman.scale, 1, 'Keep the lowest-resolution distant portrait uncropped until a better original is supplied');
+assert.equal(presentation.jamhar.scale, 1, 'Do not crop further into the already clipped portrait');
+assert.match(template, /\[style\.--portrait-scale\]="member\.portrait\.scale"/);
+assert.match(template, /\[style\.--portrait-origin\]="member\.portrait\.origin"/);
+assert.match(styles, /transform: scale\(var\(--portrait-scale, 1\)\)/);
+assert.match(styles, /transform-origin: var\(--portrait-origin, 50% 50%\)/);
+assert.match(styles, /filter: brightness\(var\(--portrait-brightness, 1\)\) contrast\(var\(--portrait-contrast, 1\)\) saturate\(var\(--portrait-saturation, 1\)\)/);
+assert.match(styles, /\.team-card\s*\{[^}]*max-width: 22rem;/, 'Avoid oversized tablet portraits that expose source softness');
 assert.match(styles, /\.team-grid\s*\{[^}]*flex-wrap:\s*wrap;[^}]*justify-content:\s*center;/);
 assert.match(styles, /@media \(min-width: 640px\)\s*\{\s*\.team-card\s*\{[^}]*\/ 2\)/);
 assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.team-card\s*\{[^}]*\/ 4\)/);
-console.log('Team checks passed: eight names in confirmed order, Thoufeque after Amjad Khan, all original portraits retained, responsive WebP portraits with placeholders and no photo metadata, names-only cards and 4+4 / tablet / phone layout rules.');
+console.log('Team checks passed: eight confirmed names and original photos retained, per-person non-destructive crop/tone settings, low-resolution/clipped portrait safeguards, responsive assets, names-only cards and bounded 4+4 / tablet / phone layout.');

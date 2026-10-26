@@ -1,11 +1,10 @@
 <main id="main-content" tabindex="-1" class="page-surface">
   <section data-page-hero class="page-hero page-hero--real">
     <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" loading="eager" fetchpriority="high" decoding="async">
-    <app-hero-watermark page="courses" />
     <div class="mx-auto max-w-[90rem]">
       <p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p>
       <h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1>
-      <p class="mt-8 max-w-2xl text-base leading-8 text-white/70">{{ copy.introduction }}</p>
+      <p class="mt-8 max-w-2xl text-base leading-8 text-on-dark-secondary">{{ copy.introduction }}</p>
     </div>
   </section>
 
@@ -31,7 +30,7 @@
         }
       </div>
 
-      <div class="mt-10 rounded-[1.5rem] border border-[#10282d]/10 bg-[#e8e2d4] p-6 sm:p-8"><p class="eyebrow text-[#9d7047]">{{ bookingNote.eyebrow }}</p><p class="mt-4 max-w-3xl text-sm leading-7 text-[#10282d]/65">{{ bookingNote.body }}</p></div>
+      <div class="mt-10 rounded-[1.5rem] border border-[#10282d]/10 bg-[#e8e2d4] p-6 sm:p-8"><p class="eyebrow text-accent">{{ bookingNote.eyebrow }}</p><p class="mt-4 max-w-3xl text-sm leading-7 text-muted">{{ bookingNote.body }}</p></div>
     </div>
   </section>
 </main>

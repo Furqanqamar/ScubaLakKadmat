@@ -2,15 +2,15 @@
   <main id="main-content" tabindex="-1"><span id="top"></span>
     <section data-page-hero class="hero-section relative isolate flex min-h-[48rem] items-end overflow-hidden bg-[#061419] px-5 pb-12 pt-32 text-white sm:px-8 sm:pb-16 lg:min-h-[min(52rem,100vh)] lg:px-10 lg:pb-20">
       <app-background-video />
-      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(3,17,22,.94)_0%,rgba(3,17,22,.62)_43%,rgba(3,17,22,.08)_100%)]"></div>
+      <div class="hero-copy-wash absolute inset-0 -z-10"></div>
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(3,17,22,.9)_0%,transparent_50%)]"></div>
       <div class="mx-auto grid w-full max-w-[90rem] gap-14 lg:grid-cols-[1fr_auto] lg:items-end">
         <div class="max-w-3xl">
           <p class="eyebrow mb-6 text-[#b8f2df]"><span class="mr-2 inline-block h-2 w-2 rounded-full bg-[#b8f2df] shadow-[0_0_14px_#b8f2df]" aria-hidden="true"></span>{{ copy.eyebrow }}</p>
           <h1 class="max-w-3xl font-serif text-[clamp(4.25rem,11vw,9.5rem)] leading-[0.82] tracking-[-0.075em]">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1>
           <div class="mt-8 flex max-w-xl flex-col gap-7 sm:flex-row sm:items-end">
-            <p class="max-w-sm text-sm leading-7 text-white/70">{{ copy.introduction }}</p>
-            <a class="group inline-flex min-h-11 shrink-0 items-center gap-3 font-mono text-[0.67rem] font-medium uppercase tracking-[0.16em] text-[#d6fff0]" routerLink="/" fragment="experiences">{{ copy.explore }}<span class="flex h-9 w-9 items-center justify-center rounded-full border border-[#b8f2df]/50 transition group-hover:bg-[#b8f2df] group-hover:text-[#061419]" aria-hidden="true">↓</span></a>
+            <p class="max-w-sm text-sm leading-7 text-on-dark-secondary">{{ copy.introduction }}</p>
+            <a class="group inline-flex min-h-11 shrink-0 items-center gap-3 font-mono text-label font-medium uppercase tracking-[0.16em] text-[#d6fff0]" routerLink="/" fragment="experiences">{{ copy.explore }}<span class="flex h-9 w-9 items-center justify-center rounded-full border border-[#b8f2df]/50 transition group-hover:bg-[#b8f2df] group-hover:text-[#061419]" aria-hidden="true">↓</span></a>
           </div>
         </div>
         <aside class="hidden w-56 rounded-[1.5rem] border border-white/20 bg-[#061419]/30 p-5 backdrop-blur-md lg:block">
@@ -32,7 +32,7 @@
     <section id="experiences" class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
       <div class="mx-auto max-w-[90rem]">
         <div class="kadmat-heading">
-          <div><p class="eyebrow text-[#7b8e89]">{{ copy.activityEyebrow }}</p><h2>{{ copy.activityTitle }}<br><em>{{ copy.activityEmphasis }}</em></h2></div>
+          <div><p class="eyebrow text-muted">{{ copy.activityEyebrow }}</p><h2>{{ copy.activityTitle }}<br><em>{{ copy.activityEmphasis }}</em></h2></div>
           <p>{{ copy.activityIntro }}</p>
         </div>
         <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -46,7 +46,7 @@
 
     <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
       <div class="mx-auto max-w-[90rem]">
-        <div class="kadmat-heading"><div><p class="eyebrow text-[#7b8e89]">{{ copy.galleryEyebrow }}</p><h2>{{ copy.galleryTitle }}<br><em>{{ copy.galleryEmphasis }}</em></h2></div><a class="button-link button-link--dark" routerLink="/gallery">{{ copy.galleryLink }}<span aria-hidden="true">↗</span></a></div>
+        <div class="kadmat-heading"><div><p class="eyebrow text-muted">{{ copy.galleryEyebrow }}</p><h2>{{ copy.galleryTitle }}<br><em>{{ copy.galleryEmphasis }}</em></h2></div><a class="button-link button-link--dark" routerLink="/gallery">{{ copy.galleryLink }}<span aria-hidden="true">↗</span></a></div>
         <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           @for (item of gallery; track item.id) {
             <a class="gallery-teaser group" routerLink="/gallery" [fragment]="item.id">

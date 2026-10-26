@@ -46,12 +46,6 @@ export const SITE_COPY = {
     about: 'The people behind the bubbles',
     coordinate: '11° 13′ N · 72° 46′ E'
   },
-  heroWatermarks: {
-    lakshadweep: '36 Islands',
-    experiences: '4 Experiences',
-    courses: 'PADI Courses',
-    kadmat: 'Kadmat Island'
-  },
   courseBookingNote: {
     eyebrow: 'A note before you book',
     body: 'Course schedules, equipment inclusion, boat arrangements and minimum participant numbers can vary. Contact our dive team to plan your course around your dates and group. All participants complete the required PADI medical and administrative forms; certification depends on satisfactory performance, not only the number of days or dives.'

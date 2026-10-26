@@ -32,24 +32,24 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
           <app-dive-icon [name]="icons[service().icon]" context="service" />
         </div>
         @if (service().badge; as badge) {
-          <span class="rounded-full border border-[#b8f2df]/30 bg-[#b8f2df]/10 px-3 py-1.5 font-mono text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#d6fff0]">{{ badge }}</span>
+          <span class="rounded-full border border-[#b8f2df]/30 bg-[#061419]/85 px-3 py-1.5 font-mono text-label font-medium uppercase text-[#d6fff0]">{{ badge }}</span>
         }
       </div>
 
       <div class="mt-16">
-        <p class="mb-3 font-mono text-[0.65rem] font-medium uppercase tracking-[0.23em] text-[#b8f2df]">{{ service().eyebrow }}</p>
+        <p class="mb-3 font-mono text-label font-medium uppercase text-[#b8f2df]">{{ service().eyebrow }}</p>
         <h3 class="max-w-[12ch] font-serif text-3xl leading-[0.95] tracking-[-0.03em] sm:text-4xl">{{ service().title }}</h3>
-        <p class="mt-4 max-w-sm text-sm leading-6 text-white/70">{{ service().description }}</p>
+        <p class="mt-4 max-w-sm text-sm leading-6 text-on-dark-secondary">{{ service().description }}</p>
       </div>
 
-      <div class="mt-7 flex items-end justify-between gap-4 border-t border-white/15 pt-5">
-        <div class="flex gap-5 font-mono text-[0.62rem] uppercase tracking-[0.13em] text-white/55">
+      <div class="mt-7 flex flex-wrap items-end justify-between gap-4 border-t border-white/15 pt-5">
+        <div class="flex flex-wrap gap-3 font-mono text-caption uppercase text-on-dark-secondary">
           <span><strong class="mr-1 font-medium text-white/90">{{ service().depth }}</strong> {{ service().category === 'Course' ? 'limits' : service().category === 'Water sports' ? 'setting' : 'depth' }}</span>
           @if (service().duration) { <span class="hidden sm:inline"><strong class="mr-1 font-medium text-white/90">{{ service().duration }}</strong> outing</span> }
         </div>
         <a
           [routerLink]="['/experiences', service().id]"
-          class="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold transition hover:border-[#b8f2df] hover:bg-[#b8f2df] hover:text-[#061419] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-[#061419]"
+          class="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-control font-semibold transition hover:border-[#b8f2df] hover:bg-[#b8f2df] hover:text-[#061419] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-[#061419]"
           [attr.aria-label]="'Explore ' + service().title"
         >
           {{ copy.actions.explore }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i>

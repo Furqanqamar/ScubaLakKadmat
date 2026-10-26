@@ -47,15 +47,8 @@ for (const url of urls) {
 }
 for (const [pathname, html] of documents) {
   const base = html.match(/<base href="([^"]+)"/)?.[1] ?? '/';
-  const heroLabels = { '/lakshadweep/': '36 Islands', '/experiences/': '4 Experiences', '/courses/': 'PADI Courses', '/kadmat/': 'Kadmat Island' };
-  const heroLabel = heroLabels[pathname.replace(/^\/ScubaLakKadmat/, '')];
-  if (heroLabel) {
-    const watermark = html.match(/<app-hero-watermark\b[^>]*>([\s\S]*?)<\/app-hero-watermark>/);
-    assert.ok(watermark, `Missing shared hero label: ${pathname}`);
-    assert.match(watermark[0], /aria-hidden="true"/, `Hero watermark must remain decorative: ${pathname}`);
-    assert.equal(watermark[1].replace(/<[^>]*>/g, '').trim(), heroLabel, `Unclear hero label: ${pathname}`);
-    assert.doesNotMatch(html, /LAGOON \/ 36|04 \/ 04|PADI \/ 22|KADMAT \/ 08/, `Legacy hero code: ${pathname}`);
-  }
+  assert.doesNotMatch(html, /app-hero-watermark|page-hero__watermark/, `Keep the hero free of background lettering: ${pathname}`);
+  assert.doesNotMatch(html, /LAGOON \/ 36|04 \/ 04|PADI \/ 22|KADMAT \/ 08/, `Legacy hero code: ${pathname}`);
   const diveIcons = [...html.matchAll(/<app-dive-icon\b[^>]*data-dive-icon="([^"]+)"[^>]*>([\s\S]*?)<\/app-dive-icon>/g)];
   for (const icon of diveIcons) {
     assert.match(icon[0], /aria-hidden="true"/, `Decorative icon must not repeat nearby text: ${pathname}`);

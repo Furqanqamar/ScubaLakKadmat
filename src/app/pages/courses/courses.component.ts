@@ -9,12 +9,11 @@ import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
 import { CourseCategory } from '../../models/site-data.model';
 import { COURSE_ICONS } from '../../data/dive-icons';
 import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
-import { HeroWatermarkComponent } from '../../common/components/hero-watermark/hero-watermark.component';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent, HeroWatermarkComponent],
+  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html'
 })
