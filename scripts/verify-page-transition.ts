@@ -5,12 +5,16 @@ import { Injector, PLATFORM_ID, runInInjectionContext } from '@angular/core';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationSkipped, NavigationStart, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { PageTransitionComponent } from '../src/app/common/components/page-transition/page-transition.component';
+import { PageMediaReadinessService } from '../src/app/common/services/page-media-readiness.service';
 
 // Run the real component against a deterministic clock; no browser or network.
 function createHarness(platform = 'browser') {
   let now = 0;
   let nextTimer = 0;
   let reducedMotion = false;
+  let heroPending = false;
+  const heroCallbacks = new Set<() => void>();
+  const heroHistory: (() => void)[] = [];
   const timers = new Map<number, { at: number; callback: () => void }>();
   const events = new Subject<RouterEvent>();
   const router = { events, navigated: true, url: '/' };
@@ -27,11 +31,18 @@ function createHarness(platform = 'browser') {
   const injector = Injector.create({ providers: [
     { provide: DOCUMENT, useValue: { defaultView: view } },
     { provide: PLATFORM_ID, useValue: platform },
-    { provide: Router, useValue: router }
+    { provide: Router, useValue: router },
+    { provide: PageMediaReadinessService, useValue: { waitForPage(callback: () => void) {
+      heroHistory.push(callback);
+      if (heroPending) heroCallbacks.add(callback); else callback();
+      return () => heroCallbacks.delete(callback);
+    } } }
   ] });
   const component = runInInjectionContext(injector, () => new PageTransitionComponent());
   return {
-    component, router, events, timers,
+    component, router, events, timers, heroCallbacks, heroHistory,
+    delayHero: () => { heroPending = true; },
+    heroReady: () => { for (const callback of heroCallbacks) callback(); heroCallbacks.clear(); },
     reduceMotion: () => { reducedMotion = true; },
     advance(milliseconds: number) {
       const target = now + milliseconds;
@@ -82,13 +93,49 @@ for (const url of ['/#experiences', '/?interest=diving']) {
 }
 const initial = createHarness();
 initial.router.navigated = false;
+initial.delayHero();
 initial.events.next(new NavigationStart(4, '/courses'));
 initial.events.next(new NavigationEnd(4, '/courses', '/courses'));
-assert.equal(initial.component.isActive(), false, 'Do not cover the initial rendered page');
+initial.advance(2000);
+assert.equal(initial.component.isActive(), true, 'Initial visits also wait for page media');
+initial.heroReady(); initial.advance(440);
+assert.equal(initial.component.isActive(), false);
 const reduced = createHarness();
 reduced.reduceMotion();
 reduced.events.next(new NavigationStart(5, '/about'));
-assert.equal(reduced.component.isActive(), false, 'Respect reduced motion');
+reduced.delayHero();
+reduced.events.next(new NavigationEnd(5, '/about', '/about'));
+assert.equal(reduced.component.isActive(), true, 'Reduced-motion visitors still get a static loading cover');
+reduced.heroReady();
+assert.equal(reduced.component.isActive(), false, 'Reduced motion must not add animated cover/reveal delays');
+
+const slowImage = createHarness();
+slowImage.delayHero();
+slowImage.events.next(new NavigationStart(14, '/about'));
+slowImage.events.next(new NavigationEnd(14, '/about', '/about'));
+slowImage.advance(3500);
+assert.equal(slowImage.component.phase(), 'cover', 'The route being ready must not reveal an unloaded hero');
+assert.equal(slowImage.component.isActive(), true);
+slowImage.heroReady();
+slowImage.advance(0);
+assert.equal(slowImage.component.phase(), 'reveal', 'Reveal as soon as the decoded hero is ready, without a second minimum hold');
+slowImage.advance(440);
+assert.equal(slowImage.component.isActive(), false);
+
+const staleImage = createHarness();
+staleImage.delayHero();
+staleImage.events.next(new NavigationStart(15, '/about'));
+staleImage.events.next(new NavigationEnd(15, '/about', '/about'));
+staleImage.advance(100);
+staleImage.events.next(new NavigationStart(16, '/gallery'));
+assert.equal(staleImage.heroCallbacks.size, 0, 'New navigation cancels the old hero wait');
+staleImage.events.next(new NavigationEnd(16, '/gallery', '/gallery'));
+staleImage.heroHistory[0]();
+staleImage.advance(2000);
+assert.equal(staleImage.component.phase(), 'cover', 'A stale image callback cannot uncover a newer page');
+staleImage.heroReady();
+staleImage.advance(440);
+assert.equal(staleImage.component.isActive(), false);
 
 for (const terminal of [new NavigationCancel(6, '/gallery', 'Mock guard'), new NavigationError(6, '/gallery', new Error('Mock failure')), new NavigationSkipped(6, '/gallery', 'Mock skip')]) {
   const interrupted = createHarness();
@@ -122,14 +169,16 @@ rapid.advance(1000);
 assert.equal(rapid.component.isActive(), false);
 
 const destroyed = createHarness();
+destroyed.delayHero();
 destroyed.events.next(new NavigationStart(11, '/courses'));
 destroyed.events.next(new NavigationEnd(11, '/courses', '/courses'));
 destroyed.destroy();
 assert.equal(destroyed.timers.size, 0, 'Destroying the component must release timers');
+assert.equal(destroyed.heroCallbacks.size, 0, 'Destroying the component must release hero listeners');
 destroyed.events.next(new NavigationStart(12, '/gallery'));
 assert.equal(destroyed.component.label(), 'The course desk', 'Destroying the component must unsubscribe from router events');
 
 const server = createHarness('server');
 server.events.next(new NavigationStart(13, '/courses'));
 assert.equal(server.component.isActive(), false, 'Server rendering must not start animations');
-console.log('Page transition checks passed: immediate cover, one-second fast-route sequence, slow routes, hash/query exclusions, reduced motion, redirects, rapid navigation, cancellation/error recovery, SSR and cleanup.');
+console.log('Page transition checks passed: immediate cover, one-second cached routes, slow route/hero readiness, stale-image guards, hash/query exclusions, static reduced-motion loading, redirects, rapid navigation, cancellation/error recovery, SSR and cleanup.');

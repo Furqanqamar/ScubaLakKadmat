@@ -11,7 +11,7 @@ import { ACCOMMODATION_INFO } from '../../data/accommodation-info';
   template: `
     @if (guide(); as guide) {
       <main id="main-content" tabindex="-1" class="page-surface">
-        <section class="page-hero page-hero--about"><div class="mx-auto max-w-[90rem]">
+        <section data-page-hero class="page-hero page-hero--about"><div class="mx-auto max-w-[90rem]">
           <p class="eyebrow text-[#b8f2df]">{{ guide.eyebrow }}</p>
           <h1 class="mt-6 max-w-5xl font-serif text-5xl leading-tight text-white sm:text-7xl">{{ guide.title }}</h1>
           <p class="mt-8 max-w-3xl text-base leading-8 text-white/80">{{ guide.introduction }}</p>

@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationSkipped, NavigationStart, Router } from '@angular/router';
 
 import { SITE_COPY } from '../../../data/site-copy';
+import { PageMediaReadinessService } from '../../services/page-media-readiness.service';
 
 type TransitionPhase = 'cover' | 'reveal';
 
@@ -79,9 +80,12 @@ export class PageTransitionComponent {
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly mediaReadiness = inject(PageMediaReadinessService);
   private readonly timers: number[] = [];
+  private cancelMediaWait: (() => void) | null = null;
   private activeNavigationId: number | null = null;
   private coverStartedAt = 0;
+  private reducedMotion = false;
 
   readonly isActive = signal(false);
   readonly phase = signal<TransitionPhase>('cover');
@@ -102,7 +106,7 @@ export class PageTransitionComponent {
 
   constructor() {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
-    this.destroyRef.onDestroy(() => this.clearTimers());
+    this.destroyRef.onDestroy(() => { this.activeNavigationId = null; this.clearPending(); });
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => this.handleNavigation(event));
@@ -117,14 +121,15 @@ export class PageTransitionComponent {
     if (event instanceof NavigationStart) {
       const fromPath = this.cleanPath(this.router.url);
       const toPath = this.cleanPath(event.url);
-      if (!this.router.navigated || fromPath === toPath || view.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        this.clearTimers();
+      if (this.router.navigated && fromPath === toPath) {
+        this.clearPending();
         this.activeNavigationId = null;
         this.isActive.set(false);
         return;
       }
 
-      this.clearTimers();
+      this.clearPending();
+      this.reducedMotion = view.matchMedia('(prefers-reduced-motion: reduce)').matches;
       this.activeNavigationId = event.id;
       this.label.set(this.getLabel(toPath));
       // Start immediately, even when a cached route finishes in the same turn.
@@ -142,13 +147,35 @@ export class PageTransitionComponent {
       return;
     }
 
-    this.activeNavigationId = null;
-    this.clearTimers();
+    this.clearPending();
     if (!this.isActive()) return;
+    if (event instanceof NavigationEnd) {
+      this.cancelMediaWait = this.mediaReadiness.waitForPage(() => {
+        if (event.id !== this.activeNavigationId) return;
+        this.activeNavigationId = null;
+        this.cancelMediaWait = null;
+        this.reveal();
+      });
+    } else {
+      this.activeNavigationId = null;
+      this.reveal();
+    }
+  }
+
+  private reveal(): void {
+    const view = this.document.defaultView;
+    if (!view) return;
+    if (this.reducedMotion) { this.isActive.set(false); return; }
     const elapsed = view.performance.now() - this.coverStartedAt;
     const revealDelay = Math.max(0, CURTAIN_COVER_MS + CURTAIN_HOLD_MS - elapsed);
     this.timers.push(view.setTimeout(() => this.phase.set('reveal'), revealDelay));
     this.timers.push(view.setTimeout(() => this.isActive.set(false), revealDelay + CURTAIN_REVEAL_MS));
+  }
+
+  private clearPending(): void {
+    this.cancelMediaWait?.();
+    this.cancelMediaWait = null;
+    this.clearTimers();
   }
 
   private cleanPath(url: string): string {

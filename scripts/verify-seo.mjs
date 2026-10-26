@@ -23,6 +23,7 @@ for (const url of urls) {
   assert.ok(title, url);
   assert.ok(!titles.has(title), `Duplicate title: ${title}`); titles.add(title);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, url);
+  assert.equal((html.match(/\bdata-page-hero(?:[\s=>])/g) ?? []).length, 1, `Each page needs one explicit hero readiness boundary: ${url}`);
   assert.ok(html.includes(`href="${url}"`), `Canonical: ${url}`);
   assert.ok(!/<meta[^>]+name="robots"[^>]+content="noindex/.test(html), url);
   assert.match(html, /name="google-site-verification"/);

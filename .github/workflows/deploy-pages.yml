@@ -48,6 +48,13 @@ jobs:
           node scripts/verify-hero-video.mjs
           node_modules/.bin/esbuild scripts/verify-page-transition.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-transition.mjs
           node tmp/verify-page-transition.mjs
+          node_modules/.bin/esbuild scripts/verify-page-media-readiness.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-media-readiness.mjs
+          node tmp/verify-page-media-readiness.mjs
+          node_modules/.bin/esbuild scripts/verify-media-swipe.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-media-swipe.mjs
+          node tmp/verify-media-swipe.mjs
+          node_modules/.bin/esbuild scripts/verify-reveal-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-reveal-motion.mjs
+          node tmp/verify-reveal-motion.mjs
+          node scripts/verify-card-interactions.mjs
           node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
           node tmp/verify-enquiry.mjs
 

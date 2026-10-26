@@ -1,6 +1,6 @@
 <main id="main-content" tabindex="-1" class="page-surface">
-  <section class="page-hero page-hero--real">
-    <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" fetchpriority="high" decoding="async">
+  <section data-page-hero class="page-hero page-hero--real">
+    <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" loading="eager" fetchpriority="high" decoding="async">
     <div class="page-hero__watermark">FIELD NOTES</div><div class="mx-auto max-w-[90rem]"><p class="eyebrow text-[#b8f2df]">A living archive</p><h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.88] tracking-[-0.06em] text-white sm:text-8xl">The island<br><em>in frames.</em></h1><p class="mt-8 max-w-2xl text-base leading-8 text-white/60">{{ copy.galleryIntro }}</p></div>
   </section>
   <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">

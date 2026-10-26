@@ -1,20 +1,21 @@
 import { DOCUMENT } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, viewChild } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { HERO_MEDIA } from '../../../data/hero-media.generated';
 
 @Component({
   selector: 'app-background-video', standalone: true, changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<img class="background-video__image" [src]="media.poster" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
-    <video #player class="background-video__image" autoplay muted [muted]="true" loop playsinline preload="metadata" [poster]="media.poster" aria-hidden="true" tabindex="-1">
+  template: `<img class="background-video__image" [src]="media.poster" width="1280" height="720" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <video #player class="background-video__image" [class.background-video__image--ready]="hasFrame()" (loadeddata)="hasFrame.set(true)" (emptied)="hasFrame.set(false)" (error)="hasFrame.set(false)" autoplay muted [muted]="true" loop playsinline preload="metadata" [poster]="media.poster" aria-hidden="true" tabindex="-1">
       <source [src]="media.mobile.webm" type="video/webm; codecs=vp9" media="(max-width: 767px)">
       <source [src]="media.mobile.mp4" type="video/mp4" media="(max-width: 767px)">
       <source [src]="media.desktop.webm" type="video/webm; codecs=vp9">
       <source [src]="media.desktop.mp4" type="video/mp4">
     </video>`,
-  styles: `:host { display: contents; pointer-events: none; } .background-video__image { z-index: -20; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }`
+  styles: `:host { display: contents; pointer-events: none; } .background-video__image { z-index: -20; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; } video.background-video__image { opacity: 0; } video.background-video__image--ready { opacity: 1; }`
 })
 export class BackgroundVideoComponent {
   readonly media = HERO_MEDIA;
+  readonly hasFrame = signal(false);
   private readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('player');
   constructor() {
     const document = inject(DOCUMENT), destroy = inject(DestroyRef);
@@ -22,6 +23,8 @@ export class BackgroundVideoComponent {
       const window = document.defaultView;
       if (!window) return;
       const player = this.video().nativeElement;
+      // Cached video can have a frame before hydration attaches load listeners.
+      this.hasFrame.set(player.readyState >= player.HAVE_CURRENT_DATA);
       const play = (): void => {
         if (document.visibilityState !== 'hidden' && player.paused) void player.play().catch(() => { /* The poster remains if the browser blocks autoplay. */ });
       };

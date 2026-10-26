@@ -2,6 +2,7 @@ export const MEDIA_COPY = {
   all: 'All moments', allMedia: 'All media', photos: 'Photos', videos: 'Films',
   open: 'Open', play: 'Play film', close: 'Close media',
   previous: 'Previous image or film', next: 'Next image or film', of: 'of',
+  swipe: 'Swipe left or right to explore.',
   loading: 'Loading your island moment…',
   error: 'This film could not load. Please try again.', retry: 'Try again',
   imageError: 'This photo could not load. Please try again.',

@@ -1,6 +1,6 @@
 <main id="main-content" tabindex="-1" class="page-surface">
-  <section class="page-hero page-hero--real">
-    <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" fetchpriority="high" decoding="async">
+  <section data-page-hero class="page-hero page-hero--real">
+    <img class="page-hero__photo" [appResponsiveImage]="cover.imageUrl" [src]="cover.imageUrl" sizes="100vw" [width]="cover.width" [height]="cover.height" alt="" loading="eager" fetchpriority="high" decoding="async">
     <div class="page-hero__watermark">ABOUT / SCUBA LAK</div>
     <div class="mx-auto max-w-[90rem]"><p class="eyebrow text-[#b8f2df]">{{ copy.eyebrow }}</p><h1 class="mt-6 max-w-5xl font-serif text-6xl leading-[0.9] tracking-[-0.055em] text-white sm:text-8xl">{{ copy.title }}<br><em>{{ copy.emphasis }}</em></h1><p class="mt-8 max-w-xl text-base leading-8 text-white/75">{{ copy.introduction }}</p></div>
   </section>
