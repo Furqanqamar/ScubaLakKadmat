@@ -53,6 +53,13 @@ async function verifyPages(directory) {
     if (entry.isDirectory()) { count += await verifyPages(file); continue; }
     if (entry.name !== 'index.html') continue;
     const html = await readFile(file, 'utf8');
+    // Standalone holding pages have their own small first-paint cover, without Angular.
+    if (/<html\b[^>]*data-status-page="(?:coming-soon|maintenance)"/.test(html)) {
+      assert.match(html, /class="status-intro"/);
+      assert.match(html, /<noscript><style>\.status-intro/);
+      assert.doesNotMatch(html, /<app-root\b/);
+      continue;
+    }
     if (/<meta\b[^>]+http-equiv="refresh"/i.test(html)) continue;
     assert.match(html, /class="page-transition page-transition--initial"/, `Missing prerendered initial cover: ${file}`);
     assert.match(html, /id="initial-loader-critical"/, `Missing first-paint critical CSS: ${file}`);

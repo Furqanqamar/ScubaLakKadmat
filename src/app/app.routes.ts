@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { matchCourse, matchExperience, matchIsland } from './route-matchers';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'lakshadweep/:islandSlug',
+    canMatch: [matchIsland],
     loadComponent: () => import('./pages/island-guide/island-guide.component').then(module => module.IslandGuideComponent)
   },
   {
@@ -32,6 +34,7 @@ export const routes: Routes = [
   },
   {
     path: 'experiences/:serviceId',
+    canMatch: [matchExperience],
     loadComponent: () => import('./pages/service-detail/service-detail.component').then((module) => module.ServiceDetailComponent)
   },
   {
@@ -40,6 +43,7 @@ export const routes: Routes = [
   },
   {
     path: 'courses/:courseId',
+    canMatch: [matchCourse],
     loadComponent: () => import('./pages/course-detail/course-detail.component').then((module) => module.CourseDetailComponent)
   },
   {

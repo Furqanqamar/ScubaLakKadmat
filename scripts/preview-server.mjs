@@ -1,5 +1,5 @@
 import { createReadStream } from 'node:fs';
-import { access, stat } from 'node:fs/promises';
+import { access, readFile, stat } from 'node:fs/promises';
 import { createGzip } from 'node:zlib';
 import { createServer } from 'node:http';
 import { pipeline } from 'node:stream/promises';
@@ -7,7 +7,7 @@ import { extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const projectRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const outputRoot = resolve(projectRoot, 'dist/scuba-lak/browser');
+const outputRoot = resolve(process.env.PREVIEW_OUTPUT ?? resolve(projectRoot, 'dist/scuba-lak/browser'));
 const port = Number(process.env.PORT ?? 4004);
 const basePath = process.env.PREVIEW_BASE_PATH ?? '/';
 if (!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(basePath)) throw new Error('PREVIEW_BASE_PATH must be an absolute directory path ending in /');
@@ -18,6 +18,7 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.png': 'image/png',
@@ -46,7 +47,7 @@ const COMPRESSIBLE_TYPES = new Set([
 
 const isInsideOutput = (filePath) => filePath === outputRoot || filePath.startsWith(`${outputRoot}/`);
 
-async function resolveRequestPath(requestUrl) {
+async function resolveRequestPath(requestUrl, accept = '') {
   const url = new URL(requestUrl, 'http://localhost');
   if (!url.pathname.startsWith(basePath)) return null;
   const pathname = decodeURIComponent('/' + url.pathname.slice(basePath.length));
@@ -58,15 +59,19 @@ async function resolveRequestPath(requestUrl) {
 
   try {
     const details = await stat(requestedPath);
-    return details.isDirectory() ? join(requestedPath, 'index.html') : requestedPath;
+    if (!details.isDirectory()) return requestedPath;
+    const index = join(requestedPath, 'index.html');
+    await access(index);
+    return index;
   } catch {
-    return url.pathname.includes('.') ? null : join(outputRoot, '404.html');
+    const isPage = accept.includes('text/html') || /\.html?$/i.test(url.pathname) || !extname(url.pathname);
+    return isPage ? join(outputRoot, '404.html') : null;
   }
 }
 
 function isImmutableAsset(filePath) {
   return /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?)$/.test(filePath)
-    || /\/media\/(?:originals|hero|islands)\/[\w-]+-[a-f0-9]{12}\.(?:webp|mp4|webm)$/.test(filePath);
+    || /\/media\/(?:originals|hero|islands|illustrations)\/[\w-]+-[a-f0-9]{12}\.(?:webp|mp4|webm)$/.test(filePath);
 }
 
 const server = createServer(async (request, response) => {
@@ -77,7 +82,7 @@ const server = createServer(async (request, response) => {
   }
 
   let filePath;
-  try { filePath = await resolveRequestPath(request.url ?? '/'); }
+  try { filePath = await resolveRequestPath(request.url ?? '/', request.headers.accept ?? ''); }
   catch { response.writeHead(400); response.end('Invalid URL'); return; }
   if (!filePath) {
     response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -91,8 +96,12 @@ const server = createServer(async (request, response) => {
     const extension = extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[extension] ?? 'application/octet-stream';
     const isHtml = extension === '.html';
-    const status = filePath === join(outputRoot, '404.html') ? 404 : 200;
-    const cacheControl = isHtml
+    const gated = isHtml && (await readFile(filePath, 'utf8')).includes('data-site-gated="true"');
+    const mode = gated ? JSON.parse(await readFile(join(outputRoot, 'site-status.json'), 'utf8')).mode : 'live';
+    const status = gated ? mode === 'maintenance' ? 503 : 200 : filePath === join(outputRoot, '404.html') ? 404 : 200;
+    if (gated) response.setHeader('X-Robots-Tag', 'noindex');
+    if (status === 503) response.setHeader('Retry-After', '300');
+    const cacheControl = gated || filePath === join(outputRoot, 'site-status.json') ? 'no-store' : isHtml
       ? 'public, max-age=0, must-revalidate'
       : isImmutableAsset(filePath)
         ? 'public, max-age=31536000, immutable'
@@ -150,5 +159,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, '127.0.0.1', () => {
-  console.log(`Production preview: http://localhost:${port}${basePath}`);
+  console.log(`Production preview: http://localhost:${server.address().port}${basePath}`);
 });

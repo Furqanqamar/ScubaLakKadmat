@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - agent/scuba-lak-application
+    paths-ignore:
+      - public/site-status.json
   workflow_dispatch:
 
 permissions:
@@ -53,6 +55,8 @@ jobs:
           node tmp/verify-page-media-readiness.mjs
           node_modules/.bin/esbuild scripts/verify-media-swipe.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-media-swipe.mjs
           node tmp/verify-media-swipe.mjs
+          node_modules/.bin/esbuild scripts/verify-media-viewer-readiness.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-media-viewer-readiness.mjs
+          node tmp/verify-media-viewer-readiness.mjs
           node_modules/.bin/esbuild scripts/verify-reveal-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-reveal-motion.mjs
           node tmp/verify-reveal-motion.mjs
           node_modules/.bin/esbuild scripts/verify-cursor-motion.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-cursor-motion.mjs
@@ -60,8 +64,22 @@ jobs:
           node scripts/verify-card-interactions.mjs
           node scripts/verify-readability.mjs
           node scripts/verify-clean-heroes.mjs
+          node_modules/.bin/esbuild scripts/verify-not-found-routes.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-not-found-routes.mjs
+          node tmp/verify-not-found-routes.mjs
+          node scripts/verify-not-found.mjs
+          node scripts/verify-site-status.mjs
           node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
           node tmp/verify-enquiry.mjs
+
+      - name: Retain the clean release for build-free mode switching
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-release
+          path: dist/scuba-lak/browser
+          retention-days: 90
+
+      - name: Apply the configured site mode
+        run: node scripts/apply-site-mode.mjs --directory dist/scuba-lak/browser --config public/site-status.json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

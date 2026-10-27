@@ -1,0 +1,50 @@
+:host { display: block; }
+.lost-page { background: #061419; color: #f4f1e9; }
+.lost-sea { position: relative; isolation: isolate; display: flex; align-items: center; min-height: max(760px, 100svh); overflow: clip; padding: 168px clamp(24px, 7.5vw, 140px) 160px; }
+.lost-sea__art, .lost-sea__wash { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.lost-sea__art { overflow: hidden; }
+.lost-sea__image { width: 100%; height: 100%; object-fit: cover; object-position: 66% 50%; transform: scale(1.025); animation: sea-drift 16s ease-in-out infinite alternate; }
+.lost-sea__wash { background: linear-gradient(90deg, rgba(6,20,25,.32), transparent 60%), linear-gradient(0deg, rgba(6,20,25,.55), transparent 25%); }
+.lost-sea__content { position: relative; width: min(100%, 650px); }
+.lost-sea__eyebrow { display: flex; align-items: center; gap: 12px; color: #b8f2df; }
+.lost-sea__eyebrow > span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 14px #b8f2df80; }
+h1 { margin: 32px 0 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(5.25rem, 8.5vw, 9.5rem); line-height: .98; letter-spacing: -.065em; }
+h1 em { color: #b8f2df; }
+.lost-sea__description { margin-top: 30px; color: #c3d1cf; font-size: 16px; line-height: 1.8; }
+.lost-sea__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px 30px; margin-top: 34px; }
+.lost-sea__home { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 54px; padding: 15px 24px; border: 1px solid #b8f2df; border-radius: 999px; background: #b8f2df; color: #10282d; font-size: 14px; font-weight: 600; text-decoration: none; transition: background-color 240ms ease, border-color 240ms ease; }
+.lost-sea__home svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.lost-sea__kadmat { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; color: #f4f1e9; font-size: 14px; text-decoration: underline; text-decoration-color: #f4f1e940; text-underline-offset: 7px; transition: text-decoration-color 240ms ease, color 240ms ease; }
+.lost-sea__kadmat span { font-size: 18px; }
+.lost-sea__home:focus-visible, .lost-sea__kadmat:focus-visible { outline: 2px solid #f4f1e9; outline-offset: 6px; }
+.lost-sea__location { position: absolute; bottom: 46px; left: clamp(24px, 7.5vw, 140px); display: flex; align-items: center; gap: 14px; color: #a6bfbd; font-size: 12px; letter-spacing: .1em; }
+.lost-sea__location svg { width: 28px; height: 28px; stroke: #b8f2df; stroke-width: .9; }
+.lost-sea__light { position: absolute; width: 65%; height: 100%; top: -25%; right: -10%; background: radial-gradient(ellipse at top, #b8f2df14, transparent 62%); transform-origin: 65% 0; animation: sea-light 12s ease-in-out infinite alternate; mix-blend-mode: screen; }
+.lost-sea__bubbles { position: absolute; inset: 26% 17% 24% 65%; }
+.lost-sea__bubbles span { position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border: 1px solid #b8f2df80; border-radius: 50%; opacity: 0; animation: sea-bubble 9s linear infinite; }
+.lost-sea__bubbles span:nth-child(2) { left: 62%; width: 3px; height: 3px; animation-delay: -2.5s; }
+.lost-sea__bubbles span:nth-child(3) { left: 42%; width: 5px; height: 5px; animation-delay: -5s; }
+.lost-sea__bubbles span:nth-child(4) { left: 56%; width: 2px; height: 2px; animation-delay: -7s; }
+@keyframes sea-drift { from { transform: scale(1.025) translateY(3px); } to { transform: scale(1.045) translateY(-3px); } }
+@keyframes sea-light { from { opacity: .35; transform: rotate(-3deg); } to { opacity: .8; transform: rotate(3deg); } }
+@keyframes sea-bubble { 0% { opacity: 0; transform: translate(0, 0); } 15%, 70% { opacity: .45; } 100% { opacity: 0; transform: translate(16px, -230px); } }
+@media (hover: hover) { .lost-sea__home:hover { background: #d6fff0; border-color: #d6fff0; } .lost-sea__kadmat:hover { color: #b8f2df; text-decoration-color: #b8f2df; } }
+@media (min-width: 768px) and (max-width: 1100px) { .lost-sea { padding-left: 5vw; padding-right: 5vw; } .lost-sea__image { object-position: 85% 50%; } .lost-sea__wash { background: linear-gradient(90deg, #061419a6, #06141920 75%); } .lost-sea__content { max-width: 540px; } .lost-sea__location { left: 5vw; } }
+@media (max-width: 767px) {
+  .lost-sea { align-items: flex-start; min-height: max(900px, 100svh); padding: 156px 24px 420px; }
+  .lost-sea__content { width: 100%; }
+  h1 { margin-top: 25px; font-size: clamp(4.5rem, 16vw, 7rem); line-height: .99; }
+  .lost-sea__description { margin-top: 24px; font-size: 15px; }
+  .lost-sea__actions { gap: 12px 24px; margin-top: 27px; }
+  .lost-sea__home { min-height: 50px; padding: 13px 20px; gap: 18px; }
+  .lost-sea__art { inset: 38% -28% 0; mask-image: linear-gradient(180deg, transparent, #000 28%); }
+  .lost-sea__image { object-position: 100% 50%; }
+  .lost-sea__wash { background: linear-gradient(180deg, #061419 0%, #061419 36%, #061419aa 46%, transparent 63%, #06141960 100%); }
+  .lost-sea__location { left: 24px; bottom: 30px; gap: 10px; font-size: 12px; letter-spacing: .04em; }
+  .lost-sea__bubbles { inset: 30% 20% 24% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lost-sea__image, .lost-sea__light, .lost-sea__bubbles span { animation: none; }
+  .lost-sea__image { transform: none; }
+  .lost-sea__home, .lost-sea__kadmat { transition: none; }
+}

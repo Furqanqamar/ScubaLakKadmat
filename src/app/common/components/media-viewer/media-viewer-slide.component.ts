@@ -19,7 +19,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
         <source [src]="film.videoUrl" type="video/mp4">
       </video>
     } @else {
-      <img [appResponsiveImage]="item().imageUrl" sizes="(max-width: 767px) 95vw, 70vw"
+      <img #photo [appResponsiveImage]="item().imageUrl" sizes="(max-width: 767px) 95vw, 70vw"
         [src]="item().imageUrl" [alt]="item().title" [width]="item().width ?? 1200" [height]="item().height ?? 800"
         draggable="false" decoding="async" (load)="ready.set(true)" (error)="failed.set(true)">
     }
@@ -41,13 +41,21 @@ export class MediaViewerSlideComponent {
   readonly failed = signal(false);
   // Adjacent films use their poster; only the selected film creates a player.
   readonly video = computed(() => { const item = this.item(); return this.active() && item.kind === 'video' ? item : null; });
+  private readonly photo = viewChild<ElementRef<HTMLImageElement>>('photo');
   private readonly player = viewChild<ElementRef<HTMLVideoElement>>('player');
 
   constructor() {
-    effect(() => { this.item(); this.active(); this.ready.set(false); this.failed.set(false); });
+    // Promotion from neighbour to active slide reuses the loaded image node.
+    // Reset only for a different item; activation does not trigger a new load.
+    effect(() => { this.item(); this.ready.set(false); this.failed.set(false); });
+    afterRenderEffect(() => { this.item(); this.syncImageReadiness(); });
     afterRenderEffect(() => {
       const player = this.player()?.nativeElement;
-      if (player) { player.load(); void player.play().catch(() => this.ready.set(true)); }
+      if (player) {
+        // A film's poster may already be ready, but its new player is not.
+        this.ready.set(false); this.failed.set(false);
+        player.load(); void player.play().catch(() => this.ready.set(true));
+      }
     });
     effect(() => { if (this.leaving()) this.player()?.nativeElement.pause(); });
     effect(onCleanup => {
@@ -55,6 +63,15 @@ export class MediaViewerSlideComponent {
       if (!video) return;
       onCleanup(() => { video.pause(); video.removeAttribute('src'); video.querySelectorAll('source').forEach(source => source.removeAttribute('src')); video.load(); });
     });
+  }
+
+  private syncImageReadiness(): void {
+    const photo = this.photo()?.nativeElement;
+    // Cached images may have finished before the post-render check. A broken
+    // cached image is complete too, so check its intrinsic dimensions as well.
+    if (!photo?.complete) return;
+    this.ready.set(photo.naturalWidth > 0);
+    this.failed.set(photo.naturalWidth === 0);
   }
 
   retry(): void {
