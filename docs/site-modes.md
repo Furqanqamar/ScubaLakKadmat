@@ -68,7 +68,9 @@ GoDaddy's Websites + Marketing editor is not a generic static-file hosting uploa
 
 ## Cloudflare Pages deployment
 
-The custom-domain release uses a root base URL (`/`), unlike the GitHub Pages preview at `/ScubaLakKadmat/`. Build the clean application with `npm run build`, run the checks above, then apply the saved mode with:
+The initial Cloudflare production release is the standalone coming-soon export from `scripts/export-status-pages.mjs`, uploaded to the `scubalak` Pages project. It contains only the holding page and its assets; unknown paths use Cloudflare Pages’ static fallback to show the same page. The full application remains in Git and is not part of this initial Cloudflare upload.
+
+For a subsequent full-application release, use a root base URL (`/`), unlike the GitHub Pages preview at `/ScubaLakKadmat/`. Build the clean application with `npm run build`, run the checks above, then apply the saved mode with:
 
 ```sh
 node scripts/apply-site-mode.mjs --directory dist/scuba-lak/browser --config public/site-status.json
@@ -79,3 +81,5 @@ Upload the **contents** of `dist/scuba-lak/browser/` to the Cloudflare Pages pro
 For later changes on the same local clean-release baseline, use `npm run site:mode -- coming-soon`, `maintenance`, or `live`, then upload the resulting folder again. This restores the cached originals before applying a mode and requires no Angular rebuild. Cloudflare still requires a new deployment to publish a change. The GitHub Actions workflows above publish the separate GitHub Pages preview; they do not publish the Cloudflare production project.
 
 Keep a clean root-base release and its `tmp/site-mode-baseline.json` together for future switches. A fresh build refreshes both. The release manifest covers every generated HTML route and `404.html`; holding modes replace all of them before upload. Preserve existing MX, SPF, DKIM, and DMARC records when connecting the custom domain.
+
+Production DNS stays at GoDaddy: `www` is a CNAME to `scubalak.pages.dev`, and the apex domain forwards with HTTP 301 to `https://www.scubalak.com`. Existing mailbox records remain with GoDaddy.
