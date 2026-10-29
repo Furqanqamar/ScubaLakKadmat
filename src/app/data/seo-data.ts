@@ -2,8 +2,8 @@ import { MARINE_SERVICES, PADI_COURSES } from './site-content';
 import { SITE_COPY } from './site-copy';
 import { islandGuide, islandIllustration } from './island-guides';
 
-// Update when the permanent domain is ready; regenerate the static build.
-export const SITE_URL = 'https://furqanqamar.github.io/ScubaLakKadmat/';
+// Canonicals always belong to production; the GitHub QA build is noindex.
+export const SITE_URL = 'https://www.scubalak.com/';
 export interface PageSeo { readonly title: string; readonly description: string; readonly label: string; readonly image?: string; }
 export const SEO_PAGES: Readonly<Record<string, PageSeo>> = {
   '/': { ...SITE_COPY.seo.home, label: 'Home' },

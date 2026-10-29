@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "scubalak-enquiries",
+  "account_id": "6ea664fc8441a69ac252791ae102198c",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "SMTP_USER": "hello@scubalak.com",
+    "ALLOWED_ORIGINS": "https://www.scubalak.com,https://scubalak.com,https://scubalak.pages.dev,https://furqanqamar.github.io,http://localhost:4004",
+    "SENDING_ENABLED": "true"
+  },
+  "ratelimits": [
+    { "name": "IP_LIMIT", "namespace_id": "27102601", "simple": { "limit": 5, "period": 60 } },
+    { "name": "EMAIL_LIMIT", "namespace_id": "27102602", "simple": { "limit": 3, "period": 60 } },
+    { "name": "MAIL_LIMIT", "namespace_id": "27102603", "simple": { "limit": 20, "period": 60 } }
+  ],
+  "observability": {
+    "enabled": true,
+    "redact_query_string": true,
+    "logs": { "enabled": true, "invocation_logs": false },
+    "traces": { "enabled": false }
+  }
+}

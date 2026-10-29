@@ -16,7 +16,8 @@ const decodeAttribute = value => value.replace(/&amp;/g, '&').replace(/&#(\d+);/
 let checkedLinks = 0;
 let checkedAnchors = 0;
 for (const url of urls) {
-  const pathname = new URL(url).pathname.replace('/ScubaLakKadmat/', '');
+  assert.equal(new URL(url).origin, 'https://www.scubalak.com', 'Only production owns canonical URLs');
+  const pathname = new URL(url).pathname.replace(/^\/(?:ScubaLakKadmat\/)?/, '');
   const html = await readFile(new URL(pathname + 'index.html', output), 'utf8');
   documents.set(new URL(url).pathname, html);
   const title = html.match(/<title>(.*?)<\/title>/)?.[1];
@@ -83,7 +84,11 @@ for (const [pathname, html] of documents) {
     const enquiryForm = html.match(/<form\b[^>]*id="enquiry-form"[^>]*>([\s\S]*?)<\/form>/)?.[1];
     assert.ok(enquiryForm, 'Contact enquiry form must remain available');
     const fields = [...enquiryForm.matchAll(/<(input|select|textarea)\b[^>]*\bname="([^"]+)"/g)];
-    assert.deepEqual(fields.map(field => [field[1], field[2]]), [['input', 'name'], ['input', 'email'], ['input', 'phone'], ['textarea', 'message']], 'Keep the enquiry form to the four requested fields');
+    assert.deepEqual(fields.filter(field => field[2] !== 'website').map(field => [field[1], field[2]]), [['input', 'name'], ['input', 'email'], ['input', 'phone'], ['textarea', 'message']], 'Keep the enquiry form to the four requested visible fields');
+    assert.equal(fields.filter(field => field[2] === 'website').length, 1, 'One hidden spam trap');
+    const spamTrap = enquiryForm.match(/<div\b[^>]*class="enquiry-trap"[^>]*>/)?.[0] ?? '';
+    assert.match(spamTrap, /aria-hidden="true"/, 'Spam trap must not affect screen-reader navigation');
+    assert.match(spamTrap, /\binert(?:[\s=>])/, 'Spam trap must not affect keyboard navigation');
     assert.doesNotMatch(enquiryForm, /<select\b|type="(?:date|number)"/, 'No extra booking questions');
     const rows = [...html.matchAll(/<div\b[^>]*class="contact-number-row"[^>]*>([\s\S]*?)<\/div>/g)];
     assert.equal(rows.length, 4, 'Both contact sections need both phone numbers');
@@ -116,7 +121,7 @@ for (const [pathname, html] of documents) {
     assert.equal(diveIcons.length, kind === 'course' ? 1 : detail[2] === 'water-sports' ? 5 : 4, `Missing shared detail-page icons: ${pathname}`);
     assert.ok(html.includes(`kind=${kind}&amp;item=${detail[2]}#enquiry`) || html.includes(`kind=${kind}&item=${detail[2]}#enquiry`), `Missing enquiry context: ${pathname}`);
   }
-  const localPage = new URL(pathname.replace(/^\/ScubaLakKadmat\//, base), 'https://local.test');
+  const localPage = new URL(base + pathname.replace(/^\/(?:ScubaLakKadmat\/)?/, ''), 'https://local.test');
   const resolvePage = async path => {
     const relative = path.replace(/^\/ScubaLakKadmat\//, '').replace(/^\//, '').replace(/\/$/, '');
     return readFile(new URL((relative ? relative + '/' : '') + 'index.html', output), 'utf8');
@@ -136,8 +141,8 @@ for (const [pathname, html] of documents) {
       checkedAnchors++;
     }
   }
-  assert.ok(!/AI-generated|not documentary photographs|Team member [456]|hello@scubalak\.com|scubalak@gamil\.com/.test(html), `Unapproved public content: ${pathname}`);
-  assert.match(html, /scubalak@gmail\.com/);
+  assert.ok(!/AI-generated|not documentary photographs|Team member [456]|scubalak@gmail\.com|scubalak@gamil\.com/.test(html), `Unapproved public content: ${pathname}`);
+  assert.match(html, /hello@scubalak\.com/);
   assert.match(html, /919447982559/);
 }
 const notFound = await readFile(new URL('404.html', output), 'utf8');

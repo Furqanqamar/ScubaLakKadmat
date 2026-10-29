@@ -129,7 +129,7 @@ for (const path of [media.poster, media.socialPoster]) {
 assert.ok(html.includes(`poster="${media.poster}"`));
 assert.ok(html.includes(`href="${media.poster}"`));
 assert.ok(html.includes(`src="${media.poster}"`));
-assert.ok(html.includes(`ScubaLakKadmat/${media.socialPoster}`));
+assert.ok(html.includes(`https://www.scubalak.com/${media.socialPoster}`), 'Social artwork belongs to the production canonical domain');
 const video = html.match(/<video\b[^>]*>/)[0];
 for (const attribute of ['autoplay', 'muted', 'loop', 'playsinline']) assert.match(video, new RegExp(`\\b${attribute}(?:[\\s=>])`));
 assert.doesNotMatch(video, /\bcontrols(?:[\s=>])/);

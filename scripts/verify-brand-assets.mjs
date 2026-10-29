@@ -87,7 +87,7 @@ assert.deepEqual(manifest.icons.map(icon => [icon.src, icon.sizes]), [[assets.ap
 const sitemap = await readFile(new URL('sitemap.xml', output), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 for (const url of urls) {
-  const path = new URL(url).pathname.replace('/ScubaLakKadmat/', '');
+  const path = new URL(url).pathname.replace(/^\/(?:ScubaLakKadmat\/)?/, '');
   const html = await readFile(new URL(`${path}index.html`, output), 'utf8');
   const logos = [...html.matchAll(/<img\b[^>]*class="brand-lockup__logo"[^>]*>/g)];
   assert.equal(logos.length, 2, `${path}: header and footer must share the new logo`);

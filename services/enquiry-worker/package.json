@@ -1,0 +1,14 @@
+{
+  "name": "scubalak-enquiry-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run --outdir ../../tmp/enquiry-worker",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": { "nodemailer": "10.2.1" },
+  "devDependencies": { "wrangler": "4.153.0" }
+}

@@ -1,0 +1,112 @@
+name: Promote approved QA release to production
+
+on:
+  workflow_dispatch:
+    inputs:
+      qa_run_id:
+        description: Successful QA deployment run ID
+        required: true
+        type: string
+      approved_commit:
+        description: Full 40-character commit tested and approved in QA
+        required: true
+        type: string
+      site_mode:
+        description: What should production visitors see?
+        required: true
+        type: choice
+        default: coming-soon
+        options: [coming-soon, maintenance, live]
+      qa_approved:
+        description: I have completed QA/UAT and approve this exact version for production
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate approval and successful QA deployment
+        uses: actions/github-script@v7
+        env:
+          QA_RUN_ID: ${{ inputs.qa_run_id }}
+          APPROVED_COMMIT: ${{ inputs.approved_commit }}
+          QA_APPROVED: ${{ inputs.qa_approved }}
+          SITE_MODE: ${{ inputs.site_mode }}
+        with:
+          script: |
+            if (context.ref !== 'refs/heads/main') throw new Error('Run production promotion from main.');
+            if (process.env.QA_APPROVED !== 'true') throw new Error('QA/UAT approval is required.');
+            if (!/^\d+$/.test(process.env.QA_RUN_ID) || !/^[a-f0-9]{40}$/.test(process.env.APPROVED_COMMIT)) throw new Error('Provide a QA run ID and full approved commit.');
+            if (!['coming-soon', 'maintenance', 'live'].includes(process.env.SITE_MODE)) throw new Error('Invalid production mode.');
+            const {data: run} = await github.rest.actions.getWorkflowRun({...context.repo, run_id: Number(process.env.QA_RUN_ID)});
+            if (run.path !== '.github/workflows/deploy-pages.yml' || run.head_branch !== 'agent/scuba-lak-application' || run.head_repository?.full_name !== `${context.repo.owner}/${context.repo.repo}` || !['push','workflow_dispatch'].includes(run.event) || run.status !== 'completed' || run.conclusion !== 'success' || run.head_sha !== process.env.APPROVED_COMMIT) throw new Error('This commit does not match a successful QA deployment from this repository.');
+            const {data: artifacts} = await github.rest.actions.listWorkflowRunArtifacts({...context.repo, run_id: run.id});
+            if (!artifacts.artifacts.some(item => item.name === 'production-release' && !item.expired)) throw new Error('Production candidate is missing or expired; create and test a new QA release.');
+            await core.summary.addHeading('Production approval requested').addTable([
+              [{data:'QA commit',header:true},process.env.APPROVED_COMMIT],
+              [{data:'QA run',header:true},String(run.id)],
+              [{data:'Production mode',header:true},process.env.SITE_MODE]
+            ]).write();
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://www.scubalak.com/
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+      - name: Download the production build saved with the approved QA run
+        uses: actions/download-artifact@v4
+        with:
+          name: production-release
+          path: release
+          run-id: ${{ inputs.qa_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify artifact identity and apply the selected production mode
+        env:
+          APPROVED_COMMIT: ${{ inputs.approved_commit }}
+          QA_RUN_ID: ${{ inputs.qa_run_id }}
+          SITE_MODE: ${{ inputs.site_mode }}
+        run: |
+          node scripts/verify-production-candidate.mjs release "$APPROVED_COMMIT" "$QA_RUN_ID"
+          node scripts/apply-site-mode.mjs --directory release --config release/site-status.json --mode "$SITE_MODE"
+      - name: Require the production-only Cloudflare credential
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "Add CLOUDFLARE_API_TOKEN to the protected production environment. No deployment was made."
+            exit 1
+          fi
+      - name: Deploy only to the existing Cloudflare production project
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 6ea664fc8441a69ac252791ae102198c
+          wranglerVersion: '4.153.0'
+          command: pages deploy release --project-name=scubalak --branch=main --commit-hash=${{ inputs.approved_commit }}
+      - name: Record production version and mode
+        env:
+          SOURCE_COMMIT: ${{ inputs.approved_commit }}
+          QA_RUN_ID: ${{ inputs.qa_run_id }}
+          SITE_MODE: ${{ inputs.site_mode }}
+        run: |
+          echo "Production: https://www.scubalak.com/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Approved commit: $SOURCE_COMMIT; QA run: $QA_RUN_ID; mode: $SITE_MODE" >> "$GITHUB_STEP_SUMMARY"

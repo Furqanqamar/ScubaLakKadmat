@@ -10,8 +10,9 @@ import { EnquiryDeliveryConfig } from '../src/app/data/business-config';
 import { ContactHubComponent } from '../src/app/common/components/contact-hub/contact-hub.component';
 import { validateEnquiry } from '../src/app/common/services/enquiry-validation';
 import { OverlayStateService } from '../src/app/common/services/overlay-state.service';
-import { CONTACT_PHONE, CONTACT_NUMBERS, CONTACT_WHATSAPP, whatsappLink } from '../src/app/common/services/contact-links';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_NUMBERS, CONTACT_WHATSAPP, whatsappLink } from '../src/app/common/services/contact-links';
 
+assert.equal(CONTACT_EMAIL, 'hello@scubalak.com', 'Use the owner’s GoDaddy business mailbox');
 assert.equal(CONTACT_PHONE, '+919447982559', 'Keep the existing primary call number');
 assert.deepEqual(CONTACT_WHATSAPP, [
   { number: '+919447982559', displayNumber: '+91 94479 82559', href: 'https://wa.me/919447982559' },
@@ -39,10 +40,10 @@ async function attempt(configuration: EnquiryDeliveryConfig, acknowledgement: un
   let calls = 0;
   const injector = Injector.create({ providers: [
     { provide: ENQUIRY_DELIVERY_CONFIG, useValue: configuration },
-    { provide: HttpClient, useValue: { post: () => { calls++; return networkError ? throwError(() => new Error('Mock network failure')) : of(acknowledgement); } } }
+    { provide: HttpClient, useValue: { post: (_url: string, body: Record<string, unknown>) => { calls++; assert.equal(body['website'], ''); assert.ok(Number.isSafeInteger(body['formAgeMs'])); assert.ok(Number(body['formAgeMs']) >= 5000); assert.ok(!('startedAt' in body)); return networkError ? throwError(() => new Error('Mock network failure')) : of(acknowledgement); } } }
   ] });
   const service = runInInjectionContext(injector, () => new EnquiryDeliveryService());
-  try { await service.submit(request); return { calls, accepted: true }; }
+  try { await service.submit(request, { website: '', startedAt: Date.now() - 5000 }); return { calls, accepted: true }; }
   catch { return { calls, accepted: false }; }
 }
 assert.deepEqual(await attempt({ mode: 'unconfigured' }, { accepted: true }), { calls: 0, accepted: false });
@@ -77,6 +78,7 @@ const form = signal({ ...request });
 const status = signal('idle');
 const harness = {
   mode: 'endpoint', status, form, attempted: signal(false), available: () => true,
+  website: signal(''), startedAt: 123456789,
   errors: computed(() => validateEnquiry(form())),
   document: { querySelector: () => ({ focus: () => { focused = true; } }) },
   delivery: { submit: () => { submissions++; return new Promise<void>((resolve, reject) => { complete = resolve; fail = () => reject(new Error('Mock failure')); }); } }

@@ -29,11 +29,12 @@ assert.doesNotMatch(module, /innerHTML|eval\(/, 'Copy must be inserted as plain 
 assert.match(module, /cache: 'no-store'/);
 assert.match(module, /if \(!gated \|\| stopped \|\| document.hidden\) return/);
 assert.match(module, /location\.reload\(\)/, 'A gated deep link should reopen itself after mode changes');
-const workflow = await readFile('.github/workflows/site-mode.yml', 'utf8');
+const workflow = await readFile('.github/workflows/deploy-production.yml', 'utf8');
 assert.doesNotMatch(workflow, /npm ci|npm run build|ng build/);
 assert.match(workflow, /download-artifact/);
-assert.match(workflow, /compareCommitsWithBasehead/);
-assert.match(workflow, /head_branch !== branch/);
+assert.match(workflow, /qa_approved/);
+assert.match(workflow, /head_branch !== 'agent\/scuba-lak-application'/);
+assert.match(workflow, /default: coming-soon/);
 
 const sceneHashes = { 'coming-soon': '9b332d1c1517', maintenance: '19069de94e5c' };
 for (const mode of ['coming-soon', 'maintenance']) {

@@ -22,7 +22,7 @@ const phoneContacts = [
 ] as const satisfies readonly BusinessPhoneContact[];
 // Populate only from owner-confirmed business details. Never copy sample values.
 export const BUSINESS_CONTACT: VerifiedBusinessContact = {
-  email: 'scubalak@gmail.com', phone: phoneContacts[0].number, phones: phoneContacts, whatsapp: phoneContacts,
+  email: 'hello@scubalak.com', phone: phoneContacts[0].number, phones: phoneContacts, whatsapp: phoneContacts,
   address: 'Scuba Lak · Kadmat Island, Lakshadweep',
   mapsUrl: 'https://www.google.com/maps/place/Scuba+Lak+Kadmath/@11.1940838,72.7642821,92m/data=!3m1!1e3!4m6!3m5!1s0x3b9f1fbcd44ba4c7:0x7a610615829a745f!8m2!3d11.1940979!4d72.7642459!16s%2Fg%2F11vqh5z0kl',
   officeHours: 'Every day · 9:00 am–6:00 pm IST', responseTime: null,
@@ -35,6 +35,7 @@ export type EnquiryDeliveryConfig =
   | { readonly mode: 'unconfigured' }
   | { readonly mode: 'email-client' }
   | { readonly mode: 'endpoint'; readonly url: string };
-// Endpoint contract: POST ContactRequest; acknowledgement { accepted: true }.
-// Adapt this contract to the owner's approved integration before enabling it.
-export const ENQUIRY_DELIVERY: EnquiryDeliveryConfig = { mode: 'unconfigured' };
+// SMTP delivery and business-inbox receipt verified through the separate Worker.
+export const ENQUIRY_DELIVERY: EnquiryDeliveryConfig = {
+  mode: 'endpoint', url: 'https://scubalak-enquiries.furqanqamar510.workers.dev/enquiries'
+};

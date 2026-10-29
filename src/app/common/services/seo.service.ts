@@ -31,9 +31,10 @@ export class SeoService {
     const description = page?.description ?? 'This page is unavailable. Explore diving, courses and travel information for Kadmat Island with Scuba Lak.';
     const canonical = canonicalUrl(path);
     const image = new URL(page?.image ?? HERO_MEDIA.socialPoster, SITE_URL).href;
-    this.title.setTitle(title);
+    const qa = this.document.head.querySelector('meta[name="scubalak-environment"]')?.getAttribute('content') === 'qa';
+    this.title.setTitle(qa ? `[QA / UAT] ${title}` : title);
     this.meta.updateTag({ name: 'description', content: description });
-    this.meta.updateTag({ name: 'robots', content: page ? 'index, follow, max-image-preview:large' : 'noindex, follow' });
+    this.meta.updateTag({ name: 'robots', content: qa ? 'noindex, nofollow, noarchive' : page ? 'index, follow, max-image-preview:large' : 'noindex, follow' });
     for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': island ? `${island.name} — stylised island illustration` : page?.image ? page.label : HERO_MEDIA.posterAlt, locale: 'en_IN', type: island ? 'article' : 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
     for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
     this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);

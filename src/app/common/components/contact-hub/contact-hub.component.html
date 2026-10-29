@@ -5,6 +5,7 @@
   @if (form().interest === 'accommodation') { <p class="enquiry-notice">{{ copy.accommodationNote }}</p> }
   <p id="delivery-notice" class="enquiry-notice">{{ !available() ? copy.unavailable : mode === 'email-client' ? copy.emailNotice : copy.endpointNotice }}</p>
   <form id="enquiry-form" novalidate (submit)="submit($event)" aria-describedby="delivery-notice" [attr.aria-busy]="status() === 'submitting'">
+    <div class="enquiry-trap" aria-hidden="true" inert><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off" maxlength="200" [value]="website()" (input)="setWebsite($event)"></label></div>
     <p class="mb-6 text-sm text-white/80">{{ copy.required }}</p>
     <fieldset [disabled]="status() === 'submitting'" class="enquiry-fields">
       <label class="enquiry-field"><span>{{ copy.name }} *</span><input name="name" autocomplete="name" required maxlength="100" [value]="form().name" (input)="setField('name', $event)" [attr.aria-invalid]="showError('name')" [attr.aria-describedby]="showError('name') ? 'enquiry-name-error' : null">@if (showError('name')) { <small id="enquiry-name-error">{{ errors().name }}</small> }</label>

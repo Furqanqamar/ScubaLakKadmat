@@ -1,12 +1,9 @@
-name: Deploy Scuba Lak to GitHub Pages
+name: Deploy QA-UAT to GitHub Pages
 
 on:
   push:
     branches:
-      - main
       - agent/scuba-lak-application
-    paths-ignore:
-      - public/site-status.json
   workflow_dispatch:
 
 permissions:
@@ -20,6 +17,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/agent/scuba-lak-application'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -36,10 +34,9 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Build for the repository subpath
+      - name: Build and verify the production release without deploying it
         run: |
-          npm run build -- --base-href /ScubaLakKadmat/
-          node scripts/prepare-pages.mjs
+          npm run build
           node scripts/verify-seo.mjs
           node scripts/verify-island-guides.mjs
           node scripts/verify-offerings.mjs
@@ -70,16 +67,31 @@ jobs:
           node scripts/verify-site-status.mjs
           node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
           node tmp/verify-enquiry.mjs
+          node scripts/verify-environments.mjs
 
-      - name: Retain the clean release for build-free mode switching
+      - name: Identify the production-ready build from this QA commit
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+          QA_RUN_ID: ${{ github.run_id }}
+        run: node scripts/prepare-environment.mjs dist/scuba-lak/browser production "$SOURCE_COMMIT" "$QA_RUN_ID"
+
+      - name: Save the exact production candidate (no Cloudflare deployment)
         uses: actions/upload-artifact@v4
         with:
-          name: site-release
+          name: production-release
           path: dist/scuba-lak/browser
           retention-days: 90
 
-      - name: Apply the configured site mode
-        run: node scripts/apply-site-mode.mjs --directory dist/scuba-lak/browser --config public/site-status.json
+      - name: Build the complete GitHub QA site independently of production mode
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+          QA_RUN_ID: ${{ github.run_id }}
+        run: |
+          npm run build -- --base-href /ScubaLakKadmat/
+          node scripts/prepare-pages.mjs
+          node scripts/verify-seo.mjs
+          node scripts/verify-environments.mjs
+          node scripts/prepare-environment.mjs dist/scuba-lak/browser qa "$SOURCE_COMMIT" "$QA_RUN_ID"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -96,3 +108,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Record the tested version
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+          QA_RUN_ID: ${{ github.run_id }}
+        run: |
+          echo "QA/UAT: https://furqanqamar.github.io/ScubaLakKadmat/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Commit: $SOURCE_COMMIT; QA run: $QA_RUN_ID" >> "$GITHUB_STEP_SUMMARY"
+          echo "Production is unchanged. Promote only after QA/UAT approval." >> "$GITHUB_STEP_SUMMARY"

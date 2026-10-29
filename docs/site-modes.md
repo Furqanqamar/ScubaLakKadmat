@@ -25,18 +25,13 @@ npm run site:mode -- live
 
 Refresh the browser after switching. These commands update the config and the already-built HTML without compiling Angular. Original HTML is cached in the ignored `tmp/site-mode-baseline.json` during the build. Returning to Live restores every original document, not a rebuilt approximation. A fresh build refreshes that cache. The normal build intentionally produces a clean release; apply the desired mode afterward when previewing.
 
-## GitHub Pages: a small publish, no application rebuild
+## GitHub QA/UAT and production are independent
 
-GitHub Pages serves immutable deployed files; changing a live file still requires publishing a new Pages artifact. The fast mode workflow reuses an existing clean release instead of reinstalling dependencies or rebuilding the app.
+GitHub Pages at `https://furqanqamar.github.io/ScubaLakKadmat/` now always displays the complete application for QA/UAT. Its build forces **live** only in the QA output, adds noindex metadata to every HTML page, and does not change `public/site-status.json` or Cloudflare. The old shared GitHub mode-switch workflow was removed so a production holding-mode change cannot hide the QA site.
 
-One-time setup: publish the implementation through the normal deployment workflow. That run saves a `site-release` artifact for 90 days. For GitHub's manual Actions button to appear, the new workflow must also exist on the repository's default branch (`main`). No workflow has been executed as part of creating these pages.
+`public/site-status.json` is now the production/local default. `https://www.scubalak.com/` stays in coming-soon mode until a separately approved production deployment. See [deployment-environments.md](deployment-environments.md) for version identification, the approval gate, and production credential setup.
 
-After setup, there are two ways to switch:
-
-1. **Actions dropdown:** open **Switch website mode (no rebuild)**, choose the branch currently serving the website, choose `live`, `coming-soon`, or `maintenance`, and run it. The selected mode is saved back to that branch after a successful publish so later full releases keep the choice. Protected branches may require updating the JSON through an approved pull request instead of allowing the bot commit.
-2. **Edit one config file:** commit changes to only `public/site-status.json` on the active website branch. This triggers the lightweight workflow and skips the Angular build. If code changes are included in the same push, the normal build handles them and the fast workflow skips to avoid deploying an older release over new code.
-
-The workflow refuses to switch a non-active branch. If the clean artifact has expired, run the normal deployment once to refresh it; the fast workflow reports this rather than attempting an incomplete restoration. No PAT, new account, external configuration service, or public admin switch is required. GitHub's standard scoped workflow token is used.
+The **Promote approved QA release to production** workflow downloads an already-built root-base candidate saved with the selected successful QA run. Choose coming-soon, maintenance, or live explicitly. It changes availability without an Angular rebuild and without modifying QA. An expired artifact requires a new QA build and test. This workflow must be on `main` and needs the production-only Cloudflare credential before it can publish.
 
 ## What is covered
 
@@ -78,7 +73,7 @@ node scripts/apply-site-mode.mjs --directory dist/scuba-lak/browser --config pub
 
 Upload the **contents** of `dist/scuba-lak/browser/` to the Cloudflare Pages project `scubalak` as a production deployment. Never upload a clean build before applying the selected mode: a clean build contains the full live application.
 
-For later changes on the same local clean-release baseline, use `npm run site:mode -- coming-soon`, `maintenance`, or `live`, then upload the resulting folder again. This restores the cached originals before applying a mode and requires no Angular rebuild. Cloudflare still requires a new deployment to publish a change. The GitHub Actions workflows above publish the separate GitHub Pages preview; they do not publish the Cloudflare production project.
+For later local changes on the same clean-release baseline, use `npm run site:mode -- coming-soon`, `maintenance`, or `live`, then upload the resulting folder again. This restores the cached originals before applying a mode and requires no Angular rebuild. Cloudflare still requires a new deployment to publish a change. Alternatively, use the separately approved production promotion workflow; the automatic GitHub QA workflow never publishes to Cloudflare.
 
 Keep a clean root-base release and its `tmp/site-mode-baseline.json` together for future switches. A fresh build refreshes both. The release manifest covers every generated HTML route and `404.html`; holding modes replace all of them before upload. Preserve existing MX, SPF, DKIM, and DMARC records when connecting the custom domain.
 

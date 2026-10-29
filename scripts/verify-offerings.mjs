@@ -33,7 +33,7 @@ for (const html of [home, accommodation, planning, contact]) {
 }
 const enquiryForm = contact.match(/<form\b[^>]*id="enquiry-form"[^>]*>([\s\S]*?)<\/form>/)?.[1];
 assert.ok(enquiryForm, 'Keep the simple contact form');
-assert.deepEqual([...enquiryForm.matchAll(/<(?:input|select|textarea)\b[^>]*\bname="([^"]+)"/g)].map(field => field[1]), ['name', 'email', 'phone', 'message'], 'No accommodation or trip selectors in the simplified form');
+assert.deepEqual([...enquiryForm.matchAll(/<(?:input|select|textarea)\b[^>]*\bname="([^"]+)"/g)].map(field => field[1]).filter(name => name !== 'website'), ['name', 'email', 'phone', 'message'], 'No accommodation or trip selectors in the simplified form; the hidden spam trap is not a visible question');
 assert.match(contact, /Can Scuba Lak help me find accommodation\?/);
 assert.match(contact, /third-party resorts or homestay hosts/);
 assert.match(contact, /Accommodation is provided and booked independently with the property/);

@@ -22,6 +22,8 @@ export class ContactHubComponent {
   private readonly delivery = inject(EnquiryDeliveryService);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap);
   readonly form = signal<ContactRequest>({ name: '', email: '', phone: '', interest: 'general', message: '', context: null });
+  readonly website = signal('');
+  private readonly startedAt = Date.now();
   readonly attempted = signal(false);
   readonly status = signal<'idle' | 'submitting' | 'accepted' | 'prepared' | 'error'>('idle');
   readonly available = computed(() => this.mode === 'endpoint' || (this.mode === 'email-client' && !!CONTACT_EMAIL));
@@ -48,6 +50,10 @@ export class ContactHubComponent {
     if (this.status() !== 'submitting') this.status.set('idle');
   }
   showError(field: keyof ContactRequest): boolean { return this.attempted() && !!this.errors()[field]; }
+  setWebsite(event: Event): void {
+    const target = event.target;
+    if (target && 'value' in target && typeof target.value === 'string') this.website.set(target.value);
+  }
   async submit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
     if (this.status() === 'submitting' || this.status() === 'accepted' || !this.available()) return;
@@ -58,7 +64,7 @@ export class ContactHubComponent {
       this.status.set('prepared'); return;
     }
     this.status.set('submitting');
-    try { await this.delivery.submit(this.form()); this.status.set('accepted'); }
+    try { await this.delivery.submit(this.form(), { website: this.website(), startedAt: this.startedAt }); this.status.set('accepted'); }
     catch { this.status.set('error'); }
   }
 }
