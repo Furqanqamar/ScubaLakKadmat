@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BUSINESS_CONTACT } from '../../../data/business-config';
 import { GUEST_REVIEWS, REVIEW_CHECKED_ON, REVIEW_COPY } from '../../../data/guest-reviews';
+import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
 
 @Component({
   selector: 'app-guest-reviews', standalone: true,
+  imports: [ArrowIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="guest-reviews" aria-labelledby="guest-reviews-title">
@@ -14,11 +16,11 @@ import { GUEST_REVIEWS, REVIEW_CHECKED_ON, REVIEW_COPY } from '../../../data/gue
             <article class="guest-review">
               <div class="guest-review__top"><span>{{ copy.source }}</span><span class="guest-review__rating" role="img" [attr.aria-label]="review.rating + ' ' + copy.ratingSuffix">@for (star of stars; track star) { <i class="fa-solid fa-star" [class.guest-review__star--empty]="star > review.rating" aria-hidden="true"></i> }</span></div>
               <blockquote>“{{ review.quote }}”</blockquote>
-              <div class="guest-review__author"><h3>{{ review.name }}</h3><a [href]="review.sourceUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="copy.readOriginal + ' · ' + review.name"><span>{{ copy.readOriginal }}</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+              <div class="guest-review__author"><h3>{{ review.name }}</h3><a [href]="review.sourceUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="copy.readOriginal + ' · ' + review.name"><span>{{ copy.readOriginal }}</span><app-arrow-icon /></a></div>
             </article>
           }
         </div>
-        <div class="guest-reviews__closing"><p>{{ copy.note }}<br>{{ copy.checked }} <time [dateTime]="checkedOn">{{ checkedDate }}</time>.</p>@if (mapsUrl) { <a [href]="mapsUrl" target="_blank" rel="noopener noreferrer">{{ copy.photos }}<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }</div>
+        <div class="guest-reviews__closing"><p>{{ copy.note }}<br>{{ copy.checked }} <time [dateTime]="checkedOn">{{ checkedDate }}</time>.</p>@if (mapsUrl) { <a [href]="mapsUrl" target="_blank" rel="noopener noreferrer">{{ copy.photos }}<app-arrow-icon /></a> }</div>
       </div>
     </section>
   `

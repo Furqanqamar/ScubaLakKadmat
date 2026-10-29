@@ -102,7 +102,7 @@ for (const url of urls) {
     assert.ok(html.includes(`href="${asset}"`), `${path}: missing browser/app icon ${asset}`);
   }
   const graph = JSON.parse(html.match(/<script[^>]+id="site-structured-data"[^>]*>([\s\S]*?)<\/script>/)[1])['@graph'];
-  assert.ok(graph.find(item => item['@type'] === 'Organization').logo.endsWith(assets.organizationLogo));
+  assert.ok(graph.find(item => item['@type'] === 'LocalBusiness').logo.endsWith(assets.organizationLogo));
   assert.doesNotMatch(html, /media\/scuba-lak-logo(?:-white)?\.png/, 'Old artwork must not remain in displayed logos or browser/SEO metadata');
 }
 console.log(`Brand checks passed: circular PNG/ICO transparency, fingerprints, responsive header/footer artwork and browser/app/SEO icons on ${urls.length} pages.`);

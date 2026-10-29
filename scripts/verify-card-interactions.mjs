@@ -38,7 +38,23 @@ assert.doesNotMatch(spotList.match(/<li\b[^>]*>/)?.[0] ?? '', /\(click\)|tabinde
 
 const courses = await readFile(new URL('src/app/pages/courses/courses.component.html', root), 'utf8');
 const gallery = await readFile(new URL('src/app/common/components/media-collection/media-collection.component.ts', root), 'utf8');
+const reviews = await readFile(new URL('src/app/common/components/guest-reviews/guest-reviews.component.ts', root), 'utf8');
+const arrow = await readFile(new URL('src/app/common/components/arrow-icon/arrow-icon.component.ts', root), 'utf8');
 assert.match(courses, /<a class="course-card\b/, 'Course cards remain genuine whole-card links');
 assert.match(gallery, /<button[^>]*class="gallery-card"/, 'Gallery cards remain genuine whole-card buttons');
+for (const template of [gallery, reviews]) {
+  assert.match(template, /ArrowIconComponent/, 'Gallery and reviews must use the same arrow');
+  assert.match(template, /<app-arrow-icon \/>/);
+  assert.doesNotMatch(template, /↗|➡|↗️/, 'Text arrows may render as emoji on mobile');
+}
+assert.match(arrow, /<svg[^>]*fill="currentColor"[^>]*focusable="false"/);
+assert.match(arrow, /<path d="M438\.6 278\.6/);
+assert.match(arrow, /'aria-hidden': 'true'/);
+assert.match(css, /\.gallery-card__copy\s*\{[^}]*padding-inline-end: 3rem/, 'Reserve room for the arrow beside long mobile titles');
+const galleryHtml = await readFile(new URL('dist/scuba-lak/browser/gallery/index.html', root), 'utf8');
+const cardCount = (galleryHtml.match(/class="gallery-card\b/g) ?? []).length;
+const vectorArrows = galleryHtml.match(/<em aria-hidden="true"><app-arrow-icon\b[\s\S]*?<svg\b[\s\S]*?<\/app-arrow-icon><\/em>/g) ?? [];
+assert.ok(cardCount > 0);
+assert.equal(vectorArrows.length, cardCount, 'Each prerendered gallery card must already contain its SVG, before JS or fonts load');
 
-console.log('Card interaction checks passed: stationary clickable cards with restrained image-only zoom; static cards have no hover affordance; touch/reduced-motion safeguards; Explore links and real card actions retained.');
+console.log('Card interaction checks passed: stationary cards, image-only zoom, touch/reduced-motion safeguards, shared inline SVG arrows in gallery/reviews and reserved mobile title space.');

@@ -58,7 +58,13 @@ export class ContactHubComponent {
     event.preventDefault();
     if (this.status() === 'submitting' || this.status() === 'accepted' || !this.available()) return;
     this.attempted.set(true);
-    if (Object.keys(this.errors()).length) { this.document.querySelector<HTMLElement>('#enquiry-form [aria-invalid="true"]')?.focus(); return; }
+    const firstInvalid = (['name', 'email', 'phone', 'message'] as const).find(field => this.errors()[field]);
+    if (firstInvalid) {
+      // The inputs already exist; aria-invalid updates after this event renders.
+      // Focus by field name so the very first invalid submission works too.
+      this.document.querySelector<HTMLElement>(`#enquiry-form [name="${firstInvalid}"]`)?.focus();
+      return;
+    }
     if (this.mode === 'email-client' && CONTACT_EMAIL) {
       this.document.defaultView?.location.assign(`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Scuba Lak enquiry · ' + (this.form().context?.label ?? 'Kadmat visit'))}&body=${encodeURIComponent(this.messageText())}`);
       this.status.set('prepared'); return;

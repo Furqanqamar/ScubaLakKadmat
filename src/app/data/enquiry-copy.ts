@@ -13,7 +13,7 @@ export const ENQUIRY_COPY = {
   accepted: 'Enquiry sent to the dive desk', acceptedDetail: 'Our mail server has accepted your enquiry. This does not confirm a booking or availability.',
   prepared: 'Email enquiry prepared', preparedDetail: 'Your email app should open with a draft. Send it there; this website has not sent your enquiry. Your details remain on this page.',
   error: 'We couldn’t confirm delivery. Your details are still here. Please wait a minute before retrying, or contact us by email or WhatsApp.', validation: 'Please check the highlighted fields.',
-  nameError: 'Enter your name (2–100 characters).', emailError: 'Enter a valid email address.', messageError: 'Use 12–2,000 characters to describe your plans.',
+  nameError: 'Enter your name on one line (2–100 characters).', emailError: 'Enter a valid email address, for example name@example.com.', phoneError: 'Use one line and no more than 30 characters for your phone number.', messageError: 'Use 12–2,000 characters of plain text to describe your plans.',
   required: 'Fields marked * are required.', emailAction: 'Email Scuba Lak',
   categories: [{ id: 'general', label: 'General enquiry' }, { id: 'diving', label: 'Diving experiences' }, { id: 'courses', label: 'PADI courses' }, { id: 'water-sports', label: 'Water sports' }, { id: 'accommodation', label: ACCOMMODATION_INFO.enquiryLabel }],
   travelLink: 'How to reach & permits',

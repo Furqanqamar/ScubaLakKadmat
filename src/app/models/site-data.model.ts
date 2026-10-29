@@ -32,7 +32,6 @@ export interface ContactRequest {
 export type CourseCategory =
   | 'Beginner certifications'
   | 'Continuing education'
-  | 'First aid & safety'
   | 'Professional development'
   | 'Youth & introductory';
 

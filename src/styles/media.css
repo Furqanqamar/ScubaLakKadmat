@@ -4,7 +4,7 @@
 .media-collection { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 .media-collection .gallery-card { height: 29rem; min-height: 0; }
 .media-collection .gallery-card img { position: absolute; inset: 0; }
-.media-collection .gallery-card__copy { padding-right: 2.5rem; }
+.media-collection .gallery-card__copy { padding-inline-end: 3rem; }
 .media-collection .gallery-card__copy strong { line-height: 1.15; }
 .media-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
 .media-filters--types { margin-bottom: 2rem; padding-top: .75rem; border-top: 1px solid var(--theme-border); }

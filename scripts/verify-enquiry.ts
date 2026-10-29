@@ -74,19 +74,21 @@ let complete: (() => void) | undefined;
 let fail: (() => void) | undefined;
 let submissions = 0;
 let focused = false;
+let focusedSelector = '';
 const form = signal({ ...request });
 const status = signal('idle');
 const harness = {
   mode: 'endpoint', status, form, attempted: signal(false), available: () => true,
   website: signal(''), startedAt: 123456789,
   errors: computed(() => validateEnquiry(form())),
-  document: { querySelector: () => ({ focus: () => { focused = true; } }) },
+  document: { querySelector: (selector: string) => { focusedSelector = selector; return { focus: () => { focused = true; } }; } },
   delivery: { submit: () => { submissions++; return new Promise<void>((resolve, reject) => { complete = resolve; fail = () => reject(new Error('Mock failure')); }); } }
 };
 const submit = () => Reflect.apply(ContactHubComponent.prototype.submit, harness, [{ preventDefault() {} }]) as Promise<void>;
 form.set({ ...request, email: 'bad' });
 await submit();
 assert.equal(submissions, 0); assert.equal(focused, true);
+assert.equal(focusedSelector, '#enquiry-form [name="email"]', 'First invalid submission focuses the existing input before error attributes render');
 form.set({ ...request });
 const first = submit();
 assert.equal(status(), 'submitting');

@@ -7,7 +7,7 @@ const islandContent = JSON.parse(await readFile(new URL('../src/app/data/island-
 const siteContent = await readFile(new URL('../src/app/data/site-content.ts', import.meta.url), 'utf8');
 const courseCatalogue = siteContent.split('export const PADI_COURSES:')[1].split('export const TEAM_MEMBERS:')[0];
 const courseCount = [...courseCatalogue.matchAll(/\bid: '[a-z0-9-]+', category:/g)].length;
-assert.equal(courseCount, 13, 'Only the remaining offered courses should be published');
+assert.equal(courseCount, 11, 'Only the owner-confirmed offered courses should be published');
 assert.equal(urls.length, 14 + courseCount + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
@@ -32,11 +32,18 @@ for (const url of urls) {
   assert.ok(json, `Structured data: ${url}`);
   const graph = JSON.parse(json)['@graph'];
   assert.ok(graph.some(item => item['@type'] === 'WebPage'));
-  const organization = graph.find(item => item['@type'] === 'Organization');
+  const organization = graph.find(item => item['@type'] === 'LocalBusiness');
+  assert.equal(graph.filter(item => ['Organization', 'LocalBusiness'].includes(item['@type'])).length, 1, 'One business identity, not duplicate organization and local listings');
+  assert.equal(organization?.name, 'Scuba Lak Kadmat');
+  assert.deepEqual(organization?.address, { '@type': 'PostalAddress', streetAddress: 'Near South Port Office', addressLocality: 'Kadmat', addressRegion: 'Lakshadweep', postalCode: '682556', addressCountry: 'IN' });
+  assert.deepEqual(organization?.geo, { '@type': 'GeoCoordinates', latitude: 11.1940979, longitude: 72.7642459 });
+  assert.ok(organization?.hasMap.includes('0x7a610615829a745f'), 'Keep the existing Google Maps listing');
+  assert.ok(!('openingHoursSpecification' in organization), 'Desk hours must not restrict dive schedules');
   assert.equal(organization?.telephone, '+919447982559', `Primary call number: ${url}`);
   assert.deepEqual(organization?.contactPoint, [
-    { '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: '+919447982559', url: 'https://wa.me/919447982559' },
-    { '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: '+919400205847', url: 'https://wa.me/919400205847' }
+    ...[['+919447982559', 'https://wa.me/919447982559'], ['+919400205847', 'https://wa.me/919400205847']].map(([telephone, url]) => ({ '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone, url,
+      hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '09:00', closes: '18:00' }
+    }))
   ], `Both WhatsApp contacts must be consistent: ${url}`);
   for (const match of html.matchAll(/href="([^"#]+)"/g)) {
     const href = match[1];

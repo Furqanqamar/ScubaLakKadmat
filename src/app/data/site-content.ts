@@ -106,16 +106,6 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     outcome: 'A stronger recreational foundation and a pathway toward a 30 metre maximum recreational depth for eligible adult divers.', imageUrl: ADDITIONAL_MEDIA['blue-water-diver'].imageUrl
   },
   {
-    id: 'emergency-first-response', category: 'First aid & safety', eyebrow: 'Ready above and below water', title: 'Emergency First Response Primary & Secondary Care',
-    shortDescription: 'CPR and first-aid training for divers and non-divers, built around real-world emergency response skills.',
-    about: 'Emergency First Response teaches how to respond to immediately life-threatening and non-life-threatening conditions. It is commonly required before PADI Rescue Diver and should generally be current within the preceding 24 months for Rescue eligibility.',
-    duration: 'Usually 1 day / approximately 4-8 hours', minimumAge: 'No universal diving-related minimum age', depth: 'No water session required',
-    prerequisite: 'No scuba certification or diving experience. Participants must be capable of understanding and performing the skills.',
-    structure: ['Independent knowledge development', 'Instructor demonstrations', 'Hands-on skill practice', 'Emergency scenarios'],
-    taught: ['Scene safety and barrier use', 'Responsiveness assessment and CPR', 'Rescue breathing and AED use', 'Serious bleeding, shock and choking response', 'Injury and illness assessment', 'Bandaging, splinting, monitoring and escalation to medical help'],
-    outcome: 'Current CPR and first-aid competence for everyday emergencies and progression into Rescue Diver where applicable.', imageUrl: 'media/generated/course-emergency-first-response.webp'
-  },
-  {
     id: 'rescue-diver', category: 'Continuing education', eyebrow: 'Look out for the whole team', title: 'PADI Rescue Diver',
     shortDescription: 'Develop awareness, problem-solving ability and confidence to recognise and assist other divers.',
     about: 'Rescue Diver shifts your attention from managing only your own needs to recognising and managing diver stress, minor problems and emergencies before they become serious.',
@@ -134,16 +124,6 @@ export const PADI_COURSES: readonly PadiCourse[] = [
     structure: ['Individualised student assessment', 'Inclusive teaching workshops', 'Equipment and confined-water adaptations', 'Risk-assessment and training-plan exercises'],
     taught: ['Alternative communication methods', 'Adapting equipment configurations', 'Modifying confined-water skills', 'Entry and exit assistance', 'Support-diver coordination', 'Maintaining student dignity and independence'],
     outcome: 'Professional techniques for building a more inclusive dive-learning environment.', imageUrl: 'media/generated/course-adaptive-techniques.webp'
-  },
-  {
-    id: 'emergency-oxygen-provider', category: 'First aid & safety', eyebrow: 'Respond before help arrives', title: 'PADI Emergency Oxygen Provider',
-    shortDescription: 'Recognise diving-related injuries and provide emergency oxygen while professional medical care is activated.',
-    about: 'Suitable for divers, boat crew, lifeguards, freedivers and aquatic professionals. No water session is required.',
-    duration: 'Usually half a day', minimumAge: 'No formal age restriction; participants must understand and perform the skills', depth: 'No water session required',
-    prerequisite: 'No diving certification or previous medical training required.',
-    structure: ['Knowledge development', 'Instructor demonstrations', 'Hands-on oxygen equipment practice', 'Emergency scenarios'],
-    taught: ['Recognising decompression illness and lung-overexpansion injury', 'When emergency oxygen may be needed', 'Oxygen-unit assembly and disassembly', 'Non-rebreather mask and demand-inhalator use', 'Patient monitoring and emergency-service activation'],
-    outcome: 'A practical first-response skill set for suspected diving injuries while awaiting professional care.', imageUrl: 'media/generated/course-emergency-oxygen-provider.webp'
   },
   {
     id: 'divemaster', category: 'Professional development', eyebrow: 'Lead the way', title: 'PADI Divemaster',

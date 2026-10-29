@@ -3,10 +3,11 @@ import { GalleryItem } from '../../../models/site-data.model';
 import { MEDIA_COPY } from '../../../data/media-copy';
 import { ResponsiveImageDirective } from '../../directives/responsive-image.directive';
 import { MediaViewerComponent } from '../media-viewer/media-viewer.component';
+import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
 
 @Component({
   selector: 'app-media-collection', standalone: true,
-  imports: [ResponsiveImageDirective, MediaViewerComponent],
+  imports: [ResponsiveImageDirective, MediaViewerComponent, ArrowIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="media-collection" [class.media-collection--gallery]="galleryLayout()">
@@ -22,7 +23,7 @@ import { MediaViewerComponent } from '../media-viewer/media-viewer.component';
             <span class="media-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
             <span class="media-duration">{{ item.durationLabel }}</span>
           }
-          <span class="gallery-card__copy"><small>{{ item.location }}</small><strong>{{ item.title }}</strong><em aria-hidden="true">↗</em></span>
+          <span class="gallery-card__copy"><small>{{ item.location }}</small><strong>{{ item.title }}</strong><em aria-hidden="true"><app-arrow-icon /></em></span>
         </button>
       } @empty { <p class="media-empty" role="status">{{ copy.empty }}</p> }
     </div>

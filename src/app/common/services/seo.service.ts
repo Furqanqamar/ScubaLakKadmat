@@ -39,12 +39,20 @@ export class SeoService {
     for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
     this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
     const organization = {
-      '@type': 'Organization', '@id': SITE_URL + '#organization', name: 'Scuba Lak', url: SITE_URL,
+      '@type': 'LocalBusiness', '@id': SITE_URL + '#organization', name: BUSINESS_CONTACT.name, url: SITE_URL,
       logo: new URL(BRAND_ASSETS.organizationLogo, SITE_URL).href,
+      image: new URL(HERO_MEDIA.socialPoster, SITE_URL).href,
+      address: { '@type': 'PostalAddress', ...BUSINESS_CONTACT.postalAddress },
+      geo: { '@type': 'GeoCoordinates', ...BUSINESS_CONTACT.coordinates },
+      hasMap: BUSINESS_CONTACT.mapsUrl,
       location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' },
       ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}),
       ...(CONTACT_EMAIL ? { email: CONTACT_EMAIL } : {}),
-      ...(CONTACT_WHATSAPP.length ? { contactPoint: CONTACT_WHATSAPP.map(contact => ({ '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: contact.number, url: contact.href })) } : {}),
+      // Desk availability belongs to the contact points, not the dive schedule.
+      // Do not publish a 9–6 restriction as the business's activity opening hours.
+      ...(CONTACT_WHATSAPP.length ? { contactPoint: CONTACT_WHATSAPP.map(contact => ({ '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: contact.number, url: contact.href,
+        hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: BUSINESS_CONTACT.deskHours.days, opens: BUSINESS_CONTACT.deskHours.opens, closes: BUSINESS_CONTACT.deskHours.closes }
+      })) } : {}),
       sameAs: [...BUSINESS_CONTACT.socials.filter(social => !social.href.includes('wa.me')).map(social => social.href), ...(BUSINESS_CONTACT.mapsUrl ? [BUSINESS_CONTACT.mapsUrl] : [])]
     };
     const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '#website', url: SITE_URL, name: 'Scuba Lak — Kadmat Lakshadweep', publisher: { '@id': organization['@id'] }, inLanguage: 'en-IN' }];
