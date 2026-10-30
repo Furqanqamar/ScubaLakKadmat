@@ -21,7 +21,8 @@ for (const photo of Object.values(photos)) {
   assert.match(info.objectPosition, /^\d+% \d+%$/);
   assert.ok(gallery.includes(`id="${photo.id}"`), `Photo missing from gallery: ${photo.id}`);
   const sizes = info.srcset.split(', ').map(item => item.split(' '));
-  assert.equal(sizes.length, 3);
+  assert.ok(sizes.length >= 5, 'Native-source intermediate sizes prevent large srcset jumps');
+  assert.ok(sizes.some(([, width]) => width === '704w'), 'Retina mobile cards need a 704px option');
   for (const [path, width] of sizes) {
     assert.ok(Number.parseInt(width) <= photo.width, 'Do not upscale the supplied photographs');
     const file = await readFile(new URL('public/' + path, root));
@@ -36,7 +37,7 @@ for (const photo of Object.values(photos)) {
     bytes += file.length;
   }
 }
-assert.ok(bytes < 6 * 1048576);
+assert.ok(bytes < 12 * 1048576, 'All sizes combined, not the per-page download');
 assert.doesNotMatch(gallery, /media\/generated\/gallery-/);
 assert.equal(reviews.reviews.length, 3);
 assert.ok(reviews.reviews.reduce((sum, review) => sum + review.quote.split(/\s+/).length, 0) <= 25, 'Keep selected Google excerpts brief');
@@ -61,4 +62,4 @@ for (const page of ['experiences', 'courses', 'contact']) {
   assert.match(html, /class="page-hero__photo[^"]*"/);
   assert.match(html, /fetchpriority="high"/);
 }
-console.log(`Real-content checks passed: 8 supplied photos, 24 responsive files (${(bytes / 1048576).toFixed(1)} MB), placeholders, focal points, fingerprints, metadata stripping, restored hero and 3 attributed Google excerpts.`);
+console.log(`Real-content checks passed: 8 supplied photos with native-source responsive sizes (${(bytes / 1048576).toFixed(1)} MB across all sizes), placeholders, focal points, fingerprints, metadata stripping, restored hero and 3 attributed Google excerpts.`);

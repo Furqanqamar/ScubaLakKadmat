@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-@import "@fortawesome/fontawesome-free/css/solid.min.css";
-@import "@fortawesome/fontawesome-free/css/brands.min.css";
 @import "./styles/theme.css";
 @import "./styles/typography.css";
 @import "./styles/media.css";
@@ -53,6 +50,16 @@ h6,
 }
 
 em { font-family: var(--font-display); }
+
+.experience-facts { display: grid; gap: 1.5rem; margin: 0; }
+.experience-facts > div { border-bottom: 1px solid rgb(16 40 45 / .15); padding-bottom: 1.5rem; }
+.experience-facts dt { font-size: var(--text-label); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--theme-gold-text); }
+.experience-facts dd { margin: .65rem 0 0; font-size: 1rem; line-height: 1.9; }
+.experience-facts .experience-facts__separate { color: var(--theme-muted-text); font-size: var(--text-small); }
+.experience-faq { border-bottom: 1px solid rgb(16 40 45 / .2); padding: 1.15rem 0; }
+.experience-faq summary { min-height: 44px; display: list-item; align-content: center; font-size: 1rem; line-height: 1.7; font-weight: 600; cursor: pointer; }
+.experience-faq p { margin-top: 1rem; max-width: 70ch; font-size: 1rem; line-height: 1.9; }
+.experience-faq summary:focus-visible { outline: 2px solid var(--theme-ink); outline-offset: 5px; }
 
 button,
 a,

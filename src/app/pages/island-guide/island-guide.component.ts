@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -9,7 +10,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 @Component({
   selector: 'app-island-guide',
   standalone: true,
-  imports: [RouterLink, IslandCardComponent, ResponsiveImageDirective, NotFoundComponent],
+  imports: [UiIconComponent, RouterLink, IslandCardComponent, ResponsiveImageDirective, NotFoundComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './island-guide.component.html'
 })

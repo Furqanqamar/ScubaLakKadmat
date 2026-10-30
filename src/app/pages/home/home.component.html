@@ -50,7 +50,7 @@
         <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           @for (item of gallery; track item.id) {
             <a class="gallery-teaser group" routerLink="/gallery" [fragment]="item.id">
-              <img [appResponsiveImage]="item.imageUrl" [src]="item.imageUrl" [alt]="item.title" width="1200" height="800" loading="lazy" decoding="async">
+              <img [appResponsiveImage]="item.imageUrl" [src]="item.imageUrl" sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 767px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(25vw - 32px), 348px" [alt]="item.title" width="1200" height="800" loading="lazy" decoding="async">
               <span class="gallery-teaser__veil"></span>
               <span class="gallery-teaser__label"><small>{{ item.location }}</small><strong>{{ item.title }}</strong></span>
             </a>

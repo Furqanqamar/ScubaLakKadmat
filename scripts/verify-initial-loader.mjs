@@ -10,7 +10,7 @@ assert.match(critical, /position:\s*fixed;\s*inset:\s*0;\s*z-index:\s*90/);
 assert.match(critical, /background:\s*#061419/);
 assert.match(critical, /:not\(\.page-transition--reveal\)[^}]+animation:\s*none/);
 assert.match(critical, /html \.page-transition\.page-transition--initial:not/, 'First-paint rule must outrank scoped Angular cover styles');
-assert.ok(index.indexOf('initial-loader-critical') < index.indexOf('fonts.googleapis.com'), 'The cover must not depend on external fonts or app styles');
+assert.ok(index.indexOf('initial-loader-critical') < index.indexOf('local-font-faces'), 'The cover must not depend on fonts or app styles');
 assert.match(index, /<noscript><style>\.page-transition--initial\s*\{\s*display:\s*none !important;/, 'No-JS visitors must still see the prerendered website');
 
 const script = index.match(/<script>([\s\S]*?scuba-lak:initial-ready[\s\S]*?)<\/script>/)?.[1];

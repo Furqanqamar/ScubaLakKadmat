@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { DOCUMENT } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -19,7 +20,7 @@ interface FooterBubble {
 @Component({
   selector: 'app-site-footer',
   standalone: true,
-  imports: [RouterLink, BrandLockupComponent, HomeLinkDirective],
+  imports: [UiIconComponent, RouterLink, BrandLockupComponent, HomeLinkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer class="site-footer bg-[#061419] px-5 py-10 text-white sm:px-8 lg:px-10">
@@ -34,10 +35,10 @@ interface FooterBubble {
       </div>
       <div class="mx-auto max-w-[90rem]">
         <div class="footer-layout">
-          <a class="footer-brand" appHomeLink routerLink="/" [attr.aria-label]="copy.brand.homeLabel"><app-brand-lockup /></a>
+          <a class="footer-brand" appHomeLink routerLink="/" [attr.title]="copy.brand.homeLabel"><app-brand-lockup /></a>
           @if (socialLinks.length) { <nav class="footer-socials" [attr.aria-label]="copy.footer.socialLabel">
             @for (social of socialLinks; track social.label) {
-              <a class="social-link" [href]="social.href" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [class]="social.icon" aria-hidden="true"></i></a>
+              <a class="social-link" [href]="social.href" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label + ' · ' + social.handle"><i [appIcon]="social.icon" [class]="social.icon" aria-hidden="true"></i></a>
             }
           </nav> }
           <nav class="footer-navigation" [attr.aria-label]="copy.footer.navigationLabel"><a routerLink="/experiences">{{ copy.navigation.experiences }}</a><a routerLink="/courses">{{ copy.navigation.courses }}</a><a routerLink="/kadmat">{{ copy.navigation.island }}</a><a routerLink="/about">{{ copy.navigation.about }}</a><a routerLink="/gallery">{{ copy.navigation.gallery }}</a><a routerLink="/lakshadweep">{{ copy.navigation.archipelago }}</a><a routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a routerLink="/contact" fragment="enquiry">{{ copy.navigation.contact }}</a></nav>

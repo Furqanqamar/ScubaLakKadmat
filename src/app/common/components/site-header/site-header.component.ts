@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -9,12 +10,12 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
 @Component({
   selector: 'app-site-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, BrandLockupComponent, DialogShellComponent, HomeLinkDirective],
+  imports: [UiIconComponent, RouterLink, RouterLinkActive, BrandLockupComponent, DialogShellComponent, HomeLinkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="site-header" (keydown.escape)="closeMenu()">
       <nav class="mx-auto flex max-w-[90rem] items-center justify-between" [attr.aria-label]="copy.navigation.primaryLabel">
-        <a class="site-header__brand" appHomeLink routerLink="/" [attr.aria-label]="copy.brand.homeLabel" (click)="closeMenu()">
+        <a class="site-header__brand" appHomeLink routerLink="/" [attr.title]="copy.brand.homeLabel" (click)="closeMenu()">
           <app-brand-lockup />
         </a>
 
@@ -28,7 +29,7 @@ import { DialogShellComponent } from '../dialog-shell/dialog-shell.component';
         </div>
 
         <div class="flex items-center gap-3">
-          <a class="hidden min-h-11 items-center rounded-full border border-[#b8f2df]/60 bg-[#b8f2df] px-4 py-2.5 text-control font-bold text-[#061419] transition hover:bg-[#e2fff5] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-transparent sm:inline-flex" routerLink="/contact" fragment="enquiry">{{ copy.navigation.planDive }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i></a>
+          <a class="hidden min-h-11 items-center rounded-full border border-[#b8f2df]/60 bg-[#b8f2df] px-4 py-2.5 text-control font-bold text-[#061419] transition hover:bg-[#e2fff5] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-transparent sm:inline-flex" routerLink="/contact" fragment="enquiry">{{ copy.navigation.planDive }} <i appIcon="location-arrow" class="fa-solid fa-location-arrow" aria-hidden="true"></i></a>
           <button class="menu-toggle" type="button" [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-navigation" [attr.aria-label]="copy.navigation.toggleLabel" (click)="toggleMenu()"><span></span><span></span></button>
         </div>
       </nav>

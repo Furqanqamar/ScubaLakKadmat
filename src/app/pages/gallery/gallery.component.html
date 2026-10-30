@@ -10,8 +10,8 @@
       </div>
       <div class="media-filters media-filters--types" [attr.aria-label]="copy.typeLabel" role="group">
         <button class="media-filter" type="button" [attr.aria-pressed]="type() === 'all'" (click)="type.set('all')">{{ copy.allMedia }}</button>
-        <button class="media-filter" type="button" [attr.aria-pressed]="type() === 'image'" (click)="type.set('image')"><i class="fa-solid fa-image" aria-hidden="true"></i> {{ copy.photos }}</button>
-        <button class="media-filter" type="button" [attr.aria-pressed]="type() === 'video'" (click)="type.set('video')"><i class="fa-solid fa-play" aria-hidden="true"></i> {{ copy.videos }}</button>
+        <button class="media-filter" type="button" [attr.aria-pressed]="type() === 'image'" (click)="type.set('image')"><i appIcon="image" class="fa-solid fa-image" aria-hidden="true"></i> {{ copy.photos }}</button>
+        <button class="media-filter" type="button" [attr.aria-pressed]="type() === 'video'" (click)="type.set('video')"><i appIcon="play" class="fa-solid fa-play" aria-hidden="true"></i> {{ copy.videos }}</button>
       </div>
       <app-media-collection [items]="filteredItems()" [galleryLayout]="true" />
     </div>

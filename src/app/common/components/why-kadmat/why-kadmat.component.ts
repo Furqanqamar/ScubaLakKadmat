@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { KADMAT_COPY, KADMAT_REASONS } from '../../../data/kadmat-diving';
@@ -7,7 +8,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
 
 @Component({
   selector: 'app-why-kadmat', standalone: true,
-  imports: [RouterLink, ResponsiveImageDirective, DiveIconComponent],
+  imports: [UiIconComponent, RouterLink, ResponsiveImageDirective, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="why-kadmat" class="kadmat-why" aria-labelledby="why-kadmat-title">
@@ -17,7 +18,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
           <figure class="kadmat-why__photo"><img [src]="photo.imageUrl" [appResponsiveImage]="photo.imageUrl" [width]="photo.width" [height]="photo.height" sizes="(max-width: 767px) 100vw, 45vw" [alt]="photo.description" loading="lazy" decoding="async"><figcaption>{{ copy.imageCaption }}</figcaption></figure>
           <div class="kadmat-why__reasons">@for (reason of reasons; track reason.id) { <article class="kadmat-reason"><app-dive-icon [name]="reason.icon" context="benefit" /><h3>{{ reason.title }}</h3><p>{{ reason.text }}</p></article> }</div>
         </div>
-        <div class="kadmat-why__closing"><p>{{ copy.note }}</p>@if (showLink()) { <a routerLink="/kadmat">{{ copy.link }}<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }</div>
+        <div class="kadmat-why__closing"><p>{{ copy.note }}</p>@if (showLink()) { <a routerLink="/kadmat">{{ copy.link }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }</div>
       </div>
     </section>
   `

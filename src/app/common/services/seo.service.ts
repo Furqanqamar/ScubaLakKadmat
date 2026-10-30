@@ -26,6 +26,7 @@ export class SeoService {
   private update(url: string): void {
     const path = url.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
     const page = pageSeo(path);
+    if (path !== '/') this.document.getElementById('home-hero-poster-preload')?.remove();
     const island = path.startsWith('/lakshadweep/') ? islandGuide(path.slice('/lakshadweep/'.length)) : undefined;
     const title = page?.title ?? 'Page not found | Scuba Lak';
     const description = page?.description ?? 'This page is unavailable. Explore diving, courses and travel information for Kadmat Island with Scuba Lak.';
@@ -65,6 +66,9 @@ export class SeoService {
       if (island) {
         graph.push({ '@type': 'Place', '@id': canonical + '#place', name: island.name, description: island.summary, containedInPlace: { '@type': 'Place', name: 'Lakshadweep, India' } });
         graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, image, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, about: { '@id': canonical + '#place' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, articleSection: 'Lakshadweep island stories' });
+      }
+      if (['/kadmat-visit-planning', '/kadmat-beyond-diving', '/lakshadweep-trip-planning'].includes(path)) {
+        graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, dateModified: '2026-10-30', articleSection: 'Kadmat trip planning' });
       }
     }
     let structured = this.document.getElementById('site-structured-data');

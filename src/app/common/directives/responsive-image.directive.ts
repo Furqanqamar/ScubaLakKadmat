@@ -3,6 +3,7 @@ import { ORIGINAL_IMAGE_INFO } from '../../data/original-image-info.generated';
 import { ISLAND_MEDIA } from '../../data/island-media.generated';
 import { ADDITIONAL_IMAGE_INFO } from '../../data/additional-image-info.generated';
 import { TEAM_PORTRAITS } from '../../data/team-portraits.generated';
+import { GROUP_IMAGE_INFO } from '../../data/group-image-info.generated';
 
 const ISLAND_IMAGE_INFO = Object.fromEntries(Object.values(ISLAND_MEDIA).map(image => [image.src, image]));
 const TEAM_IMAGE_INFO = Object.fromEntries(Object.values(TEAM_PORTRAITS).map(image => [image.imageUrl, image]));
@@ -33,6 +34,7 @@ export class ResponsiveImageDirective {
   }
   readonly srcset = computed(() => {
     const source = this.appResponsiveImage();
+    if (GROUP_IMAGE_INFO[source]) return GROUP_IMAGE_INFO[source].srcset;
     if (TEAM_IMAGE_INFO[source]) return TEAM_IMAGE_INFO[source].srcset;
     if (ORIGINAL_IMAGE_INFO[source]) return ORIGINAL_IMAGE_INFO[source].srcset;
     if (ADDITIONAL_IMAGE_INFO[source]) return ADDITIONAL_IMAGE_INFO[source].srcset;

@@ -15,6 +15,7 @@ import { ACCOMMODATION_INFO } from '../../data/accommodation-info';
           <p class="eyebrow text-[#b8f2df]">{{ guide.eyebrow }}</p>
           <h1 class="mt-6 max-w-5xl font-serif text-5xl leading-tight text-white sm:text-7xl">{{ guide.title }}</h1>
           <p class="mt-8 max-w-3xl text-base leading-8 text-white/80">{{ guide.introduction }}</p>
+          @if (guide.reviewed) { <p class="mt-6 text-sm leading-7 text-on-dark-secondary">Reviewed {{ guide.reviewed }} · Recheck travel and operating arrangements before booking.</p> }
         </div></section>
         <section class="bg-[#f4f1e9] px-5 py-16 sm:px-8"><div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
           @for (section of guide.sections; track section.title) {
@@ -26,14 +27,12 @@ import { ACCOMMODATION_INFO } from '../../data/accommodation-info';
           @for (faq of guide.faqs; track faq.question) { <details class="mt-5 border-b border-[#10282d]/20 py-4"><summary class="cursor-pointer font-semibold leading-7">{{ faq.question }}</summary><p class="mt-4 text-sm leading-7">{{ faq.answer }}</p></details> }
           <nav aria-label="Related island planning" class="mt-10 flex flex-wrap gap-4">
             <a class="button-link button-link--dark" routerLink="/contact" fragment="enquiry" [queryParams]="{ interest: guide.contactInterest }">{{ guide.contactLabel }}</a>
-            <a class="button-link" routerLink="/kadmat">Kadmat Island guide</a>
-            <a class="button-link" routerLink="/courses">Explore PADI courses</a>
-            <a class="button-link" routerLink="/kadmat-accommodation">{{ accommodation.guideLinkLabel }}</a>
-            <a class="button-link" routerLink="/lakshadweep-trip-planning">Travel checklist</a>
-            <a class="button-link" href="https://lakshadweep.gov.in/tourism/">Official Lakshadweep tourism information</a>
+            @if (guideKey() === 'planning') { <a class="button-link" routerLink="/kadmat-visit-planning">Weather & preparation</a><a class="button-link" routerLink="/kadmat-beyond-diving">Kadmat beyond diving</a> }
+            @else { <a class="button-link" routerLink="/lakshadweep-trip-planning">Travel & permits</a><a class="button-link" routerLink="/kadmat">Kadmat Island guide</a> }
           </nav>
+          @if (guide.sources?.length) { <aside aria-label="Planning sources" class="mt-10 border-t border-[#10282d]/20 pt-6"><p class="text-sm leading-7">Check current official guidance:</p><ul class="mt-3 space-y-3">@for (source of guide.sources; track source.url) { <li><a class="inline-flex min-h-11 items-center text-sm underline underline-offset-4" [href]="source.url" target="_blank" rel="noopener noreferrer">{{ source.label }} <span class="ml-2" aria-hidden="true">↗</span></a></li> }</ul></aside> }
         </div></section>
-        <div id="reach-permits" tabindex="-1"><app-travel-faq /></div>
+        @if (guideKey() === 'planning' || guideKey() === 'accommodation') { <div id="reach-permits" tabindex="-1"><app-travel-faq /></div> }
       </main>
     }
   `
@@ -41,5 +40,6 @@ import { ACCOMMODATION_INFO } from '../../data/accommodation-info';
 export class TravelGuideComponent {
   readonly accommodation = ACCOMMODATION_INFO;
   private readonly data = toSignal(inject(ActivatedRoute).data);
-  readonly guide = computed(() => TRAVEL_GUIDES[this.data()?.['guide'] as string]);
+  readonly guideKey = computed(() => this.data()?.['guide'] as string);
+  readonly guide = computed(() => TRAVEL_GUIDES[this.guideKey()]);
 }

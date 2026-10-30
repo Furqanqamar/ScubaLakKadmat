@@ -5,8 +5,9 @@ import { SITE_COPY } from '../../../data/site-copy';
 @Component({
   selector: 'app-brand-lockup',
   standalone: true,
+  preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<span class="brand-lockup"><span class="brand-lockup__mark-shell"><img class="brand-lockup__logo" [src]="brand.logoSrc" [srcset]="brand.logoSrcset" sizes="48px" alt="" width="48" height="48" decoding="async"></span><span class="brand-lockup__wordmark"><strong>{{ brand.name }}</strong><small>{{ brand.tagline }}</small></span></span>',
+  template: '<span class="brand-lockup"><span class="brand-lockup__mark-shell"><img class="brand-lockup__logo" [src]="brand.logoSrc" [srcset]="brand.logoSrcset" sizes="48px" alt="" width="48" height="48" decoding="async"></span><span class="brand-lockup__wordmark"><strong>{{ brand.name }}</strong> <small>{{ brand.tagline }}</small></span></span>',
   styles: `
     :host { display: inline-flex; flex: none; }
     .brand-lockup { display: inline-flex; flex: none; align-items: center; gap: .7rem; color: var(--theme-sand); white-space: nowrap; }

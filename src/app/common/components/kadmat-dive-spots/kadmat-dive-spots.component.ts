@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { enquiryParams } from '../../../data/enquiry-context';
@@ -7,7 +8,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
 
 @Component({
   selector: 'app-kadmat-dive-spots', standalone: true,
-  imports: [RouterLink, ResponsiveImageDirective],
+  imports: [UiIconComponent, RouterLink, ResponsiveImageDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="dive-spots" class="kadmat-spots" aria-labelledby="kadmat-spots-title">
@@ -16,16 +17,16 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
         <div class="kadmat-spots__layout">
           <div class="kadmat-spots__island">
             <figure><img [src]="illustration.src" [appResponsiveImage]="illustration.src" [width]="illustration.width" [height]="illustration.height" sizes="(max-width: 767px) 100vw, 43vw" [alt]="copy.illustrationAlt" loading="lazy" decoding="async"><figcaption>{{ copy.graphicNote }}</figcaption></figure>
-            <a class="kadmat-spots__island-link" routerLink="/lakshadweep">{{ copy.otherIslands }}<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="kadmat-spots__island-link" routerLink="/lakshadweep">{{ copy.otherIslands }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
           <div class="kadmat-spots__directory">
             <div class="kadmat-spots__list-heading"><h3>{{ copy.listTitle }}</h3><span>{{ sites.length }} {{ copy.siteCountLabel }}</span></div>
             <ol class="kadmat-spots__list" [style.--spot-rows]="columnRows">
               @for (site of sites; track site.id) {
-                <li [id]="'spot-' + site.id"><span class="kadmat-spots__number" aria-hidden="true">{{ site.number.toString().padStart(2, '0') }}</span><span class="kadmat-spots__name">{{ site.name }}</span><a routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('dive-site', site.id)" [attr.aria-label]="copy.askLabel + ' ' + site.name"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+                <li [id]="'spot-' + site.id"><span class="kadmat-spots__number" aria-hidden="true">{{ site.number.toString().padStart(2, '0') }}</span><span class="kadmat-spots__name">{{ site.name }}</span><a routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('dive-site', site.id)" [attr.aria-label]="copy.askLabel + ' ' + site.name"><i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
               }
             </ol>
-            <div class="kadmat-spots__closing"><p>{{ copy.planningNote }}</p><a class="button-link button-link--mint" routerLink="/contact" fragment="enquiry" [queryParams]="{ interest: 'diving' }">{{ copy.planDive }}<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            <div class="kadmat-spots__closing"><p>{{ copy.planningNote }}</p><a class="button-link button-link--mint" routerLink="/contact" fragment="enquiry" [queryParams]="{ interest: 'diving' }">{{ copy.planDive }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
           </div>
         </div>
       </div>

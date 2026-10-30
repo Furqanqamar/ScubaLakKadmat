@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -9,6 +10,7 @@ import { OverlayStateService } from '../../services/overlay-state.service';
 
 @Component({
   selector: 'app-floating-navigator',
+  imports: [UiIconComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -21,7 +23,7 @@ import { OverlayStateService } from '../../services/overlay-state.service';
             <text><textPath href="#floating-navigator-orbit" startOffset="0%">{{ isHome() ? copy.actions.scrollToTop + ' · ' + copy.actions.scrollToTop + ' · ' : copy.actions.returnHome + ' · ' + copy.actions.returnHome + ' · ' }}</textPath></text>
           </svg>
         </span>
-        <span class="floating-navigator__icon" aria-hidden="true"><i class="fa-solid" [class.fa-arrow-up]="isHome()" [class.fa-arrow-left]="!isHome()"></i></span>
+        <span class="floating-navigator__icon" aria-hidden="true"><i [appIcon]="isHome() ? 'arrow-up' : 'arrow-left'" class="fa-solid"></i></span>
       </button>
     }
   `,

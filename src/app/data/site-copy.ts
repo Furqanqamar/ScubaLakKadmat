@@ -6,7 +6,7 @@ export const SITE_COPY = {
     tagline: 'Kadmat Lakshadweep',
     logoSrc: BRAND_ASSETS.logoSrc,
     logoSrcset: BRAND_ASSETS.logoSrcset,
-    homeLabel: 'Scuba Lak, Kadmat Lakshadweep home'
+    homeLabel: 'Scuba Lak Kadmat Lakshadweep home'
   },
   navigation: {
     primaryLabel: 'Primary navigation',

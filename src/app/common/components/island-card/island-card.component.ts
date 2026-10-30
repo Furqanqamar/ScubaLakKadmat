@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IslandGuide } from '../../../models/island-guide.model';
@@ -7,7 +8,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
 @Component({
   selector: 'app-island-card',
   standalone: true,
-  imports: [RouterLink, ResponsiveImageDirective],
+  imports: [UiIconComponent, RouterLink, ResponsiveImageDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a class="island-guide-card" [routerLink]="['/lakshadweep', island().slug]">
@@ -20,7 +21,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
         <p class="island-guide-card__region">{{ island().region }}</p>
         <h3>{{ island().name }}</h3>
         <p class="island-guide-card__summary">{{ island().summary }}</p>
-        <span class="island-guide-card__link">{{ copy.readStory }}<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+        <span class="island-guide-card__link">{{ copy.readStory }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
       </div>
     </a>
   `

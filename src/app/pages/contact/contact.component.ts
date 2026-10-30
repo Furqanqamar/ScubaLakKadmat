@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ContactHubComponent } from '../../common/components/contact-hub/contact-hub.component';
@@ -9,7 +10,7 @@ import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
 
 @Component({
   selector: 'app-contact', standalone: true,
-  imports: [RouterLink, ContactHubComponent, TravelFaqComponent, ResponsiveImageDirective],
+  imports: [UiIconComponent, RouterLink, ContactHubComponent, TravelFaqComponent, ResponsiveImageDirective],
   changeDetection: ChangeDetectionStrategy.OnPush, templateUrl: './contact.component.html'
 })
 export class ContactComponent {

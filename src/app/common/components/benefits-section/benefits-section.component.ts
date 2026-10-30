@@ -1,10 +1,11 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BENEFITS_COPY, SITE_BENEFITS } from '../../../data/site-benefits';
 import { DiveIconComponent } from '../dive-icon/dive-icon.component';
 
 @Component({
-  selector: 'app-benefits-section', standalone: true, imports: [RouterLink, DiveIconComponent],
+  selector: 'app-benefits-section', standalone: true, imports: [UiIconComponent, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="benefits-section" [class.benefits-section--detailed]="detailed()" [id]="detailed() ? 'benefits' : 'our-benefits'" [attr.aria-labelledby]="titleId()">
@@ -22,7 +23,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
           }
         </div>
         <div class="benefits-section__closing">
-          @if (!detailed()) { <a routerLink="/about" fragment="benefits">{{ copy.readMore }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }
+          @if (!detailed()) { <a routerLink="/about" fragment="benefits">{{ copy.readMore }} <i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }
           @else { <p>{{ copy.note }}</p> }
         </div>
       </div>

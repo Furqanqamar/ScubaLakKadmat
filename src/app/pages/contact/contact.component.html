@@ -3,14 +3,14 @@
   <section id="enquiry" tabindex="-1" class="bg-[#f4f1e9] px-5 py-16 sm:px-8 lg:px-10"><div class="mx-auto max-w-5xl"><app-contact-hub /></div></section>
   @if (details.address || email || phoneContacts.length || details.officeHours || socials.length) {
     <section class="bg-[#e8e2d4] px-5 py-16 sm:px-8 lg:px-10"><div class="mx-auto grid max-w-5xl gap-8 sm:grid-cols-2">
-      @if (details.address) { <article class="contact-detail-card"><span>Find the dive centre</span><strong>{{ details.name }}</strong><p>{{ details.address }}</p>@if (details.mapsUrl) { <a class="mt-4 inline-flex min-h-11 items-center gap-2" [href]="details.mapsUrl" target="_blank" rel="noopener noreferrer">Open Google Maps <i class="fa-solid fa-location-dot" aria-hidden="true"></i></a> }</article> }
+      @if (details.address) { <article class="contact-detail-card"><span>Find the dive centre</span><strong>{{ details.name }}</strong><p>{{ details.address }}</p>@if (details.mapsUrl) { <a class="mt-4 inline-flex min-h-11 items-center gap-2" [href]="details.mapsUrl" target="_blank" rel="noopener noreferrer">Open Google Maps <i appIcon="location-dot" class="fa-solid fa-location-dot" aria-hidden="true"></i></a> }</article> }
       @if (phoneContacts.length) {
         <article id="whatsapp-contacts" class="contact-detail-card"><span id="dive-desk-contacts-label">Call or WhatsApp the dive desk</span>
           <p class="contact-number-hint">Tap a number to call, or the WhatsApp icon to chat.</p>
           <div class="contact-number-list" role="group" aria-labelledby="dive-desk-contacts-label">
             @for (contact of phoneContacts; track contact.number) {
               <div class="contact-number-row">
-                @if (contact.whatsappHref) { <a class="contact-number-whatsapp" [href]="contact.whatsappHref" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'WhatsApp · ' + contact.displayNumber" [title]="'WhatsApp ' + contact.displayNumber"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a> }
+                @if (contact.whatsappHref) { <a class="contact-number-whatsapp" [href]="contact.whatsappHref" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'WhatsApp · ' + contact.displayNumber" [title]="'WhatsApp ' + contact.displayNumber"><i appIcon="whatsapp" class="fa-brands fa-whatsapp" aria-hidden="true"></i></a> }
                 <a class="contact-number-call" [href]="contact.callHref" [attr.aria-label]="'Call · ' + contact.displayNumber">{{ contact.displayNumber }}</a>
               </div>
             }
@@ -19,9 +19,9 @@
       }
       @if (email) { <article class="contact-detail-card"><span>Email</span><a [href]="'mailto:' + email">{{ email }}</a></article> }
       @if (details.officeHours) { <article class="contact-detail-card"><span>Contact desk hours</span><strong>{{ details.officeHours }}</strong><p>{{ details.diveHoursNote }}</p>@if (details.responseTime) { <p>{{ details.responseTime }}</p> }</article> }
-      @for (social of socials; track social.label) { <a class="button-link button-link--dark" [href]="social.href" target="_blank" rel="noopener noreferrer"><i [class]="social.icon" aria-hidden="true"></i>{{ social.label }}</a> }
+      @for (social of socials; track social.label) { <a class="button-link button-link--dark" [href]="social.href" target="_blank" rel="noopener noreferrer"><i [appIcon]="social.icon" [class]="social.icon" aria-hidden="true"></i>{{ social.label }}</a> }
     </div></section>
   }
   <app-travel-faq />
-  <section class="bg-[#e8e2d4] px-5 py-12 sm:px-8 lg:px-10"><div class="mx-auto flex max-w-5xl flex-wrap gap-4"><a class="button-link button-link--dark" routerLink="/experiences">Explore experiences <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="button-link border border-[#10282d]/30" routerLink="/kadmat">Know Kadmat <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></section>
+  <section class="bg-[#e8e2d4] px-5 py-12 sm:px-8 lg:px-10"><div class="mx-auto flex max-w-5xl flex-wrap gap-4"><a class="button-link button-link--dark" routerLink="/experiences">Explore experiences <i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="button-link border border-[#10282d]/30" routerLink="/kadmat">Know Kadmat <i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></section>
 </main>

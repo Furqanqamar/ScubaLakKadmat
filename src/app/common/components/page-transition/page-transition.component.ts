@@ -46,7 +46,7 @@ const CURTAIN_REVEAL_MS = 440;
   `,
   styles: `
     :host { display: block; }
-    .page-transition { position: fixed; inset: 0; z-index: 90; isolation: isolate; overflow: hidden; background: #061419; color: #d6fff0; pointer-events: all; animation: dotart-curtain-cover ${CURTAIN_COVER_MS}ms cubic-bezier(.77,0,.18,1) both; }
+    .page-transition { position: fixed; inset: 0; z-index: 90; isolation: isolate; contain: strict; overflow: hidden; background: #061419; color: #d6fff0; pointer-events: all; animation: dotart-curtain-cover ${CURTAIN_COVER_MS}ms cubic-bezier(.77,0,.18,1) both; }
     .page-transition--initial:not(.page-transition--reveal) { animation: none; transform: translateY(0); }
     .page-transition::after { position: absolute; right: -8%; bottom: -7rem; left: -8%; z-index: 1; height: 11rem; border-radius: 50% 50% 0 0 / 80% 80% 0 0; background: linear-gradient(180deg, rgba(16,40,45,.35), #10282d 50%); box-shadow: 0 -2rem 5rem rgba(184,242,223,.08); content: ''; }
     .page-transition__water { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: radial-gradient(ellipse at 50% -15%, rgba(184,242,223,.2), transparent 42%), linear-gradient(180deg, #0d3a48 0%, #06242f 43%, #061419 100%); }
@@ -54,9 +54,9 @@ const CURTAIN_REVEAL_MS = 440;
     .page-transition__water::after { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(184,242,223,.08), transparent 32%, rgba(3,17,22,.22) 78%, rgba(3,17,22,.6)); content: ''; }
     .page-transition__surface-glow { position: absolute; top: -18%; left: 50%; width: 72%; height: 48%; transform: translateX(-50%); border-radius: 50%; background: rgba(184,242,223,.16); filter: blur(42px); animation: surface-glow 7s ease-in-out infinite alternate; }
     .page-transition__ray { position: absolute; top: -18%; z-index: 1; height: 125%; transform-origin: 50% 0; border-radius: 999px; background: linear-gradient(180deg, rgba(184,242,223,.15), rgba(184,242,223,0)); filter: blur(13px); opacity: .5; animation: ray-sway 9s ease-in-out infinite alternate; }
-    .page-transition__ray--one { left: 12%; width: 13%; transform: rotate(16deg); }
-    .page-transition__ray--two { left: 43%; width: 18%; transform: rotate(-5deg); animation-delay: -3s; opacity: .34; }
-    .page-transition__ray--three { right: 8%; width: 11%; transform: rotate(-19deg); animation-delay: -5s; opacity: .28; }
+    .page-transition__ray--one { left: 12%; width: 13%; --ray-angle: 16deg; }
+    .page-transition__ray--two { left: 43%; width: 18%; --ray-angle: -5deg; animation-delay: -3s; opacity: .34; }
+    .page-transition__ray--three { right: 8%; width: 11%; --ray-angle: -19deg; animation-delay: -5s; opacity: .28; }
     .page-transition__bubble { position: absolute; bottom: -4rem; z-index: 2; display: block; border: 1px solid rgba(214,255,240,.46); border-radius: 50%; background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.5), transparent 16%), rgba(184,242,223,.035); box-shadow: inset -3px -4px 8px rgba(184,242,223,.08), 0 0 12px rgba(184,242,223,.08); opacity: 0; animation-name: bubble-rise, bubble-sway; animation-timing-function: ease-in, ease-in-out; animation-iteration-count: infinite, infinite; animation-fill-mode: both, both; }
     .page-transition__content { position: absolute; top: 50%; left: 50%; z-index: 3; display: flex; width: min(24rem, calc(100% - 3rem)); flex-direction: column; transform: translate(-50%, -50%); text-align: center; text-shadow: 0 .2rem 2rem rgba(3,17,22,.55); }
     .page-transition__title { margin-top: 1rem; color: #f4f1e9; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.8rem, 8vw, 5.5rem); letter-spacing: -.06em; line-height: .9; }
@@ -72,7 +72,7 @@ const CURTAIN_REVEAL_MS = 440;
     @keyframes dotart-progress { from { transform: translateX(-100%); } to { transform: translateX(65%); } }
     @keyframes underwater-caustics { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
     @keyframes surface-glow { from { opacity: .42; transform: translateX(-50%) scale(.92); } to { opacity: .78; transform: translateX(-50%) scale(1.08); } }
-    @keyframes ray-sway { from { translate: -1.25rem 0; } to { translate: 1.25rem 0; } }
+    @keyframes ray-sway { from { transform: translate3d(-1.25rem, 0, 0) rotate(var(--ray-angle)); } to { transform: translate3d(1.25rem, 0, 0) rotate(var(--ray-angle)); } }
     @keyframes bubble-rise { 0% { translate: 0 0; opacity: 0; } 12% { opacity: .55; } 80% { opacity: .28; } 100% { translate: 0 -120vh; opacity: 0; } }
     @keyframes bubble-sway { 0%, 100% { transform: translateX(-.8rem); } 50% { transform: translateX(.8rem); } }
   `

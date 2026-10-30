@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { GalleryItem } from '../../../models/site-data.model';
 import { MEDIA_COPY } from '../../../data/media-copy';
@@ -7,7 +8,7 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
 
 @Component({
   selector: 'app-media-collection', standalone: true,
-  imports: [ResponsiveImageDirective, MediaViewerComponent, ArrowIconComponent],
+  imports: [UiIconComponent, ResponsiveImageDirective, MediaViewerComponent, ArrowIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="media-collection" [class.media-collection--gallery]="galleryLayout()">
@@ -16,11 +17,11 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
           [class.gallery-card--tall]="item.size === 'tall'" type="button" (click)="selected.set(item)"
           [attr.aria-label]="(item.kind === 'video' ? copy.play : copy.open) + ': ' + item.title">
           <img [appResponsiveImage]="item.imageUrl" [src]="item.imageUrl" [alt]="item.title"
-            [sizes]="galleryLayout() && item.size === 'wide' ? '(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 50vw' : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw'"
+            [sizes]="galleryLayout() ? (item.size === 'wide' ? '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), (max-width: 1519px) calc(50vw - 48px), 712px' : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(25vw - 32px), 348px') : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(33.333vw - 38px), 469px'"
             [width]="item.width ?? 1200" [height]="item.height ?? 800" loading="lazy" decoding="async">
           <span class="gallery-card__veil"></span>
           @if (item.kind === 'video') {
-            <span class="media-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="media-play" aria-hidden="true"><i appIcon="play" class="fa-solid fa-play"></i></span>
             <span class="media-duration">{{ item.durationLabel }}</span>
           }
           <span class="gallery-card__copy"><small>{{ item.location }}</small><strong>{{ item.title }}</strong><em aria-hidden="true"><app-arrow-icon /></em></span>

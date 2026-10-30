@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { KadmatDiveSpotsComponent } from '../../common/components/kadmat-dive-spots/kadmat-dive-spots.component';
@@ -12,7 +13,7 @@ import { MARINE_SERVICES } from '../../data/site-content';
 
 @Component({
   selector: 'app-kadmat', standalone: true,
-  imports: [RouterLink, KadmatDiveSpotsComponent, WhyKadmatComponent, ServiceCardComponent, MediaStoryComponent, TravelFaqComponent],
+  imports: [UiIconComponent, RouterLink, KadmatDiveSpotsComponent, WhyKadmatComponent, ServiceCardComponent, MediaStoryComponent, TravelFaqComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kadmat.component.html'
 })

@@ -82,6 +82,9 @@ export async function waitForPageMedia(document: Document, signal: AbortSignal):
   // Gallery film files stay untouched until a visitor clicks their Play card;
   // their thumbnails are included in the image readiness check above.
   await Promise.all([
+    // Settle the fonts used by this page while it is covered, preventing a
+    // heading/navigation reflow immediately after the curtain reveals it.
+    document.fonts?.ready ?? Promise.resolve(),
     ...[...images, ...backgrounds].map(image => waitForPageImage(image, signal)),
     ...videoElements.map(video => waitForPageVideo(video, signal))
   ]);

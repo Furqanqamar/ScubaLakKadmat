@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -13,7 +14,7 @@ import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.c
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
+  imports: [UiIconComponent, ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html'
 })

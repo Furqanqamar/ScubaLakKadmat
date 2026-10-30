@@ -23,11 +23,17 @@ export class BackgroundVideoComponent {
       const window = document.defaultView;
       if (!window) return;
       const player = this.video().nativeElement;
+      let covered = !!document.querySelector('.page-transition--initial');
+      // Buffer a playable opening frame under the loader, but do not spend
+      // bandwidth playing unseen footage while the page images are preparing.
+      if (covered) player.pause();
       // Cached video can have a frame before hydration attaches load listeners.
       this.hasFrame.set(player.readyState >= player.HAVE_CURRENT_DATA);
       const play = (): void => {
-        if (document.visibilityState !== 'hidden' && player.paused) void player.play().catch(() => { /* The poster remains if the browser blocks autoplay. */ });
+        if (!covered && document.visibilityState !== 'hidden' && player.paused) void player.play().catch(() => { /* The poster remains if the browser blocks autoplay. */ });
       };
+      const uncover = (): void => { covered = false; play(); };
+      document.addEventListener('scuba-lak:initial-ready', uncover, { once: true });
       const breakpoint = window.matchMedia('(max-width: 767px)');
       const reselectSource = (): void => { player.load(); play(); };
       breakpoint.addEventListener('change', reselectSource);
@@ -39,6 +45,7 @@ export class BackgroundVideoComponent {
       document.addEventListener('keydown', play, { passive: true });
       destroy.onDestroy(() => {
         breakpoint.removeEventListener('change', reselectSource);
+        document.removeEventListener('scuba-lak:initial-ready', uncover);
         document.removeEventListener('visibilitychange', play);
         window.removeEventListener('pageshow', play);
         document.removeEventListener('pointerdown', play);

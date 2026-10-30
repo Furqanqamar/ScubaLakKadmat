@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { ResponsiveImageDirective } from '../../directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
@@ -11,11 +12,12 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
 @Component({
   selector: 'app-service-card',
   standalone: true,
-  imports: [ResponsiveImageDirective, RouterLink, DiveIconComponent],
+  imports: [UiIconComponent, ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="service-card relative isolate flex min-h-[23rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/15 p-6 text-white shadow-2xl shadow-black/10 sm:p-7" data-reveal>
       <img [appResponsiveImage]="service().imageUrl"
+        sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 767px) calc(100vw - 64px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1279px) calc(50vw - 48px), (max-width: 1519px) calc(25vw - 32px), 348px"
         class="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         [src]="service().imageUrl"
         [alt]="service().title"
@@ -52,7 +54,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
           class="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-control font-semibold transition hover:border-[#b8f2df] hover:bg-[#b8f2df] hover:text-[#061419] focus:outline-none focus:ring-2 focus:ring-[#b8f2df] focus:ring-offset-2 focus:ring-offset-[#061419]"
           [attr.aria-label]="'Explore ' + service().title"
         >
-          {{ copy.actions.explore }} <i class="fa-solid fa-location-arrow" aria-hidden="true"></i>
+          {{ copy.actions.explore }} <i appIcon="location-arrow" class="fa-solid fa-location-arrow" aria-hidden="true"></i>
         </a>
       </div>
     </article>

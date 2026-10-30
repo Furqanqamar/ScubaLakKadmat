@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../ui-icon/ui-icon.component';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +11,7 @@ import { validateEnquiry } from '../../services/enquiry-validation';
 import { CONTACT_EMAIL, CONTACT_NUMBERS, whatsappLink } from '../../services/contact-links';
 
 @Component({
-  selector: 'app-contact-hub', standalone: true, imports: [RouterLink],
+  selector: 'app-contact-hub', standalone: true, imports: [UiIconComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './contact-hub.component.html', styleUrl: './contact-hub.component.css'
 })

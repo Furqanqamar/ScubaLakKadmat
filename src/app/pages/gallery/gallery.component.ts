@@ -1,3 +1,4 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { MediaCollectionComponent } from '../../common/components/media-collection/media-collection.component';
 import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
@@ -10,7 +11,7 @@ import { MEDIA_COPY } from '../../data/media-copy';
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [MediaCollectionComponent, ResponsiveImageDirective],
+  imports: [UiIconComponent, MediaCollectionComponent, ResponsiveImageDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './gallery.component.html'
 })

@@ -24,7 +24,7 @@
   <section class="bg-[#e8e2d4] px-5 py-20 sm:px-8 lg:px-10 lg:py-24">
     <div class="mx-auto max-w-[90rem]">
       <div class="kadmat-heading"><div><p class="eyebrow text-accent">{{ copy.mapEyebrow }}</p><h2>{{ copy.mapTitle }}</h2></div><p>{{ copy.mapIntroduction }}</p></div>
-      <details class="kadmat-map-details"><summary>{{ copy.mapOpen }}<i class="fa-solid fa-plus" aria-hidden="true"></i></summary><div class="kadmat-map"><iframe [title]="copy.mapLabel" src="https://www.openstreetmap.org/export/embed.html?bbox=72.70%2C11.18%2C72.84%2C11.30&amp;layer=mapnik&amp;marker=11.22%2C72.77" loading="lazy" referrerpolicy="no-referrer"></iframe></div><a href="https://www.openstreetmap.org/?mlat=11.22&amp;mlon=72.77#map=13/11.22/72.77" target="_blank" rel="noopener noreferrer">{{ copy.mapExternal }}<span aria-hidden="true">↗</span></a></details>
+      <details class="kadmat-map-details"><summary>{{ copy.mapOpen }}<i appIcon="plus" class="fa-solid fa-plus" aria-hidden="true"></i></summary><div class="kadmat-map"><iframe [title]="copy.mapLabel" src="https://www.openstreetmap.org/export/embed.html?bbox=72.70%2C11.18%2C72.84%2C11.30&amp;layer=mapnik&amp;marker=11.22%2C72.77" loading="lazy" referrerpolicy="no-referrer"></iframe></div><a href="https://www.openstreetmap.org/?mlat=11.22&amp;mlon=72.77#map=13/11.22/72.77" target="_blank" rel="noopener noreferrer">{{ copy.mapExternal }}<span aria-hidden="true">↗</span></a></details>
       <a class="mt-6 inline-flex min-h-11 items-center gap-3 text-sm underline underline-offset-4" routerLink="/lakshadweep">{{ copy.archiveLink }}<span aria-hidden="true">↗</span></a>
     </div>
   </section>

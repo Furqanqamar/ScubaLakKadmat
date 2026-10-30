@@ -16,7 +16,7 @@
     @if (attempted() && hasErrors()) { <p class="mt-5 text-[#ffd0bc]" role="alert">{{ copy.validation }}</p> }
     @if (status() === 'error') { <p class="enquiry-notice" role="alert">{{ copy.error }}</p> }
     @if (status() === 'accepted' || status() === 'prepared') { <div class="enquiry-notice" role="status"><strong>{{ status() === 'accepted' ? copy.accepted : copy.prepared }}</strong><p class="mt-2">{{ status() === 'accepted' ? copy.acceptedDetail : copy.preparedDetail }}</p></div> }
-    <div class="enquiry-actions"><button class="button-link button-link--mint" type="submit" [disabled]="!available() || status() === 'submitting' || status() === 'accepted'">{{ status() === 'submitting' ? copy.submitting : !available() ? copy.unavailableButton : mode === 'email-client' ? copy.prepare : copy.send }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+    <div class="enquiry-actions"><button class="button-link button-link--mint" type="submit" [disabled]="!available() || status() === 'submitting' || status() === 'accepted'">{{ status() === 'submitting' ? copy.submitting : !available() ? copy.unavailableButton : mode === 'email-client' ? copy.prepare : copy.send }} <i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
       @if (emailAddress) { <a class="button-link border border-white/30" [href]="'mailto:' + emailAddress">{{ copy.emailAction }}</a> }
     </div>
     @if (contactOptions().length) {
@@ -26,13 +26,14 @@
         <div class="contact-number-list" role="group" aria-labelledby="contact-options-label">
           @for (contact of contactOptions(); track contact.number) {
             <div class="contact-number-row">
-              @if (contact.whatsappHref) { <a class="contact-number-whatsapp" [href]="contact.whatsappHref" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'WhatsApp · ' + contact.displayNumber" [title]="'WhatsApp ' + contact.displayNumber"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a> }
+              @if (contact.whatsappHref) { <a class="contact-number-whatsapp" [href]="contact.whatsappHref" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'WhatsApp · ' + contact.displayNumber" [title]="'WhatsApp ' + contact.displayNumber"><i appIcon="whatsapp" class="fa-brands fa-whatsapp" aria-hidden="true"></i></a> }
               <a class="contact-number-call" [href]="contact.callHref" [attr.aria-label]="'Call · ' + contact.displayNumber">{{ contact.displayNumber }}</a>
             </div>
           }
         </div>
       </div>
     }
+    <p class="mt-6 max-w-3xl text-sm leading-7 text-on-dark-secondary">By sending an enquiry, you ask Scuba Lak to use these details to respond and help plan your visit. Your message is delivered to our business email inbox. Please do not include passport copies, payment details or medical records in this form. For questions about your enquiry, email hello@scubalak.com.</p>
   </form>
-  <a class="mt-8 inline-flex min-h-11 items-center gap-3 text-[#b8f2df] underline underline-offset-4" routerLink="/lakshadweep-trip-planning" fragment="reach-permits">{{ copy.travelLink }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+  <a class="mt-8 inline-flex min-h-11 items-center gap-3 text-[#b8f2df] underline underline-offset-4" routerLink="/lakshadweep-trip-planning" fragment="reach-permits">{{ copy.travelLink }} <i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
 </section>
