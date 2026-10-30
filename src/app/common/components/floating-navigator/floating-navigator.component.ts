@@ -15,7 +15,8 @@ import { OverlayStateService } from '../../services/overlay-state.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isVisible()) {
-      <button class="floating-navigator" [class.floating-navigator--home]="isHome()" type="button" (click)="navigate()" [attr.aria-label]="isHome() ? copy.actions.scrollToTop : copy.actions.returnHome">
+      <button class="floating-navigator" [class.floating-navigator--home]="isHome()" type="button" (click)="navigate()">
+        <span class="sr-only">{{ isHome() ? copy.actions.scrollToTop : copy.actions.returnHome }}</span>
         <span class="floating-navigator__outer-ring" aria-hidden="true"></span>
         <span class="floating-navigator__orbit" aria-hidden="true">
           <svg viewBox="0 0 100 100" focusable="false">

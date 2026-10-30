@@ -6,6 +6,8 @@ const output = 'dist/scuba-lak/browser/';
 const source = await readFile('src/index.html', 'utf8');
 assert.doesNotMatch(source, /https:\/\/fonts\.(?:googleapis|gstatic)\.com/);
 assert.match(source, /id="local-font-faces"/);
+assert.match(source, /size-adjust: 104\.68%/);
+assert.match(source, /ascent-override:/, 'Fallback metrics should settle text geometry before the web font arrives');
 for (const match of source.matchAll(/fonts\/([^'"()]+\.woff2)/g)) {
   const bytes = await readFile('public/fonts/' + match[1]);
   assert.equal(bytes.toString('ascii', 0, 4), 'wOF2');
