@@ -58,6 +58,7 @@ export const routes: Routes = [
   { path: 'lakshadweep-trip-planning', data: { guide: 'planning' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
   { path: 'kadmat-visit-planning', data: { guide: 'conditions' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
   { path: 'kadmat-beyond-diving', data: { guide: 'islandDay' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'faq', loadComponent: () => import('./pages/faq/faq.component').then(module => module.FaqComponent) },
   { path: '404', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) },
   { path: '**', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) }
 ];

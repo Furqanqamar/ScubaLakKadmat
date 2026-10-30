@@ -21,6 +21,7 @@ export const SITE_COPY = {
     gallery: 'Gallery',
     accommodation: 'Where to stay',
     tripPlanning: 'Plan your island trip',
+    faq: 'FAQs',
     contact: 'Contact',
     contactDesk: 'Contact the dive desk',
     planDive: 'Plan your dive'

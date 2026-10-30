@@ -8,7 +8,7 @@ const siteContent = await readFile(new URL('../src/app/data/site-content.ts', im
 const courseCatalogue = siteContent.split('export const PADI_COURSES:')[1].split('export const TEAM_MEMBERS:')[0];
 const courseCount = [...courseCatalogue.matchAll(/\bid: '[a-z0-9-]+', category:/g)].length;
 assert.equal(courseCount, 11, 'Only the owner-confirmed offered courses should be published');
-assert.equal(urls.length, 16 + courseCount + islandContent.islands.length);
+assert.equal(urls.length, 17 + courseCount + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
 const documents = new Map();

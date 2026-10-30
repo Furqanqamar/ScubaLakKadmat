@@ -14,6 +14,7 @@ export const SEO_PAGES: Readonly<Record<string, PageSeo>> = {
   '/courses': { ...SITE_COPY.seo.courses, label: 'PADI diving courses' },
   '/gallery': { ...SITE_COPY.seo.gallery, label: 'Gallery' },
   '/contact': { ...SITE_COPY.seo.contact, label: 'Contact' },
+  '/faq': { title: 'Kadmat Diving FAQs: Booking, Travel & Permits | Scuba Lak', description: 'Find answers about Kadmat diving prices, first dives, PADI courses, Lakshadweep permits, travel, stays and changes. Still unsure? Ask the Scuba Lak team.', label: 'Frequently asked questions' },
   '/kadmat-accommodation': { title: 'Where to Stay in Kadmat: Independent Resorts & Homestays | Scuba Lak', description: 'Arrange Kadmat accommodation directly with third-party resorts or homestays. Scuba Lak focuses on diving and can help you contact local accommodation providers.', label: 'Where to stay in Kadmat' },
   '/lakshadweep-trip-planning': { title: 'Lakshadweep Travel: Ships, Agatti Flights & Permits | Scuba Lak', description: 'Plan a Kadmat visit by ship or flight to Agatti. Find official permit and ship-booking links, island-transfer advice and independent stay guidance from Scuba Lak.', label: 'Lakshadweep transport and Kadmat trip planning' },
   '/kadmat-visit-planning': { title: 'When to Plan Kadmat Diving: Weather & Preparation | Scuba Lak', description: 'Plan your Kadmat diving dates with practical notes on sea conditions, activity timing, what to bring and booking flexibility. Confirm current arrangements with Scuba Lak.', label: 'When to plan Kadmat diving' },
