@@ -9,11 +9,12 @@ import { OverlayStateService } from '../../services/overlay-state.service';
   selector: 'app-dialog-shell',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<dialog #dialog [attr.aria-labelledby]="labelledBy()" (cancel)="onCancel($event)" (click)="onBackdrop($event)" (keydown)="keyPressed.emit($event)"><ng-content /></dialog>`,
-  styles: `dialog { width: min(70rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 0; border: 0; border-radius: 1.5rem; background: var(--deep); color: white; overflow: auto; } dialog::backdrop { background: rgb(3 17 22 / .85); backdrop-filter: blur(8px); }`
+  template: `<dialog #dialog [class.dialog--fit-viewport]="fitViewport()" [attr.aria-labelledby]="labelledBy()" (cancel)="onCancel($event)" (click)="onBackdrop($event)" (keydown)="keyPressed.emit($event)"><ng-content /></dialog>`,
+  styles: `dialog { width: min(70rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 0; border: 0; border-radius: 1.5rem; background: var(--deep); color: white; overflow: auto; } dialog.dialog--fit-viewport { height: calc(100dvh - 2rem); overflow: hidden; } dialog::backdrop { background: rgb(3 17 22 / .85); backdrop-filter: blur(8px); }`
 })
 export class DialogShellComponent {
   readonly labelledBy = input.required<string>();
+  readonly fitViewport = input(false);
   readonly closed = output<void>();
   readonly keyPressed = output<KeyboardEvent>();
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');

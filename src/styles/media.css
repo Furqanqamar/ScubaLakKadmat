@@ -16,16 +16,18 @@
 .media-play i { margin-left: .15rem; font-size: .9rem; }
 .gallery-card:hover .media-play { background: rgb(184 242 223 / .9); color: var(--deep); }
 .media-duration { position: absolute; top: 1rem; right: 1rem; padding: .3rem .55rem; border-radius: 999px; background: rgb(6 20 25 / .86); color: white; font-variant-numeric: tabular-nums; font-size: var(--text-caption); line-height: 1.6; }
-.media-viewer__stage { position: relative; height: min(68dvh, 48rem); min-height: 16rem; overflow: hidden; border-radius: 1.5rem 1.5rem 0 0; background: #02090d; touch-action: pan-y pinch-zoom; }
-.media-viewer__slide { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; background: #02090d; will-change: transform; }
+.media-viewer__stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #02090d; touch-action: pan-y pinch-zoom; }
+.media-viewer__slide { position: absolute; inset: 0; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; background: #02090d; will-change: transform; }
 .media-viewer__stage--settling .media-viewer__slide { transition: transform 360ms cubic-bezier(.22,.7,.18,1); pointer-events: none; }
-.media-viewer__toolbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 1rem; background: var(--deep); border-bottom: 1px solid rgb(255 255 255 / .15); }
+.media-viewer__toolbar { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 1rem; background: var(--deep); border-bottom: 1px solid rgb(255 255 255 / .15); }
 .media-viewer__toolbar span { font-size: .9rem; }
 .media-viewer__gesture-hint { position: absolute; top: .8rem; left: 50%; z-index: 2; display: none; width: 5.5rem; height: 2.5rem; transform: translateX(-50%); border: 1px solid rgb(184 242 223 / .2); border-radius: 999px; background: rgb(3 17 22 / .72); color: #b8f2df; pointer-events: none; backdrop-filter: blur(8px); }
 .media-viewer__gesture-hint svg { width: 100%; height: 100%; padding: .3rem; }
 .media-viewer__gesture-hand { animation: media-swipe-hint 2.4s ease-in-out 3; transform-origin: center; }
 .media-viewer__gesture-arrows { opacity: .5; }
-.media-viewer__slide > img, .media-viewer__slide > video { display: block; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-select: none; }
+/* Definite media bounds avoid intrinsic grid sizing clipping tall photographs.
+   Thumbnail focal points and blurred placeholders must not crop the full view. */
+.media-viewer__slide > img, .media-viewer__slide > video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center !important; background-size: contain; background-position: center; background-repeat: no-repeat; user-select: none; -webkit-user-select: none; }
 @keyframes media-swipe-hint { 0%, 12%, 88%, 100% { transform: translateX(0); } 34% { transform: translateX(-8px) rotate(-5deg); } 64% { transform: translateX(8px) rotate(5deg); } }
 .media-viewer__status { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; padding: 2rem; background: rgb(3 17 22 / .7); color: white; text-align: center; font-size: var(--text-small); line-height: 1.7; }
 .media-viewer__status--loading { pointer-events: none; }

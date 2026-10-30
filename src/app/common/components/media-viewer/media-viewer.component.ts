@@ -13,7 +13,7 @@ type Direction = -1 | 1;
   imports: [DialogShellComponent, MediaViewerSlideComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-dialog-shell [labelledBy]="item().id + '-title'" (closed)="closed.emit()" (keyPressed)="onKeydown($event)">
+    <app-dialog-shell [fitViewport]="true" [labelledBy]="item().id + '-title'" (closed)="closed.emit()" (keyPressed)="onKeydown($event)">
       <section class="gallery-lightbox__panel">
         <div class="media-viewer__toolbar"><div class="flex items-center gap-3"><button class="modal-close" type="button" [disabled]="total() < 2 || settling()" (click)="navigate(-1)" [attr.aria-label]="copy.previous">←</button><span aria-live="polite">{{ position() }} {{ copy.of }} {{ total() }}</span><button class="modal-close" type="button" [disabled]="total() < 2 || settling()" (click)="navigate(1)" [attr.aria-label]="copy.next">→</button></div><button class="modal-close" type="button" (click)="closed.emit()" [attr.aria-label]="copy.close">×</button></div>
         <div #stage class="media-viewer__stage" [class.media-viewer__stage--settling]="settling()"
@@ -34,7 +34,7 @@ type Direction = -1 | 1;
             <span class="sr-only">{{ copy.swipe }}</span>
           }
         </div>
-        <div class="gallery-lightbox__caption"><div><p class="eyebrow text-[#b8f2df]">{{ item().location }}</p>
+        <div class="gallery-lightbox__caption" role="region" tabindex="0" [attr.aria-labelledby]="item().id + '-title'"><div><p class="eyebrow text-[#b8f2df]">{{ item().location }}</p>
           <h2 [id]="item().id + '-title'" class="mt-3 font-serif text-3xl text-white sm:text-4xl">{{ item().title }}</h2>
           <p class="mt-3 max-w-xl text-sm leading-6 text-on-dark-secondary">{{ item().description }}</p>
           @if (item().kind === 'video') { <p class="mt-2 text-caption text-on-dark-secondary">{{ copy.sound }}</p> }

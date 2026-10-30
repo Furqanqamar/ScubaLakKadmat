@@ -508,9 +508,8 @@ html.dialog-open { overflow: hidden; }
   main h1, #top h1 { font-size: clamp(2.6rem, 11.7vw, 3.75rem); overflow-wrap: anywhere; }
   .transport-card__copy dl div { grid-template-columns: 1fr; gap: .3rem; }
 }
-.gallery-lightbox__panel { width: 100%; border: 1px solid rgba(255,255,255,.15); border-radius: 1.5rem; background: var(--deep); }
-.gallery-lightbox__panel > img { display: block; width: 100%; max-height: 65dvh; object-fit: contain; }
-.gallery-lightbox__caption { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.2rem; }
+.gallery-lightbox__panel { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; height: 100%; min-height: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.15); border-radius: 1.5rem; background: var(--deep); }
+.gallery-lightbox__caption { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; min-height: 0; max-height: min(30dvh, 12rem); overflow: auto; overscroll-behavior: contain; padding: 1.2rem; }
 .empty-state { min-height: 70vh; padding: 14rem 1.25rem 6rem; background: var(--sand); color: var(--ink); }
 
 @media (min-width: 640px) {
