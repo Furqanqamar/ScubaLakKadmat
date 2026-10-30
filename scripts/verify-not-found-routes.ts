@@ -20,5 +20,5 @@ for (const [path, matcher, identifiers] of [
   for (const id of ['not-a-real-entry', 'undefined', '', 'KADMAT']) assert.equal(matcher(route, segments(id)), false, `Reject unknown entry: ${id}`);
   assert.equal(matcher(route, [...segments(identifiers[0]), segment('extra')]), false, 'Reject extra path segments');
 }
-assert.match(source, /\{ path: '\*\*', loadComponent: [^\n]+NotFoundComponent[^\n]+\}\s*\];/, 'Keep the component-based wildcard fallback last, without a redirect');
+assert.match(source, /\{ path: '\*\*', data: \{ layout: 'scene' \}, loadComponent: [^\n]+NotFoundComponent[^\n]+\}\s*\];/, 'Keep the immersive component-based wildcard fallback last, without a redirect');
 console.log('404 routing passed: all 32 catalogue entries retained; invalid entries and extra segments fall through to the creative 404.');

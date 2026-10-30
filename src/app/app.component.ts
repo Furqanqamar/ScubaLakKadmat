@@ -24,9 +24,11 @@ import { MediaCacheService } from './common/services/media-cache.service';
     <a class="skip-link" [routerLink]="pagePath()" fragment="main-content" queryParamsHandling="preserve">Skip to content</a>
     <app-site-header />
     <router-outlet />
-    <app-breadcrumbs />
-    <app-site-footer />
-    <app-floating-navigator />
+    @if (!isScenePage()) {
+      <app-breadcrumbs />
+      <app-site-footer />
+      <app-floating-navigator />
+    }
     <app-interactive-cursor />
   `
 })
@@ -34,6 +36,12 @@ export class AppComponent {
   private readonly router = inject(Router);
   private readonly navigation = toSignal(this.router.events);
   readonly pagePath = computed(() => { this.navigation(); return this.router.url.split(/[?#]/)[0] || '/'; });
+  readonly isScenePage = computed(() => {
+    this.navigation();
+    let route = this.router.routerState.snapshot.root;
+    while (route.firstChild) route = route.firstChild;
+    return route.data['layout'] === 'scene';
+  });
   constructor() {
     inject(SmoothScrollService);
     inject(RevealMotionService);
