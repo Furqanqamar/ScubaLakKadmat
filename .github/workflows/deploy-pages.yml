@@ -45,6 +45,7 @@ jobs:
           node scripts/verify-kadmat-focus.mjs
           node scripts/verify-real-content.mjs
           node scripts/verify-prelaunch.mjs
+          node scripts/verify-travel-planning.mjs
           node scripts/verify-brand-assets.mjs
           node scripts/verify-team-profiles.mjs
           node scripts/verify-hero-video.mjs

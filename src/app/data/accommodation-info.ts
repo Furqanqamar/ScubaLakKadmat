@@ -6,7 +6,7 @@ export const ACCOMMODATION_INFO = {
   description: 'Kadmat has third-party resorts and homestays. Choose the stay that suits you and contact the property directly to arrange your accommodation.',
   shortNote: 'Third-party resorts and local homestays are booked independently with the property. We can help you reach out to a local host.',
   helpTitle: 'Need an introduction?',
-  helpDescription: 'Scuba Lak focuses on diving, not accommodation packages. We can help you reach out to third-party resorts or homestay hosts while you plan your time in the water.',
+  helpDescription: 'Scuba Lak focuses on diving, not accommodation packages. We can help you reach out to third-party resorts or homestay hosts, or suggest a local tour operator for separately arranged travel and stays.',
   disclaimer: 'Accommodation is provided and booked independently with the property. Confirm rooms, availability, payments and cancellation terms directly with your host.',
   actionLabel: 'Ask for a local introduction',
   guideLinkLabel: 'Where to stay in Kadmat',

@@ -4,9 +4,9 @@ export const TRAVEL_FAQ = {
   title: 'How to reach & permits',
   introduction: 'Plan the whole journey to Kadmat before committing to travel. An arrival on another island does not confirm an onward connection.',
   items: [
-    { question: 'Where should I start planning the journey?', answer: 'The Lakshadweep Administration describes access from Kochi by air and sea, with Agatti as the air gateway. Check the route operating on your dates and the complete onward journey to Kadmat with the relevant operator.' },
-    { question: 'How do I arrange the onward transfer to Kadmat?', answer: 'Ask for the operator, arrival point, transfer day, baggage arrangements and an alternative plan in writing. Connections depend on the season and conditions; a flight or ship ticket alone does not establish the Kadmat transfer.' },
-    { question: 'What should I confirm about entry permits?', answer: 'Check the Administration’s current entry-permit guidance for your nationality and itinerary. Confirm who will coordinate your application, which documents are needed, the lead time and approval status before making non-refundable arrangements.' },
+    { question: 'What is the budget-first way to reach Lakshadweep?', answer: 'Passenger ships are usually the more economical mainland option, depending on route and cabin class. Check IRCTC Lakshadweep for actual sailings, fares and island calls; the operating fleet varies with the season and maintenance. Permit holders need their permit details for reservation. Confirm the return journey too.' },
+    { question: 'Where can I fly, and how do I reach Kadmat?', answer: 'Flights arrive on Agatti (AGX), Lakshadweep’s only airport. Check Kochi with Alliance Air or IndiGo, Bengaluru with IndiGo, and Goa with FLY91 for your dates. Continue to Kadmat by a separately confirmed high-speed vessel or authorised boat service. Check the operator, day, baggage, cost and return connection; sea conditions can alter schedules and travel times.' },
+    { question: 'What should I confirm about entry permits?', answer: 'Apply through the official e-Permit portal for your nationality, visit category, dates and islands, including transit islands. Scuba Lak recommends starting at least 15 days ahead, preferably earlier—not a guaranteed government processing time. Obtain the approved permit before travel; a flight booking or application receipt does not replace it.' },
     { question: 'Can Scuba Lak help me find accommodation?', answer: ACCOMMODATION_INFO.helpDescription + ' ' + ACCOMMODATION_INFO.disclaimer },
     { question: 'What is included in my diving booking?', answer: 'Your agreed dive price includes local dive transport, equipment, briefing and guided support, and underwater photos/videos, with no hidden charges for the agreed plan. Flights or ferries to Lakshadweep, accommodation and entry-permit fees are separate. Confirm the total and exact arrangements before payment.' },
     { question: 'What if weather or transport changes the plan?', answer: 'Ask the relevant providers for their written cancellation, refund and rescheduling terms before confirming. Include contingency time in your itinerary and recheck the arrangements close to travel.' },
@@ -14,7 +14,8 @@ export const TRAVEL_FAQ = {
   ],
   sources: [
     { label: 'Official arrival guidance', href: 'https://lakshadweep.gov.in/how-to-reach/' },
-    { label: 'Official entry-permit information', href: 'https://lakshadweep.gov.in/tourism/entry-permit/' }
+    { label: 'Apply for an entry permit', href: 'https://lak.e-permit.utl.gov.in/' },
+    { label: 'Ship tickets & schedules', href: 'https://lakshadweep.irctc.co.in/' }
   ],
   guide: 'Read the full island-trip guide'
 } as const;
