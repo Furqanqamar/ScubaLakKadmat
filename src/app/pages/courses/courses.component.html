@@ -20,7 +20,7 @@
         @for (course of filteredCourses(); track course.id) {
           <a class="course-card group" [routerLink]="['/courses', course.id]" data-cursor="view" data-reveal>
             <div class="course-card__image">
-              <img [appResponsiveImage]="course.imageUrl" class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="lazy" decoding="async">
+              <img [appResponsiveImage]="course.imageUrl" class="course-card__image-source" [src]="course.imageUrl" [alt]="course.title" width="1200" height="800" loading="eager" decoding="async">
               <span class="course-card__wash" aria-hidden="true"></span>
               <div class="course-card__header"><span class="course-card__category">{{ course.category }}</span><span class="course-card__arrow" aria-hidden="true"><i appIcon="location-arrow" class="fa-solid fa-location-arrow"></i></span></div>
               <div class="course-card__copy"><div class="course-card__identity"><app-dive-icon [name]="icons[course.category]" context="course" /><small>{{ course.eyebrow }}</small></div><h2>{{ course.title }}</h2><p>{{ course.shortDescription }}</p></div>

@@ -14,7 +14,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
     <a class="island-guide-card" [routerLink]="['/lakshadweep', island().slug]">
       <div class="island-guide-card__art">
         <img [src]="image().src" [appResponsiveImage]="image().src" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-          [width]="image().width" [height]="image().height" alt="" loading="lazy" decoding="async">
+          [width]="image().width" [height]="image().height" alt="" loading="eager" decoding="async">
         <span class="island-guide-card__category">{{ labels[island().category] }}</span>
       </div>
       <div class="island-guide-card__copy">

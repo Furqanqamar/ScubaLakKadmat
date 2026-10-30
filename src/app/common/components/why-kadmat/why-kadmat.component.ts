@@ -15,7 +15,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
       <div class="kadmat-inner">
         <div class="kadmat-heading"><div><p class="eyebrow">{{ copy.eyebrow }}</p><h2 id="why-kadmat-title">{{ copy.title }} <em>{{ copy.emphasis }}</em></h2></div><p>{{ copy.introduction }}</p></div>
         <div class="kadmat-why__layout">
-          <figure class="kadmat-why__photo"><img [src]="photo.imageUrl" [appResponsiveImage]="photo.imageUrl" [width]="photo.width" [height]="photo.height" sizes="(max-width: 767px) 100vw, 45vw" [alt]="photo.description" loading="lazy" decoding="async"><figcaption>{{ copy.imageCaption }}</figcaption></figure>
+          <figure class="kadmat-why__photo"><img [src]="photo.imageUrl" [appResponsiveImage]="photo.imageUrl" [width]="photo.width" [height]="photo.height" sizes="(max-width: 767px) 100vw, 45vw" [alt]="photo.description" loading="eager" decoding="async"><figcaption>{{ copy.imageCaption }}</figcaption></figure>
           <div class="kadmat-why__reasons">@for (reason of reasons; track reason.id) { <article class="kadmat-reason"><app-dive-icon [name]="reason.icon" context="benefit" /><h3>{{ reason.title }}</h3><p>{{ reason.text }}</p></article> }</div>
         </div>
         <div class="kadmat-why__closing"><p>{{ copy.note }}</p>@if (showLink()) { <a routerLink="/kadmat">{{ copy.link }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a> }</div>

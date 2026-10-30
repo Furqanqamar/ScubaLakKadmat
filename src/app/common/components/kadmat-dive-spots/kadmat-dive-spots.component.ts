@@ -16,7 +16,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
         <div class="kadmat-heading"><div><p class="eyebrow">{{ copy.eyebrow }}</p><h2 id="kadmat-spots-title">{{ copy.title }} <em>{{ copy.emphasis }}</em></h2></div><p>{{ copy.introduction }}</p></div>
         <div class="kadmat-spots__layout">
           <div class="kadmat-spots__island">
-            <figure><img [src]="illustration.src" [appResponsiveImage]="illustration.src" [width]="illustration.width" [height]="illustration.height" sizes="(max-width: 767px) 100vw, 43vw" [alt]="copy.illustrationAlt" loading="lazy" decoding="async"><figcaption>{{ copy.graphicNote }}</figcaption></figure>
+            <figure><img [src]="illustration.src" [appResponsiveImage]="illustration.src" [width]="illustration.width" [height]="illustration.height" sizes="(max-width: 767px) 100vw, 43vw" [alt]="copy.illustrationAlt" loading="eager" decoding="async"><figcaption>{{ copy.graphicNote }}</figcaption></figure>
             <a class="kadmat-spots__island-link" routerLink="/lakshadweep">{{ copy.otherIslands }}<i appIcon="arrow-right" class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
           <div class="kadmat-spots__directory">

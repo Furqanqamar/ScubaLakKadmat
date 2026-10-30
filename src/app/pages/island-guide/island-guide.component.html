@@ -38,7 +38,7 @@
             @for (paragraph of section.paragraphs; track $index) { <p>{{ paragraph }}</p> }
             @if (section.image; as image) {
               <figure class="island-story__photo">
-                <img [src]="image.src" [appResponsiveImage]="image.src" [width]="image.width" [height]="image.height" sizes="(max-width: 767px) 100vw, (max-width: 1279px) 65vw, 800px" [alt]="image.caption ?? island.name" loading="lazy" decoding="async">
+                <img [src]="image.src" [appResponsiveImage]="image.src" [width]="image.width" [height]="image.height" sizes="(max-width: 767px) 100vw, (max-width: 1279px) 65vw, 800px" [alt]="image.caption ?? island.name" loading="eager" decoding="async">
                 <figcaption><span>{{ image.caption }}</span><small>{{ copy.photoCredit }}: {{ image.credit }}@if (image.sourceUrl) { · <a [href]="image.sourceUrl" target="_blank" rel="noopener noreferrer">{{ copy.photoSource }}</a> }@if (image.licenseUrl) { · <a [href]="image.licenseUrl" target="_blank" rel="noopener noreferrer">{{ image.license }}</a> }@if (image.sourceUrl) { <span class="island-story__adaptation">{{ copy.photoAdaptation }}</span> }</small></figcaption>
               </figure>
             }

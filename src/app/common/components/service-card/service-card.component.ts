@@ -23,7 +23,7 @@ import { DiveIconComponent } from '../dive-icon/dive-icon.component';
         [alt]="service().title"
         width="1200"
         height="800"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       >
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(3,17,22,.16)_0%,rgba(3,17,22,.92)_92%)]"></div>

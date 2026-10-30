@@ -16,7 +16,7 @@
         @for (member of team; track member.id) {
           <article class="team-card" [attr.aria-labelledby]="'team-member-' + member.id">
             <div class="team-card__image" [style.--portrait-scale]="member.portrait.scale" [style.--portrait-origin]="member.portrait.origin" [style.--portrait-brightness]="member.portrait.brightness" [style.--portrait-contrast]="member.portrait.contrast" [style.--portrait-saturation]="member.portrait.saturation">
-              <img [appResponsiveImage]="member.imageUrl" [src]="member.imageUrl" [alt]="member.imageAlt" [width]="member.width" [height]="member.height" sizes="(max-width: 391px) calc(100vw - 40px), (max-width: 639px) 352px, (max-width: 791px) calc(50vw - 44px), (max-width: 1023px) 352px, (max-width: 1295px) calc(25vw - 38px), 286px" loading="lazy" decoding="async">
+              <img [appResponsiveImage]="member.imageUrl" [src]="member.imageUrl" [alt]="member.imageAlt" [width]="member.width" [height]="member.height" sizes="(max-width: 391px) calc(100vw - 40px), (max-width: 639px) 352px, (max-width: 791px) calc(50vw - 44px), (max-width: 1023px) 352px, (max-width: 1295px) calc(25vw - 38px), 286px" loading="eager" decoding="async">
             </div>
             <h3 class="team-card__name" [id]="'team-member-' + member.id">{{ member.name }}</h3>
           </article>
@@ -24,7 +24,7 @@
       </div>
       <div class="mt-16 grid overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#173a40] lg:grid-cols-[.78fr_1.22fr]">
         <div class="min-h-[22rem] overflow-hidden lg:min-h-[31rem]">
-          <img [appResponsiveImage]="teamStory.imageUrl" class="h-full w-full object-cover" [src]="teamStory.imageUrl" [alt]="teamStory.imageAlt" width="700" height="910" loading="lazy" decoding="async">
+          <img [appResponsiveImage]="teamStory.imageUrl" class="h-full w-full object-cover" [src]="teamStory.imageUrl" [alt]="teamStory.imageAlt" width="700" height="910" loading="eager" decoding="async">
         </div>
         <div class="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
           <p class="eyebrow text-[#b8f2df]">{{ teamStory.eyebrow }}</p>

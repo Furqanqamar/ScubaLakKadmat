@@ -18,7 +18,7 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
           [attr.aria-label]="(item.kind === 'video' ? copy.play : copy.open) + ': ' + item.title">
           <img [appResponsiveImage]="item.imageUrl" [src]="item.imageUrl" [alt]="item.title"
             [sizes]="galleryLayout() ? (item.size === 'wide' ? '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), (max-width: 1519px) calc(50vw - 48px), 712px' : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(25vw - 32px), 348px') : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(33.333vw - 38px), 469px'"
-            [width]="item.width ?? 1200" [height]="item.height ?? 800" loading="lazy" decoding="async">
+            [width]="item.width ?? 1200" [height]="item.height ?? 800" loading="eager" decoding="async">
           <span class="gallery-card__veil"></span>
           @if (item.kind === 'video') {
             <span class="media-play" aria-hidden="true"><i appIcon="play" class="fa-solid fa-play"></i></span>

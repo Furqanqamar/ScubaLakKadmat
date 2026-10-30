@@ -24,7 +24,7 @@ for (const [index, [id, name, image]] of expected.entries()) {
   assert.equal(heading?.[1], name);
   assert.ok(heading?.[0].includes(`id="team-member-${id}"`));
   assert.doesNotMatch(card, /<p\b|<span\b|Senior instructor|\srole=/, 'Show names only, without positions or initials badges');
-  assert.match(card, /loading="lazy"/);
+  assert.match(card, /loading="eager"/, 'All current-page portraits must start before hydration for the full-page readiness cover');
   assert.match(card, /decoding="async"/);
   assert.match(card, /sizes="[^"]*286px"/);
   if (image) {
