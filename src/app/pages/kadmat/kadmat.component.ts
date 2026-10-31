@@ -1,16 +1,25 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-import { KADMAT_ATTRACTIONS, KADMAT_TRANSPORT } from '../../data/site-content';
+import { KadmatDiveSpotsComponent } from '../../common/components/kadmat-dive-spots/kadmat-dive-spots.component';
+import { MediaStoryComponent } from '../../common/components/media-story/media-story.component';
+import { ServiceCardComponent } from '../../common/components/service-card/service-card.component';
+import { TravelFaqComponent } from '../../common/components/travel-faq/travel-faq.component';
+import { WhyKadmatComponent } from '../../common/components/why-kadmat/why-kadmat.component';
+import { KADMAT_COPY } from '../../data/kadmat-diving';
+import { MEDIA_COPY } from '../../data/media-copy';
+import { ISLAND_MOMENTS } from '../../data/media-stories';
+import { MARINE_SERVICES } from '../../data/site-content';
 
 @Component({
-  selector: 'app-kadmat',
-  standalone: true,
-  imports: [RouterLink],
+  selector: 'app-kadmat', standalone: true,
+  imports: [UiIconComponent, RouterLink, KadmatDiveSpotsComponent, WhyKadmatComponent, ServiceCardComponent, MediaStoryComponent, TravelFaqComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kadmat.component.html'
 })
 export class KadmatComponent {
-  readonly attractions = KADMAT_ATTRACTIONS;
-  readonly transportOptions = KADMAT_TRANSPORT;
+  readonly copy = KADMAT_COPY.kadmatPage;
+  readonly mediaCopy = MEDIA_COPY;
+  readonly moments = ISLAND_MOMENTS;
+  readonly services = MARINE_SERVICES;
 }

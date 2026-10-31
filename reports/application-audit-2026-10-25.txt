@@ -1,0 +1,156 @@
+SCUBA LAK APPLICATION AUDIT — 25 OCTOBER 2026
+
+Status
+This document records the application audit and validation snapshot. The owner
+authorised commit and publication on 25 October 2026; use the repository history
+and GitHub Pages deployment run for the resulting publication status. Online
+enquiry delivery remains pending by explicit choice; the website does not
+simulate sending or successful delivery. The proposed premium contact-page
+redesign remains deferred and is not part of this publication.
+
+Confirmed business configuration
+- Email: scubalak@gmail.com (owner corrected the original gamil.com typo).
+- Phone / WhatsApp: +91 94479 82559.
+- Instagram: https://www.instagram.com/scuba_lak_kadmat/
+- Desk hours: every day, 9 am–6 pm IST.
+- Location link: the owner's Scuba Lak Kadmath Google Maps listing.
+- No additional street address, response-time promise or Facebook profile added.
+
+Implemented corrections
+1. Static shared brand lockup: removed logo hover effects. Header/footer links
+   use Angular routing and return to the homepage; an already-home activation
+   scrolls to the top without recreating the page.
+2. Native modal cursor fallback: shared reference-counted overlay state restores
+   a native pointer over native dialog top-layer content and suppresses the
+   decorative cursor. Existing native focus containment, Escape and focus
+   restoration remain. Mobile navigation now uses the same dialog shell.
+3. Removed the requested public imagery commentary from footer, gallery and
+   destination/accommodation copy. Captions remain descriptive, without
+   claiming that a depicted room is a verified bookable property.
+4. Rebuilt the single enquiry form around Signals: clearer width, 16px inputs,
+   optional date/flexibility/guest/experience fields and full selected-item text.
+   Course, experience and plan CTAs pass validated catalog IDs, not personal
+   information. Fixed initial native-select category/item mismatches.
+5. Added one injectable delivery configuration and HTTPS transport service.
+   An endpoint must explicitly acknowledge acceptance; errors retain the form,
+   retry is supported and in-flight/accepted duplicates are guarded. Current
+   configuration is disabled. Verified call, email and context-aware WhatsApp
+   links remain available. Opening a chat is not counted as a sent enquiry.
+6. Preserved prices-off behavior. Plans are described as planning directions,
+   with inclusions/availability subject to a written quotation. Removed guessed
+   outing lengths and clarified general experience versus individual course
+   depth limits. Retained all 22 course records and filters.
+7. Added a reused How to Reach & Permits FAQ, linked from enquiries and plans.
+   Removed unverified special-transport durations and routine bookability claims.
+   Official sources checked on this date:
+   https://lakshadweep.gov.in/how-to-reach/
+   https://lakshadweep.gov.in/tourism/entry-permit/
+   Their general guidance is not a confirmation of a route on a guest's dates.
+8. Hid unapproved reviews, numerical achievements/history and unnamed team
+   cards. Retained the three supplied names and Shamsudheen's confirmed role;
+   unknown roles/bios are not invented. Original media files remain untouched.
+9. Gallery now has visible previous/next controls, position, keyboard arrows
+   and image-swipe handling. Native film controls retain their own arrow keys.
+   Consecutive films reload/play correctly; Escape returns focus to the trigger.
+10. Removed the deliberate multi-second curtain hold. Fast ready routes do not
+    wait for decoration; a short non-blocking reveal is used only when needed.
+11. Latest owner-requested hero change: removed the Play/Pause control and
+    enabled muted, inline, looping autoplay on every screen size. A poster
+    remains for loading or browser-blocked playback. Playback is retried on
+    return to the visible page and a visitor gesture if initially restricted.
+    Optimized derivatives use the same approved footage and source dimensions;
+    no upscale or claim of additional detail. The original hero files remain.
+    MP4: approximately 9.3 MiB -> 4.0 MiB.
+    WebM: approximately 5.4 MiB -> 3.5 MiB.
+    Formats are alternatives, not simultaneous players. The owner's autoplay
+    request supersedes the earlier opt-in mobile presentation and hero-specific
+    reduced-motion branch. Gallery player controls are unchanged.
+12. Improved functional text, focus indicators, card alignment and long titles.
+    Added a skip link and main-content targets. Moved the desktop menu breakpoint
+    to avoid medium-width crowding. Fixed a reactive route dependency that let
+    the floating home control remain over contact inputs.
+13. Removed superseded placeholder contact/social data, fake trust records,
+    unused history/stat contracts and redundant handlers/imports. Kept useful
+    existing standalone components, media optimization, prerender and SEO.
+
+Important source locations
+- src/app/data/business-config.ts: confirmed business details and delivery mode.
+- src/app/data/enquiry-copy.ts, enquiry-context.ts, travel-faq.ts: reusable data.
+- src/app/common/components/contact-hub/: one shared form.
+- src/app/common/services/enquiry-delivery.service.ts, enquiry-validation.ts.
+- src/app/common/services/overlay-state.service.ts and dialog-shell component.
+- brand-lockup, site-header, site-footer and home-link directive.
+- media-viewer/media-collection and background-video shared components.
+- page-transition, smooth-scroll and floating-navigator.
+- src/styles/usability.css plus existing central theme/media styles.
+- scripts/verify-seo.mjs, verify-preview.mjs and verify-enquiry.ts.
+
+Automated checks actually run
+- Production root build and /ScubaLakKadmat/ base-path build; 37 prerendered
+  routes including the noindex 404, with 36 canonical sitemap pages.
+- SEO verification: unique titles, one H1, canonicals, structured data, confirmed
+  contact strings, 850 internal links and 205 anchor destinations. Detail-page
+  enquiry context is now asserted as a regression check.
+- Strict TypeScript check, including noUnusedLocals/noUnusedParameters.
+- Image checks: 45 distinct generated WebP assets; 10 original photos and
+  eight original films with responsive variants, placeholders and fingerprints.
+- Mock-only interaction tests: validation, malformed dates/IDs, disabled
+  delivery, explicit acknowledgement, network failure, retained fields, retry,
+  submitting/accepted duplicate guards and nested overlay lock reference counts.
+- Preview HTTP checks under the deployment base: routes, media byte ranges,
+  immutable fingerprinted hero caching, ETag/304 revalidation, malformed URLs
+  and missing files. These headers belong to the preview server; GitHub Pages
+  controls its own production response caching.
+- git diff --check.
+
+Browser checks actually performed
+- In-app Chromium production preview at 320, 390, 768, 1024, 1280 and 1440px
+  representative widths. These are viewport tests, not physical-device tests.
+- No horizontal overflow on the sampled home, course, detail, gallery and form
+  views. At 320px all 22 course cards passed geometry checks for category/copy
+  collisions. Course filtering and a long EFR detail title were exercised.
+- Header/mobile links, exact experience detail links, package switching,
+  course/experience/package enquiry selections, select changes and direct
+  refresh were exercised. Back/forward returned between experience and enquiry.
+- Homepage logo returned from a section to the top without a curtain; the
+  existing hero player continued rather than being recreated.
+- Gallery previous/next/arrow keys and consecutive mobile-sized film sources
+  played. Native Escape restored the original gallery trigger. Cursor CSS was
+  inspected: native auto/pointer over dialog content, scroll lock released on
+  close and decorative cursor suppressed where required.
+- Mobile menu Escape/navigation cleanup was exercised. The latest hero revision
+  was checked on desktop and at 390px: autoplay/muted/loop/inline enabled,
+  playback time advancing, controls absent and no Play/Pause button rendered.
+- No relevant console errors were observed in the checked final routes.
+- Screenshots: tmp/audit-mobile-enquiry.jpg and tmp/audit-gallery-dialog.jpg.
+
+Limitations and remaining work
+- Delivery provider/endpoint and request/acknowledgement contract need approval.
+  The documented {accepted:true} contract is a proposed adapter boundary, not
+  an assertion that an approved backend exists. Configure its CORS, validation,
+  abuse protection and real delivery monitoring separately. No live enquiry
+  was sent during testing. Real inbox delivery is not tested or enabled.
+- Missing names/roles, approved biographies/history/statistics/testimonials and
+  actual accommodation/transfer/inclusion/cancellation/weather terms remain
+  pending. The app avoids presenting them as confirmed facts.
+- Physical iOS/Android, software-keyboard behavior, real touch swipes, screen
+  readers and constrained-network/device performance need device testing.
+  Swipe and remaining reduced-motion branches were source inspected; OS motion
+  and connection emulation were not available for a full browser test.
+- The latest always-playing hero request removes the manual pause mechanism.
+  Continuous decorative motion without a pause option is an accessibility
+  trade-off; do not claim full WCAG motion compliance. Browser autoplay and
+  power-saving restrictions can still prevent playback. Mobile now downloads
+  a video automatically, unlike the earlier opt-in revision.
+- No new Lighthouse score or Core Web Vitals field result is claimed. Video
+  size and functional browser checks do not establish a guaranteed score.
+- Publication, custom domains, analytics and external business listings were
+  not changed in this application-code task. Search ranking is not guaranteed.
+
+Repeat the focused mock checks
+node_modules/.bin/esbuild scripts/verify-enquiry.ts --bundle --platform=node \
+  --format=esm --packages=external --outfile=tmp/verify-enquiry.mjs
+node tmp/verify-enquiry.mjs
+
+Use Node 22.22.3 for Angular builds. Publication uses the existing GitHub Pages
+workflow and project base path /ScubaLakKadmat/.

@@ -1,0 +1,98 @@
+.island-atlas { padding: clamp(4.5rem, 8vw, 8rem) clamp(1.25rem, 3vw, 2.5rem); background: var(--ink); color: white; }
+.island-atlas__inner { max-width: 90rem; margin-inline: auto; }
+.island-atlas__heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2.5rem; }
+.island-atlas__heading h2 { max-width: 46rem; margin-top: 1.1rem; font-size: clamp(2.5rem, 4.5vw, 4.6rem); line-height: 1.06; letter-spacing: -.045em; }
+.island-atlas__heading > p { max-width: 25rem; font-size: var(--text-body); line-height: 1.9; color: var(--text-on-dark); }
+.island-atlas .eyebrow, .island-story__hero .eyebrow, .island-story__related .eyebrow { color: var(--mint); }
+.island-atlas__filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-block: 2rem; }
+.island-atlas__filters button { min-height: 44px; padding: .7rem 1.1rem; border: 1px solid rgb(255 255 255 / .3); border-radius: 99px; color: rgb(255 255 255 / .8); font-size: var(--text-control); transition: color .2s, background .2s, border-color .2s; }
+.island-atlas__filters button:hover { border-color: var(--mint); }
+.island-atlas__filters button[aria-pressed='true'] { background: var(--mint); border-color: var(--mint); color: var(--deep); }
+.island-atlas__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); }
+app-island-card { display: flex; min-width: 0; }
+.island-guide-card { display: flex; flex-direction: column; width: 100%; overflow: hidden; border: 1px solid rgb(255 255 255 / .16); border-radius: 1.3rem; background: var(--deep); color: white; text-decoration: none; transition: border-color .25s; }
+.island-guide-card:hover { border-color: var(--mint); }
+.island-guide-card:focus-visible, .island-atlas__filters button:focus-visible { outline: 3px solid var(--mint); outline-offset: 5px; }
+.island-guide-card__art { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--deep); }
+.island-guide-card__art img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .8s cubic-bezier(.2,.65,.3,1); }
+.island-guide-card__category { position: absolute; top: 1rem; left: 1rem; max-width: calc(100% - 2rem); padding: .45rem .7rem; border: 1px solid rgb(255 255 255 / .25); border-radius: 99px; background: rgb(6 20 25 / .8); color: var(--mint); font-size: var(--text-label); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.island-guide-card__copy { display: flex; flex: 1; flex-direction: column; padding: clamp(1.25rem, 2vw, 1.8rem); }
+.island-guide-card__region { color: var(--mint); font-size: var(--text-label); line-height: 1.6; letter-spacing: .12em; text-transform: uppercase; }
+.island-guide-card h3 { margin: .65rem 0 .8rem; font-size: clamp(1.9rem, 2.7vw, 2.7rem); line-height: 1.1; letter-spacing: -.035em; }
+.island-guide-card__summary { margin-bottom: 1.5rem; color: var(--text-on-dark); font-size: var(--text-body); line-height: 1.85; }
+.island-guide-card__link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgb(255 255 255 / .16); color: var(--mint); font-size: var(--text-control); letter-spacing: .06em; }
+.island-guide-card__link i { rotate: -45deg; transition: transform .2s; }
+.island-guide-card:hover .island-guide-card__link i { transform: translateX(3px); }
+.island-atlas__note { max-width: 58rem; margin-top: 2rem; color: var(--text-on-dark); font-size: var(--text-caption); line-height: 1.8; }
+.island-story { background: var(--sand); color: var(--ink); }
+.island-story__hero { padding: 9rem clamp(1.25rem, 3vw, 2.5rem) 3rem; background: var(--deep); color: white; }
+.island-story__hero-inner { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; max-width: 90rem; margin-inline: auto; gap: clamp(2rem, 6vw, 7rem); }
+.island-story__intro { min-width: 0; padding-block: 1rem 3rem; }
+.island-story__back { display: inline-flex; align-items: center; gap: .8rem; min-height: 44px; margin-bottom: 2.8rem; color: var(--text-on-dark); font-size: var(--text-caption); }
+.island-story__back:hover { color: var(--mint); }
+.island-story h1 { margin-block: 1.4rem; font-size: clamp(3rem, 6.3vw, 6.8rem); line-height: 1.02; letter-spacing: -.05em; overflow-wrap: break-word; }
+.island-story__tagline { max-width: 35rem; color: var(--mint); font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 2vw, 1.9rem); line-height: 1.5; }
+.island-story__introduction { max-width: 36rem; margin-top: 1.7rem; font-size: var(--text-body); line-height: 1.95; color: rgb(255 255 255 / .72); }
+.island-story__meta { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgb(255 255 255 / .18); font-size: var(--text-label); letter-spacing: .08em; text-transform: uppercase; color: var(--text-on-dark); }
+.island-story__illustration { margin: 0; min-width: 0; }
+.island-story__illustration img { display: block; width: 100%; max-height: 48rem; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 1rem; }
+.island-story__illustration figcaption { margin-top: .8rem; color: var(--text-on-dark); font-size: var(--text-caption); line-height: 1.6; text-align: center; }
+.island-story__facts { padding: 2.5rem clamp(1.25rem, 3vw, 2.5rem); border-bottom: 1px solid var(--theme-border); }
+.island-story__facts dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; max-width: 80rem; margin-inline: auto; }
+.island-story__facts dt { color: var(--theme-muted-text); font-size: var(--text-label); line-height: 1.6; letter-spacing: .1em; text-transform: uppercase; }
+.island-story__facts dd { margin-top: .7rem; font-size: var(--text-body); line-height: 1.7; }
+.island-story__reading { display: grid; grid-template-columns: minmax(13rem, .35fr) minmax(0, 1fr); align-items: start; gap: clamp(2rem, 8vw, 8rem); max-width: 80rem; margin-inline: auto; padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3vw, 2.5rem); }
+.island-story__sidebar { position: sticky; top: 7.5rem; }
+.island-story__sidebar nav > p { margin-bottom: 1.3rem; color: var(--theme-gold-text); }
+.island-story__sidebar a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 48px; padding-block: .9rem; border-bottom: 1px solid var(--theme-border); font-size: var(--text-control); line-height: 1.65; }
+.island-story__sidebar a:hover { color: var(--theme-gold-text); }
+.island-story__article { min-width: 0; }
+.island-story__section { margin-bottom: 3.5rem; scroll-margin-top: 8rem; }
+.island-story__section h2 { margin-bottom: 1.3rem; font-size: clamp(1.9rem, 3vw, 2.8rem); line-height: 1.15; letter-spacing: -.03em; }
+.island-story__section > p { max-width: 65ch; margin-block: 1rem; font-size: 1rem; line-height: 2; color: color-mix(in srgb, var(--ink) 80%, transparent); }
+.island-story__photo { margin: 2.3rem 0 0; }
+.island-story__photo img { display: block; width: 100%; height: auto; max-height: 42rem; object-fit: contain; border-radius: 1rem; }
+.island-story__photo figcaption { display: grid; gap: .5rem; margin-top: 1rem; font-size: var(--text-small); line-height: 1.75; color: color-mix(in srgb, var(--ink) 75%, transparent); }
+.island-story__photo small { font-size: var(--text-control); line-height: 1.9; }
+.island-story__photo a, .island-story__sources a { text-decoration: underline; text-underline-offset: 4px; }
+.island-story__adaptation { display: block; }
+.island-story__planning { padding: clamp(1.5rem, 3vw, 2.5rem); margin-top: 4rem; background: var(--theme-clay); border-radius: 1.3rem; scroll-margin-top: 8rem; }
+.island-story__planning .eyebrow { color: var(--theme-gold-text); }
+.island-story__planning h2 { margin-block: 1.3rem; font-size: 1.6rem; line-height: 1.5; }
+.island-story__planning > p:not(.eyebrow) { font-size: var(--text-body); line-height: 1.9; margin-bottom: 1.6rem; }
+.island-story__planning .island-story__access { font-weight: 600; }
+.island-story__planning .button-link { font-size: var(--text-control); line-height: 1.6; }
+.island-story__kadmat-link { display: flex; align-items: center; gap: .7rem; margin-top: 1.5rem; font-size: var(--text-control); text-decoration: underline; text-underline-offset: 4px; }
+.island-story__sources { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--theme-border); }
+.island-story__sources h2 { font-size: 1.4rem; }
+.island-story__sources ul { margin-top: 1rem; display: grid; gap: .8rem; }
+.island-story__sources a { display: inline-flex; align-items: baseline; gap: .75rem; padding-block: .3rem; font-size: var(--text-control); line-height: 1.8; }
+.island-story__related { padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3vw, 2.5rem); background: var(--ink); color: white; }
+.island-story__related > div { max-width: 90rem; margin-inline: auto; }
+.island-story__related .island-atlas__heading > a { display: inline-flex; align-items: center; gap: 1rem; color: var(--mint); font-size: var(--text-control); padding-block: .7rem; }
+@media (max-width: 1023px) {
+  .island-atlas__heading { align-items: start; flex-direction: column; }
+  .island-atlas__heading > p { max-width: 40rem; }
+  .island-atlas__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .island-story__reading { gap: 2rem; grid-template-columns: 12rem minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .island-story__hero { padding-top: 7.5rem; }
+  .island-story__hero-inner { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .island-story__intro { padding-bottom: 2rem; }
+  .island-story__back { margin-bottom: 2rem; }
+  .island-story__illustration { max-width: 34rem; width: 100%; margin-inline: auto; }
+  .island-story__reading { grid-template-columns: minmax(0, 1fr); }
+  .island-story__sidebar { position: static; margin-bottom: 1rem; }
+  .island-story__sidebar nav { max-width: 40rem; }
+  .island-story__facts dl { gap: 1.5rem; }
+}
+@media (max-width: 639px) {
+  .island-atlas__grid { grid-template-columns: minmax(0, 1fr); }
+  .island-guide-card h3 { font-size: 2.2rem; }
+  .island-story__facts dl { grid-template-columns: minmax(0, 1fr); }
+  .island-story__facts dl > div + div { padding-top: 1.25rem; border-top: 1px solid var(--theme-border); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .island-guide-card, .island-guide-card__link i, .island-atlas__filters button { transition: none; }
+}

@@ -1,19 +1,27 @@
+import { BRAND_ASSETS } from './brand-assets.generated';
+
 export const SITE_COPY = {
   brand: {
     name: 'Scuba Lak',
     tagline: 'Kadmat Lakshadweep',
-    logoSrc: '/media/scuba-lak-logo.png',
-    faviconSrc: '/media/scuba-lak-logo-white.png',
-    homeLabel: 'Scuba Lak, Kadmat Lakshadweep home'
+    logoSrc: BRAND_ASSETS.logoSrc,
+    logoSrcset: BRAND_ASSETS.logoSrcset,
+    homeLabel: 'Scuba Lak Kadmat Lakshadweep home'
   },
   navigation: {
     primaryLabel: 'Primary navigation',
     toggleLabel: 'Toggle navigation',
+    closeLabel: 'Close navigation',
+    menuTitle: 'Explore Scuba Lak',
     experiences: 'Experiences',
     courses: 'PADI courses',
-    island: 'Know island',
+    island: 'Kadmat',
+    archipelago: 'Lakshadweep atlas',
     about: 'About us',
     gallery: 'Gallery',
+    accommodation: 'Where to stay',
+    tripPlanning: 'Plan your island trip',
+    faq: 'FAQs',
     contact: 'Contact',
     contactDesk: 'Contact the dive desk',
     planDive: 'Plan your dive'
@@ -22,7 +30,6 @@ export const SITE_COPY = {
     explore: 'Explore',
     exploreExperiences: 'Explore experiences',
     knowKadmat: 'Know Kadmat',
-    buildTrip: 'Build this trip',
     askIslandTeam: 'Ask the island team',
     scrollToTop: 'Scroll to top',
     returnHome: 'Return to home page'
@@ -40,42 +47,46 @@ export const SITE_COPY = {
     about: 'The people behind the bubbles',
     coordinate: '11° 13′ N · 72° 46′ E'
   },
+  courseBookingNote: {
+    eyebrow: 'A note before you book',
+    body: 'Course schedules, equipment inclusion, boat arrangements and minimum participant numbers can vary. Contact our dive team to plan your course around your dates and group. All participants complete the required PADI medical and administrative forms; certification depends on satisfactory performance, not only the number of days or dives.'
+  },
   footer: {
+    navigationLabel: 'Footer navigation',
+    socialLabel: 'Scuba Lak social profiles',
     legal: 'Scuba Lak · Kadmat Island · Lakshadweep · Dive softly · travel lightly · © 2026',
-    socialNote: 'Social links are ready for your official handles'
   },
   common: {
     kadmatLocation: 'Kadmat Island · Lakshadweep',
     emailClient: 'Open your email client',
-    fastestResponse: 'Fastest response · day or night',
     continueWhatsApp: 'Continue in WhatsApp',
     sendEnquiry: 'Send enquiry',
     dismiss: 'Dismiss'
   },
   seo: {
     home: {
-      title: 'Scuba Lak, Kadmat Lakshadweep | Dive into the untouched',
-      description: 'Premium diving, PADI courses, island stays and water sports in Kadmat’s blue lagoon, Lakshadweep.'
+      title: 'Scuba Diving in Kadmat, Lakshadweep | Scuba Lak',
+      description: 'Dive Kadmat with Scuba Lak: lagoon experiences, PADI courses, 19 named dive spots, snorkelling and kayaking with a friendly island team in Lakshadweep.'
     },
     about: {
       title: 'About Scuba Lak, Kadmat Lakshadweep',
-      description: 'Meet the local-led Scuba Lak team, our PADI standards, island history and reef-minded approach.'
+      description: 'Meet Scuba Lak in Kadmat, Lakshadweep, and explore the team, diving experiences and island life.'
     },
     lakshadweep: {
       title: 'Lakshadweep island guide | Scuba Lak',
       description: 'Explore Lakshadweep’s coral islands, culture, nature, permits, tourism and responsible travel notes.'
     },
     kadmat: {
-      title: 'Kadmat Island guide | Scuba Lak, Lakshadweep',
-      description: 'Plan a Kadmat Island visit with lagoon attractions, reef locations, transport options and island context.'
+      title: 'Kadmat Island Diving & Water Activities | Scuba Lak',
+      description: 'Explore Kadmat Island diving with Scuba Lak: 19 named dive spots, lagoon experiences, water activities and a friendly local team in Lakshadweep.'
     },
     experiences: {
       title: 'Diving and water sports | Scuba Lak, Kadmat',
       description: 'Choose lagoon diving, deep sea diving, PADI training or water sports on Kadmat Island.'
     },
     courses: {
-      title: 'PADI diving courses | Scuba Lak, Kadmat',
-      description: 'Browse PADI beginner, continuing education, specialty, safety, youth and professional diving courses.'
+      title: 'PADI Diving Courses in Kadmat, Lakshadweep | Scuba Lak',
+      description: 'Compare PADI courses in Kadmat, Lakshadweep: Open Water, Advanced, Rescue and more. Explore prerequisites, duration and skills before choosing your training.'
     },
     gallery: {
       title: 'Kadmat Island gallery | Scuba Lak',
@@ -83,7 +94,7 @@ export const SITE_COPY = {
     },
     contact: {
       title: 'Contact Scuba Lak dive desk | Kadmat Lakshadweep',
-      description: 'Contact Scuba Lak for diving, PADI courses, permits, island stays, transport and water sports.'
+      description: 'Contact Scuba Lak in Kadmat for diving, PADI courses and water sports. Ask for introductions to independent resorts or homestay hosts if needed.'
     },
     detail: {
       title: 'Experience details | Scuba Lak, Kadmat Lakshadweep',

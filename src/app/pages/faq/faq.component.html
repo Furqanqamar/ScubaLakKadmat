@@ -1,0 +1,49 @@
+<main id="main-content" tabindex="-1" class="page-surface faq-page">
+  <section data-page-hero class="page-hero faq-hero">
+    <div class="faq-container">
+      <p class="eyebrow text-[#b8f2df]">A little clarity before the blue</p>
+      <h1>Frequently asked<br>questions.</h1>
+      <p class="faq-hero__introduction">From your first dive to the journey here. Find the practical answers, then let us help with the details of your own island plan.</p>
+      <p class="faq-hero__note">Reviewed {{ reviewed }} · Confirm date-specific arrangements with the team before booking.</p>
+    </div>
+  </section>
+
+  <div class="faq-container faq-layout">
+    <nav class="faq-topics" aria-labelledby="faq-topics-title">
+      <p id="faq-topics-title" class="eyebrow">Find your answer</p>
+      <ul>
+        @for (group of groups; track group.id; let index = $index) {
+          <li><a routerLink="/faq" [fragment]="'faq-' + group.id"><span aria-hidden="true">0{{ index + 1 }}</span>{{ group.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <div class="faq-answers">
+      @for (group of groups; track group.id; let index = $index) {
+        <section [id]="'faq-' + group.id" tabindex="-1" class="faq-group" [attr.aria-labelledby]="'faq-heading-' + group.id">
+          <div class="faq-group__heading"><span class="faq-group__number" aria-hidden="true">0{{ index + 1 }}</span><h2 [id]="'faq-heading-' + group.id">{{ group.label }}</h2></div>
+          <p class="faq-group__introduction">{{ group.introduction }}</p>
+          <div class="faq-group__questions">
+            @for (item of group.questions; track item.question) {
+              <details class="faq-item">
+                <summary>{{ item.question }}<span class="faq-item__toggle" aria-hidden="true"></span></summary>
+                <p>{{ item.answer }}</p>
+              </details>
+            }
+          </div>
+          <a class="faq-guide-link" [routerLink]="group.link.path">{{ group.link.label }}<span aria-hidden="true">→</span></a>
+        </section>
+      }
+    </div>
+  </div>
+
+  <section class="faq-contact" aria-labelledby="faq-contact-title">
+    <div class="faq-container faq-contact__layout">
+      <div><p class="eyebrow">Your question, your island plan</p><h2 id="faq-contact-title">Still wondering<br>about something?</h2><p>If your question is not covered here, send it through our contact page or call the Kadmat team directly. We will help you work out the next step.</p><a class="button-link button-link--dark" routerLink="/contact" fragment="enquiry">Ask us a question</a></div>
+      <div class="faq-contact__numbers"><p class="eyebrow">Call the dive desk</p>
+        @for (contact of contacts; track contact.number) { <a [href]="contact.callHref" [attr.aria-label]="'Call Scuba Lak on ' + contact.displayNumber">{{ contact.displayNumber }}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></a> }
+        <p>Every day, 9:00 am–6:00 pm IST.<br>These are contact-desk hours; dive times are arranged separately.</p>
+      </div>
+    </div>
+  </section>
+</main>

@@ -4,13 +4,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-
-import { SITE_COPY } from '../../data/site-copy';
-
-interface SeoEntry {
-  readonly title: string;
-  readonly description: string;
-}
+import { breadcrumbs, canonicalUrl, pageSeo, SITE_URL } from '../../data/seo-data';
+import { BUSINESS_CONTACT } from '../../data/business-config';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_WHATSAPP } from './contact-links';
+import { islandGuide } from '../../data/island-guides';
+import kadmatContent from '../../data/kadmat-diving.json';
+import { BRAND_ASSETS } from '../../data/brand-assets.generated';
+import { HERO_MEDIA } from '../../data/hero-media.generated';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -18,44 +18,61 @@ export class SeoService {
   private readonly meta = inject(Meta);
   private readonly title = inject(Title);
   private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-
   constructor() {
     this.update(this.router.url);
-    this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd), takeUntilDestroyed(this.destroyRef))
-      .subscribe((event) => this.update(event.urlAfterRedirects));
+    this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd), takeUntilDestroyed(inject(DestroyRef)))
+      .subscribe(event => this.update(event.urlAfterRedirects));
   }
-
   private update(url: string): void {
-    const path = url.split('?')[0].split('#')[0] || '/';
-    const entry = this.entryFor(path);
-    const canonicalPath = path === '/' ? '/' : path.replace(/\/$/, '');
-    const canonicalUrl = `https://scubalak.com${canonicalPath}`;
-
-    this.title.setTitle(entry.title);
-    this.meta.updateTag({ name: 'description', content: entry.description });
-    this.meta.updateTag({ property: 'og:title', content: entry.title });
-    this.meta.updateTag({ property: 'og:description', content: entry.description });
-    this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
-    this.meta.updateTag({ name: 'twitter:title', content: entry.title });
-    this.meta.updateTag({ name: 'twitter:description', content: entry.description });
-
-    const canonical = this.document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    canonical?.setAttribute('href', canonicalUrl);
-  }
-
-  private entryFor(path: string): SeoEntry {
-    if (path === '/') return SITE_COPY.seo.home;
-    if (path.startsWith('/about')) return SITE_COPY.seo.about;
-    if (path.startsWith('/lakshadweep')) return SITE_COPY.seo.lakshadweep;
-    if (path.startsWith('/kadmat')) return SITE_COPY.seo.kadmat;
-    if (path.startsWith('/experiences/')) return SITE_COPY.seo.detail;
-    if (path === '/experiences') return SITE_COPY.seo.experiences;
-    if (path.startsWith('/courses/')) return SITE_COPY.seo.courseDetail;
-    if (path === '/courses') return SITE_COPY.seo.courses;
-    if (path.startsWith('/gallery')) return SITE_COPY.seo.gallery;
-    if (path.startsWith('/contact')) return SITE_COPY.seo.contact;
-    return SITE_COPY.seo.home;
+    const path = url.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
+    const page = pageSeo(path);
+    if (path !== '/') this.document.getElementById('home-hero-poster-preload')?.remove();
+    const island = path.startsWith('/lakshadweep/') ? islandGuide(path.slice('/lakshadweep/'.length)) : undefined;
+    const title = page?.title ?? 'Page not found | Scuba Lak';
+    const description = page?.description ?? 'This page is unavailable. Explore diving, courses and travel information for Kadmat Island with Scuba Lak.';
+    const canonical = canonicalUrl(path);
+    const image = new URL(page?.image ?? HERO_MEDIA.socialPoster, SITE_URL).href;
+    const qa = this.document.head.querySelector('meta[name="scubalak-environment"]')?.getAttribute('content') === 'qa';
+    this.title.setTitle(qa ? `[QA / UAT] ${title}` : title);
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ name: 'robots', content: qa ? 'noindex, nofollow, noarchive' : page ? 'index, follow, max-image-preview:large' : 'noindex, follow' });
+    for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': island ? `${island.name} — stylised island illustration` : page?.image ? page.label : HERO_MEDIA.posterAlt, locale: 'en_IN', type: island ? 'article' : 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
+    for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
+    this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
+    const organization = {
+      '@type': 'LocalBusiness', '@id': SITE_URL + '#organization', name: BUSINESS_CONTACT.name, url: SITE_URL,
+      logo: new URL(BRAND_ASSETS.organizationLogo, SITE_URL).href,
+      image: new URL(HERO_MEDIA.socialPoster, SITE_URL).href,
+      address: { '@type': 'PostalAddress', ...BUSINESS_CONTACT.postalAddress },
+      geo: { '@type': 'GeoCoordinates', ...BUSINESS_CONTACT.coordinates },
+      hasMap: BUSINESS_CONTACT.mapsUrl,
+      location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' },
+      ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}),
+      ...(CONTACT_EMAIL ? { email: CONTACT_EMAIL } : {}),
+      // Desk availability belongs to the contact points, not the dive schedule.
+      // Do not publish a 9–6 restriction as the business's activity opening hours.
+      ...(CONTACT_WHATSAPP.length ? { contactPoint: CONTACT_WHATSAPP.map(contact => ({ '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: contact.number, url: contact.href,
+        hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: BUSINESS_CONTACT.deskHours.days, opens: BUSINESS_CONTACT.deskHours.opens, closes: BUSINESS_CONTACT.deskHours.closes }
+      })) } : {}),
+      sameAs: [...BUSINESS_CONTACT.socials.filter(social => !social.href.includes('wa.me')).map(social => social.href), ...(BUSINESS_CONTACT.mapsUrl ? [BUSINESS_CONTACT.mapsUrl] : [])]
+    };
+    const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '#website', url: SITE_URL, name: 'Scuba Lak — Kadmat Lakshadweep', publisher: { '@id': organization['@id'] }, inLanguage: 'en-IN' }];
+    if (page) {
+      graph.push({ '@type': 'WebPage', '@id': canonical + '#webpage', url: canonical, name: title, description, inLanguage: 'en-IN', isPartOf: { '@id': SITE_URL + '#website' } });
+      if (path !== '/') graph.push({ '@type': 'BreadcrumbList', itemListElement: breadcrumbs(path).map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.label, item: canonicalUrl(item.path) })) });
+      if (path.startsWith('/courses/')) graph.push({ '@type': 'Course', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] } });
+      if (path.startsWith('/experiences/')) graph.push({ '@type': 'Service', name: page.label, description, url: canonical, provider: { '@id': organization['@id'] }, areaServed: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep' } });
+      if (path === '/kadmat') graph.push({ '@type': 'ItemList', name: kadmatContent.copy.spots.listTitle, numberOfItems: kadmatContent.sites.length, itemListElement: kadmatContent.sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: `${canonical}#spot-${site.id}` })) });
+      if (island) {
+        graph.push({ '@type': 'Place', '@id': canonical + '#place', name: island.name, description: island.summary, containedInPlace: { '@type': 'Place', name: 'Lakshadweep, India' } });
+        graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, image, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, about: { '@id': canonical + '#place' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, articleSection: 'Lakshadweep island stories' });
+      }
+      if (['/kadmat-visit-planning', '/kadmat-beyond-diving', '/lakshadweep-trip-planning'].includes(path)) {
+        graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: title, description, url: canonical, inLanguage: 'en-IN', mainEntityOfPage: { '@id': canonical + '#webpage' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, dateModified: '2026-10-30', articleSection: 'Kadmat trip planning' });
+      }
+    }
+    let structured = this.document.getElementById('site-structured-data');
+    if (!structured) { structured = this.document.createElement('script'); structured.id = 'site-structured-data'; structured.setAttribute('type', 'application/ld+json'); this.document.head.appendChild(structured); }
+    structured.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   }
 }

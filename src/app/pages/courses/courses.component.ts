@@ -1,20 +1,31 @@
+import { UiIconComponent } from '../../common/components/ui-icon/ui-icon.component';
+import { ResponsiveImageDirective } from '../../common/directives/responsive-image.directive';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PADI_COURSES } from '../../data/site-content';
+import { SITE_COPY } from '../../data/site-copy';
+import { KADMAT_COPY } from '../../data/kadmat-diving';
+import { ADDITIONAL_MEDIA } from '../../data/additional-media.generated';
 import { CourseCategory } from '../../models/site-data.model';
+import { COURSE_ICONS } from '../../data/dive-icons';
+import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [RouterLink],
+  imports: [UiIconComponent, ResponsiveImageDirective, RouterLink, DiveIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html'
 })
 export class CoursesComponent {
+  readonly cover = ADDITIONAL_MEDIA['sunlit-blue-diver'];
+  readonly copy = KADMAT_COPY.courses;
+  readonly icons = COURSE_ICONS;
   readonly courses = PADI_COURSES;
+  readonly bookingNote = SITE_COPY.courseBookingNote;
   readonly categories: readonly ('All' | CourseCategory)[] = [
-    'All', 'Beginner certifications', 'Continuing education', 'First aid & safety', 'Specialty diver courses', 'Professional development', 'Youth & introductory'
+    'All', ...new Set(PADI_COURSES.map(course => course.category))
   ];
   readonly activeCategory = signal<'All' | CourseCategory>('All');
   readonly filteredCourses = computed(() => {

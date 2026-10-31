@@ -1,0 +1,22 @@
+{
+  "label": "Original hero — renamed kadmat-original-backup, not loaded by the website",
+  "rotation": "90 degrees anticlockwise",
+  "duration": 35.166667,
+  "frameRate": "30/1",
+  "desktop": {
+    "mp4": "media/hero/kadmat-original-backup-desktop-c853407ed254.mp4",
+    "webm": "media/hero/kadmat-original-backup-desktop-04f5936dabc9.webm",
+    "width": 1280,
+    "height": 720
+  },
+  "mobile": {
+    "mp4": "media/hero/kadmat-original-backup-mobile-f251dc2d66ee.mp4",
+    "webm": "media/hero/kadmat-original-backup-mobile-41b89807f006.webm",
+    "width": 720,
+    "height": 720
+  },
+  "poster": "media/hero/kadmat-original-backup-poster-2eb21537c2b7.webp",
+  "socialPoster": "media/hero/kadmat-original-backup-poster-de876b7c7e96.jpg",
+  "posterAlt": "Aerial view of Kadmat lagoon and its island shoreline",
+  "sourceBytes": 12135338
+}

@@ -1,0 +1,89 @@
+.kadmat-inner { width: 100%; max-width: 90rem; margin-inline: auto; }
+.kadmat-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2.8rem; }
+.kadmat-heading h2 { max-width: 48rem; margin-top: 1rem; font-size: clamp(2.6rem, 4.7vw, 4.8rem); line-height: 1.04; letter-spacing: -.045em; }
+.kadmat-heading h2 em { display: block; }
+.kadmat-heading > p { max-width: 25rem; font-size: var(--text-body); line-height: 1.85; opacity: .75; }
+.kadmat-why { padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3vw, 2.5rem); background: var(--sand); color: var(--ink); }
+.kadmat-why .eyebrow { color: var(--theme-gold-text); }
+.kadmat-why__layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); }
+.kadmat-why__photo { position: relative; min-height: 33rem; overflow: hidden; border-radius: 1.3rem; background: var(--deep); }
+.kadmat-why__photo img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+.kadmat-why__photo::after { position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgb(6 20 25 / .85)); content: ''; }
+.kadmat-why__photo figcaption { position: absolute; right: 1.5rem; bottom: 1.5rem; left: 1.5rem; z-index: 1; color: white; font-size: var(--text-small); line-height: 1.7; }
+.kadmat-why__reasons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
+.kadmat-reason { min-width: 0; padding-block: 1.1rem 1rem; border-top: 1px solid var(--theme-border); }
+.kadmat-reason app-dive-icon { color: var(--theme-gold); }
+.kadmat-reason h3 { margin-block: 1rem .7rem; font-size: clamp(1.35rem, 1.7vw, 1.7rem); line-height: 1.2; }
+.kadmat-reason p { max-width: 29ch; font-size: var(--text-body); line-height: 1.8; opacity: .77; }
+.kadmat-why__closing { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+.kadmat-why__closing p { max-width: 43rem; font-size: var(--text-caption); line-height: 1.8; opacity: .7; }
+.kadmat-why__closing a { display: inline-flex; align-items: center; gap: 1rem; min-height: 44px; font-size: var(--text-small); }
+.kadmat-why__closing a i { rotate: -45deg; }
+.kadmat-spots { padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3vw, 2.5rem); background: var(--ink); color: white; scroll-margin-top: 2rem; }
+.kadmat-spots:focus { outline: none; }
+.kadmat-spots .eyebrow { color: var(--mint); }
+.kadmat-spots__layout { display: grid; grid-template-columns: .9fr 1.15fr; align-items: start; gap: clamp(2rem, 5vw, 5rem); }
+.kadmat-spots__island { min-width: 0; }
+.kadmat-spots__island figure { position: relative; overflow: hidden; border: 1px solid rgb(184 242 223 / .17); border-radius: 1.2rem; background: var(--deep); }
+.kadmat-spots__island img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: contain; }
+.kadmat-spots__island figcaption { position: absolute; inset: auto 0 0; padding: 3rem 1.4rem 1.3rem; background: linear-gradient(transparent, rgb(6 20 25 / .85)); color: rgb(255 255 255 / .85); font-size: var(--text-caption); line-height: 1.7; }
+.kadmat-spots__island-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 1.5rem; width: 100%; min-height: 52px; padding-block: 1rem; color: var(--mint); font-size: var(--text-body); }
+.kadmat-spots__island-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+.kadmat-spots__island-link i { rotate: -45deg; flex-shrink: 0; }
+.kadmat-spots__directory { min-width: 0; }
+.kadmat-spots__list-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .7rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgb(255 255 255 / .24); }
+.kadmat-spots__list-heading h3 { font-size: 1.8rem; line-height: 1.2; }
+.kadmat-spots__list-heading > span { color: var(--mint); font-size: var(--text-label); letter-spacing: .1em; text-transform: uppercase; }
+.kadmat-spots__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--spot-rows), auto); grid-auto-flow: column; column-gap: clamp(1rem, 3vw, 2.5rem); padding: 0; margin: 0; list-style: none; }
+.kadmat-spots__list li { display: flex; align-items: center; gap: .75rem; min-width: 0; min-height: 3.75rem; padding-block: .4rem; border-bottom: 1px solid rgb(255 255 255 / .13); scroll-margin-top: 6rem; }
+.kadmat-spots__number { flex-shrink: 0; color: var(--mint); font-size: var(--text-label); letter-spacing: .03em; }
+.kadmat-spots__name { flex: 1; min-width: 0; padding-block: .2rem; font-family: var(--font-display); font-size: clamp(1.05rem, 1.45vw, 1.35rem); line-height: 1.35; overflow-wrap: break-word; }
+.kadmat-spots__list a { display: inline-grid; place-items: center; flex-shrink: 0; width: 44px; min-height: 44px; border-radius: 50%; color: var(--mint); transition: color .2s, background-color .2s; }
+.kadmat-spots__list a i { font-size: var(--text-control); rotate: -45deg; }
+.kadmat-spots__list a:hover { background: var(--mint); color: var(--deep); }
+.kadmat-spots a:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.kadmat-spots__closing { padding-top: 1.5rem; }
+.kadmat-spots__closing p { max-width: 48rem; margin-bottom: 1.4rem; color: rgb(255 255 255 / .7); font-size: var(--text-control); line-height: 1.8; }
+@media (max-width: 1023px) {
+  .kadmat-spots__layout { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .kadmat-spots__island { width: 100%; max-width: 36rem; margin-inline: auto; }
+  .kadmat-spots__island img { height: 32rem; aspect-ratio: auto; }
+  .kadmat-spots__name { font-size: 1.35rem; }
+}
+@media (max-width: 639px) {
+  .kadmat-spots__island img { height: 25rem; }
+  .kadmat-spots__island figcaption { padding-inline: 1rem; font-size: var(--text-label); }
+  .kadmat-spots__list { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; }
+  .kadmat-spots__name { font-size: 1.3rem; }
+  .kadmat-spots__list li { min-height: 3.4rem; }
+}
+.kadmat-invitation { padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 3vw, 2.5rem); background: var(--sand); color: var(--ink); }
+.kadmat-invitation h2 { max-width: 50rem; font-size: clamp(2.5rem, 4.7vw, 4.8rem); line-height: 1.1; letter-spacing: -.04em; }
+.kadmat-invitation p { max-width: 34rem; margin-block: 1.3rem 2rem; font-size: var(--text-body); line-height: 1.9; }
+.kadmat-map-details { padding: .5rem 1rem 1rem; border: 1px solid var(--theme-border); border-radius: 1.2rem; }
+.kadmat-map-details summary { min-height: 48px; padding-block: 1rem; font-size: var(--text-body); }
+.kadmat-map-details summary i { float: right; margin-left: 1rem; }
+.kadmat-map-details[open] summary i { rotate: 45deg; }
+.kadmat-map-details > a { display: inline-flex; min-height: 44px; align-items: center; gap: 1rem; margin-top: 1rem; font-size: var(--text-body); text-decoration: underline; text-underline-offset: 4px; }
+.kadmat-map-details iframe { display: block; width: 100%; height: 24rem; border: 0; border-radius: .75rem; }
+.kadmat-stay-note { padding: 2rem clamp(1.25rem, 3vw, 2.5rem); background: var(--theme-clay); color: var(--ink); }
+.kadmat-stay-note .kadmat-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.kadmat-stay-note h2 { font-size: 1.8rem; }
+.kadmat-stay-note p { max-width: 58ch; margin-top: .7rem; font-size: var(--text-body); line-height: 1.85; }
+.kadmat-stay-note .kadmat-inner > div:last-child { display: flex; flex-direction: column; align-items: start; gap: .35rem; }
+.kadmat-stay-note a { display: inline-flex; align-items: center; gap: 1rem; min-height: 44px; font-size: var(--text-small); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 1023px) {
+  .kadmat-heading { align-items: start; flex-direction: column; }
+  .kadmat-heading > p { max-width: 42rem; }
+  .kadmat-why__layout { grid-template-columns: .8fr 1.2fr; gap: 1.6rem; }
+}
+@media (max-width: 767px) {
+  .kadmat-why__layout { grid-template-columns: minmax(0, 1fr); }
+  .kadmat-why__photo { min-height: 23rem; }
+  .kadmat-stay-note .kadmat-inner { align-items: start; flex-direction: column; gap: 1rem; }
+}
+@media (max-width: 639px) {
+  .kadmat-why__reasons { gap: 1rem; }
+  .kadmat-reason h3 { font-size: 1.3rem; }
+  .kadmat-reason p { font-size: var(--text-small); }
+}

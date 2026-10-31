@@ -1,0 +1,246 @@
+{
+  "ui": {
+    "atlasEyebrow": "The illustrated island atlas",
+    "atlasTitle": "Fifteen places. A thousand shades of blue.",
+    "atlasDescription": "Meet all ten inhabited islands, two visitor islands and three remarkable atoll and sandbank landscapes. Open a card to read its own island story.",
+    "allFilter": "All 15 places",
+    "inhabitedFilter": "Inhabited islands",
+    "visitorFilter": "Visitor islands",
+    "atollFilter": "Atolls & sandbanks",
+    "inhabitedLabel": "Inhabited island",
+    "visitorLabel": "Visitor island",
+    "atollLabel": "Atoll & sandbank",
+    "readStory": "Read island story",
+    "illustrationNote": "AI-created island illustration · stylised, not to scale",
+    "atlasNote": "Illustrations interpret island forms; they are not photographs or navigation charts. Inclusion in this atlas does not imply permission to visit.",
+    "backToAtlas": "Back to the island atlas",
+    "guideEyebrow": "Lakshadweep · island stories",
+    "contents": "In this story",
+    "planningTitle": "Before you make plans",
+    "planningEyebrow": "Travel with care",
+    "illustrationAlt": "stylised island illustration",
+    "factsSuffix": "at a glance",
+    "planningNote": "Confirm the islands listed on your permit, authorised accommodation and current transport arrangements before booking. Weather, local approvals and conservation restrictions can change access. This is an editorial guide, not a promise of a tour or transfer.",
+    "planningLink": "Read the trip-planning guide",
+    "sourcesTitle": "Further reading & sources",
+    "relatedEyebrow": "Keep island-hopping, on the page",
+    "relatedTitle": "Another shore to discover.",
+    "kadmatLink": "Diving, getting here & local Kadmat notes",
+    "photoCredit": "Photograph",
+    "photoSource": "Source",
+    "photoAdaptation": "Resized and converted to WebP for the web.",
+    "originalCredit": "Scuba Lak · original photograph"
+  },
+  "islands": [
+    {
+      "slug": "kavaratti", "name": "Kavaratti", "category": "inhabited", "region": "Central Lakshadweep",
+      "tagline": "The capital, with a lagoon for a horizon.",
+      "summary": "A working island capital where waterfront life, a sheltered lagoon and a long seafaring tradition meet.",
+      "introduction": "Kavaratti brings everyday island life into focus. Government offices, fishing boats, neighbourhood lanes and the lagoon share a narrow strip of coral land. Look beyond the postcard water and you find a place that keeps the archipelago connected.",
+      "facts": [{ "label": "Island character", "value": "Lakshadweep’s capital" }, { "label": "Landscape", "value": "Western lagoon & coral shoreline" }, { "label": "Notice", "value": "Seafaring life & coastal neighbourhoods" }],
+      "sections": [
+        { "id": "island-life", "title": "An island that keeps things moving", "paragraphs": ["Set between Agatti to the west and Andrott to the east, Kavaratti is the administrative headquarters of Lakshadweep. Its identity is not limited to tourism: working waterfronts and residential neighbourhoods are as much a part of the story as the sea. Give local routines space, and ask before photographing people or places of worship."] },
+        { "id": "lagoon", "title": "Read the blues of the lagoon", "paragraphs": ["The western lagoon softens the edge between land and open ocean. Light, depth and the reef change its colour throughout the day. Enjoy it with an authorised local guide; a calm-looking surface is not a guarantee of safe currents or unrestricted access."], "photo": "kavaratti-photo" },
+        { "id": "slow-travel", "title": "Make room for the ordinary", "paragraphs": ["A thoughtful visit leaves time for a quiet shoreline walk and conversations that are welcomed, rather than treating the island as a list of sights. Dress considerately in the village, keep noise low and leave shells and coral where they belong. Confirm any activity and facility directly before travelling."] }
+      ],
+      "access": "Kavaratti is an inhabited island, not an unrestricted stopover. Confirm a permit, approved stay and onward connections for your own itinerary.",
+      "sources": [{ "label": "Lakshadweep Administration · Kavaratti", "url": "https://lakshadweep.gov.in/islands/kavaratti/" }], "related": ["agatti", "andrott", "pitti-bird"]
+    },
+    {
+      "slug": "agatti", "name": "Agatti", "category": "inhabited", "region": "Western Lakshadweep",
+      "tagline": "Your first glimpse of the lagoon world.",
+      "summary": "A slender island of fishing communities, reef-fringed water and an important air gateway to Lakshadweep.",
+      "introduction": "Agatti often provides the first unforgettable view of Lakshadweep: pale sand, a ribbon of land and water that seems to hold every shade of turquoise. Beyond that arrival is a lived-in island whose boats and coastal communities belong to the sea.",
+      "facts": [{ "label": "Island character", "value": "Inhabited air gateway" }, { "label": "Landscape", "value": "Long island & broad lagoon" }, { "label": "Notice", "value": "Fishing boats & reef colours" }],
+      "sections": [
+        { "id": "arrival", "title": "An arrival worth slowing down for", "paragraphs": ["Agatti’s airport makes it an important arrival point, but arriving here does not automatically authorise travel to another island. Plan the flight, permitted stay and any onward boat connection together. Leave breathing room in your itinerary for changing weather and transport arrangements."] },
+        { "id": "working-water", "title": "The water is a livelihood", "paragraphs": ["Fishing is central to Agatti’s identity, alongside coconut-related work. From a vessel, the island appears as a low green line between lagoon and sky. Keep working landing areas clear and let local guidance determine where you can walk, swim or take photographs."], "photo": "agatti-original" },
+        { "id": "reef", "title": "Look closely, tread lightly", "paragraphs": ["The reef and lagoon are living habitats, not simply a blue backdrop. Choose guided, authorised water activities and avoid touching coral, feeding fish or standing on the reef. Agatti can be a destination in its own right; it deserves more than the hours between two transfers."] }
+      ],
+      "access": "Check current flights with the airline and confirm each onward transfer with your authorised operator. Connections are not guaranteed by this guide.",
+      "sources": [{ "label": "Lakshadweep Administration · Agatti", "url": "https://lakshadweep.gov.in/islands/agatti/" }], "related": ["bangaram", "thinnakara", "kadmat"]
+    },
+    {
+      "slug": "amini", "name": "Amini", "category": "inhabited", "region": "Amindivi group",
+      "tagline": "Small in outline. Rich in island craft.",
+      "summary": "An oval coral island known for skilled craft traditions, community life and its place between Kavaratti and Kadmat.",
+      "introduction": "Amini rewards a different kind of attention. Its compact shape holds a long cultural story, with skilled hands, coconut landscapes and sea journeys woven into everyday life. This is a community to understand, not a resort island to assume is open.",
+      "facts": [{ "label": "Island character", "value": "Inhabited Amindivi island" }, { "label": "Landscape", "value": "Compact oval coral island" }, { "label": "Notice", "value": "Craft traditions & embarkation life" }],
+      "sections": [
+        { "id": "setting", "title": "Between neighbouring shores", "paragraphs": ["Amini lies north of Kavaratti and south of Kadmat. Its rounded outline is quite different from Kadmat’s long, narrow form. The island’s scale makes the relationship between homes, coconut groves and the shore especially tangible."] },
+        { "id": "craft", "title": "A tradition of making", "paragraphs": ["The Administration’s island account highlights walking-stick craft, engraving and folk traditions. Ask about locally made, legally sourced work rather than buying coral, wildlife products or anything of uncertain origin. The most meaningful encounter is one the maker chooses to share."] },
+        { "id": "sea-road", "title": "Where the sea becomes the road", "paragraphs": ["Our original photograph records an embarkation view associated with Amini. A landing place is a useful reminder that island travel is also daily life for residents. Keep luggage and cameras out of the way of crews, follow instructions and confirm the right vessel and landing arrangements before setting off."], "photo": "amini-original" }
+      ],
+      "access": "Do not assume regular visitor accommodation or a sightseeing transfer is available. Amini-specific approval and confirmed local arrangements are essential.",
+      "sources": [{ "label": "Lakshadweep Administration · Amini", "url": "https://lakshadweep.gov.in/islands/amini/" }], "related": ["kadmat", "kiltan", "chetlat"]
+    },
+    {
+      "slug": "andrott", "name": "Andrott", "category": "inhabited", "region": "Eastern Lakshadweep",
+      "tagline": "The island whose story runs east to west.",
+      "summary": "Lakshadweep’s largest inhabited island combines an unusual east–west outline with deep cultural and maritime roots.",
+      "introduction": "Andrott, also written Androth, has a different silhouette from many of its neighbours. Its land runs broadly east to west, with coconut groves and a close-knit community setting the rhythm. Come to its story through people and history, not only through beaches.",
+      "facts": [{ "label": "Island character", "value": "Largest inhabited island by land area" }, { "label": "Landscape", "value": "East–west coral island" }, { "label": "Notice", "value": "Heritage & coconut landscapes" }],
+      "sections": [
+        { "id": "geography", "title": "A different island silhouette", "paragraphs": ["Andrott lies on the eastern side of the inhabited island group. Unlike the long north–south shapes familiar from other islands, it stretches across an east–west axis. Its relatively small lagoon and substantial settled landscape give it a character of its own."] },
+        { "id": "heritage", "title": "A place of living heritage", "paragraphs": ["Andrott has an important place in the Islamic heritage of Lakshadweep. The Administration records traditions associated with Saint Ubaidullah and the island’s mosque. Religious places are living spaces of worship: ask about access, follow local dress guidance and never assume photography is welcome."] },
+        { "id": "community", "title": "Beyond the beach itinerary", "paragraphs": ["Fishing, coconut products and community life are central to understanding Andrott. A respectful visit is arranged with local knowledge and permission, not improvised from an island list. Listen first, avoid intrusive filming and leave time for the island’s pace rather than importing a hurried mainland schedule."] }
+      ],
+      "access": "Andrott should not be treated as a standard resort excursion. Verify permission, accommodation and the actual sea connection before adding it to a visit.",
+      "sources": [{ "label": "Lakshadweep Administration · Andrott", "url": "https://lakshadweep.gov.in/islands/andrott/" }], "related": ["kalpeni", "kavaratti", "minicoy"]
+    },
+    {
+      "slug": "chetlat", "name": "Chetlat", "category": "inhabited", "region": "Northern Amindivi group",
+      "tagline": "Coconut craft, coral edges and northern skies.",
+      "summary": "A narrow northern island whose woven craft, boat-building history and storm-shaped shoreline tell a quieter story.",
+      "introduction": "Chetlat is a slender inhabited island in the northern Amindivi group. Its appeal is not a manufactured attraction but a distinctive relationship with coconut, craft and the sea. The illustration introduces its form; the real story belongs to the island community.",
+      "facts": [{ "label": "Island character", "value": "Northern inhabited island" }, { "label": "Landscape", "value": "Narrow land & coral-rubble shores" }, { "label": "Notice", "value": "Weaving & boat-building heritage" }],
+      "sections": [
+        { "id": "landscape", "title": "A shoreline shaped by the sea", "paragraphs": ["Chetlat lies north of Amini. The Administration describes coral rubble along parts of its shore, a visible reminder that these low islands are shaped by waves as well as by quiet lagoon water. Reef edges are not walking trails; use local advice and do not collect pieces of coral."] },
+        { "id": "craft", "title": "The skill in everyday materials", "paragraphs": ["Coir, woven mats and coconut-leaf work appear in Chetlat’s recorded island traditions, alongside a history of boat building. These skills connect everyday materials to life at sea. If a local encounter is arranged, ask before recording the process and support makers without turning their workplace into a spectacle."] },
+        { "id": "perspective", "title": "Discover without assuming access", "paragraphs": ["Learning about Chetlat does not need to begin with a booking. Its place in the wider archipelago helps explain why Lakshadweep is much more than a collection of visitor beaches. Any visit should be led by permissions, local capacity and the wishes of the community."] }
+      ],
+      "access": "Chetlat is included for its geography and culture. Visitor stays and onward transport must be specifically confirmed; no routine tour is implied.",
+      "sources": [{ "label": "Lakshadweep Administration · Chetlat", "url": "https://lakshadweep.gov.in/islands/chetlat/" }], "related": ["kiltan", "bitra", "amini"]
+    },
+    {
+      "slug": "kadmat", "name": "Kadmat", "category": "inhabited", "region": "Amindivi group · our home",
+      "tagline": "A long silver shore. A deeper connection.",
+      "summary": "Scuba Lak’s home island: a slender coral landscape with a broad western lagoon, coconut-lined shores and a life shaped by water.",
+      "introduction": "Kadmat is where our island story becomes personal. A long ribbon of coral land sits between the ocean and a generous western lagoon. For Scuba Lak, it is home: a place to welcome people to the water with care, patience and respect for the reef.",
+      "facts": [{ "label": "Island character", "value": "Scuba Lak’s home island" }, { "label": "Landscape", "value": "Long island & western lagoon" }, { "label": "Notice", "value": "Silver beaches & reef life" }],
+      "sections": [
+        { "id": "lagoon", "title": "The lagoon sets the pace", "paragraphs": ["Kadmat’s western lagoon is central to how the island feels. Light moves across the shallows while the reef marks the boundary with deeper water. Beginner experiences and more advanced diving should always be matched to the person, the conditions and the instructor’s guidance—not to a photograph of a calm day."] },
+        { "id": "shore", "title": "Stay for the quieter hours", "paragraphs": ["There is another side to a diving day: palms at dusk, the shore after the boats return and the soft colour between sea and sky. This original photograph is from Kadmat, shared by Scuba Lak. Give the island time beyond the activity list."], "photo": "kadmat-original" },
+        { "id": "our-home", "title": "Explore with the island in mind", "paragraphs": ["Keep coral untouched, take litter back from every outing and ask before photographing island residents. Our separate Kadmat field guide brings together local attractions, getting-here notes and diving information. Use it to plan a thoughtful conversation with the team, then confirm the details for your dates."] }
+      ],
+      "access": "Speak to Scuba Lak about your diving or training. Arrange accommodation directly with a third-party resort or homestay; we can help you reach out to them. Confirm your permit and travel connections with the relevant providers.",
+      "sources": [{ "label": "Lakshadweep Administration · Kadmat", "url": "https://lakshadweep.gov.in/islands/kadmat/" }], "related": ["amini", "agatti", "kiltan"]
+    },
+    {
+      "slug": "kalpeni", "name": "Kalpeni", "category": "inhabited", "region": "South-eastern Lakshadweep",
+      "tagline": "A lagoon landscape with room to breathe.",
+      "summary": "A broad lagoon, reef-fringed horizons and a settled island community give Kalpeni its distinctive rhythm.",
+      "introduction": "Kalpeni is a lesson in looking beyond the shoreline. Its surrounding lagoon creates a wide field of changing colour, while the inhabited island remains the centre of a living community. Water, weather and local knowledge shape the experience here.",
+      "facts": [{ "label": "Island character", "value": "Inhabited lagoon island" }, { "label": "Landscape", "value": "Reef, lagoon & neighbouring islets" }, { "label": "Notice", "value": "Wide horizons & evening light" }],
+      "sections": [
+        { "id": "setting", "title": "Between Andrott and Minicoy", "paragraphs": ["Kalpeni sits south-east of Kavaratti in the southern part of the main island group. Its north–south outline and large lagoon make land and water feel closely interwoven. The surrounding islets belong to a wider reef system, not a collection of beaches that can be reached without planning."] },
+        { "id": "light", "title": "Let the light tell the story", "paragraphs": ["At sunset, the lagoon’s bright daytime colours give way to a softer palette. This photograph records that quieter side of Kalpeni. Resist the temptation to collect coral or disturb a beach simply to compose a picture; leave the landscape as you found it."], "photo": "kalpeni-photo" },
+        { "id": "water", "title": "Enjoy the lagoon thoughtfully", "paragraphs": ["The Administration identifies Kalpeni with water-based recreation, but availability and safe areas must be checked locally. Use an authorised guide and suitable equipment. Tide, wind and reef conditions matter even when the water appears shallow, and a visitor itinerary should always leave room for a change of plan."] }
+      ],
+      "access": "Confirm a Kalpeni-specific visitor arrangement and current sea travel. Pitti names also occur around Kalpeni; neither Pitti guide in this atlas should be used as directions to those islets.",
+      "sources": [{ "label": "Lakshadweep Administration · Kalpeni", "url": "https://lakshadweep.gov.in/islands/kalpeni/" }], "related": ["andrott", "minicoy", "kavaratti"]
+    },
+    {
+      "slug": "kiltan", "name": "Kiltan", "category": "inhabited", "region": "Northern Amindivi group",
+      "tagline": "A green island with a seafaring memory.",
+      "summary": "A narrow northern island shaped by trading routes, folk traditions, dense vegetation and storm beaches.",
+      "introduction": "Kiltan lies north-east of Amini, a narrow green presence within the Amindivi group. Its story looks outward to sea routes and inward to community traditions. The shoreline and village belong to the same picture.",
+      "facts": [{ "label": "Island character", "value": "Inhabited Amindivi island" }, { "label": "Landscape", "value": "Green island & storm beaches" }, { "label": "Notice", "value": "Sea routes & folk traditions" }],
+      "sections": [
+        { "id": "sea-routes", "title": "Connected by the ocean", "paragraphs": ["The Administration places Kiltan along historic trade routes across the Arabian Sea and records its folk-dance traditions. An island can be geographically small and culturally far-reaching. Approach that heritage as something living, rather than asking for a performance simply because you have arrived."] },
+        { "id": "reef-edge", "title": "See the island from its reef edge", "paragraphs": ["This photograph looks towards Kiltan from the south. Land, reef and open water occupy different bands of colour. It is a real view, distinct from the stylised illustration at the top of the guide; neither should be used as a chart for choosing a route."], "photo": "kiltan-photo" },
+        { "id": "local-pace", "title": "Follow a local pace", "paragraphs": ["Vegetation and storm-shaped shores add to Kiltan’s character, but respectful access comes first. Walk only where invited, keep working coastal spaces clear and let local guidance decide what can be visited. A slow conversation is often a better introduction than a packed sightseeing list."] }
+      ],
+      "access": "Treat Kiltan as a residential island requiring specific permission and confirmed arrangements, not an automatically available tourist extension.",
+      "sources": [{ "label": "Lakshadweep Administration · Kiltan", "url": "https://lakshadweep.gov.in/islands/kiltan/" }], "related": ["chetlat", "amini", "kadmat"]
+    },
+    {
+      "slug": "bitra", "name": "Bitra", "category": "inhabited", "region": "Northern Lakshadweep",
+      "tagline": "A tiny home beside an expansive lagoon.",
+      "summary": "The smallest inhabited island in Lakshadweep is defined by an extraordinary contrast between little land and a vast lagoon.",
+      "introduction": "Bitra turns the usual idea of an island inside out. The land is tiny; the lagoon around it is the dominant landscape. Its small resident community makes care, privacy and local capacity especially important.",
+      "facts": [{ "label": "Island character", "value": "Smallest inhabited island" }, { "label": "Landscape", "value": "Tiny landmass & extensive lagoon" }, { "label": "Notice", "value": "The scale of water around the island" }],
+      "sections": [
+        { "id": "scale", "title": "More water than land", "paragraphs": ["The Administration describes Bitra as Lakshadweep’s smallest inhabited island, with a lagoon vastly larger than its land area. That relationship is the key to its geography. The illustration is an interpretation of the setting, not an exact outline of every reef or sand patch."] },
+        { "id": "community", "title": "A community, not an empty escape", "paragraphs": ["Bitra’s size should never be confused with emptiness. Residents have their own working spaces, religious traditions and daily needs. Fresh water, waste and supplies need particular consideration on a small island, and a camera should never take priority over someone’s privacy."] },
+        { "id": "understanding", "title": "A place to understand before visiting", "paragraphs": ["Read Bitra as part of the archipelago’s human geography rather than as a new beach to tick off. Its remoteness is not a reason to improvise travel. Only make plans once permission, a genuine local purpose and practical arrangements have been clearly confirmed."] }
+      ],
+      "access": "This is an editorial introduction, not an invitation to an available resort stay. Do not travel to Bitra without explicit approval and confirmed local support.",
+      "sources": [{ "label": "Lakshadweep Administration · Bitra", "url": "https://lakshadweep.gov.in/islands/bitra/" }], "related": ["chetlat", "kiltan", "amini"]
+    },
+    {
+      "slug": "minicoy", "name": "Minicoy", "category": "inhabited", "region": "Southern Lakshadweep",
+      "tagline": "A southern horizon with a culture of its own.",
+      "summary": "A long southern island with a generous western lagoon, distinctive island traditions and an historic lighthouse.",
+      "introduction": "Minicoy belongs to Lakshadweep, yet its southern setting and cultural identity make it unmistakably itself. The island curves beside a broad lagoon, with coconut landscapes, seafaring life and a lighthouse that has watched over this horizon for generations.",
+      "facts": [{ "label": "Island character", "value": "Southernmost inhabited island" }, { "label": "Landscape", "value": "Long island & western lagoon" }, { "label": "Notice", "value": "Lighthouse & village life" }],
+      "sections": [
+        { "id": "southern-setting", "title": "A different southern perspective", "paragraphs": ["Minicoy is separated from the northern island group by a substantial stretch of sea. It should not be treated as a quick addition to an Agatti or Kadmat itinerary. Its position gives a useful sense of the archipelago’s reach and the importance of carefully planned sea connections."] },
+        { "id": "lighthouse", "title": "A landmark above the palms", "paragraphs": ["The Administration dates Minicoy’s lighthouse to 1885. Its vertical form is a memorable counterpoint to the low shoreline shown in this photograph. Confirm current visitor access and opening arrangements for the lighthouse locally rather than relying on an old travel account."], "photo": "minicoy-photo" },
+        { "id": "culture", "title": "Let the island introduce itself", "paragraphs": ["Village life, fishing and seafaring traditions deserve time and respect. Ask local hosts about cultural encounters that are genuinely welcomed, dress thoughtfully away from designated visitor beaches and request permission before photographing people. Minicoy is a distinct place to get to know, not simply another version of the same lagoon."] }
+      ],
+      "access": "Minicoy needs its own confirmed travel plan. Verify permits, stay arrangements and current transport directly; this guide does not advertise a regular transfer from Kadmat.",
+      "sources": [{ "label": "Lakshadweep Administration · Minicoy", "url": "https://lakshadweep.gov.in/islands/minicoy/" }], "related": ["kalpeni", "andrott", "kadmat"]
+    },
+    {
+      "slug": "bangaram", "name": "Bangaram", "category": "visitor", "region": "Bangaram atoll",
+      "tagline": "A palm-green pause in a circle of blue.",
+      "summary": "A visitor island near Agatti, surrounded by shallow lagoon water, coral reef and a broad natural horizon.",
+      "introduction": "Bangaram is one of Lakshadweep’s most recognisable visitor-island landscapes. A small palm-green island sits within lagoon blues, with the reef separating sheltered water from the Arabian Sea. The simplicity of the setting is its strongest impression.",
+      "facts": [{ "label": "Island character", "value": "Visitor island within an atoll" }, { "label": "Landscape", "value": "Coconut grove, beach & lagoon" }, { "label": "Notice", "value": "Reef colours & open horizons" }],
+      "sections": [
+        { "id": "setting", "title": "Begin with the lagoon", "paragraphs": ["Bangaram’s surroundings are as important as its land. Water changes colour over sand and reef, giving the atoll a sense of depth even from shore. Leave the marine environment untouched and choose authorised activities that suit both your ability and the conditions."] },
+        { "id": "island-view", "title": "A real view beyond the illustration", "paragraphs": ["This photograph offers a documentary counterpoint to the island artwork. Real shorelines shift with season, weather and tide, while an illustration simplifies them. Slow down, keep the beach free of litter and let wildlife remain undisturbed."], "photo": "bangaram-photo" },
+        { "id": "planning", "title": "Plan the whole journey", "paragraphs": ["Agatti is an important gateway for Bangaram, but your arrival, stay and boat arrangements must work together. Check the operating accommodation and actual inclusions directly. Do not assume a day visit, onward island hop or water activity is available simply because it appears on a map."] }
+      ],
+      "access": "Use approved visitor arrangements and confirm permits, accommodation and weather-dependent transfers. Scuba Lak is based on Kadmat; this article does not imply that we operate Bangaram accommodation.",
+      "sources": [{ "label": "Lakshadweep Administration · Bangaram", "url": "https://lakshadweep.gov.in/islands/bangaram/" }], "related": ["thinnakara", "agatti", "kadmat"]
+    },
+    {
+      "slug": "thinnakara", "name": "Thinnakara", "category": "visitor", "region": "Bangaram atoll",
+      "tagline": "A small island within a much bigger blue.",
+      "summary": "A low coral island in the Bangaram lagoon system, with pale sand, palms and an especially open-water feel.",
+      "introduction": "Thinnakara, also written Tinnakara, sits within the same broader lagoon world as Bangaram. Small stretches of land can seem almost weightless against the surrounding water. Its beauty is best understood with an equally light footprint.",
+      "facts": [{ "label": "Island character", "value": "Visitor island" }, { "label": "Landscape", "value": "Low island within Bangaram atoll" }, { "label": "Notice", "value": "Shorebirds, sand & shallow-water colours" }],
+      "sections": [
+        { "id": "atoll", "title": "One island, a shared lagoon", "paragraphs": ["A map can make neighbouring islands look like easy stepping stones. On the water, channels, reef edges and conditions matter. Thinnakara should be understood as part of an atoll system, not as a beach to reach by an unplanned crossing."] },
+        { "id": "wildlife", "title": "Leave room for smaller lives", "paragraphs": ["Published field observations have recorded shorebirds and terns around Thinnakara and Bangaram. Watch from a distance, avoid approaching resting or nesting birds and keep food and litter out of the beach environment. An apparently empty shore may be a feeding or resting place."] },
+        { "id": "visit", "title": "Keep plans grounded in current advice", "paragraphs": ["Visitor facilities and operating arrangements can change. Confirm the actual stay or excursion, necessary approvals and boat plan with an authorised provider. This guide deliberately avoids presenting accommodation, schedules or activities as guaranteed. The pleasure of a simple island setting begins with a well-prepared journey."] }
+      ],
+      "access": "Verify current visitor permissions, operating facilities and transfers before planning a stay or day visit. Inclusion here is not a booking offer.",
+      "sources": [{ "label": "Field study · Birds of Bangaram and Thinnakara", "url": "https://journalcra.com/article/ornithofauna-bangarum-and-thinnakara-islands-lakshadweep-archipelago-india-arabian-sea" }, { "label": "Lakshadweep Administration · Island atlas", "url": "https://lakshadweep.gov.in/islands/" }], "related": ["bangaram", "agatti", "suheli"]
+    },
+    {
+      "slug": "suheli", "name": "Suheli Par", "category": "atoll", "region": "South-west of Kavaratti",
+      "tagline": "Not one island. A whole lagoon world.",
+      "summary": "An offshore atoll with a large lagoon, small vegetated islets and a changing sandbank landscape.",
+      "introduction": "Suheli Par is an atoll, not a single continuous island. Its broad lagoon, reef rim, small green islets and bare sand patches form one connected marine landscape. The illustration is intended to make that relationship easier to imagine.",
+      "facts": [{ "label": "Place character", "value": "Offshore coral atoll" }, { "label": "Landscape", "value": "Lagoon, reef & small islets" }, { "label": "Notice", "value": "The separation between land and reef" }],
+      "sections": [
+        { "id": "geography", "title": "Think in reefs, not just coastlines", "paragraphs": ["The reef system encloses far more water than land. Small vegetated islets and the Suheli Pitti sandbank are distinct parts of it; they should not be merged into an imaginary ring of solid land. The atoll’s shape is an introduction to its ecology, not navigational advice."], "photo": "suheli-photo" },
+        { "id": "landmarks", "title": "A maritime landscape", "paragraphs": ["The Directorate General of Lighthouses and Lightships records a lighthouse at Suhelipar. Such landmarks speak to the importance of safe passage through these waters. Their presence does not mean that public landings, visitor facilities or routine excursions are available."] },
+        { "id": "care", "title": "Let remoteness remain a responsibility", "paragraphs": ["Reefs, wildlife and small sandbanks are sensitive to disturbance. Learn about Suheli without assuming you need to set foot on it. Any proposed visit requires current, explicit permissions and an authorised plan that considers weather, environmental restrictions and emergency support."] }
+      ],
+      "access": "Do not treat Suheli as an unrestricted tourist island. We do not advertise a routine Suheli trip; specialist permissions and current local guidance are necessary.",
+      "sources": [{ "label": "Directorate General of Lighthouses · Suhelipar", "url": "https://www.dgll.nic.in/DGLL-light-house-location/about-kochi/suhelipar-lighthouse" }], "related": ["pitti-suheli", "pitti-bird", "kavaratti"]
+    },
+    {
+      "slug": "pitti-suheli", "name": "Pitti · Suheli sandbank", "category": "atoll", "region": "Inside Suheli Par",
+      "tagline": "A white ribbon written by the tide.",
+      "summary": "The bare sandbank within Suheli Par is a tidal landscape, distinct from Pakshi Pitti Bird Island and the islets at Kalpeni.",
+      "introduction": "Some island landscapes are not fixed green shapes on a map. Suheli’s Pitti is a bare sandbank within the atoll system: pale sand, shallow water and a form that can change. It has no need for invented palms or a resort to make it remarkable.",
+      "facts": [{ "label": "Place character", "value": "Bare sandbank" }, { "label": "Location", "value": "Within Suheli Par" }, { "label": "Not the same as", "value": "Pakshi Pitti Bird Island" }],
+      "sections": [
+        { "id": "identity", "title": "One name, different places", "paragraphs": ["Pitti is a name used in more than one Lakshadweep setting. This guide concerns the sandbank inside Suheli Par. It does not describe the bird sanctuary north-west of Kavaratti or similarly named features near Kalpeni. Always check the exact place, not just the name."] },
+        { "id": "tides", "title": "A landscape that does not stand still", "paragraphs": ["A sandbank’s exposed shape depends on tide, wave action and sediment movement. The illustration is a visual interpretation, not a current shoreline survey. It must never be used to judge a crossing, landing, walking route or swimming area."] },
+        { "id": "restraint", "title": "Admiration does not require a landing", "paragraphs": ["Remote sandbanks can appear to be private empty beaches, but they sit within living reef systems. Avoid disturbing birds or collecting natural material. Any access needs explicit authorisation, environmental consideration and professional local judgment; there is no unaccompanied excursion suggested here."] }
+      ],
+      "access": "No routine visitor access or landing is implied. Confirm the precise location, permissions and environmental restrictions with the responsible authorities.",
+      "sources": [{ "label": "Coastal Regulation Zone records · Suheli sandbank context", "url": "https://environmentclearance.nic.in/writereaddata/Form-1A/Minutes/14102020D5C73ON4Mintes_CRZ_30_Sept2020.pdf" }], "related": ["suheli", "pitti-bird", "bangaram"]
+    },
+    {
+      "slug": "pitti-bird", "name": "Pakshi Pitti", "category": "atoll", "region": "North-west of Kavaratti",
+      "tagline": "A small shore that belongs to the birds.",
+      "summary": "A barren reef islet associated with an important protected seabird sanctuary—not a palm-lined visitor beach.",
+      "introduction": "Pakshi Pitti is a reminder that the most valuable island is not always one we should visit. This exposed coral-and-sand landscape is associated with Lakshadweep’s protected bird sanctuary. Its significance lies in the life it supports, not in facilities for people.",
+      "facts": [{ "label": "Place character", "value": "Protected seabird habitat" }, { "label": "Official sanctuary name", "value": "Dr. Salim Ali Bird Sanctuary, Pitti" }, { "label": "Landscape", "value": "Barren coral & sand islet" }],
+      "sections": [
+        { "id": "identity", "title": "Pitti, the bird island", "paragraphs": ["This is Pakshi Pitti, north-west of Kavaratti, not the Pitti sandbank inside Suheli Par. The Environment and Forest Department identifies Pitti with Dr. Salim Ali Bird Sanctuary. Keep these places distinct when reading a map or discussing an itinerary."] },
+        { "id": "habitat", "title": "An open shore, a critical habitat", "paragraphs": ["A bare islet can be a vital place for seabirds even when it seems to offer little shelter. Noise, close approaches and landings can disturb wildlife. Do not approach nesting birds, launch a drone or attempt a landing without the relevant permissions and conservation guidance."] },
+        { "id": "conservation", "title": "Choose the view that leaves no trace", "paragraphs": ["This guide celebrates the sanctuary without marketing it as a beach excursion. Sometimes the most respectful way to know a place is through its natural history and carefully sourced imagery. Its protected status should lead the story, not sit in the small print after an invitation to visit."] }
+      ],
+      "access": "Protected habitat: do not assume public access, landing or tourism activities are permitted. Seek current direction from the Environment and Forest Department.",
+      "sources": [{ "label": "Lakshadweep Environment & Forest Department · Protected areas", "url": "https://doef.utl.gov.in/protected_areas" }], "related": ["kavaratti", "pitti-suheli", "suheli"]
+    }
+  ]
+}

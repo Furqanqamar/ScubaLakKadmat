@@ -1,0 +1,115 @@
+SCUBA LAK — WEBSITE REVIEW, 3 OCTOBER 2026
+
+Scope: Angular source, production build, all eight primary pages, course details,
+shared interactions, mobile layouts, image delivery, SEO and preview hosting.
+Existing uncommitted image work was preserved. No push or deployment performed.
+
+FIXED
+1. Conflicting scroll owners: one service now owns anchor motion, route resets,
+   cancellation on wheel/touch, and bounded back/forward scroll restoration.
+   Repeated anchor navigation remains possible after manual hash clearing.
+2. Large reveal sections could remain invisible on small screens. Intersection
+   thresholds now detect entry regardless of section height; inserted root nodes
+   are also observed. Removed animated blur from reveal transitions.
+3. Guessed content-visibility heights could move anchors and cause jumps. Removed
+   the blanket section rule rather than hiding large chunks of live content.
+4. Initial direct page loads unnecessarily displayed the transition curtain.
+   Initial loads and same-route changes now skip it. Reduced-motion users also
+   skip the JavaScript hold, and timers are cleaned up on destruction.
+5. Cursor position changes used layout-affecting left/top on every pointer event.
+   Updates are now frame-batched and translated; pending frames are cleaned up.
+6. Floating navigation updated Signals on every scroll pixel and leaked its
+   listener. It now observes the visibility threshold and removes its listener.
+   Contrast on light sections and safe-area placement have been improved.
+7. Underwater bubbles and light rays animated bottom/margins, causing layout work.
+   They now use translation; footer animation pauses outside the viewport.
+8. Legacy Zone.js was loaded alongside Angular 22's zoneless architecture.
+   Removed it from the build and dependencies; zoneless mode is explicit.
+9. Unused Font Awesome regular/compatibility imports were removed. Solid and
+   brand icons remain available. Old service-modal CSS and unused fields removed.
+10. Gallery/briefing overlays lacked native focus containment, Escape support,
+    focus return and background scroll locking. Added a shared native-dialog
+    component. Gallery captions can scroll and full photos use object-fit contain.
+11. Oversized mobile headings clipped long words, especially Lakshadweep.
+    Added mobile typography constraints and stacked narrow transport fact rows.
+12. Menu button was under 44px and lacked Escape handling. Both are corrected.
+13. Course/package switches used incomplete tab semantics. They now use native
+    toggle buttons with aria-pressed, retaining keyboard activation and labels.
+14. Card images downloaded full 1536px assets. Added reusable responsive-image
+    bindings and 480/800px derivatives for generated imagery only.
+    All 55 source images total 15,813,994 bytes; 480px variants total 2,083,600
+    (87% less), and 800px variants 4,775,918 (70% less). Actual download savings
+    depend on device density, card width, browser selection and cache state.
+15. Contact confirmation incorrectly claimed receipt/queueing with no backend.
+    It now explicitly says the message is prepared, not sent, and offers email.
+    Required fields, invalid states, error associations and length caps added.
+16. Invalid WhatsApp/social placeholders and malformed double-plus telephone URLs
+    could be followed. Links now require valid configured destinations. Existing
+    placeholder numbers are disabled rather than sent to third-party services.
+17. Detail pages shared generic SEO titles. Courses/experiences now receive
+    specific titles and descriptions; competing route-title declarations removed.
+18. Canonical/social/sitemap URLs pointed to an unready domain; they now use the
+    requested GitHub Pages project URL. Removed fabricated phone/generic sameAs
+    data from structured data. Owner must confirm the remaining business details.
+19. Manifest start URL incorrectly escaped the GitHub project subpath. It is now
+    relative with an explicit relative scope; unsupported maskable claim removed.
+20. Pages deployment replaced every /media/ substring, including relative font
+    URLs. A scoped preparation script now changes only absolute public asset URLs.
+    Dependency installation now uses the lockfile and npm ci for repeatability.
+21. Preview media had immutable caching despite stable filenames. It now
+    revalidates with ETags; hashed bundles remain immutable. Video byte ranges,
+    malformed URL handling and regression checks were added. Matching generic
+    hosting headers no longer mark mutable media as immutable.
+
+VERIFICATION
+- Optimized production builds pass, including GitHub Pages base-path build.
+- TypeScript checks with noUnusedLocals and noUnusedParameters pass.
+- Git diff whitespace checks and 55-image integrity checks pass.
+- Eight primary routes checked at 320, 375, 768, 1024 and 1440px (one initial
+  1024 home measurement raced viewport resize; home was subsequently inspected
+  at 1024px). No document-wide horizontal overflow was observed.
+- All 22 course detail pages checked at phone width: headings, unique titles,
+  no horizontal overflow. No console errors captured in that sweep.
+- Gallery Escape, focus return, background lock and full-photo display verified.
+- Course filtering produces the two beginner cards; phone loads 480px variants.
+- Empty contact submit exposes four accessible errors; completed test data only
+  prepares a message. No enquiry was sent externally.
+- Initial bundle transfer estimate improved from about 127.6KB to 116.47KB.
+  This is a build estimate, NOT a Lighthouse score or mobile timing measurement.
+- Preview regression script verifies primary routes, 206 video byte responses,
+  304 revalidation, malformed URL 400, and missing asset 404.
+- User video/photo files were not edited, cropped, recompressed or removed.
+- Rebuilding the preview while an old tab was open produced stale lazy-chunk
+  fetch errors. Reloading loaded the new build; final anchor alignment was 88px
+  with no curtain. Refresh existing tabs after this update. Production rollout
+  should retain old hashed assets or provide an update/reload recovery strategy.
+
+OWNER INPUT / REMAINING LIMITATIONS
+- Confirm official telephone/WhatsApp number, email and social profile URLs.
+  Placeholder links remain disabled. Email currently retains hello@scubalak.com
+  from the existing data; deliverability has not been verified.
+- Confirm team roles/names, testimonials, certification counts, business hours,
+  course availability, transport/prices and certification claims before release.
+  This was a software review, not a factual accreditation/medical/travel audit.
+- GitHub Pages cannot honor custom _headers, and SPA fallback deep links can
+  return HTTP 404 despite rendering the app. Prerendered routes are the next SEO
+  improvement for crawler/social-preview reliability; not implemented here.
+- No real-device iOS/Android tests, CPU/network-throttled Lighthouse run, complete
+  automated WCAG audit or field Core Web Vitals data were collected. Responsive
+  viewport tests do not establish real-device frame rate or performance scores.
+- Original hero film remains unchanged and is a substantial mobile download.
+  A lighter optional delivery variant requires a separate quality decision.
+- Content/theme centralization remains partial: inline copy and hard-coded
+  palette values still occur in templates. A full localization/theme migration
+  should include visual regression coverage; not represented as finished here.
+- Generic page metadata is in initial static HTML; per-route metadata currently
+  depends on client-side JavaScript. Sitemap currently lists primary pages only.
+
+LOCAL CHECK COMMANDS (Node 22.22.3)
+npm run build
+npx tsc --noEmit --noUnusedLocals --noUnusedParameters -p tsconfig.app.json
+node scripts/verify-image-assets.mjs
+node scripts/verify-preview.mjs  (requires preview on port 4004)
+
+The preview server changes apply to the local preview, not automatically to
+GitHub Pages or Azure. Deployment remains a separate action.

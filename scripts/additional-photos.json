@@ -1,0 +1,86 @@
+[
+  {
+    "id": "lagoon-dive-group",
+    "file": "WhatsApp Image 2026-10-25 at 12.17.21 (1).jpeg",
+    "kind": "image",
+    "title": "Together beneath the lagoon",
+    "description": "A group of divers with Scuba Lak above the pale seabed, surrounded by clear water and rising bubbles.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training",
+    "objectPosition": "50% 58%",
+    "size": "wide"
+  },
+  {
+    "id": "guided-group-dive",
+    "file": "WhatsApp Image 2026-10-25 at 12.17.21.jpeg",
+    "kind": "image",
+    "title": "A shared moment underwater",
+    "description": "Four divers together in Kadmat’s blue water, with the sandy seabed below and bubbles rising to the surface.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training",
+    "objectPosition": "50% 49%",
+    "size": "wide"
+  },
+  {
+    "id": "open-blue-dive",
+    "file": "WhatsApp Image 2026-10-25 at 12.17.20.jpeg",
+    "kind": "image",
+    "title": "Room for the blue",
+    "description": "The Scuba Lak group framed by open water and the light from the surface during a shared dive.",
+    "location": "Kadmat · Scuba Lak",
+    "category": "Diving & training",
+    "objectPosition": "50% 54%",
+    "size": "wide"
+  },
+  {
+    "id": "blue-water-diver",
+    "file": "WhatsApp Image 2026-10-25 at 12.09.08 (2).jpeg",
+    "kind": "image",
+    "title": "A pause above the seabed",
+    "description": "A diver above Kadmat’s light-coloured seabed, with small reef fish moving through the foreground.",
+    "location": "Kadmat waters",
+    "category": "Diving & training",
+    "objectPosition": "50% 45%"
+  },
+  {
+    "id": "reef-diver-coral",
+    "file": "WhatsApp Image 2026-10-25 at 12.09.08 (1).jpeg",
+    "kind": "image",
+    "title": "Over the coral",
+    "description": "A diver suspended above rounded coral formations in Kadmat’s blue water.",
+    "location": "Kadmat reef",
+    "category": "Reef & island views",
+    "objectPosition": "50% 48%"
+  },
+  {
+    "id": "coral-and-light",
+    "file": "WhatsApp Image 2026-10-25 at 12.09.08.jpeg",
+    "kind": "image",
+    "title": "Light, bubbles and reef",
+    "description": "Sunlight reaches through the surface above a diver, coral formations and a trail of bubbles.",
+    "location": "Kadmat reef",
+    "category": "Reef & island views",
+    "objectPosition": "50% 58%"
+  },
+  {
+    "id": "crew-on-the-lagoon",
+    "file": "WhatsApp Image 2026-10-25 at 12.09.07.jpeg",
+    "kind": "image",
+    "title": "The people on the boat",
+    "description": "Four of the Scuba Lak crew together aboard the boat, with Kadmat’s turquoise lagoon and shoreline behind them.",
+    "location": "Kadmat lagoon · Scuba Lak",
+    "category": "Team",
+    "objectPosition": "50% 68%",
+    "size": "wide"
+  },
+  {
+    "id": "sunlit-blue-diver",
+    "file": "WhatsApp Image 2026-10-25 at 12.13.48.jpeg",
+    "kind": "image",
+    "title": "Under a ceiling of light",
+    "description": "A diver silhouetted beneath sunbeams and a school of fish, with open blue water below.",
+    "location": "Kadmat waters",
+    "category": "Diving & training",
+    "objectPosition": "50% 48%"
+  }
+]

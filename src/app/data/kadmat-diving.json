@@ -1,0 +1,207 @@
+{
+  "copy": {
+    "home": {
+      "eyebrow": "Kadmat Island · Lakshadweep",
+      "title": "The reef",
+      "emphasis": "starts here.",
+      "introduction": "Scuba diving in Kadmat, Lakshadweep: explore lagoon dives, PADI courses, snorkelling and kayaking with the Scuba Lak island team.",
+      "explore": "Explore the water",
+      "spotLabel": "Dive spots to discover",
+      "spotLink": "Find your next dive",
+      "glanceLabel": "Kadmat at a glance",
+      "statSites": "Named dive spots · more to explore",
+      "statIsland": "Kadmat · our island home",
+      "statPace": "Your pace",
+      "statTiming": "Flexible plans · shaped by the sea",
+      "activityEyebrow": "In the water, in Kadmat",
+      "activityTitle": "Find your",
+      "activityEmphasis": "kind of blue.",
+      "activityIntro": "Lagoon experiences, certified dives, PADI training and days above the reef.",
+      "galleryEyebrow": "Real moments. Our island.",
+      "galleryTitle": "A little more",
+      "galleryEmphasis": "Kadmat.",
+      "galleryLink": "See the visual diary"
+    },
+    "why": {
+      "eyebrow": "Why dive Kadmat?",
+      "title": "Less rush.",
+      "emphasis": "More reef.",
+      "introduction": "An unhurried island. A choice of dive spots. Friendly people who make room for your kind of adventure.",
+      "imageCaption": "Our dive centre. Our island home.",
+      "link": "Get to know Kadmat",
+      "note": "Your dive plan follows your experience, the conditions and the team’s advice."
+    },
+    "spots": {
+      "eyebrow": "Beneath Kadmat",
+      "title": "One island.",
+      "emphasis": "Another world below.",
+      "introduction": "19 dive spots to start your next adventure. And more blue waiting beyond the list.",
+      "listTitle": "Reefs to discover",
+      "siteCountLabel": "named spots",
+      "askLabel": "Ask about",
+      "illustrationAlt": "Stylised aerial illustration of Kadmat Island and its turquoise lagoon",
+      "graphicNote": "Kadmat Island · an illustration, not a dive-site map.",
+      "otherIslands": "Explore other Lakshadweep islands",
+      "planDive": "Plan your Kadmat dive",
+      "planningNote": "Your guide chooses sites to suit your experience and the day’s conditions. Ask the team about access and depth; wildlife and overhead access are not guaranteed.",
+      "contextSuffix": "Kadmat dive spot"
+    },
+    "kadmatPage": {
+      "eyebrow": "Kadmat Island · our home in Lakshadweep",
+      "title": "A little island.",
+      "emphasis": "A lot of blue.",
+      "introduction": "A western lagoon, open-water horizons and a dive team ready to welcome you.",
+      "spotsLink": "Discover Kadmat dive spots",
+      "activitiesEyebrow": "Make the water your day",
+      "activitiesTitle": "Breathe. Dive.",
+      "activitiesEmphasis": "Paddle. Repeat.",
+      "activitiesIntro": "Choose your experience. We’ll help with the details.",
+      "mapEyebrow": "Your bearings",
+      "mapTitle": "Meet us in Kadmat.",
+      "mapIntroduction": "The lagoon is our starting point. Dive and boat locations are agreed with the team for the conditions on the day.",
+      "mapOpen": "Open the island map",
+      "mapExternal": "View a larger map",
+      "mapLabel": "Map of Kadmat Island, Lakshadweep",
+      "archiveLink": "Explore other Lakshadweep islands",
+      "closingTitle": "Make your next story",
+      "closingEmphasis": "a Kadmat one.",
+      "closingAction": "Plan your dive",
+      "travelDetails": "Getting here & practical notes"
+    },
+    "about": {
+      "eyebrow": "The people behind your Kadmat dive",
+      "title": "Island people.",
+      "emphasis": "Ocean hearts.",
+      "introduction": "Friendly, experienced divers. Patient guidance. A shared love of Kadmat’s water. Meet Scuba Lak."
+    },
+    "courses": {
+      "eyebrow": "PADI training · Kadmat Island",
+      "title": "Learn to dive.",
+      "emphasis": "Here in Kadmat.",
+      "introduction": "Start with the basics. Build your confidence. Find the next step with our island dive team."
+    },
+    "experiences": {
+      "eyebrow": "Diving & water activities · Kadmat",
+      "title": "Your Kadmat",
+      "emphasis": "water day.",
+      "introduction": "A first dive, a new certification or an afternoon on the lagoon. Start here.",
+      "spotLink": "Meet the Kadmat dive spots"
+    }
+  },
+  "reasons": [
+    {
+      "id": "unhurried",
+      "title": "Room to slow down",
+      "text": "A quieter island feel. Less bustle, more time with the sea.",
+      "icon": "coral"
+    },
+    {
+      "id": "explore",
+      "title": "More than one reef day",
+      "text": "19 named spots to start with—and more to ask the team about.",
+      "icon": "compass"
+    },
+    {
+      "id": "begin",
+      "title": "A place to begin",
+      "text": "Find your first underwater breath with patient guidance in Kadmat’s lagoon.",
+      "icon": "mask"
+    },
+    {
+      "id": "people",
+      "title": "Friendly, experienced divers",
+      "text": "Local knowledge, a warm welcome and time for your questions.",
+      "icon": "instructor"
+    },
+    {
+      "id": "timing",
+      "title": "A little more flexibility",
+      "text": "Talk through timings that work for you, the team and the conditions.",
+      "icon": "schedule"
+    },
+    {
+      "id": "surface",
+      "title": "Adventure above the reef",
+      "text": "Keep exploring with snorkelling, kayaking and other water activities.",
+      "icon": "kayak"
+    }
+  ],
+  "sites": [
+    {
+      "id": "secret-garden",
+      "name": "Secret Garden"
+    },
+    {
+      "id": "the-cave",
+      "name": "The Cave"
+    },
+    {
+      "id": "double-reef",
+      "name": "Double Reef"
+    },
+    {
+      "id": "family-hut",
+      "name": "Family Hut"
+    },
+    {
+      "id": "tunnel",
+      "name": "Tunnel"
+    },
+    {
+      "id": "the-wall",
+      "name": "The Wall"
+    },
+    {
+      "id": "turtle-town",
+      "name": "Turtle Town"
+    },
+    {
+      "id": "north-cave",
+      "name": "North Cave"
+    },
+    {
+      "id": "north-tip",
+      "name": "North Tip"
+    },
+    {
+      "id": "dolphin-head",
+      "name": "Dolphin Head"
+    },
+    {
+      "id": "masjith-point",
+      "name": "Masjith Point"
+    },
+    {
+      "id": "7-huts-reef",
+      "name": "7 Huts Reef"
+    },
+    {
+      "id": "potato-patch",
+      "name": "Potato Patch"
+    },
+    {
+      "id": "east-gallery",
+      "name": "East Gallery"
+    },
+    {
+      "id": "fish-soup",
+      "name": "Fish Soup"
+    },
+    {
+      "id": "sting-ray-city",
+      "name": "Sting Ray City"
+    },
+    {
+      "id": "jack-point",
+      "name": "Jack Point"
+    },
+    {
+      "id": "junior-shark-ali",
+      "name": "Junior Shark Ali"
+    },
+    {
+      "id": "cross-current",
+      "name": "Cross Current"
+    }
+  ]
+}

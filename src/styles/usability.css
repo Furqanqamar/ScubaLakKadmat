@@ -1,0 +1,15 @@
+.skip-link { position: fixed; top: .75rem; left: .75rem; z-index: 150; transform: translateY(-200%); padding: .85rem 1.2rem; border-radius: .6rem; background: var(--mint); color: var(--deep); font-size: 1rem; font-weight: 700; }
+.skip-link:focus { transform: none; }
+main:focus, #enquiry:focus, #reach-permits:focus, #team:focus { outline: none; }
+.button-link:focus-visible, summary:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--theme-gold-text); outline-offset: 4px; }
+app-service-card { display: block; height: 100%; min-width: 0; }
+.service-card { height: 100%; }
+.service-card > div:last-child { margin-top: auto; padding-top: 1.3rem; }
+.service-card > div:nth-last-child(2) { padding-bottom: 1.75rem; }
+.team-card__image { aspect-ratio: 4 / 5; }
+.people-link { display: flex; justify-content: center; align-items: center; gap: .8rem; min-height: 60px; padding: 1.5rem; background: var(--sand); text-decoration: underline; text-underline-offset: .3em; }
+.site-header__brand:focus-visible, .footer-brand:focus-visible { outline: 2px solid var(--mint); outline-offset: 7px; border-radius: .5rem; }
+.site-header__brand, .footer-brand, app-brand-lockup { transform: none !important; animation: none !important; transition: none !important; }
+@media (max-width: 639px) {
+  .site-footer { padding-bottom: 6.5rem; }
+}
