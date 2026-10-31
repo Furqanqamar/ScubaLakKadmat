@@ -13,6 +13,8 @@ for (const mode of ['coming-soon', 'maintenance']) {
   const html = (await readFile(resolve('public', mode, 'index.html'), 'utf8')).replace(`href="${mode}/#main-content"`, 'href="./#main-content"');
   await writeFile(resolve(directory, 'index.html'), html);
   await cp('public/status-pages', resolve(directory, 'status-pages'), { recursive: true });
+  await mkdir(resolve(directory, 'fonts'), { recursive: true });
+  for (const name of ['permanent-marker-brand-470a22ccb3dd.woff2', 'permanent-marker-LICENSE.txt']) await cp(resolve('public/fonts', name), resolve(directory, 'fonts', name));
   await writeFile(resolve(directory, 'site-status.json'), JSON.stringify({ ...config, mode }, null, 2) + '\n');
   for (const name of ['scuba-lak-round-48-a83faf497d79.png', 'scuba-lak-round-96-b09e8b7d2b27.png', 'scuba-lak-round-180-c79982ff43e3.png']) await cp(resolve('public/media/brand', name), resolve(directory, 'media/brand', name));
   const hash = mode === 'coming-soon' ? '9b332d1c1517' : '19069de94e5c';

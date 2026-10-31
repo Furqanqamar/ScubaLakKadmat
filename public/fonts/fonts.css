@@ -1,4 +1,12 @@
-/* Inter and Playfair Display: SIL Open Font License, accompanying OFL files. */
+/* Inter/Playfair Display: SIL OFL. Permanent Marker: Apache 2.0. See accompanying licenses. */
+@font-face {
+  font-family: 'Permanent Marker';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(permanent-marker-brand-470a22ccb3dd.woff2) format('woff2');
+  unicode-range: U+20, U+4b-4c, U+53, U+61-65, U+68, U+6b, U+6d, U+70, U+73-75, U+77;
+}
 @font-face {
   font-family: 'Inter';
   font-style: normal;

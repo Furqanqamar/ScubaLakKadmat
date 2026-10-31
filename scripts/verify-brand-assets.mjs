@@ -8,6 +8,24 @@ const output = new URL('dist/scuba-lak/browser/', root);
 const generated = await readFile(new URL('src/app/data/brand-assets.generated.ts', root), 'utf8');
 const assets = JSON.parse(generated.match(/BRAND_ASSETS = ([\s\S]*?) as const;/)[1]);
 const directory = new URL('public/media/brand/', root);
+const brandFont = 'fonts/permanent-marker-brand-470a22ccb3dd.woff2';
+const font = await readFile(new URL('public/' + brandFont, root));
+assert.equal(font.toString('ascii', 0, 4), 'wOF2');
+assert.ok(font.length < 12000, 'Only the fixed brand letters should be downloaded');
+assert.ok(brandFont.includes(createHash('sha256').update(font).digest('hex').slice(0, 12)));
+assert.match(await readFile(new URL('public/fonts/permanent-marker-LICENSE.txt', root), 'utf8'), /Apache License/);
+assert.deepEqual(await readFile(new URL(brandFont, output)), font);
+const lockup = await readFile(new URL('src/app/common/components/brand-lockup/brand-lockup.component.ts', root), 'utf8');
+assert.match(lockup, /\.brand-lockup__wordmark\s*\{[^}]*font-family: var\(--font-brand\)/);
+assert.match(lockup, /\.brand-lockup__wordmark small\s*\{[^}]*margin-top: \.1rem;[^}]*font-family: inherit/);
+const mainStyles = await readFile(new URL('src/styles.css', root), 'utf8');
+assert.match(mainStyles, /--font-brand: 'Permanent Marker'/);
+assert.match(mainStyles, /body\s*\{[^}]*font-family: var\(--font-body\)/);
+assert.match(mainStyles, /h1,[\s\S]*?\.font-serif\s*\{[^}]*font-family: var\(--font-display\)/);
+for (const mode of ['coming-soon', 'maintenance']) {
+  const holdingHtml = await readFile(new URL(`${mode}/index.html`, output), 'utf8');
+  assert.ok(holdingHtml.includes(`href="${brandFont}"`), `${mode}: preload the shared brand subset`);
+}
 
 // Small PNG decoder for round-corner checks; no extra runtime/test dependency.
 function pngPixels(png) {
@@ -89,6 +107,7 @@ const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 for (const url of urls) {
   const path = new URL(url).pathname.replace(/^\/(?:ScubaLakKadmat\/)?/, '');
   const html = await readFile(new URL(`${path}index.html`, output), 'utf8');
+  assert.ok(html.includes(`href="${brandFont}"`), `${path}: preload the brand-only font`);
   const logos = [...html.matchAll(/<img\b[^>]*class="brand-lockup__logo"[^>]*>/g)];
   assert.equal(logos.length, 2, `${path}: header and footer must share the new logo`);
   for (const [logo] of logos) {
@@ -105,4 +124,4 @@ for (const url of urls) {
   assert.ok(graph.find(item => item['@type'] === 'LocalBusiness').logo.endsWith(assets.organizationLogo));
   assert.doesNotMatch(html, /media\/scuba-lak-logo(?:-white)?\.png/, 'Old artwork must not remain in displayed logos or browser/SEO metadata');
 }
-console.log(`Brand checks passed: circular PNG/ICO transparency, fingerprints, responsive header/footer artwork and browser/app/SEO icons on ${urls.length} pages.`);
+console.log(`Brand checks passed: compact licensed brand-only font, tighter lockup, unchanged body/heading typography, circular artwork and browser/app/SEO icons on ${urls.length} pages.`);

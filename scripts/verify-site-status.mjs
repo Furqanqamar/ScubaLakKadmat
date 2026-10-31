@@ -63,7 +63,8 @@ try {
     const html = await readFile(resolve(directory, 'index.html'), 'utf8');
     assert.match(html, /href="\.\/#main-content"/);
     assert.equal(JSON.parse(await readFile(resolve(directory, 'site-status.json'), 'utf8')).mode, mode);
-    for (const match of html.matchAll(/(?:src|href)="((?:media|status-pages)\/[^\"]+)"/g)) await stat(resolve(directory, match[1]));
+    for (const match of html.matchAll(/(?:src|href)="((?:media|status-pages|fonts)\/[^\"]+)"/g)) await stat(resolve(directory, match[1]));
+    assert.match(await readFile(resolve(directory, 'fonts/permanent-marker-LICENSE.txt'), 'utf8'), /Apache License/);
     assert.doesNotMatch(html, /<app-root/);
   }
   const originals = new Map();

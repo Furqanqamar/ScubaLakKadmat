@@ -11,6 +11,7 @@
   color-scheme: light;
   --font-display: 'Playfair Display', 'Playfair Fallback', Georgia, serif;
   --font-body: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-brand: 'Permanent Marker', 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-family: var(--font-body);
   --ink: var(--theme-ink);
   --deep: var(--theme-deep);
