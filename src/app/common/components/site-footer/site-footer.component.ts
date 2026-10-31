@@ -43,7 +43,7 @@ interface FooterBubble {
           </nav> }
           <nav class="footer-navigation" [attr.aria-label]="copy.footer.navigationLabel"><a routerLink="/experiences">{{ copy.navigation.experiences }}</a><a routerLink="/courses">{{ copy.navigation.courses }}</a><a routerLink="/kadmat">{{ copy.navigation.island }}</a><a routerLink="/about">{{ copy.navigation.about }}</a><a routerLink="/gallery">{{ copy.navigation.gallery }}</a><a routerLink="/lakshadweep">{{ copy.navigation.archipelago }}</a><a routerLink="/kadmat-accommodation">{{ copy.navigation.accommodation }}</a><a routerLink="/lakshadweep-trip-planning">{{ copy.navigation.tripPlanning }}</a><a routerLink="/faq">{{ copy.navigation.faq }}</a><a routerLink="/contact" fragment="enquiry">{{ copy.navigation.contact }}</a></nav>
         </div>
-        <div class="footer-legal"><p>{{ copy.footer.legal }}</p></div>
+        <div class="footer-legal"><p>{{ copy.footer.legal }}</p><nav class="footer-policies" aria-label="Policies"><a routerLink="/privacy-policy">Privacy policy</a><a routerLink="/booking-cancellation-policy">Booking & cancellations</a></nav></div>
       </div>
     </footer>
   `,
@@ -67,6 +67,10 @@ interface FooterBubble {
     .footer-navigation a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-control); line-height: 1.6; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .2s ease; }
     .footer-navigation a:hover { color: var(--mint); }
     .footer-legal { margin-top: 1.25rem; border-top: 1px solid rgb(255 255 255 / .12); padding-top: 1.25rem; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-caption); line-height: 1.8; }
+    .footer-policies { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; margin-top: .65rem; }
+    .footer-policies a { display: inline-flex; align-items: center; min-height: 44px; padding-block: .5rem; font-size: var(--text-control); text-decoration: underline; text-underline-offset: .25em; }
+    .footer-policies a:hover { color: var(--mint); }
+    .footer-policies a:focus-visible { outline: 2px solid var(--mint); outline-offset: 5px; }
     .social-link { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgb(184 242 223 / .35); border-radius: 50%; color: var(--mint); transition: background .2s ease, border-color .2s ease; }
     .social-link:hover { border-color: var(--mint); background: rgb(184 242 223 / .1); }
     .social-link i { color: var(--mint); font-size: 1.1rem; }

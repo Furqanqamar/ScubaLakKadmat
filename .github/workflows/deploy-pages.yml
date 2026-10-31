@@ -47,6 +47,7 @@ jobs:
           node scripts/verify-prelaunch.mjs
           node scripts/verify-travel-planning.mjs
           node scripts/verify-faq.mjs
+          node scripts/verify-policies.mjs
           node scripts/verify-media-fit.mjs
           node scripts/verify-scene-layouts.mjs
           node scripts/verify-brand-assets.mjs

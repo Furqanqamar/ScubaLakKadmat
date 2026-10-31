@@ -59,6 +59,8 @@ export const routes: Routes = [
   { path: 'kadmat-visit-planning', data: { guide: 'conditions' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
   { path: 'kadmat-beyond-diving', data: { guide: 'islandDay' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
   { path: 'faq', loadComponent: () => import('./pages/faq/faq.component').then(module => module.FaqComponent) },
+  { path: 'privacy-policy', data: { policy: 'privacy' }, loadComponent: () => import('./pages/policy/policy.component').then(module => module.PolicyComponent) },
+  { path: 'booking-cancellation-policy', data: { policy: 'booking' }, loadComponent: () => import('./pages/policy/policy.component').then(module => module.PolicyComponent) },
   { path: '404', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) },
   { path: '**', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) }
 ];

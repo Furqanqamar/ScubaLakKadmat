@@ -1,0 +1,29 @@
+@if (policy(); as document) {
+  <main id="main-content" tabindex="-1" class="page-surface policy-page">
+    <section data-page-hero class="page-hero policy-hero"><div class="policy-container">
+      <p class="eyebrow text-[#b8f2df]">Clear plans. Considered care.</p>
+      <h1>{{ document.title }}</h1>
+      <p class="policy-hero__introduction">{{ document.introduction }}</p>
+      <p class="policy-hero__date">Last updated {{ document.updated }}</p>
+    </div></section>
+    <div class="policy-container policy-layout">
+      <nav class="policy-contents" aria-label="On this page"><p class="eyebrow">On this page</p><ol>
+        @for (section of document.sections; track section.id) { <li><a [routerLink]="route()" [fragment]="section.id">{{ section.title }}</a></li> }
+      </ol></nav>
+      <div class="policy-copy">
+        @for (section of document.sections; track section.id; let index = $index) {
+          <section [id]="section.id" tabindex="-1" [attr.aria-labelledby]="'policy-heading-' + section.id" class="policy-section">
+            <h2 [id]="'policy-heading-' + section.id"><span aria-hidden="true">0{{ index + 1 }}</span>{{ section.title }}</h2>
+            @for (paragraph of section.paragraphs; track paragraph) { <p>{{ paragraph }}</p> }
+            @if (section.items?.length) { <ul>@for (item of section.items; track item) { <li>{{ item }}</li> }</ul> }
+          </section>
+        }
+        <aside class="policy-help" aria-labelledby="policy-help-title"><p class="eyebrow">We are here to help</p><h2 id="policy-help-title">A question about this policy?</h2><p>Ask through our contact page, email the team or call directly. For booking confirmation, please wait for a clear confirmation from the team—not an automatic reply.</p>
+          <div class="policy-help__actions"><a class="button-link button-link--dark" routerLink="/contact" fragment="enquiry">Contact Scuba Lak</a>@if (email) { <a [href]="'mailto:' + email">{{ email }}</a> }</div>
+          <div class="policy-help__phones">@for (contact of contacts; track contact.number) { <a [href]="contact.callHref" [attr.aria-label]="'Call Scuba Lak on ' + contact.displayNumber">{{ contact.displayNumber }}</a> }</div>
+        </aside>
+        <nav class="policy-related" aria-label="Related policies"><a [routerLink]="key() === 'privacy' ? '/booking-cancellation-policy' : '/privacy-policy'">{{ key() === 'privacy' ? 'Booking & cancellation policy' : 'Privacy policy' }}</a><a routerLink="/faq">Frequently asked questions</a></nav>
+      </div>
+    </div>
+  </main>
+}

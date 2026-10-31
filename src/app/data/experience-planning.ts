@@ -4,10 +4,10 @@ export const BOOKING_NOTES = {
   price: 'Your quote depends on the season, group size and dive or activity plan. We confirm the total for your agreed plan before you book—no hidden dive-day extras.',
   included: 'Your agreed dive price includes local dive transport, equipment, briefing and guided support, and underwater photos/videos. Confirm the meeting point and media-sharing arrangements with the team.',
   separate: 'Flights or ferries to Lakshadweep, accommodation and entry-permit fees are separate. Book travel and stays with the relevant providers.',
-  booking: 'Send an enquiry → agree your diving and travel plan → receive booking confirmation. An enquiry alone is not a confirmed place; ask for the dates, group total, meeting arrangements and applicable terms in writing before payment.',
+  booking: 'Send an enquiry → agree your diving and travel plan → receive booking confirmation. An enquiry alone is not a confirmed place. Please wait for written confirmation from Scuba Lak, or speak directly with the team by phone or WhatsApp to confirm your booking. Ask for the dates, group total, meeting arrangements and applicable terms in writing before payment.',
   weather: 'Calmer seas often help visibility, but visibility and wildlife are never guaranteed. Weather, Lakshadweep transport restrictions or entry-permit issues may require a different plan or cancellation. Any eligible refund depends on the circumstances and will be confirmed by the team; no fixed percentage is promised.',
   cancellation: 'For guest cancellations, no refund is available once the guest and team are ready to begin the scheduled dive. This does not describe an operator cancellation for unsafe conditions. Discuss changes and applicable refund terms with the team before paying.',
-  reviewed: '30 October 2026'
+  reviewed: '31 October 2026'
 } as const;
 
 export const DIVE_DAY = [
