@@ -5,7 +5,7 @@ import { HERO_MEDIA } from '../../../data/hero-media.generated';
 @Component({
   selector: 'app-background-video', standalone: true, changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<img class="background-video__image" [src]="media.poster" width="1280" height="720" alt="" loading="eager" fetchpriority="high" decoding="async">
-    <video #player class="background-video__image" [class.background-video__image--ready]="hasFrame()" (loadeddata)="hasFrame.set(true)" (emptied)="hasFrame.set(false)" (error)="hasFrame.set(false)" autoplay muted [muted]="true" loop playsinline preload="metadata" [poster]="media.poster" aria-hidden="true" tabindex="-1">
+    <video #player class="background-video__image" [class.background-video__image--ready]="hasFrame()" (loadeddata)="hasFrame.set(true)" (emptied)="hasFrame.set(false)" (error)="hasFrame.set(false)" muted [muted]="true" loop playsinline preload="metadata" [poster]="media.poster" aria-hidden="true" tabindex="-1">
       <source [src]="media.mobile.webm" type="video/webm; codecs=vp9" media="(max-width: 767px)">
       <source [src]="media.mobile.mp4" type="video/mp4" media="(max-width: 767px)">
       <source [src]="media.desktop.webm" type="video/webm; codecs=vp9">
@@ -23,9 +23,8 @@ export class BackgroundVideoComponent {
       const window = document.defaultView;
       if (!window) return;
       const player = this.video().nativeElement;
+      // Start playback after the initial reveal, without parser-time autoplay.
       let covered = !!document.querySelector('.page-transition--initial');
-      // Buffer a playable opening frame under the loader, but do not spend
-      // bandwidth playing unseen footage while the page images are preparing.
       if (covered) player.pause();
       // Cached video can have a frame before hydration attaches load listeners.
       this.hasFrame.set(player.readyState >= player.HAVE_CURRENT_DATA);

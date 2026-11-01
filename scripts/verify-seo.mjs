@@ -31,10 +31,15 @@ for (const url of urls) {
   const json = html.match(/<script[^>]+id="site-structured-data"[^>]*>([\s\S]*?)<\/script>/)?.[1];
   assert.ok(json, `Structured data: ${url}`);
   const graph = JSON.parse(json)['@graph'];
+  const website = graph.find(item => item['@type'] === 'WebSite');
+  assert.equal(website?.name, 'Scuba Lak', 'Use the concise public brand as the search site name');
+  assert.deepEqual(website?.alternateName, ['Scubalak', 'Scuba Lak Kadmat']);
+  assert.match(html, /property="og:site_name" content="Scuba Lak"/);
   assert.ok(graph.some(item => item['@type'] === 'WebPage'));
   const organization = graph.find(item => item['@type'] === 'LocalBusiness');
   assert.equal(graph.filter(item => ['Organization', 'LocalBusiness'].includes(item['@type'])).length, 1, 'One business identity, not duplicate organization and local listings');
   assert.equal(organization?.name, 'Scuba Lak Kadmat');
+  assert.deepEqual(organization?.alternateName, ['Scuba Lak', 'Scubalak']);
   assert.deepEqual(organization?.address, { '@type': 'PostalAddress', streetAddress: 'Near South Port Office', addressLocality: 'Kadmat', addressRegion: 'Lakshadweep', postalCode: '682556', addressCountry: 'IN' });
   assert.deepEqual(organization?.geo, { '@type': 'GeoCoordinates', latitude: 11.1940979, longitude: 72.7642459 });
   assert.ok(organization?.hasMap.includes('0x7a610615829a745f'), 'Keep the existing Google Maps listing');
@@ -69,7 +74,8 @@ for (const [pathname, html] of documents) {
   if (pathname.replace(/^\/ScubaLakKadmat/, '') === '/') {
     const hero = html.match(/<video\b[^>]*background-video__image[^>]*>/)?.[0];
     assert.ok(hero, 'Hero video must be present without requiring a Play action');
-    for (const attribute of ['autoplay', 'muted', 'loop', 'playsinline']) assert.match(hero, new RegExp(`\\b${attribute}(?:[\\s=>])`));
+    // Automatic playback starts after readiness; parser-time autoplay would override metadata preload.
+    for (const attribute of ['muted', 'loop', 'playsinline']) assert.match(hero, new RegExp(`\\b${attribute}(?:[\\s=>])`));
     assert.doesNotMatch(hero, /\bcontrols(?:[\s=>])/);
     assert.ok(!html.includes('background-video__control'), 'Hero Play/Pause control must remain removed');
     assert.equal((html.match(/class="kadmat-reason"/g) ?? []).length, 6, 'Home must explain six reasons to dive Kadmat');

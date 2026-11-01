@@ -6,14 +6,15 @@ const arg = (key, fallback) => process.argv.includes(key) ? process.argv[process
 const base = arg('--url', 'https://furqanqamar.github.io/ScubaLakKadmat/');
 const directory = resolve(arg('--output-dir', 'tmp/lighthouse-after-2026-10-30'));
 const runs = Number(arg('--runs', '3'));
-if (!/^https?:\/\//.test(base) || !base.endsWith('/') || ![1, 3].includes(runs)) throw Error('Use an http(s) directory URL and --runs 1 or 3');
+const devices = arg('--devices', 'mobile,desktop').split(',');
+if (!/^https?:\/\//.test(base) || !base.endsWith('/') || ![1, 3].includes(runs) || !devices.length || devices.some(device => !['mobile', 'desktop'].includes(device)) || new Set(devices).size !== devices.length) throw Error('Use an http(s) directory URL, --runs 1 or 3 and --devices mobile,desktop or one profile');
 await mkdir(directory, { recursive: true });
 if ((await readdir(directory)).length) throw Error('Use an empty output directory; previous audit evidence must not be overwritten');
 const deployment = await fetch(base + 'deployment.json').then(r => r.ok ? r.json() : null).catch(() => null);
-const context = { base, started: new Date().toISOString(), lighthouse: '13.6.0', node: process.version, deployment, runs, method: 'Serial isolated cold-client navigation; standard mobile simulation and desktop preset; real media/loader enabled; no form submissions.' };
+const context = { base, started: new Date().toISOString(), lighthouse: '13.6.0', node: process.version, deployment, runs, devices, method: 'Serial isolated cold-client navigation; standard mobile simulation and desktop preset; real media/loader enabled; no form submissions.' };
 await writeFile(resolve(directory, 'audit-context.json'), JSON.stringify(context, null, 2));
 const results = [];
-for (const page of [{ name: 'home', path: '' }, { name: 'lagoon-diving', path: 'experiences/lagoon-diving/' }, { name: 'gallery', path: 'gallery/' }]) for (let run = 1; run <= runs; run++) for (const device of ['mobile', 'desktop']) {
+for (const page of [{ name: 'home', path: '' }, { name: 'lagoon-diving', path: 'experiences/lagoon-diving/' }, { name: 'gallery', path: 'gallery/' }]) for (let run = 1; run <= runs; run++) for (const device of devices) {
   const id = `${page.name}-${device}-${run}`, prefix = resolve(directory, id);
   const args = ['exec', '--yes', '--package=lighthouse@13.6.0', '--', 'lighthouse', base + page.path, '--only-categories=performance,accessibility,best-practices,seo', '--output=json', '--output=html', `--output-path=${prefix}`, '--chrome-flags=--headless', '--max-wait-for-load=60000', '--quiet', '--no-enable-error-reporting'];
   if (device === 'desktop') args.push('--preset=desktop');
@@ -23,13 +24,17 @@ for (const page of [{ name: 'home', path: '' }, { name: 'lagoon-diving', path: '
   if (code !== 0) throw Error(`Lighthouse failed: ${id}`);
   const report = JSON.parse(await readFile(prefix + '.report.json', 'utf8'));
   if (report.runtimeError) throw Error(JSON.stringify(report.runtimeError));
+  const failedResources = report.audits['network-requests']?.details?.items?.filter(item =>
+    ['Document', 'Script', 'Stylesheet', 'Font', 'Image'].includes(item.resourceType)
+    && /^https?:/.test(item.url) && (!item.statusCode || item.statusCode >= 400)) ?? [];
+  if (failedResources.length || report.runWarnings?.length) throw Error(`Invalid capture ${id}: ${JSON.stringify({ warnings: report.runWarnings, failedResources: failedResources.map(item => ({ url: item.url, status: item.statusCode })) })}. Original reports retained; do not treat an incomplete capture as a performance result.`);
   const metrics = Object.fromEntries(Object.entries({ lcp: 'largest-contentful-paint', cls: 'cumulative-layout-shift', tbt: 'total-blocking-time', bytes: 'total-byte-weight', fcp: 'first-contentful-paint' }).map(([name, key]) => [name, report.audits[key].numericValue]));
   const item = { page: page.name, device, run, id, categories: Object.fromEntries(Object.entries(report.categories).map(([name, item]) => [name, Math.round(item.score * 100)])), metrics, browser: report.environment.hostUserAgent, warnings: report.runWarnings, labelMismatch: report.audits['label-content-name-mismatch']?.score };
   results.push(item); await writeFile(resolve(directory, 'results.json'), JSON.stringify(results, null, 2)); console.log(JSON.stringify({ event: 'complete', ...item }));
 }
 const median = values => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
 const summary = [];
-for (const page of ['home', 'lagoon-diving', 'gallery']) for (const device of ['mobile', 'desktop']) {
+for (const page of ['home', 'lagoon-diving', 'gallery']) for (const device of devices) {
   const group = results.filter(item => item.page === page && item.device === device);
   summary.push({ page, device, performance: median(group.map(item => item.categories.performance)), range: group.map(item => item.categories.performance), accessibility: median(group.map(item => item.categories.accessibility)), bestPractices: median(group.map(item => item.categories['best-practices'])), seo: median(group.map(item => item.categories.seo)), lcp: median(group.map(item => item.metrics.lcp)), cls: median(group.map(item => item.metrics.cls)), maxCls: Math.max(...group.map(item => item.metrics.cls)), tbt: median(group.map(item => item.metrics.tbt)), bytes: median(group.map(item => item.metrics.bytes)) });
 }

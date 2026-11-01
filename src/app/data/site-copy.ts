@@ -65,7 +65,7 @@ export const SITE_COPY = {
   },
   seo: {
     home: {
-      title: 'Scuba Diving in Kadmat, Lakshadweep | Scuba Lak',
+      title: 'Scuba Lak | Scuba Diving in Kadmat, Lakshadweep',
       description: 'Dive Kadmat with Scuba Lak: lagoon experiences, PADI courses, 19 named dive spots, snorkelling and kayaking with a friendly island team in Lakshadweep.'
     },
     about: {

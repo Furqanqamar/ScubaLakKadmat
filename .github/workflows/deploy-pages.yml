@@ -39,6 +39,8 @@ jobs:
       - name: Build and verify the production release without deploying it
         run: |
           npm run build
+          node scripts/verify-release-assets.mjs
+          node scripts/verify-preview.mjs
           node scripts/verify-seo.mjs
           node scripts/verify-island-guides.mjs
           node scripts/verify-offerings.mjs
@@ -99,6 +101,7 @@ jobs:
         run: |
           npm run build -- --base-href /ScubaLakKadmat/
           node scripts/prepare-pages.mjs
+          node scripts/verify-release-assets.mjs
           node scripts/verify-seo.mjs
           node scripts/verify-environments.mjs
           node scripts/prepare-environment.mjs dist/scuba-lak/browser qa "$SOURCE_COMMIT" "$QA_RUN_ID"

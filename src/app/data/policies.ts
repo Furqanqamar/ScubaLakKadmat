@@ -13,9 +13,6 @@ export interface PolicyDocument {
   }[];
 }
 
-// Customer-facing wording authorised for publication on 31 October 2026.
-// Superseded refund tiers and unconfirmed retention/refund deadlines are excluded.
-// Keep full policy copy in this lazy route, not the site's initial bundle.
 export const POLICIES: Readonly<Record<string, PolicyDocument>> = {
   privacy: {
     title: 'Privacy policy',

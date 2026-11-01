@@ -3,6 +3,7 @@
 /.angular/
 /out-tsc/
 /tmp/
+/output/
 /coverage/
 /e2e/test-output/
 /.angular-cli.json

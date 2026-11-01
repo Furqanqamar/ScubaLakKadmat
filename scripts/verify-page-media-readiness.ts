@@ -1,7 +1,7 @@
 import '@angular/compiler';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PAGE_MEDIA_TIMEOUT_MS, waitForPageImage, waitForPageMedia, waitForPageVideo, waitForRenderedPage } from '../src/app/common/services/page-media-readiness.service';
+import { PAGE_MEDIA_TIMEOUT_MS, isMediaInViewport, waitForPageImage, waitForPageMedia, waitForPageVideo, waitForRenderedPage } from '../src/app/common/services/page-media-readiness.service';
 
 const flush = async () => { for (let index = 0; index < 12; index++) await Promise.resolve(); };
 const deferred = () => {
@@ -17,6 +17,11 @@ class ImageMock extends EventTarget {
   decoding = '';
   fetchPriority = '';
   src = '';
+  top = 0;
+  left = 0;
+  width = 200;
+  height = 100;
+  getBoundingClientRect() { return { top: this.top, left: this.left, right: this.left + this.width, bottom: this.top + this.height, width: this.width, height: this.height }; }
   decodeCalls = 0;
   decoded = deferred();
   decode = () => { this.decodeCalls++; return this.decoded.promise; };
@@ -64,6 +69,10 @@ class VideoMock extends EventTarget {
   loadCalls = 0;
   pauseCalls = 0;
   playCalls = 0;
+  top = 0;
+  inHero = false;
+  closest() { return this.inHero ? {} as Element : null; }
+  getBoundingClientRect() { return { top: this.top, left: 0, right: 412, bottom: this.top + 300, width: 412, height: 300 }; }
   load() { this.loadCalls++; this.networkState = 2; }
   pause() { this.pauseCalls++; }
   play() { this.playCalls++; return Promise.resolve(); }
@@ -80,13 +89,15 @@ film.playable(); await filmReady; assert.equal(playable, true);
 const failedFilm = new VideoMock(); const failedFilmReady = waitForPageVideo(failedFilm.element(), controller.signal);
 failedFilm.dispatchEvent(new Event('error')); await failedFilmReady;
 
-function harness(images: ImageMock[] = [], background = 'none', hasRoot = true, videos: VideoMock[] = []) {
+function harness(images: ImageMock[] = [], background = 'none', hasRoot = true, videos: VideoMock[] = [], artworkTop = 0, artworkHero = false) {
   let now = 0, next = 0, reveals = 0, render: (() => void) | null = null;
   const timers = new Map<number, { at: number; callback: () => void }>();
   const backgrounds: ImageMock[] = [];
   const probes: VideoMock[] = [];
-  const artwork = { tagName: 'DIV' };
+  const artwork = { tagName: 'DIV', hasAttribute: (name: string) => name === 'data-page-hero' && artworkHero, getBoundingClientRect: () => ({ top: artworkTop, left: 0, right: 412, bottom: artworkTop + 500, width: 412, height: 500 }) };
+  const queries: string[] = [];
   const view = {
+    innerWidth: 412, innerHeight: 823,
     setTimeout(callback: () => void, delay: number) { const id = ++next; timers.set(id, { at: now + delay, callback }); return id; },
     clearTimeout: (id: number) => { timers.delete(id); },
     requestAnimationFrame(callback: () => void) { return this.setTimeout(callback, 16); },
@@ -94,9 +105,11 @@ function harness(images: ImageMock[] = [], background = 'none', hasRoot = true, 
     getComputedStyle: (element: unknown) => ({ backgroundImage: element === artwork ? background : 'none' })
   };
   const root = { tagName: 'APP-ROOT', querySelectorAll: (selector: string) => {
+    queries.push(selector);
     if (selector === 'img') return images.map(image => image.element());
     if (selector === 'video') return videos.map(video => video.element());
-    return [artwork, ...images, ...videos];
+    if (selector === '[data-page-hero], [data-page-background]') return [artwork];
+    throw Error('Unexpected full-page scan: ' + selector);
   } };
   const document = {
     baseURI: 'https://local.test/ScubaLakKadmat/',
@@ -112,7 +125,7 @@ function harness(images: ImageMock[] = [], background = 'none', hasRoot = true, 
     return { destroy: () => { render = null; } };
   });
   return {
-    cancel, backgrounds, probes, document, timers,
+    cancel, backgrounds, probes, document, timers, queries,
     reveals: () => reveals,
     render: () => { render?.(); },
     async advance(milliseconds: number) {
@@ -128,26 +141,27 @@ function harness(images: ImageMock[] = [], background = 'none', hasRoot = true, 
   };
 }
 
-const hero = new ImageMock(), lazy = new ImageMock(); lazy.loading = 'lazy';
+const hero = new ImageMock(), lazy = new ImageMock(); lazy.loading = 'lazy'; lazy.top = 3000;
 const pageFilm = new VideoMock();
 const page = harness([hero, lazy], 'linear-gradient(black, transparent), url("https://local.test/hero.webp")', true, [pageFilm]);
 assert.equal(page.backgrounds.length, 0, 'Do not inspect the previous route before the next Angular render');
 page.render();
 assert.equal(page.backgrounds.length, 1, 'Include CSS destination-hero backgrounds');
 assert.equal(page.backgrounds[0].src, 'https://local.test/hero.webp');
-assert.equal(lazy.loading, 'eager', 'Start every below-the-fold image without requiring scrolling');
+assert.equal(lazy.loading, 'lazy', 'Let native look-ahead loading prepare off-screen images without blocking the first screen');
 await page.advance(3500);
 assert.equal(page.reveals(), 0, 'Keep the curtain through a slow hero request');
 hero.load(); hero.decoded.resolve(); await flush();
 assert.equal(page.reveals(), 0, 'All hero images, including CSS backgrounds, must be ready');
 page.backgrounds[0].load(); page.backgrounds[0].decoded.resolve(); await flush();
-assert.equal(page.reveals(), 0, 'A ready hero must not uncover a page while lower images and videos are loading');
-lazy.load(); lazy.decoded.resolve(); await flush();
+assert.equal(page.reveals(), 0, 'A ready hero must still wait for the visible video');
 assert.equal(page.reveals(), 0, 'Images being ready must not skip the video readiness check');
 pageFilm.playable(); await flush();
 await page.advance(31); assert.equal(page.reveals(), 0, 'Allow decoded pixels two paint frames');
 await page.advance(1); assert.equal(page.reveals(), 1);
-assert.equal(lazy.decodeCalls, 1, 'Decode lazy gallery images before reveal too');
+assert.equal(lazy.decodeCalls, 0, 'Off-screen images are not decoded as a condition of revealing the page');
+assert.equal(lazy.complete, false, 'A pending off-screen image must not hold the first screen');
+assert.ok(!page.queries.includes('*'), 'Never read computed styles for every page node');
 assert.equal(page.timers.size, 0);
 
 const stalled = harness([new ImageMock()]); stalled.render();
@@ -174,13 +188,41 @@ await gallery.advance(1000); assert.equal(gallery.reveals(), 0, 'Wait for the ga
 thumbnail.load(); thumbnail.decoded.resolve(); await flush(); await gallery.advance(32);
 assert.equal(gallery.reveals(), 1, 'Ready thumbnails can reveal the gallery without downloading its films');
 assert.equal(gallery.probes.length, 0);
+const laterThumbnail = new ImageMock(); laterThumbnail.top = 4000; laterThumbnail.loading = 'lazy';
+const laterFilm = new VideoMock(); laterFilm.top = 4000;
+const offscreen = harness([laterThumbnail], 'url("https://local.test/later.webp")', true, [laterFilm], 4000);
+offscreen.render(); await flush(); await offscreen.advance(32);
+assert.equal(offscreen.reveals(), 1, 'Off-screen images, CSS artwork and videos do not block the visible page');
+assert.equal(offscreen.backgrounds.length, 0);
+assert.equal(laterFilm.loadCalls, 0);
+const priorityHero = new ImageMock(); priorityHero.top = 3000; priorityHero.fetchPriority = 'high';
+const restored = harness([priorityHero]); restored.render(); await restored.advance(500);
+assert.equal(restored.reveals(), 0, 'Explicit hero priority protects late scroll-restoration during route changes');
+priorityHero.load(); priorityHero.decoded.resolve(); await flush(); await restored.advance(32);
+assert.equal(restored.reveals(), 1);
+const restoredHeroFilm = new VideoMock(); restoredHeroFilm.top = 3000; restoredHeroFilm.inHero = true;
+const restoredArtwork = harness([], 'url("https://local.test/return-hero.webp")', true, [restoredHeroFilm], 3000, true);
+restoredArtwork.render(); await restoredArtwork.advance(500);
+assert.equal(restoredArtwork.reveals(), 0, 'CSS and video heroes must survive late scroll-restoration too');
+restoredArtwork.backgrounds[0].load(); restoredArtwork.backgrounds[0].decoded.resolve(); await flush();
+assert.equal(restoredArtwork.reveals(), 0);
+restoredHeroFilm.playable(); await flush(); await restoredArtwork.advance(32);
+assert.equal(restoredArtwork.reveals(), 1);
+const hidden = new ImageMock(); hidden.width = 0;
+assert.equal(isMediaInViewport(hidden.element(), { innerWidth: 412, innerHeight: 823 } as Window), false);
+const above = new ImageMock(); above.top = -500;
+assert.equal(isMediaInViewport(above.element(), { innerWidth: 412, innerHeight: 823 } as Window), false);
+const horizontal = new ImageMock(); horizontal.left = 500;
+assert.equal(isMediaInViewport(horizontal.element(), { innerWidth: 412, innerHeight: 823 } as Window), false);
 const collection = readFileSync('src/app/common/components/media-collection/media-collection.component.ts', 'utf8');
 assert.match(collection, /\(click\)="selected\.set\(item\)"/);
-assert.match(collection, /@if \(selected\(\); as item\) \{ <app-media-viewer/);
+assert.match(collection, /@if \(selected\(\); as item\) \{\s*@defer \(on immediate\) \{\s*<app-media-viewer/);
+assert.match(collection, /@loading \(after 150ms\)/);
+assert.match(collection, /@error/);
 assert.doesNotMatch(collection, /data-page-video|<video|<source/, 'Film cards must not expose preload sources or instantiate players');
 const viewer = readFileSync('src/app/common/components/media-viewer/media-viewer-slide.component.ts', 'utf8');
 assert.match(viewer, /@if \(video\(\); as film\) \{\s*<video/);
 assert.match(viewer, /\[src\]="film\.videoUrlMobile"[^>]+media="\(max-width: 767px\)"/);
 assert.match(viewer, /\[src\]="film\.videoUrl"/, 'The click-created player keeps responsive video sources');
 await waitForPageMedia({ defaultView: null } as Document, new AbortController().signal);
-console.log('Page-media checks passed: all images including gallery thumbnails, CSS backgrounds and posters; playable existing page videos; gallery players created only after Play; responsive click-created sources; decode/paint readiness; initial/error/abort/timeout paths and cleanup.');
+console.log('Page-media checks passed: visible images/CSS/posters decoded before reveal, playable visible videos, non-blocking off-screen native look-ahead loading, no full-DOM style scan, deferred gallery viewer, click-created responsive films, late scroll restoration, font/paint readiness and error/abort/timeout cleanup.');

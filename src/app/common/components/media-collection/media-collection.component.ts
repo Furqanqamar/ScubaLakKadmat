@@ -10,6 +10,7 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
   selector: 'app-media-collection', standalone: true,
   imports: [UiIconComponent, ResponsiveImageDirective, MediaViewerComponent, ArrowIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(keydown.escape)': 'selected.set(null)' },
   template: `
     <div class="media-collection" [class.media-collection--gallery]="galleryLayout()">
       @for (item of items(); track item.id) {
@@ -18,7 +19,7 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
           [attr.aria-label]="(item.kind === 'video' ? copy.play : copy.open) + ': ' + item.title">
           <img [appResponsiveImage]="item.imageUrl" [src]="item.imageUrl" [alt]="item.title"
             [sizes]="galleryLayout() ? (item.size === 'wide' ? '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), (max-width: 1519px) calc(50vw - 48px), 712px' : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(25vw - 32px), 348px') : '(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(50vw - 40px), (max-width: 1519px) calc(33.333vw - 38px), 469px'"
-            [width]="item.width ?? 1200" [height]="item.height ?? 800" loading="eager" decoding="async">
+            [width]="item.width ?? 1200" [height]="item.height ?? 800" loading="lazy" decoding="async">
           <span class="gallery-card__veil"></span>
           @if (item.kind === 'video') {
             <span class="media-play" aria-hidden="true"><i appIcon="play" class="fa-solid fa-play"></i></span>
@@ -28,7 +29,15 @@ import { ArrowIconComponent } from '../arrow-icon/arrow-icon.component';
         </button>
       } @empty { <p class="media-empty" role="status">{{ copy.empty }}</p> }
     </div>
-    @if (selected(); as item) { <app-media-viewer [item]="item" [items]="items()" [position]="selectedIndex() + 1" [total]="items().length" (previous)="move(-1)" (next)="move(1)" (closed)="selected.set(null)" /> }
+    @if (selected(); as item) {
+      @defer (on immediate) {
+        <app-media-viewer [item]="item" [items]="items()" [position]="selectedIndex() + 1" [total]="items().length" (previous)="move(-1)" (next)="move(1)" (closed)="selected.set(null)" />
+      } @loading (after 150ms) {
+        <p class="media-open-notice" role="status">Opening your island moment…</p>
+      } @error {
+        <div class="media-open-notice" role="alert"><p>The viewer couldn’t load. Close this message and try the image again.</p><button type="button" (click)="selected.set(null)">Close</button></div>
+      }
+    }
   `
 })
 export class MediaCollectionComponent {

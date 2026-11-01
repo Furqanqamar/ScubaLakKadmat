@@ -1,5 +1,3 @@
-// Operational details confirmed by the business owner, 30 October 2026.
-// Course-specific standards remain on the individual course pages.
 export const BOOKING_NOTES = {
   price: 'Your quote depends on the season, group size and dive or activity plan. We confirm the total for your agreed plan before you book—no hidden dive-day extras.',
   included: 'Your agreed dive price includes local dive transport, equipment, briefing and guided support, and underwater photos/videos. Confirm the meeting point and media-sharing arrangements with the team.',

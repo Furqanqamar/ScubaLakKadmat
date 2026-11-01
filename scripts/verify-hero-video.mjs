@@ -4,7 +4,8 @@ import { readFile } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
 const generated = await readFile(new URL('src/app/data/hero-media.generated.ts', root), 'utf8');
-const media = JSON.parse(generated.match(/HERO_MEDIA = ([\s\S]*?) as const;/)[1]);
+const runtimeMedia = JSON.parse(generated.match(/HERO_MEDIA = ([\s\S]*?) as const;/)[1]);
+const media = { ...JSON.parse(await readFile(new URL('scripts/hero-media-metadata.json', root), 'utf8')), ...runtimeMedia };
 const backup = JSON.parse(await readFile(new URL('scripts/hero-video-backup.json', root), 'utf8'));
 const output = new URL('dist/scuba-lak/browser/', root);
 const html = await readFile(new URL('index.html', output), 'utf8');
@@ -109,7 +110,7 @@ for (const id of ['desktop', 'mobile']) {
     assert.notEqual(path, media[id][extension]);
     assert.ok(!html.includes(path), 'The backup must not be preloaded or used as a second hero');
     if (extension === 'mp4') verifyMp4(data, backup[id], backup.duration); else verifyWebm(data, backup[id], backup.duration);
-    await readFile(new URL(path, output));
+    await assert.rejects(readFile(new URL(path, output)), { code: 'ENOENT' }, 'Keep the backup in the source library, not the public release');
   }
 }
 for (const path of [backup.poster, backup.socialPoster]) {
@@ -131,9 +132,12 @@ assert.ok(html.includes(`href="${media.poster}"`));
 assert.ok(html.includes(`src="${media.poster}"`));
 assert.ok(html.includes(`https://www.scubalak.com/${media.socialPoster}`), 'Social artwork belongs to the production canonical domain');
 const video = html.match(/<video\b[^>]*>/)[0];
-for (const attribute of ['autoplay', 'muted', 'loop', 'playsinline']) assert.match(video, new RegExp(`\\b${attribute}(?:[\\s=>])`));
+for (const attribute of ['muted', 'loop', 'playsinline']) assert.match(video, new RegExp(`\\b${attribute}(?:[\\s=>])`));
+assert.doesNotMatch(video, /\bautoplay(?:[\s=>])/, 'Avoid parser-time autoplay overriding metadata preload');
 assert.doesNotMatch(video, /\bcontrols(?:[\s=>])/);
 const playerSource = await readFile(new URL('src/app/common/components/background-video/background-video.component.ts', root), 'utf8');
+assert.match(playerSource, /scuba-lak:initial-ready/);
+assert.match(playerSource, /!covered && document\.visibilityState !== 'hidden' && player\.paused[^\n]*player\.play\(\)/, 'Keep automatic muted playback after the curtain reveals, with poster fallback');
 assert.match(playerSource, /\(loadeddata\)="hasFrame\.set\(true\)"/, 'Do not show the video layer before its first frame');
 assert.match(playerSource, /video\.background-video__image\s*\{\s*opacity:\s*0;/, 'The poster must remain visible while video loads');
 assert.match(playerSource, /video\.background-video__image--ready\s*\{\s*opacity:\s*1;/);

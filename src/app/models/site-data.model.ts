@@ -88,28 +88,9 @@ export type GalleryItem = GalleryItemBase & (
   { readonly kind: 'video'; readonly videoUrl: string; readonly videoUrlMobile: string; readonly durationLabel: string }
 );
 
-export interface TransportOption {
-  readonly id: string;
-  readonly mode: string;
-  readonly title: string;
-  readonly duration: string;
-  readonly booking: string;
-  readonly note: string;
-  readonly imageUrl: string;
-}
-
 export interface SocialLink {
   readonly label: string;
   readonly handle: string;
   readonly href: string;
   readonly icon: string;
-}
-
-export interface ContactDetails {
-  readonly address: string;
-  readonly area: string;
-  readonly phone: string;
-  readonly email: string;
-  readonly officeHours: string;
-  readonly responseTime: string;
 }

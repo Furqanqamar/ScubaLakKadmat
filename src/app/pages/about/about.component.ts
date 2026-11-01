@@ -23,7 +23,7 @@ export class AboutComponent {
   readonly mediaCopy = MEDIA_COPY;
   readonly moments = ABOUT_MOMENTS;
   readonly cover = ORIGINAL_MEDIA['dive-centre-evening'];
-  // Presentation-only adjustments; supplied photo files and identities stay intact.
+  // Per-portrait crop and tone settings.
   readonly team = TEAM_MEMBERS.map(member => ({
     ...member,
     portrait: portraitPresentation[member.id as keyof typeof portraitPresentation]

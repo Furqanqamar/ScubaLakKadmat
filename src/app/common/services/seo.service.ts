@@ -35,12 +35,13 @@ export class SeoService {
     const qa = this.document.head.querySelector('meta[name="scubalak-environment"]')?.getAttribute('content') === 'qa';
     this.title.setTitle(qa ? `[QA / UAT] ${title}` : title);
     this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Scuba Lak' });
     this.meta.updateTag({ name: 'robots', content: qa ? 'noindex, nofollow, noarchive' : page ? 'index, follow, max-image-preview:large' : 'noindex, follow' });
     for (const [key, value] of Object.entries({ title, description, url: canonical, image, 'image:alt': island ? `${island.name} — stylised island illustration` : page?.image ? page.label : HERO_MEDIA.posterAlt, locale: 'en_IN', type: island ? 'article' : 'website' })) this.meta.updateTag({ property: `og:${key}`, content: value });
     for (const [key, value] of Object.entries({ title, description, image, card: 'summary_large_image' })) this.meta.updateTag({ name: `twitter:${key}`, content: value });
     this.document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
     const organization = {
-      '@type': 'LocalBusiness', '@id': SITE_URL + '#organization', name: BUSINESS_CONTACT.name, url: SITE_URL,
+      '@type': 'LocalBusiness', '@id': SITE_URL + '#organization', name: BUSINESS_CONTACT.name, alternateName: ['Scuba Lak', 'Scubalak'], url: SITE_URL,
       logo: new URL(BRAND_ASSETS.organizationLogo, SITE_URL).href,
       image: new URL(HERO_MEDIA.socialPoster, SITE_URL).href,
       address: { '@type': 'PostalAddress', ...BUSINESS_CONTACT.postalAddress },
@@ -49,14 +50,13 @@ export class SeoService {
       location: { '@type': 'Place', name: 'Kadmat Island, Lakshadweep, India' },
       ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE } : {}),
       ...(CONTACT_EMAIL ? { email: CONTACT_EMAIL } : {}),
-      // Desk availability belongs to the contact points, not the dive schedule.
-      // Do not publish a 9–6 restriction as the business's activity opening hours.
+      // Desk hours do not restrict scheduled dives.
       ...(CONTACT_WHATSAPP.length ? { contactPoint: CONTACT_WHATSAPP.map(contact => ({ '@type': 'ContactPoint', contactType: 'Call and WhatsApp enquiries', telephone: contact.number, url: contact.href,
         hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: BUSINESS_CONTACT.deskHours.days, opens: BUSINESS_CONTACT.deskHours.opens, closes: BUSINESS_CONTACT.deskHours.closes }
       })) } : {}),
       sameAs: [...BUSINESS_CONTACT.socials.filter(social => !social.href.includes('wa.me')).map(social => social.href), ...(BUSINESS_CONTACT.mapsUrl ? [BUSINESS_CONTACT.mapsUrl] : [])]
     };
-    const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '#website', url: SITE_URL, name: 'Scuba Lak — Kadmat Lakshadweep', publisher: { '@id': organization['@id'] }, inLanguage: 'en-IN' }];
+    const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '#website', url: SITE_URL, name: 'Scuba Lak', alternateName: ['Scubalak', 'Scuba Lak Kadmat'], publisher: { '@id': organization['@id'] }, inLanguage: 'en-IN' }];
     if (page) {
       graph.push({ '@type': 'WebPage', '@id': canonical + '#webpage', url: canonical, name: title, description, inLanguage: 'en-IN', isPartOf: { '@id': SITE_URL + '#website' } });
       if (path !== '/') graph.push({ '@type': 'BreadcrumbList', itemListElement: breadcrumbs(path).map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.label, item: canonicalUrl(item.path) })) });

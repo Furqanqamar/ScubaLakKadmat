@@ -46,7 +46,7 @@ const CURTAIN_REVEAL_MS = 440;
   `,
   styles: `
     :host { display: block; }
-    .page-transition { position: fixed; inset: 0; z-index: 90; isolation: isolate; contain: strict; overflow: hidden; background: #061419; color: #d6fff0; pointer-events: all; animation: dotart-curtain-cover ${CURTAIN_COVER_MS}ms cubic-bezier(.77,0,.18,1) both; }
+    .page-transition { position: fixed; inset: 0; z-index: 90; isolation: isolate; contain: strict; overflow: hidden; background: #061419; color: #d6fff0; pointer-events: all; animation: page-curtain-cover ${CURTAIN_COVER_MS}ms cubic-bezier(.77,0,.18,1) both; }
     .page-transition--initial:not(.page-transition--reveal) { animation: none; transform: translateY(0); }
     .page-transition::after { position: absolute; right: -8%; bottom: -7rem; left: -8%; z-index: 1; height: 11rem; border-radius: 50% 50% 0 0 / 80% 80% 0 0; background: linear-gradient(180deg, rgba(16,40,45,.35), #10282d 50%); box-shadow: 0 -2rem 5rem rgba(184,242,223,.08); content: ''; }
     .page-transition__water { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: radial-gradient(ellipse at 50% -15%, rgba(184,242,223,.2), transparent 42%), linear-gradient(180deg, #0d3a48 0%, #06242f 43%, #061419 100%); }
@@ -61,15 +61,15 @@ const CURTAIN_REVEAL_MS = 440;
     .page-transition__content { position: absolute; top: 50%; left: 50%; z-index: 3; display: flex; width: min(24rem, calc(100% - 3rem)); flex-direction: column; transform: translate(-50%, -50%); text-align: center; text-shadow: 0 .2rem 2rem rgba(3,17,22,.55); }
     .page-transition__title { margin-top: 1rem; color: #f4f1e9; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.8rem, 8vw, 5.5rem); letter-spacing: -.06em; line-height: .9; }
     .page-transition__line { position: relative; display: block; height: 2px; margin: 2rem auto 0; overflow: hidden; width: min(12rem, 80%); background: rgba(184,242,223,.16); }
-    .page-transition__line span { position: absolute; inset: 0 auto 0 0; width: 55%; background: #b8f2df; animation: dotart-progress .8s cubic-bezier(.2,.8,.2,1) both; }
+    .page-transition__line span { position: absolute; inset: 0 auto 0 0; width: 55%; background: #b8f2df; animation: page-progress .8s cubic-bezier(.2,.8,.2,1) both; }
     .page-transition__coordinate { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 3; color: var(--text-on-dark); font-family: var(--font-body); font-size: var(--text-label); line-height: 1.6; font-weight: 500; letter-spacing: .08em; }
-    .page-transition--reveal { pointer-events: none; animation: dotart-curtain-reveal ${CURTAIN_REVEAL_MS}ms cubic-bezier(.77,0,.18,1) both; }
+    .page-transition--reveal { pointer-events: none; animation: page-curtain-reveal ${CURTAIN_REVEAL_MS}ms cubic-bezier(.77,0,.18,1) both; }
     .page-transition--reveal .page-transition__content { opacity: 0; transition: opacity .18s ease; }
     @media (max-width: 639px) { .page-transition__coordinate { right: 1rem; bottom: 1rem; } }
     @media (prefers-reduced-motion: reduce) { .page-transition, .page-transition--reveal { animation-duration: .01ms; } .page-transition__line span, .page-transition__water::before, .page-transition__surface-glow, .page-transition__ray, .page-transition__bubble { animation: none; } }
-    @keyframes dotart-curtain-cover { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    @keyframes dotart-curtain-reveal { from { transform: translateY(0); } to { transform: translateY(-100%); } }
-    @keyframes dotart-progress { from { transform: translateX(-100%); } to { transform: translateX(65%); } }
+    @keyframes page-curtain-cover { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes page-curtain-reveal { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+    @keyframes page-progress { from { transform: translateX(-100%); } to { transform: translateX(65%); } }
     @keyframes underwater-caustics { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
     @keyframes surface-glow { from { opacity: .42; transform: translateX(-50%) scale(.92); } to { opacity: .78; transform: translateX(-50%) scale(1.08); } }
     @keyframes ray-sway { from { transform: translate3d(-1.25rem, 0, 0) rotate(var(--ray-angle)); } to { transform: translate3d(1.25rem, 0, 0) rotate(var(--ray-angle)); } }

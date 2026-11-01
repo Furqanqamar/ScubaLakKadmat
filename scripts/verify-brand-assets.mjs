@@ -67,6 +67,17 @@ for (const file of await readdir(directory)) {
   total += data.length;
   const hash = createHash('sha256').update(data).digest('hex').slice(0, 12);
   assert.ok(file.includes(`-${hash}.`), `Cache fingerprint must match ${file}`);
+  if (file.endsWith('.webp')) {
+    assert.equal(data.toString('ascii', 0, 4), 'RIFF');
+    assert.equal(data.toString('ascii', 8, 12), 'WEBP');
+    assert.equal(data.toString('ascii', 12, 16), 'VP8L', 'Brand delivery must use lossless WebP');
+    assert.equal(data[20], 0x2f);
+    const bits = data.readUInt32LE(21), size = Number(file.match(/round-(\d+)-/)[1]);
+    assert.equal((bits & 0x3fff) + 1, size);
+    assert.equal(((bits >>> 14) & 0x3fff) + 1, size);
+    assert.equal((bits >>> 28) & 1, 1, 'Retain the transparent circular corners');
+    continue;
+  }
   if (file.endsWith('.ico')) {
     assert.equal(data.readUInt16LE(2), 1);
     assert.equal(data.readUInt16LE(4), 3);

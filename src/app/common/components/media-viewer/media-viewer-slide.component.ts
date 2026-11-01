@@ -21,7 +21,7 @@ import { ResponsiveImageDirective } from '../../directives/responsive-image.dire
     } @else {
       <img #photo [appResponsiveImage]="item().imageUrl" sizes="(max-width: 767px) 95vw, 70vw"
         [src]="item().imageUrl" [alt]="item().title" [width]="item().width ?? 1200" [height]="item().height ?? 800"
-        draggable="false" decoding="async" (load)="ready.set(true)" (error)="failed.set(true)">
+        draggable="false" loading="eager" decoding="async" (load)="ready.set(true)" (error)="failed.set(true)">
     }
     @if (active() && failed()) {
       <div class="media-viewer__status" role="alert"><p>{{ video() ? copy.error : copy.imageError }}</p>
