@@ -13,7 +13,7 @@ import { connectBackgroundPlayback } from './background-video-playback';
       <source [src]="media.desktop.mp4" type="video/mp4">
     </video>
     @if (needsPlay()) {
-      <button type="button" class="background-video__control" (click)="resume()" aria-label="Play background video"><span aria-hidden="true">▶</span> Play video</button>
+      <button type="button" class="background-video__control" (click)="resume()" aria-label="Play video"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg> Play video</button>
     }`,
   styles: `:host { display: contents; pointer-events: none; } .background-video__image { z-index: -20; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; } video.background-video__image { opacity: 0; } video.background-video__image--ready { opacity: 1; } .background-video__control { position: absolute; right: 1.25rem; bottom: 1rem; z-index: 1; display: inline-flex; min-height: 44px; align-items: center; gap: .6rem; padding: .5rem 1rem; border: 1px solid rgb(214 255 240 / .6); border-radius: 999px; background: rgb(6 20 25 / .8); color: #f4f1e9; font: 600 .875rem/1.5 var(--font-body); pointer-events: auto; cursor: pointer; } .background-video__control:focus-visible { outline: 2px solid #b8f2df; outline-offset: 3px; }`
 })

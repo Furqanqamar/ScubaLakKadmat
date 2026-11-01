@@ -14,7 +14,8 @@ export function connectBackgroundPlayback(video: HTMLVideoElement, document: Doc
 
   const failed = (error: unknown): void => {
     if (destroyed || document.visibilityState === 'hidden') return;
-    if (!(error instanceof Error) || error.name !== 'AbortError') state.blocked();
+    const aborted = typeof error === 'object' && error !== null && 'name' in error && error.name === 'AbortError';
+    if (!aborted) state.blocked();
   };
   const play = (): void => {
     if (destroyed || covered || pending || document.visibilityState === 'hidden' || !video.paused) return;

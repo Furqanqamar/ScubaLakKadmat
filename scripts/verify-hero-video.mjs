@@ -142,7 +142,7 @@ assert.match(playbackSource, /scuba-lak:initial-ready/);
 assert.match(playbackSource, /video\.addEventListener\('playing', playing\)/, 'Reveal video only after playback actually starts');
 assert.match(playerSource, /playing: \(\) => \{ this\.hasFrame\.set\(true\); this\.needsPlay\.set\(false\); \}/);
 assert.match(playerSource, /@if \(needsPlay\(\)\)/, 'Autoplay-blocked visitors need an accessible recovery action');
-assert.match(playerSource, /aria-label="Play background video"/);
+assert.match(playerSource, /aria-label="Play video"/);
 assert.doesNotMatch(playerSource, /\(loadeddata\)="hasFrame\.set\(true\)"/);
 assert.match(playerSource, /video\.background-video__image\s*\{\s*opacity:\s*0;/, 'The poster must remain visible while video loads');
 assert.match(playerSource, /video\.background-video__image--ready\s*\{\s*opacity:\s*1;/);
