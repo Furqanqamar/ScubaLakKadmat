@@ -3,18 +3,22 @@
 /.angular/
 /out-tsc/
 /tmp/
+/output/
 /coverage/
 /e2e/test-output/
 /.angular-cli.json
 /.ng/
 
 # Dependencies
-/node_modules/
-/package-lock.json
+node_modules/
 /yarn.lock
 
 # Environment files
 /.env
+.env.*
+!.env.example
+.dev.vars*
+.wrangler/
 
 # TypeScript cache
 *.tsbuildinfo

@@ -1,0 +1,54 @@
+Scuba Lak original media update — 25 October 2026
+
+Reviewed all 18 supplied files: 10 photographs and 8 short films.
+Subjects: lagoon training and mask fitting; shore briefings; equipment preparation;
+boat departures; Kadmat lagoon and sunsets; the dive centre; Agatti and Amini.
+Captions describe the visible scenes. A filename referring to a young diver has
+been captioned as one-to-one training without making an age claim.
+
+Placement
+- Gallery: all 18 originals, with subject and photo/film filters.
+- Home: four original photo teasers.
+- About: actual dive-centre photograph and a three-item photo/film story.
+- Kadmat: real lagoon imagery and three island films.
+- Lakshadweep: actual Agatti and Amini photographs.
+- Experiences: original lagoon/course images and contextual media stories.
+- Beginner course pages: original photographs and training moments.
+
+Delivery
+- Photographs: colour-managed sRGB WebP, high quality, up to 2560px on the long
+  edge, with 480px and 800px responsive alternatives and tiny inline previews.
+- Films: upright H.264/AAC MP4, SDR tone-mapped from iPhone HLG originals,
+  1080px desktop and 720px mobile widths at 30fps, fast-start metadata.
+- Film excerpts: 8–16 seconds. Original audio is retained; playback begins muted
+  and visitors can enable sound with the native controls.
+- All delivery variants together: 129.2MB; original supplied files: 688.1MB.
+  This is the complete collection, not the initial page download.
+- Films are absent from the page DOM until opened. Cards load only still posters.
+- Lazy images, explicit dimensions, loading/error states and reduced-motion support.
+- Original photographs, existing team assets and the original hero film are not edited.
+  Compressed delivery copies are visually checked; compression is not lossless.
+
+Caching
+- All new delivery filenames contain a content fingerprint.
+- Production preview uses one-year immutable caching for these files, with byte
+  ranges for MP4 and cache revalidation for unversioned assets.
+- A small service worker caches only requested fingerprinted original images,
+  bounded to 100 entries. It does not prefetch, intercept HTML or handle videos.
+- Videos use normal browser/HTTP caching. GitHub Pages controls its own HTTP
+  cache lifetime; application code cannot override that host's response headers.
+
+Maintenance
+- Captions and categories: scripts/original-media.json.
+- Repeatable conversion: scripts/import-original-media.mjs and the macOS
+  ImageIO helper scripts/convert-original-photos.swift.
+- Shared viewer, media collection and story components; copy and styles are
+  separated in media-copy.ts and styles/media.css.
+- Generation outputs are committed so CI doesn't require the private originals.
+
+Validation
+- Angular production build and prerendering of 37 routes.
+- SEO checks for 36 indexable pages.
+- Asset fingerprints, image placeholders and variant integrity checks.
+- Browser checks: responsive grid, filters, on-demand mobile playback, modal
+  closing, no horizontal overflow at mobile and desktop sizes.

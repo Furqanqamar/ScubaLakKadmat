@@ -1,0 +1,21 @@
+:host { display: block; }
+.benefits-section { padding: clamp(4.5rem, 8vw, 8rem) 1.25rem; background: var(--theme-clay); color: var(--theme-ink); }
+.benefits-section:focus { outline: none; }
+.benefits-section__inner { max-width: 90rem; margin-inline: auto; }
+.benefits-section__heading { display: grid; gap: 2rem; align-items: end; }
+.benefits-section .eyebrow { color: var(--theme-gold-text); }
+.benefits-section h2 { max-width: 52rem; margin-top: 1.2rem; font-size: clamp(2.6rem, 5.2vw, 5rem); line-height: 1.02; letter-spacing: -.045em; text-wrap: balance; }
+.benefits-section h2 em { display: block; }
+.benefits-section__introduction { max-width: 27rem; font: 400 1rem/1.9 var(--font-body); color: color-mix(in srgb, var(--theme-ink) 75%, transparent); }
+.benefits-section__grid { display: grid; column-gap: 2rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.benefit-item { min-width: 0; container-type: inline-size; border-top: 1px solid var(--theme-border); padding-block: 1.8rem 2rem; }
+.benefit-item__marker { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: clamp(1rem, 5cqi, 1.5rem); color: var(--theme-gold); }
+.benefit-item__marker app-dive-icon { color: var(--theme-ink); }
+.benefit-item__marker span { color: var(--theme-gold-text); font: 500 var(--text-label)/1.6 var(--font-body); letter-spacing: .1em; }
+.benefit-item h3 { font-size: clamp(1.5rem, 2.2vw, 1.85rem); line-height: 1.2; letter-spacing: -.025em; }
+.benefit-item p { max-width: 39rem; margin-top: .85rem; font: 400 1rem/1.8 var(--font-body); color: color-mix(in srgb, var(--theme-ink) 75%, transparent); }
+.benefits-section__closing { margin-top: .5rem; border-top: 1px solid var(--theme-border); padding-top: 1.5rem; font: 400 .9rem/1.8 var(--font-body); }
+.benefits-section__closing a { display: inline-flex; min-height: 44px; align-items: center; gap: 1rem; text-decoration: underline; text-underline-offset: .3em; }
+.benefits-section__closing a:focus-visible { outline: 2px solid var(--theme-gold-text); outline-offset: 5px; }
+@media (min-width: 640px) { .benefits-section { padding-inline: 2rem; } .benefits-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .benefits-section { padding-inline: 2.5rem; } .benefits-section__heading { grid-template-columns: 1.3fr .7fr; gap: 4rem; } .benefits-section__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3.5rem; } .benefits-section--detailed .benefits-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 5rem; } }

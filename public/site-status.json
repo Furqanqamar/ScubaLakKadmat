@@ -1,0 +1,36 @@
+{
+  "mode": "coming-soon",
+  "contact": {
+    "whatsapp": [
+      {
+        "number": "919447982559",
+        "label": "+91 94479 82559"
+      },
+      {
+        "number": "919400205847",
+        "label": "+91 94002 05847"
+      }
+    ],
+    "instagram": "https://www.instagram.com/scuba_lak_kadmat/"
+  },
+  "pages": {
+    "coming-soon": {
+      "label": "A new chapter is coming",
+      "title": "Something blue",
+      "accent": "is coming.",
+      "description": "An island. A reef. A different rhythm.\nOur new Scuba Lak experience is on its way.",
+      "primaryLabel": "Stay in the loop",
+      "message": "Hello Scuba Lak! I’d like to hear when your new website launches.",
+      "note": "A first glimpse of something extraordinary."
+    },
+    "maintenance": {
+      "label": "Website under maintenance",
+      "title": "A short",
+      "accent": "surface interval.",
+      "description": "We’re making a few refinements.\nThe reef will be waiting when we’re back.",
+      "primaryLabel": "Talk to the island team",
+      "message": "Hello Scuba Lak! I have a question while your website is under maintenance.",
+      "note": "The website is taking a pause. Our team is still here."
+    }
+  }
+}

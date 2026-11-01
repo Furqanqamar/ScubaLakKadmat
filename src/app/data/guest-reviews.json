@@ -1,0 +1,20 @@
+{
+  "copy": {
+    "eyebrow": "Words from the water",
+    "title": "The people.",
+    "emphasis": "The memories.",
+    "introduction": "A few words from guests who shared their Scuba Lak experience on Google.",
+    "source": "Google review excerpt",
+    "readOriginal": "Read the original review",
+    "photos": "See guest photos on Google",
+    "checked": "Sources checked",
+    "ratingSuffix": "out of 5 stars",
+    "note": "Short excerpts from individual guest experiences, not a live review feed."
+  },
+  "verifiedOn": "2026-10-25",
+  "reviews": [
+    { "id": "ashitha-joy", "name": "Ashitha Joy", "quote": "both experiences were absolutely unforgettable.", "rating": 5, "sourceUrl": "https://maps.app.goo.gl/DUjbTUU2XnWTHXi46" },
+    { "id": "dhivik-a", "name": "Dhivik A", "quote": "calm presence instantly puts you at ease.", "rating": 5, "sourceUrl": "https://maps.app.goo.gl/K6GnG3NEVJ3338eE6" },
+    { "id": "pranav-chodankar", "name": "Pranav Chodankar", "quote": "extremely patient and professional.", "rating": 5, "sourceUrl": "https://maps.app.goo.gl/SA6RKUZJu9mnvpMT6" }
+  ]
+}

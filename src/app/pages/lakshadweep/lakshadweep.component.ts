@@ -1,15 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LAKSHADWEEP_ISLANDS } from '../../data/site-content';
+import { ISLAND_GUIDES, ISLAND_COPY, ISLAND_FILTERS } from '../../data/island-guides';
+import { IslandCategory } from '../../models/island-guide.model';
+import { IslandCardComponent } from '../../common/components/island-card/island-card.component';
 
 @Component({
   selector: 'app-lakshadweep',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, IslandCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './lakshadweep.component.html'
 })
 export class LakshadweepComponent {
-  readonly islands = LAKSHADWEEP_ISLANDS;
+  readonly copy = ISLAND_COPY;
+  readonly filters = ISLAND_FILTERS;
+  readonly activeFilter = signal<IslandCategory | 'all'>('all');
+  readonly islands = computed(() => ISLAND_GUIDES.filter(island => this.activeFilter() === 'all' || island.category === this.activeFilter()));
 }

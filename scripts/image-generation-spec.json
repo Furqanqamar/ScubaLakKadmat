@@ -1,0 +1,9 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "Distinct photorealistic illustrative imagery for Scuba Lak; not documentary location or business photography.",
+  "scenePrompts": "image-scenes.json",
+  "promptTemplate": "Use case: photorealistic-natural. Asset: {id} for a premium diving website. ONE distinct landscape 3:2 editorial photograph. {scene} Lakshadweep-inspired Indian Ocean setting where appropriate. Realistic anatomy, accurate equipment, natural colours, real photographic texture, believable scale. No readable text, logos, watermark, collage or CGI. Illustrative generated scene, not an actual business or documented-location photograph.",
+  "outputDirectory": "public/media/generated",
+  "encoding": "WebP quality 88, original generated resolution, no upscaling",
+  "preserved": ["Hero video and poster", "All team portraits and group photographs", "Brand logos and favicon", "User-supplied Kadmat reference image"]
+}

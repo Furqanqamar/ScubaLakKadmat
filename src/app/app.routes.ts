@@ -1,55 +1,66 @@
 import { Routes } from '@angular/router';
+import { matchCourse, matchExperience, matchIsland } from './route-matchers';
 
 export const routes: Routes = [
   {
     path: '',
-    title: 'Scuba Lak, Kadmat Lakshadweep | Dive into the untouched',
     loadComponent: () => import('./pages/home/home.component').then((module) => module.HomeComponent)
   },
   {
     path: 'about',
-    title: 'About Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/about/about.component').then((module) => module.AboutComponent)
   },
   {
     path: 'lakshadweep',
-    title: 'Lakshadweep | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/lakshadweep/lakshadweep.component').then((module) => module.LakshadweepComponent)
   },
   {
+    path: 'lakshadweep/:islandSlug',
+    canMatch: [matchIsland],
+    loadComponent: () => import('./pages/island-guide/island-guide.component').then(module => module.IslandGuideComponent)
+  },
+  {
     path: 'kadmat',
-    title: 'Kadmat Island | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/kadmat/kadmat.component').then((module) => module.KadmatComponent)
   },
   {
+    path: 'kadmat-dive-sites',
+    redirectTo: '/kadmat#dive-spots',
+    pathMatch: 'full'
+  },
+  {
     path: 'experiences',
-    title: 'Diving & Water Sports | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/services/services.component').then((module) => module.ServicesComponent)
   },
   {
     path: 'experiences/:serviceId',
-    title: 'Experience details | Scuba Lak, Kadmat Lakshadweep',
+    canMatch: [matchExperience],
     loadComponent: () => import('./pages/service-detail/service-detail.component').then((module) => module.ServiceDetailComponent)
   },
   {
     path: 'courses',
-    title: 'PADI Courses | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/courses/courses.component').then((module) => module.CoursesComponent)
   },
   {
     path: 'courses/:courseId',
-    title: 'PADI course details | Scuba Lak, Kadmat Lakshadweep',
+    canMatch: [matchCourse],
     loadComponent: () => import('./pages/course-detail/course-detail.component').then((module) => module.CourseDetailComponent)
   },
   {
     path: 'gallery',
-    title: 'Kadmat gallery | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/gallery/gallery.component').then((module) => module.GalleryComponent)
   },
   {
     path: 'contact',
-    title: 'Contact the dive desk | Scuba Lak, Kadmat Lakshadweep',
     loadComponent: () => import('./pages/contact/contact.component').then((module) => module.ContactComponent)
   },
-  { path: '**', redirectTo: '' }
+  { path: 'kadmat-accommodation', data: { guide: 'accommodation' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'lakshadweep-trip-planning', data: { guide: 'planning' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'kadmat-visit-planning', data: { guide: 'conditions' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'kadmat-beyond-diving', data: { guide: 'islandDay' }, loadComponent: () => import('./pages/travel-guide/travel-guide.component').then(module => module.TravelGuideComponent) },
+  { path: 'faq', loadComponent: () => import('./pages/faq/faq.component').then(module => module.FaqComponent) },
+  { path: 'privacy-policy', data: { policy: 'privacy' }, loadComponent: () => import('./pages/policy/policy.component').then(module => module.PolicyComponent) },
+  { path: 'booking-cancellation-policy', data: { policy: 'booking' }, loadComponent: () => import('./pages/policy/policy.component').then(module => module.PolicyComponent) },
+  { path: '404', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) },
+  { path: '**', data: { layout: 'scene' }, loadComponent: () => import('./pages/not-found/not-found.component').then(module => module.NotFoundComponent) }
 ];
