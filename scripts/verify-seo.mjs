@@ -77,7 +77,8 @@ for (const [pathname, html] of documents) {
     // Automatic playback starts after readiness; parser-time autoplay would override metadata preload.
     for (const attribute of ['muted', 'loop', 'playsinline']) assert.match(hero, new RegExp(`\\b${attribute}(?:[\\s=>])`));
     assert.doesNotMatch(hero, /\bcontrols(?:[\s=>])/);
-    assert.ok(!html.includes('background-video__control'), 'Hero Play/Pause control must remain removed');
+    assert.doesNotMatch(html, /<button\b[^>]*class="[^"]*background-video__control/, 'Only add a Play fallback at runtime when autoplay is blocked');
+    assert.match(hero, /data-poster-first/, 'The ready poster, not video buffering, controls the first reveal');
     assert.equal((html.match(/class="kadmat-reason"/g) ?? []).length, 6, 'Home must explain six reasons to dive Kadmat');
     assert.deepEqual(diveIcons.slice(0, 4).map(icon => icon[1]), ['lagoon', 'deep-diver', 'certification', 'kayak'], 'Home service cards must retain the shared SVG icons');
     assert.deepEqual(diveIcons.map(icon => icon[0].match(/data-icon-context="([^"]+)"/)?.[1]), [...Array(4).fill('service'), ...Array(6).fill('benefit')], 'Home icons must use the correct size hierarchy');

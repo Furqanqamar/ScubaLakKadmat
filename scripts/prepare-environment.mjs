@@ -1,4 +1,4 @@
-import { readdir, readFile, writeFile, access } from 'node:fs/promises';
+import { readdir, readFile, writeFile, access, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { applySiteMode } from './site-status-lib.mjs';
@@ -43,6 +43,8 @@ export async function prepareEnvironment(directory, environment, commit, runId) 
     await writeFile(file, html);
   }
   if (environment === 'qa') {
+    // GitHub already supports byte ranges and does not run Pages Functions.
+    for (const name of ['_worker.js', '_routes.json']) await rm(resolve(directory, name), { force: true });
     // Crawlers must be allowed to read the noindex directive; robots disallow alone
     // does not prevent a URL being indexed. No QA pages are advertised in a sitemap.
     await writeFile(resolve(directory, 'robots.txt'), 'User-agent: *\nAllow: /\n# QA/UAT: all HTML pages carry noindex, nofollow, noarchive.\n');

@@ -8,8 +8,8 @@ import { PageTransitionComponent } from '../src/app/common/components/page-trans
 import { PageMediaReadinessService } from '../src/app/common/services/page-media-readiness.service';
 
 // Run the real component against a deterministic clock; no browser or network.
-function createHarness(platform = 'browser', initialVisit = false) {
-  let now = 0;
+function createHarness(platform = 'browser', initialVisit = false, startupAge = 0) {
+  let now = startupAge;
   let nextTimer = 0;
   let reducedMotion = false;
   let heroPending = false;
@@ -124,6 +124,15 @@ assert.equal(initial.component.isInitial(), false, 'Never replay the first-load 
 initial.events.next(new NavigationEnd(40, '/about', '/about'));
 initial.advance(1000);
 assert.equal(initial.documentEvents.length, 1);
+
+const hydratedLate = createHarness('browser', true, 5000);
+hydratedLate.events.next(new NavigationStart(42, '/'));
+hydratedLate.events.next(new NavigationEnd(42, '/', '/'));
+hydratedLate.advance(0);
+assert.equal(hydratedLate.component.phase(), 'reveal', 'The first curtain has already held during script downloads; do not add a fresh hydration-time hold');
+hydratedLate.advance(440);
+assert.equal(hydratedLate.component.isActive(), false);
+hydratedLate.destroy();
 
 const initialReduced = createHarness('browser', true);
 initialReduced.reduceMotion();

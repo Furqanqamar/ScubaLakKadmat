@@ -110,7 +110,8 @@ export class PageTransitionComponent {
 
   constructor() {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
-    this.coverStartedAt = this.document.defaultView?.performance.now() ?? 0;
+    // The prerendered cover has been visible since navigation, not hydration.
+    this.coverStartedAt = 0;
     this.destroyRef.onDestroy(() => { this.activeNavigationId = null; this.clearPending(); });
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))

@@ -67,6 +67,7 @@ export async function waitForPageMedia(document: Document, signal: AbortSignal):
     .filter(image => image.fetchPriority === 'high' || isMediaInViewport(image, view));
   const videoElements = [...root.querySelectorAll<HTMLVideoElement>('video')]
     .filter(video => video.closest('[data-page-hero]') || isMediaInViewport(video, view));
+  const blockingVideos = videoElements.filter(video => !video.hasAttribute('data-poster-first'));
   const urls = new Set<string>();
   const addBackgrounds = (value: string): void => {
     for (const match of value.matchAll(/url\(["']?([^"')]+)["']?\)/g)) {
@@ -92,7 +93,7 @@ export async function waitForPageMedia(document: Document, signal: AbortSignal):
     // Settle font geometry before revealing the page.
     document.fonts?.ready ?? Promise.resolve(),
     ...[...images, ...backgrounds].map(image => waitForPageImage(image, signal)),
-    ...videoElements.map(video => waitForPageVideo(video, signal))
+    ...blockingVideos.map(video => waitForPageVideo(video, signal))
   ]);
 }
 

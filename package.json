@@ -8,7 +8,7 @@
     "start": "ng serve",
     "start:prod": "ng serve --configuration production --port 4004",
     "build": "ng build",
-    "postbuild": "node scripts/finalize-seo.mjs && node scripts/release-assets.mjs && node scripts/prepare-site-status.mjs",
+    "postbuild": "node scripts/finalize-seo.mjs && node scripts/preload-startup.mjs && node scripts/release-assets.mjs && node scripts/prepare-site-status.mjs && node scripts/prepare-video-delivery.mjs",
     "site:mode": "node scripts/site-mode.mjs",
     "site:export": "node scripts/export-status-pages.mjs",
     "preview": "npm run build && node scripts/preview-server.mjs",
