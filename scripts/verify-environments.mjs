@@ -30,6 +30,7 @@ try {
   }
   assert.equal(JSON.parse(await readFile(resolve(fixture, 'site-status.json'), 'utf8')).mode, env === 'qa' ? 'live' : 'coming-soon');
   if (env === 'qa') {
+    for (const name of ['_worker.js', '_routes.json']) await assert.rejects(readFile(resolve(fixture, name)), { code: 'ENOENT' });
     assert.doesNotMatch(await readFile(resolve(fixture, 'sitemap.xml'), 'utf8'), /<loc>/);
     assert.doesNotMatch(await readFile(resolve(fixture, 'robots.txt'), 'utf8'), /Disallow:\s*\//);
     assert.match(await readFile(resolve(fixture, 'index.html'), 'utf8'), /<app-root/);

@@ -18,4 +18,7 @@ for (const path of await allHtml(root)) {
   assert.doesNotMatch(html, /data-site-gated="true"|\[QA \/ UAT\]|name="scubalak-environment" content="qa"/, path);
 }
 assert.match(await readFile(resolve(root, 'sitemap.xml'), 'utf8'), /https:\/\/www\.scubalak\.com\//);
+const routes = JSON.parse(await readFile(resolve(root, '_routes.json'), 'utf8'));
+assert.ok(routes.include.length >= 4 && routes.include.every(path => /^\/media\/(hero|originals)\/[\w-]+-[a-f0-9]{12}\.(mp4|webm)$/.test(path)));
+assert.match(await readFile(resolve(root, '_worker.js'), 'utf8'), /export default createVideoDelivery/);
 console.log(`Verified production candidate: ${commit}, QA run ${runId}, root deployment base, no QA markers.`);

@@ -71,6 +71,8 @@ class VideoMock extends EventTarget {
   playCalls = 0;
   top = 0;
   inHero = false;
+  posterFirst = false;
+  hasAttribute(name: string) { return name === 'data-poster-first' && this.posterFirst; }
   closest() { return this.inHero ? {} as Element : null; }
   getBoundingClientRect() { return { top: this.top, left: 0, right: 412, bottom: this.top + 300, width: 412, height: 300 }; }
   load() { this.loadCalls++; this.networkState = 2; }
@@ -208,6 +210,11 @@ restoredArtwork.backgrounds[0].load(); restoredArtwork.backgrounds[0].decoded.re
 assert.equal(restoredArtwork.reveals(), 0);
 restoredHeroFilm.playable(); await flush(); await restoredArtwork.advance(32);
 assert.equal(restoredArtwork.reveals(), 1);
+const posterFirstVideo = new VideoMock(); posterFirstVideo.posterFirst = true;
+const posterReadyPage = harness([], 'none', true, [posterFirstVideo]);
+posterReadyPage.render(); await flush(); await posterReadyPage.advance(32);
+assert.equal(posterReadyPage.reveals(), 1, 'A decorative poster-first video must not hold the page for canplay');
+assert.equal(posterFirstVideo.preload, 'metadata', 'Do not force a decorative video download before the first reveal');
 const hidden = new ImageMock(); hidden.width = 0;
 assert.equal(isMediaInViewport(hidden.element(), { innerWidth: 412, innerHeight: 823 } as Window), false);
 const above = new ImageMock(); above.top = -500;

@@ -55,6 +55,10 @@ jobs:
           node scripts/verify-brand-assets.mjs
           node scripts/verify-team-profiles.mjs
           node scripts/verify-hero-video.mjs
+          node scripts/verify-startup-preloads.mjs
+          node scripts/verify-video-delivery.mjs
+          node_modules/.bin/esbuild scripts/verify-background-playback.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-background-playback.mjs
+          node tmp/verify-background-playback.mjs
           node_modules/.bin/esbuild scripts/verify-page-transition.ts --bundle --platform=node --format=esm --packages=external --outfile=tmp/verify-page-transition.mjs
           node tmp/verify-page-transition.mjs
           node scripts/verify-initial-loader.mjs

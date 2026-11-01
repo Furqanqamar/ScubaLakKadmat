@@ -50,4 +50,10 @@ For code rollback, select a previous successful QA run and its approved commit, 
 
 Existing site checks run against the clean production candidate before QA-only noindex changes. `scripts/verify-environments.mjs` checks independent modes, QA noindex, source/run metadata, deployment bases, manual-only production and absence of Cloudflare credentials from QA. `scripts/verify-production-candidate.mjs` rejects mismatched commits, runs, QA builds and gated/incorrect-base artifacts before promotion.
 
+### Video delivery
+
+The saved production candidate includes `_worker.js` and `_routes.json`. This small Pages Function runs only for the exact fingerprinted video paths listed in the build. It streams byte ranges from the existing static assets, preserving their original bytes; HTML, images, fonts, scripts and mail are not routed through it. No additional storage binding, DNS change or service secret is needed. GitHub already serves video byte ranges natively, so QA packaging removes these production-only runtime files.
+
+After promotion, verify an actual GET with `Range: bytes=0-1`, not only a HEAD request: expect `206`, a matching `Content-Range`, and exactly two downloaded bytes. Also test a suffix range, a full download, Safari playback, blocked-autoplay recovery, gallery playback and the live/QA noindex separation. The loader waits for the decoded hero poster and visible page content; decorative hero-video buffering no longer holds the curtain. A Play button appears only when playback is blocked or unexpectedly paused.
+
 Official references: [GitHub environment approvals](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments), [Cloudflare Pages CI deployment](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/).
