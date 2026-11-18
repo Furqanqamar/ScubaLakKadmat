@@ -187,6 +187,20 @@ export const PADI_COURSES: readonly PadiCourse[] = [
   }
 ];
 
+export const RELATED_COURSE_IDS: Readonly<Record<string, readonly string[]>> = {
+  'scuba-diver': ['open-water-diver', 'discover-scuba-diving'],
+  'open-water-diver': ['scuba-diver', 'advanced-open-water'],
+  'advanced-open-water': ['open-water-diver', 'rescue-diver'],
+  'rescue-diver': ['advanced-open-water', 'divemaster'],
+  'adaptive-techniques': ['divemaster', 'assistant-instructor'],
+  'divemaster': ['rescue-diver', 'assistant-instructor'],
+  'emergency-first-response-instructor': ['divemaster', 'assistant-instructor'],
+  'assistant-instructor': ['divemaster', 'adaptive-techniques'],
+  'bubblemaker': ['seal-team', 'discover-scuba-diving'],
+  'seal-team': ['bubblemaker', 'discover-scuba-diving'],
+  'discover-scuba-diving': ['scuba-diver', 'open-water-diver']
+};
+
 export const TEAM_MEMBERS: readonly TeamMember[] = [
   { id: 'shamsudheen', name: 'Shamsudheen', imageUrl: 'media/team/shamsudheen.jpg', imageAlt: 'Shamsudheen beside the Kadmat lagoon', width: 1000, height: 1250 },
   { id: 'mohammed-sadique', name: 'Mohammed Sadique', imageUrl: 'media/team/mohammed-sadique.jpg', imageAlt: 'Mohammed Sadique aboard a boat in the lagoon', width: 800, height: 1000 },

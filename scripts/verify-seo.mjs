@@ -11,6 +11,7 @@ assert.equal(courseCount, 11, 'Only the owner-confirmed offered courses should b
 assert.equal(urls.length, 19 + courseCount + islandContent.islands.length);
 assert.equal(new Set(urls).size, urls.length);
 const titles = new Set();
+const descriptions = new Set();
 const documents = new Map();
 const decodeAttribute = value => value.replace(/&amp;/g, '&').replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)));
 let checkedLinks = 0;
@@ -23,6 +24,9 @@ for (const url of urls) {
   const title = html.match(/<title>(.*?)<\/title>/)?.[1];
   assert.ok(title, url);
   assert.ok(!titles.has(title), `Duplicate title: ${title}`); titles.add(title);
+  const description = decodeAttribute(html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/)?.[1] ?? '');
+  assert.ok(description.trim(), `Missing description: ${url}`);
+  assert.ok(!descriptions.has(description), `Duplicate description: ${url}`); descriptions.add(description);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, url);
   assert.equal((html.match(/\bdata-page-hero(?:[\s=>])/g) ?? []).length, 1, `Each page needs one explicit hero readiness boundary: ${url}`);
   assert.ok(html.includes(`href="${url}"`), `Canonical: ${url}`);
@@ -31,6 +35,7 @@ for (const url of urls) {
   const json = html.match(/<script[^>]+id="site-structured-data"[^>]*>([\s\S]*?)<\/script>/)?.[1];
   assert.ok(json, `Structured data: ${url}`);
   const graph = JSON.parse(json)['@graph'];
+  assert.equal(graph.find(item => item['@type'] === 'WebPage')?.description, description, `Search and structured descriptions must agree: ${url}`);
   const website = graph.find(item => item['@type'] === 'WebSite');
   assert.equal(website?.name, 'Scuba Lak', 'Use the concise public brand as the search site name');
   assert.deepEqual(website?.alternateName, ['Scubalak', 'Scuba Lak Kadmat']);
@@ -134,6 +139,22 @@ for (const [pathname, html] of documents) {
     const kind = detail[1] === 'courses' ? 'course' : 'experience';
     assert.equal(diveIcons.length, kind === 'course' ? 1 : detail[2] === 'water-sports' ? 5 : 4, `Missing shared detail-page icons: ${pathname}`);
     assert.ok(html.includes(`kind=${kind}&amp;item=${detail[2]}#enquiry`) || html.includes(`kind=${kind}&item=${detail[2]}#enquiry`), `Missing enquiry context: ${pathname}`);
+    if (kind === 'course') {
+      const description = decodeAttribute(html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/)?.[1] ?? '');
+      assert.match(description, /Kadmat, Lakshadweep/, `Course search copy needs its location: ${pathname}`);
+      assert.doesNotMatch(description, /Review prerequisites, duration, training skills and course structure/, 'Course descriptions must explain the individual programme, not repeat catalogue boilerplate');
+      const related = html.match(/<nav\b[^>]*aria-label="Compare related courses"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? '';
+      const links = [...related.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+      assert.equal(links.length, 2, `Keep related courses to two useful text links: ${pathname}`);
+      assert.equal(new Set(links.map(link => link[1])).size, links.length, `Duplicate related courses: ${pathname}`);
+      for (const link of links) {
+        const target = link[1].match(/\/courses\/([^/]+)\/?$/)?.[1];
+        assert.ok(target && target !== detail[2], `Related course must be a different programme: ${pathname}`);
+        assert.match(siteContent, new RegExp(`id: '${target}', category:`), `Related course must still be offered: ${target}`);
+        assert.ok(link[2].replace(/<[^>]+>/g, '').trim().length > 8, 'Related links must name the programme');
+      }
+      assert.doesNotMatch(related, /<(?:img|video|iframe)\b/, 'Course comparisons must not add media requests');
+    }
   }
   const localPage = new URL(base + pathname.replace(/^\/(?:ScubaLakKadmat\/)?/, ''), 'https://local.test');
   const resolvePage = async path => {
@@ -166,4 +187,4 @@ for (const file of await readdir(output)) {
   const css = await readFile(new URL(file, output), 'utf8');
   assert.ok(!css.includes('./ScubaLakKadmat/media/'), 'Corrupt font URL');
 }
-console.log(`SEO checks passed: ${urls.length} static pages, unique titles, one H1, canonicals, structured data, ${checkedLinks} internal links, ${checkedAnchors} anchor targets, confirmed contact details, verification tag and noindex 404.`);
+console.log(`SEO checks passed: ${urls.length} static pages, unique titles and descriptions, programme-specific course copy and related links, one H1, canonicals, structured data, ${checkedLinks} internal links, ${checkedAnchors} anchor targets, confirmed contact details, verification tag and noindex 404.`);

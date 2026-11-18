@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { PADI_COURSES } from '../../data/site-content';
+import { PADI_COURSES, RELATED_COURSE_IDS } from '../../data/site-content';
 import { COURSE_ICONS } from '../../data/dive-icons';
 import { DiveIconComponent } from '../../common/components/dive-icon/dive-icon.component';
 
@@ -29,5 +29,12 @@ export class CourseDetailComponent {
   readonly course = computed(() => {
     const id = this.routeParam()?.get('courseId');
     return PADI_COURSES.find((course) => course.id === id) ?? null;
+  });
+  readonly relatedCourses = computed(() => {
+    const ids = RELATED_COURSE_IDS[this.course()?.id ?? ''] ?? [];
+    return ids.flatMap(id => {
+      const course = PADI_COURSES.find(item => item.id === id);
+      return course ? [course] : [];
+    });
   });
 }

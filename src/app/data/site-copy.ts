@@ -69,8 +69,8 @@ export const SITE_COPY = {
       description: 'Dive Kadmat with Scuba Lak: lagoon experiences, PADI courses, 19 named dive spots, snorkelling and kayaking with a friendly island team in Lakshadweep.'
     },
     about: {
-      title: 'About Scuba Lak, Kadmat Lakshadweep',
-      description: 'Meet Scuba Lak in Kadmat, Lakshadweep, and explore the team, diving experiences and island life.'
+      title: 'About Scuba Lak Kadmat | Our Island Dive Team',
+      description: 'Meet the people behind Scuba Lak in Kadmat, Lakshadweep. Explore our local-led approach to first dives, certified diving, PADI training and water activities.'
     },
     lakshadweep: {
       title: 'Lakshadweep island guide | Scuba Lak',
@@ -81,8 +81,8 @@ export const SITE_COPY = {
       description: 'Explore Kadmat Island diving with Scuba Lak: 19 named dive spots, lagoon experiences, water activities and a friendly local team in Lakshadweep.'
     },
     experiences: {
-      title: 'Diving and water sports | Scuba Lak, Kadmat',
-      description: 'Choose lagoon diving, deep sea diving, PADI training or water sports on Kadmat Island.'
+      title: 'Scuba Diving & Water Sports in Kadmat | Scuba Lak',
+      description: 'Compare beginner lagoon dives, guided reef dives, PADI training and water sports in Kadmat, Lakshadweep. Find the right experience and request your plan.'
     },
     courses: {
       title: 'PADI Diving Courses in Kadmat, Lakshadweep | Scuba Lak',
@@ -93,8 +93,8 @@ export const SITE_COPY = {
       description: 'See the lagoon, reef, silver sands, boats and everyday island beauty of Kadmat, Lakshadweep.'
     },
     contact: {
-      title: 'Contact Scuba Lak dive desk | Kadmat Lakshadweep',
-      description: 'Contact Scuba Lak in Kadmat for diving, PADI courses and water sports. Ask for introductions to independent resorts or homestay hosts if needed.'
+      title: 'Contact Scuba Lak Kadmat | Dive Plans & Course Enquiries',
+      description: 'Contact Scuba Lak in Kadmat, Lakshadweep by WhatsApp, phone or hello@scubalak.com. Ask about dives, PADI courses, prices and local trip plans.'
     },
     detail: {
       title: 'Experience details | Scuba Lak, Kadmat Lakshadweep',

@@ -20,7 +20,27 @@
       </div>
     </section>
 
-    <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div class="mx-auto max-w-[90rem]"><div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"><div><p class="eyebrow text-[#b8f2df]">Ready when you are</p><h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2></div><a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('course', selectedCourse.id)">Talk to the course desk <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="bg-[#f4f1e9] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+      <div class="mx-auto max-w-[90rem]">
+        <div class="rounded-[2rem] bg-[#10282d] p-7 text-white sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+          <div>
+            <p class="eyebrow text-[#b8f2df]">Ready when you are</p>
+            <h2 class="mt-4 max-w-2xl font-serif text-4xl leading-[0.96] sm:text-5xl">Your first question is a good place to start.</h2>
+            @if (relatedCourses().length) {
+              <nav aria-label="Compare related courses" class="mt-6">
+                <p class="text-sm leading-7 text-on-dark-secondary">Compare related programmes and their entry requirements:</p>
+                <ul class="mt-2 flex flex-wrap gap-x-6 gap-y-1">
+                  @for (related of relatedCourses(); track related.id) {
+                    <li><a class="inline-flex min-h-11 items-center text-sm leading-7 text-[#b8f2df] underline underline-offset-4" [routerLink]="['/courses', related.id]">{{ related.title }}</a></li>
+                  }
+                </ul>
+              </nav>
+            }
+          </div>
+          <a class="button-link button-link--mint mt-7 shrink-0 lg:mt-0" routerLink="/contact" fragment="enquiry" [queryParams]="enquiryParams('course', selectedCourse.id)">Talk to the course desk <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
     @if (showTraining()) { <app-media-story [items]="moments" [title]="mediaCopy.trainingTitle" [introduction]="mediaCopy.trainingIntro" /> }
   </main>
 } @else {
